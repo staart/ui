@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        staart-ui
+        Staart UI
       </h1>
       <h2 class="subtitle">
         Frontend admin UI for Staart
@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Logo from "~/components/Logo.vue";
 
 export default {
   components: {
     Logo
   }
-}
+};
 </script>
 
 <style>
@@ -44,8 +44,8 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
