@@ -29,11 +29,31 @@ html {
   margin-top: 20vh;
 }
 
+.button {
+  font: inherit;
+  border-radius: 0.2rem;
+  border: 1px solid #ddd;
+  line-height: 1;
+  padding: 0.5rem 1rem;
+}
+.button--size-large {
+  font-size: 120%;
+  padding: 1rem 1.25rem;
+}
+.button--width-full {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.button--color-primary {
+  color: #1abc9c;
+  border-color: #1abc9c;
+}
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
-  margin: 0;
 }
 
 .button--green {

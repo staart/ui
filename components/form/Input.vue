@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="form-group">
     <label :for="labelId">{{ label }}</label>
     <input
       :id="labelId"
@@ -29,3 +29,22 @@ export default class Input extends Vue {
     .substring(7);
 }
 </script>
+
+<style lang="scss">
+.form-group {
+  margin-bottom: 1rem;
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  input {
+    font: inherit;
+    padding: 0.75rem;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.2rem;
+    border: 1px solid #ddd;
+  }
+}
+</style>

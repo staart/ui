@@ -20,5 +20,7 @@ export default class Card extends Vue {}
 }
 h1 {
   font-size: 125%;
+  margin-bottom: 1rem;
+  margin-top: 0;
 }
 </style>

@@ -10,6 +10,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore . --fix",
+    "lint-watch": "onchange **/*.{vue,ts} -- yarn lint",
     "precommit": "npm run lint"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
     "nuxt": "^2.4.0",
+    "onchange": "^5.2.0",
     "ts-node": "^8.1.0"
   },
   "devDependencies": {

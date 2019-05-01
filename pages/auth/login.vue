@@ -19,7 +19,12 @@
           autocomplete="current-password"
           required
         />
-        <button type="submit">Submit</button>
+        <button
+          class="button button--width-full button--size-large button--color-primary"
+          type="submit"
+        >
+          Login to your account
+        </button>
       </form>
     </Card>
   </main>
