@@ -55,6 +55,8 @@ export default class Token extends Vue {
     switch (this.$route.query.subject) {
       case "email-verify":
         return "verifyEmail";
+      case "approve-location":
+        return "approveLocation";
       default:
         return "verify";
     }
@@ -64,10 +66,10 @@ export default class Token extends Vue {
     const subject = this.$route.query.subject;
     if (!token || !subject) return (this.hasError = true);
     this.$store
-      .dispatch(`tokens/${this.tokenAction()}`, token)
+      .dispatch(`tokens/${this.tokenAction()}`, { token, subject })
       .then(result => {
         this.hasSuccess = true;
-        console.log("Result is", result);
+        this.$router.replace("/");
       })
       .catch(error => {
         this.hasError = true;

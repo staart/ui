@@ -1,3 +1,5 @@
+import decode from "jwt-decode";
+
 export const state = () => ({
   tokens: {},
   user: {},
@@ -5,8 +7,10 @@ export const state = () => ({
 });
 
 export const mutations = {
-  login(state, title) {
-    state.list.push(title);
+  setTokens(store, tokens) {
+    store.tokens = tokens;
+    store.isAuthenticated = true;
+    store.user = decode(tokens.token);
   }
 };
 

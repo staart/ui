@@ -17,7 +17,7 @@ const config: NuxtConfiguration = {
   },
   loading: { color: "#fff" },
   css: [],
-  plugins: ["~/plugins/axios", "~/plugins/vue-notification"],
+  plugins: ["~/plugins/axios", "~/plugins/vue-notification", { src: "~/plugins/vuex-persist", ssr: false }],
   modules: ["@nuxtjs/axios", "@nuxtjs/pwa"],
   axios: {
     host: process.env.NODE_ENV === "production" ? "example.com" : "localhost",
