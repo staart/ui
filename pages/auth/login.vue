@@ -66,7 +66,7 @@ export default class Login extends Vue {
         password: this.password
       })
       .then(() => {
-        this.$router.push({ name: "dashboard" });
+        this.$router.push("/dashboard");
       })
       .catch(error => {
         throw new Error(error);
@@ -77,8 +77,7 @@ export default class Login extends Vue {
       });
   }
   private created() {
-    if (this.isAuthenticated)
-      return this.$router.replace({ name: "dashboard" });
+    if (this.isAuthenticated) return this.$router.replace("/dashboard");
   }
 }
 </script>

@@ -36,5 +36,6 @@ export const actions = {
 };
 
 export const getters = {
-  isAuthenticated: state => state.isAuthenticated
+  isAuthenticated: state => state.isAuthenticated,
+  user: state => state.user
 };

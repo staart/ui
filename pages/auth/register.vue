@@ -84,8 +84,7 @@ export default class Login extends Vue {
       });
   }
   private created() {
-    if (this.isAuthenticated)
-      return this.$router.replace({ name: "dashboard" });
+    if (this.isAuthenticated) return this.$router.replace("/dashboard");
   }
 }
 </script>

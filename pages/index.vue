@@ -1,23 +1,44 @@
 <template>
-  <section class="container">
-    <div>
-      <h1 class="title">
-        Staart UI
-      </h1>
-      <h2 class="subtitle">
-        Frontend admin UI for Staart
-      </h2>
-      <div class="links">
-        <nuxt-link class="button--green" to="/auth/login">Login</nuxt-link>
+  <div>
+    <header>
+      <div class="container">
+        <h1>Get work done with Product.</h1>
+        <div v-if="isAuthenticated">
+          <nuxt-link
+            class="button button--size-large button--color-primary"
+            to="/dashboard"
+            >Go to your dashboard &rarr;</nuxt-link
+          >
+        </div>
+        <div v-else>
+          <nuxt-link
+            class="button button--size-large button--color-primary"
+            to="/auth/register"
+            >Create a new account &rarr;</nuxt-link
+          >
+          <nuxt-link
+            class="button button--size-large button--color-primary"
+            to="/auth/login"
+            >Login</nuxt-link
+          >
+        </div>
       </div>
-    </div>
-  </section>
+    </header>
+    <main class="container section section--mt-1">
+      Your landing page comes here.
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component({})
+@Component({
+  computed: mapGetters({
+    isAuthenticated: "auth/isAuthenticated"
+  })
+})
 export default class Home extends Vue {
   async mounted() {
     const data = await this.$axios.$get("/");
@@ -26,35 +47,13 @@ export default class Home extends Vue {
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+<style lang="scss" scoped>
+header {
+  background-color: #fff;
+  padding: 10vh 0;
+  margin-bottom: 10vh;
+  h1 {
+    margin: 0 0 2rem 0;
+  }
 }
 </style>

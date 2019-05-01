@@ -69,7 +69,10 @@ export default class Token extends Vue {
       .dispatch(`tokens/${this.tokenAction()}`, { token, subject })
       .then(result => {
         this.hasSuccess = true;
-        this.$router.replace("/");
+      })
+      .then(() => {
+        if (this.$store.state.auth.isAuthenticated)
+          return this.$router.replace("/dashboard");
       })
       .catch(error => {
         this.hasError = true;
