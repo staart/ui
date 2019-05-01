@@ -1,7 +1,6 @@
 <template>
   <section class="container">
     <div>
-      <logo />
       <h1 class="title">
         Staart UI
       </h1>
@@ -23,14 +22,21 @@
   </section>
 </template>
 
-<script>
-import Logo from "~/components/Logo.vue";
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-export default {
-  components: {
-    Logo
+@Component({})
+export default class Home extends Vue {
+  async mounted() {
+    const data = await this.$axios.$get("/");
+    console.log("I got", data);
+    try {
+      await this.$axios.$get("/404");
+    } catch (error) {
+      console.log("I got error", 404);
+    }
   }
-};
+}
 </script>
 
 <style>
