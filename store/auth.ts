@@ -17,6 +17,17 @@ export const actions = {
   ) {
     const tokens = await this.$axios.post("/auth/login", { email, password });
     console.log(tokens);
+  },
+  async register(
+    store,
+    { name, email, password }: { name: string; email: string; password: string }
+  ) {
+    const response = await this.$axios.put("/users", {
+      name,
+      email,
+      password
+    });
+    return response;
   }
 };
 

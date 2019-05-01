@@ -66,6 +66,8 @@ html {
   border-radius: 0.2rem;
   border: 1px solid #ddd;
   line-height: 1;
+  text-decoration: none;
+  display: inline-block;
   padding: 0.5rem 1rem;
 }
 .button--size-large {
@@ -84,6 +86,23 @@ html {
 .button--color-blue {
   color: #69e;
   border-color: #69e;
+}
+
+.text--size-small {
+  font-size: 80%;
+}
+.text--lh-1 {
+  line-height: 1.25;
+}
+.text--color-light {
+  color: #555;
+}
+
+.section--mt-05 {
+  margin-top: 0.5rem;
+}
+.section--mt-1 {
+  margin-top: 1rem;
 }
 
 *,

@@ -10,6 +10,12 @@
       :required="required"
       @input="$emit('input', $event.target.value)"
     />
+    <div
+      v-if="help"
+      class="text text--size-small text--color-light text--lh-1 section section--mt-05"
+    >
+      {{ help }}
+    </div>
   </div>
 </template>
 
@@ -23,6 +29,7 @@ export default class Input extends Vue {
   @Prop() label;
   @Prop() required;
   @Prop() placeholder;
+  @Prop() help;
   @Prop() autocomplete;
   labelId = Math.random()
     .toString(36)
