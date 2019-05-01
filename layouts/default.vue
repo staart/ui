@@ -15,6 +15,18 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  background-color: whitesmoke;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.container--size-small {
+  max-width: 400px;
+}
+.container--top-20height {
+  margin-top: 20vh;
 }
 
 *,

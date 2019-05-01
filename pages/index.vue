@@ -8,15 +8,7 @@
         Frontend admin UI for Staart
       </h2>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
-          >Documentation</a
-        >
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-          >GitHub</a
-        >
+        <nuxt-link class="button--green" to="/auth/login">Login</nuxt-link>
       </div>
     </div>
   </section>
@@ -29,12 +21,7 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Home extends Vue {
   async mounted() {
     const data = await this.$axios.$get("/");
-    console.log("I got", data);
-    try {
-      await this.$axios.$get("/404");
-    } catch (error) {
-      console.log("I got error", 404);
-    }
+    console.log(data);
   }
 }
 </script>
