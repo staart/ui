@@ -2,13 +2,13 @@
   <main class="container container--size-small container--top-20height">
     <Card>
       <h1>Login</h1>
-      <form>
+      <form @submit.prevent="hello">
         <Input
           v-model="email"
           type="email"
           label="Email"
           placeholder="Enter your work email"
-          autocomplete="username"
+          autocomplete="authname"
           required
         />
         <Input
@@ -25,6 +25,16 @@
         >
           Login to your account
         </button>
+        <p style="text-align: center">
+          <em>or</em>
+        </p>
+        <button
+          class="button button--width-full button--size-large button--color-blue"
+          type="button"
+          style="margin-top: 1rem"
+        >
+          Login with Google
+        </button>
       </form>
     </Card>
   </main>
@@ -32,17 +42,43 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Card from "~/components/Card";
-import Input from "~/components/form/Input";
+import Card from "@/components/Card";
+import Input from "@/components/form/Input";
+import { mapGetters } from "vuex";
 
 @Component({
   components: {
     Card,
     Input
-  }
+  },
+  computed: mapGetters({
+    isAuthenticated: "auth/isAuthenticated"
+  })
 })
 export default class Login extends Vue {
   email = "";
   password = "";
+  isAuthenticated!: boolean;
+  private hello() {
+    this.$store
+      .dispatch("auth/loginWithEmailPassword", {
+        email: this.email,
+        password: this.password
+      })
+      .then(() => {
+        this.$router.push({ name: "dashboard" });
+      })
+      .catch(error => {
+        throw new Error(error);
+      })
+      .finally(() => {
+        this.email = "";
+        this.password = "";
+      });
+  }
+  private created() {
+    if (this.isAuthenticated)
+      return this.$router.replace({ name: "dashboard" });
+  }
 }
 </script>

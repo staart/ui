@@ -1,15 +1,15 @@
 <template>
   <div>
     <nuxt />
+    <notifications width="100%" group="auth" position="top center" />
   </div>
 </template>
 
-<style>
+<style lang="scss">
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
+  line-height: 1.5;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -27,6 +27,38 @@ html {
 }
 .container--top-20height {
   margin-top: 20vh;
+}
+
+.vue-notification.notification {
+  font-size: inherit;
+  margin: 0;
+  color: #fff;
+  background: none;
+  border-left: none;
+  text-align: center;
+  .notification-content {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1;
+    background-color: #35495e;
+    padding: 0.5rem 1rem;
+    border-radius: 20rem;
+    cursor: pointer;
+    &::after {
+      content: "×";
+      font-weight: bold;
+      display: inline-block;
+      transform: translateY(-0.1rem) scale(1.25);
+      margin-left: 0.75rem;
+    }
+  }
+  .notification-title {
+    display: none;
+  }
+}
+.vue-notification.notification--color-danger .notification-content {
+  background-color: #c0392b;
 }
 
 .button {
@@ -48,6 +80,10 @@ html {
 .button--color-primary {
   color: #1abc9c;
   border-color: #1abc9c;
+}
+.button--color-blue {
+  color: #69e;
+  border-color: #69e;
 }
 
 *,

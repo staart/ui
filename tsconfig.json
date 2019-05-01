@@ -27,7 +27,8 @@
     "types": [
       "@types/node",
       "@nuxt/vue-app",
-      "@nuxtjs/axios/types"
+      "@nuxtjs/axios/types",
+      "vue-notification"
     ]
   }
 }
