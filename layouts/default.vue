@@ -88,7 +88,7 @@ body {
   line-height: 1;
   text-decoration: none;
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
 }
 .button--size-large {
   font-size: 120%;

@@ -1,17 +1,27 @@
 <template>
   <div class="navbar">
     <div class="container">
-      <nuxt-link class="logo" to="/">Product</nuxt-link>
+      <nuxt-link class="item item--type-logo" to="/">Product</nuxt-link>
       <nav v-if="isAuthenticated">
-        <nuxt-link to="/dashboard">Dashboard</nuxt-link>
-        <nuxt-link to="/page">Analytics</nuxt-link>
-        <nuxt-link to="/page">Billing</nuxt-link>
-        <nuxt-link to="/page">{{ user.nickname }}</nuxt-link>
+        <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
+        <span>
+          <nuxt-link class="item" to="/settings/account">{{
+            user.name
+          }}</nuxt-link>
+          <div class="dropdown">
+            <nuxt-link class="item" to="/settings/account">Account</nuxt-link>
+            <nuxt-link class="item" to="/settings/privacy">Privacy</nuxt-link>
+            <nuxt-link class="item" to="/settings/organizations"
+              >Organizations</nuxt-link
+            >
+            <button class="item" @click="logout">Logout</button>
+          </div>
+        </span>
       </nav>
       <nav v-else>
-        <nuxt-link to="/solutions">Solutions</nuxt-link>
-        <nuxt-link to="/resources">Resources</nuxt-link>
-        <nuxt-link to="/pricing">Pricing</nuxt-link>
+        <nuxt-link class="item" to="/solutions">Solutions</nuxt-link>
+        <nuxt-link class="item" to="/resources">Resources</nuxt-link>
+        <nuxt-link class="item" to="/pricing">Pricing</nuxt-link>
         <nuxt-link class="button button--color-primary" to="/auth/login"
           >Login &rarr;</nuxt-link
         >
@@ -30,7 +40,12 @@ import { mapGetters } from "vuex";
     user: "auth/user"
   })
 })
-export default class Card extends Vue {}
+export default class Card extends Vue {
+  private logout() {
+    this.$store.dispatch("auth/logout");
+    this.$router.push("/");
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -43,24 +58,53 @@ export default class Card extends Vue {}
   justify-content: space-between;
   align-items: center;
 }
-.logo {
-  font-weight: bold;
-  font-style: italic;
-  font-size: 125%;
-}
-a {
+
+.item {
   color: inherit;
   text-decoration: none;
+  font: inherit;
+  border: none;
+  text-align: left;
+  background: transparent;
   &:hover {
     opacity: 0.5;
   }
 }
-nav a {
+.item--type-logo {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 125%;
+}
+
+nav span {
+  position: relative;
+  display: inline-block;
+}
+nav .item {
   padding: 1.5rem;
   display: inline-block;
-  &.button {
-    padding: 0.5rem 0.7rem;
-    margin-left: 1.5rem;
-  }
+}
+nav .button {
+  margin-left: 1.5rem;
+}
+
+.dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: none;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: 1px solid #fff;
+  padding: 0 0 0.5rem 0;
+}
+nav span:hover .dropdown,
+nav .item:focus + .dropdown {
+  display: block;
+}
+.dropdown .item {
+  padding: 0.5rem 1.5rem;
+  display: block;
+  width: 100%;
 }
 </style>
