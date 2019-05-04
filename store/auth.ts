@@ -1,6 +1,6 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import decode from "jwt-decode";
-import { RootState, Tokens } from "../types";
+import { RootState, Tokens } from "../types/auth";
 
 export const state = (): RootState => ({
   isAuthenticated: false,

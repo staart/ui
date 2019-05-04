@@ -14,12 +14,7 @@
           <nuxt-link
             class="button button--size-large button--color-primary"
             to="/auth/register"
-            >Create a new account &rarr;</nuxt-link
-          >
-          <nuxt-link
-            class="button button--size-large button--color-primary"
-            to="/auth/login"
-            >Login</nuxt-link
+            >Get started for free &rarr;</nuxt-link
           >
         </div>
       </div>

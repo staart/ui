@@ -1,5 +1,7 @@
 <template>
-  <main class="container container--size-small container--top-20height">
+  <main
+    class="container container--size-small container--top-20height container--bottom-20height"
+  >
     <LargeMessage
       v-if="$route.params.message === 'unapproved-location'"
       heading="Verify new location"

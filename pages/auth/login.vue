@@ -1,5 +1,7 @@
 <template>
-  <main class="container container--size-small container--top-20height">
+  <main
+    class="container container--size-small container--top-20height container--bottom-20height"
+  >
     <Card>
       <h1>Login</h1>
       <form @submit.prevent="login">
@@ -37,6 +39,7 @@
         </button>
       </form>
     </Card>
+    <p>Don't have an account? <nuxt-link to="/auth/register">Create an account</nuxt-link></p>
   </main>
 </template>
 

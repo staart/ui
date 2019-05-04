@@ -12,6 +12,9 @@
         <nuxt-link to="/solutions">Solutions</nuxt-link>
         <nuxt-link to="/resources">Resources</nuxt-link>
         <nuxt-link to="/pricing">Pricing</nuxt-link>
+        <nuxt-link class="button button--color-primary" to="/auth/login"
+          >Login &rarr;</nuxt-link
+        >
       </nav>
     </div>
   </div>
@@ -53,8 +56,11 @@ a {
   }
 }
 nav a {
-  margin-left: 3rem;
-  padding: 1.5rem 0;
+  padding: 1.5rem;
   display: inline-block;
+  &.button {
+    padding: 0.5rem 0.7rem;
+    margin-left: 1.5rem;
+  }
 }
 </style>

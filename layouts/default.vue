@@ -45,6 +45,9 @@ body {
 .container--top-20height {
   margin-top: 20vh;
 }
+.container--bottom-20height {
+  margin-bottom: 20vh;
+}
 
 .vue-notification.notification {
   font-size: inherit;
