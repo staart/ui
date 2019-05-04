@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import LargeMessage from "@/components/LargeMessage";
+import LargeMessage from "@/components/LargeMessage.vue";
 
 @Component({
   components: {

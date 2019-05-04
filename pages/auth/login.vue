@@ -42,8 +42,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Card from "@/components/Card";
-import Input from "@/components/form/Input";
+import Card from "@/components/Card.vue";
+import Input from "@/components/form/Input.vue";
 import { mapGetters } from "vuex";
 
 @Component({
