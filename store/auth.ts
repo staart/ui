@@ -24,10 +24,10 @@ export const actions: ActionTree<RootState, RootState> = {
     }
   },
   async loginWithEmailPassword({ commit }, context) {
-    const tokens: Tokens = await context.app.$axios.post("/auth/login", {
+    const tokens: Tokens = (await this.$axios.post("/auth/login", {
       email: context.email,
       password: context.password
-    });
+    })).data;
     console.log("Got tokens", tokens);
     commit("setAuthentication", tokens);
   }
