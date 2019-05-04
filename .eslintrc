@@ -1,6 +1,5 @@
 {
   "root": true,
-  "eslint.autoFixOnSave": true,
   "env": {
     "browser": true,
     "node": true

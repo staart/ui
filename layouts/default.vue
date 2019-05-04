@@ -43,10 +43,10 @@ body {
   max-width: 400px;
 }
 .container--top-20height {
-  margin-top: 20vh;
+  margin-top: 15vh;
 }
 .container--bottom-20height {
-  margin-bottom: 20vh;
+  margin-bottom: 15vh;
 }
 
 .vue-notification.notification {

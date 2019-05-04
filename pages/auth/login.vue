@@ -39,7 +39,14 @@
         </button>
       </form>
     </Card>
-    <p>Don't have an account? <nuxt-link to="/auth/register">Create an account</nuxt-link></p>
+    <p>
+      Forgot your password
+      <nuxt-link to="/auth/forgot">Recover it now</nuxt-link>
+    </p>
+    <p>
+      Don't have an account?
+      <nuxt-link to="/auth/register">Create an account</nuxt-link>
+    </p>
   </main>
 </template>
 

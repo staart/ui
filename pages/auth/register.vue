@@ -40,6 +40,10 @@
         </button>
       </form>
     </Card>
+    <p>
+      Already have an account?
+      <nuxt-link to="/auth/login">Login to your account</nuxt-link>
+    </p>
   </main>
 </template>
 
