@@ -1,16 +1,15 @@
 <template>
   <div class="form-group">
-    <label :for="labelId">{{ label }}</label>
-    <input
-      :id="labelId"
-      :value="value"
-      :type="type"
-      :placeholder="placeholder"
-      :autocomplete="autocomplete"
-      :required="required"
-      v-bind="$attrs"
-      @input="$emit('input', $event.target.value)"
-    />
+    <label>
+      <input
+        :checked="value"
+        type="checkbox"
+        :required="required"
+        @change="$emit('input', true)"
+      />
+      <span>{{ label }}</span>
+      {{ value }}
+    </label>
     <div
       v-if="help"
       class="text text--size-small text--color-light text--lh-1 section section--mt-05"
@@ -23,8 +22,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-@Component
-export default class Input extends Vue {
+@Component({})
+export default class Checkbox extends Vue {
   @Prop({ default: "text" }) type;
   @Prop() value;
   @Prop() label;
@@ -46,14 +45,8 @@ export default class Input extends Vue {
     margin-bottom: 0.5rem;
   }
   input {
-    font: inherit;
-    padding: 0.75rem;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 0.2rem;
-    border: 1px solid #ddd;
-    background-color: #fff;
+    display: inline-block;
+    width: auto;
   }
 }
 </style>

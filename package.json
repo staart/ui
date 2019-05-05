@@ -16,7 +16,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
-    "country-list": "^2.1.0",
+    "countries-and-timezones": "^1.0.1",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.4.0",
     "vue-notification": "^1.3.16",

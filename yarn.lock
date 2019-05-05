@@ -2998,10 +2998,10 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.0"
     parse-json "^4.0.0"
 
-country-list@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/country-list/-/country-list-2.1.0.tgz#0c0c26183e30743a620e5a01edd905a1777b0094"
-  integrity sha512-RHyEQyui0SHKFFtK342rN1YE9vNRH6ZYgm8aG3rUUHQW6BmcFCkQln0YUILPyBtdBxocxYAfElm4nXk3KOG8vg==
+countries-and-timezones@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/countries-and-timezones/-/countries-and-timezones-1.0.1.tgz#478ea7051d0020e13a60cbe18154f69fcae91079"
+  integrity sha512-rQ++m2tbeSxdmG/F4TqxqZuiZuVIFhFzs0Frp6M15GVAH0FyyJZtAmNNa7sooDtkQWv7mRVYZUc2yY+gADhXsA==
 
 create-ecdh@^4.0.0:
   version "4.0.3"

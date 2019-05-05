@@ -13,7 +13,7 @@
       <option
         v-for="(option, index) in options"
         :key="`${labelId}${index}`"
-        :value="index"
+        :value="typeof index === 'string' ? index : option"
         >{{ option }}</option
       >
     </select>
@@ -45,7 +45,7 @@ export default class Input extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .form-group {
   margin-bottom: 1rem;
   label {
