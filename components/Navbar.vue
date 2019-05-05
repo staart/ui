@@ -18,7 +18,7 @@
         </span>
       </nav>
       <nav v-else>
-        <nuxt-link class="item" to="/solutions">Solutions</nuxt-link>
+        <nuxt-link class="item" to="/">Solutions</nuxt-link>
         <span>
           <nuxt-link class="item" to="/">Resources</nuxt-link>
           <div class="dropdown">
@@ -27,7 +27,7 @@
             <nuxt-link class="item" to="/">Developer API</nuxt-link>
           </div>
         </span>
-        <nuxt-link class="item" to="/pricing">Pricing</nuxt-link>
+        <nuxt-link class="item" to="/">Pricing</nuxt-link>
         <nuxt-link class="button button--color-primary" to="/auth/login"
           >Login &rarr;</nuxt-link
         >
