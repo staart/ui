@@ -9,6 +9,10 @@ export const mutations: MutationTree<RootState> = {
   },
   setEmails(state: RootState, emails: Email[]): void {
     state.emails = emails;
+  },
+  clearAll(state: RootState): void {
+    delete state.user;
+    delete state.emails;
   }
 };
 

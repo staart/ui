@@ -11,8 +11,20 @@
           <tbody>
             <tr v-for="(email, index) in emails" :key="`${email.id}${index}`">
               <td>
-                {{ email.email }}<span v-if="email.isPrimary"> (Primary)</span
-                ><span v-if="email.isVerified"> ✅</span>
+                {{ email.email
+                }}<span
+                  v-if="email.isPrimary"
+                  data-balloon="Primary"
+                  data-balloon-pos="up"
+                >
+                  ⭐</span
+                ><span
+                  v-if="email.isVerified"
+                  data-balloon="Verified"
+                  data-balloon-pos="up"
+                >
+                  ✅</span
+                >
               </td>
               <td class="text text--align-right">
                 <button

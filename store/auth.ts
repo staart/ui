@@ -34,6 +34,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   logout({ commit }) {
     commit("removeAuthentication");
+    commit("settings/clearAll", undefined, { root: true });
   }
 };
 

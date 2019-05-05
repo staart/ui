@@ -173,6 +173,11 @@ h2 {
   }
 }
 
+[data-balloon]::after {
+  font: inherit !important;
+  font-size: 90% !important;
+}
+
 *,
 *:before,
 *:after {

@@ -13,9 +13,16 @@ const config: NuxtConfiguration = {
         content: "Frontend admin UI for Staart"
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      {
+        rel: "stylesheet",
+        href:
+          "https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css"
+      }
+    ]
   },
-  loading: { color: "#fff" },
+  loading: { color: "#aaaff" },
   css: [],
   plugins: [
     "~/plugins/axios",
