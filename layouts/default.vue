@@ -45,6 +45,10 @@ body {
   margin: 0;
 }
 
+a {
+  color: darkblue;
+}
+
 .container {
   max-width: 960px;
   margin: 0 auto;

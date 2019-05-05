@@ -104,6 +104,7 @@ export default class AccountSettings extends Vue {
   loading = "";
   newEmail = "";
   notificationEmails = 0;
+  emails!: Email[];
   notificationEmailsGetter!: number;
   notificationOptions = {
     0: "Only mandatory security-related emails",

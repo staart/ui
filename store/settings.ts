@@ -1,7 +1,10 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-import { RootState, User, Email } from "../types/settings";
+import { RootState, User, Email, SecurityEvent } from "../types/settings";
 
-export const state = (): RootState => ({});
+export const state = (): RootState => ({
+  emails: [],
+  securityEvents: []
+});
 
 export const mutations: MutationTree<RootState> = {
   setUser(state: RootState, user: User): void {
@@ -10,9 +13,13 @@ export const mutations: MutationTree<RootState> = {
   setEmails(state: RootState, emails: Email[]): void {
     state.emails = emails;
   },
+  setSecurityEvents(state: RootState, securityEvents: SecurityEvent[]): void {
+    state.securityEvents = securityEvents;
+  },
   clearAll(state: RootState): void {
     delete state.user;
     delete state.emails;
+    delete state.securityEvents;
   }
 };
 
@@ -40,11 +47,18 @@ export const actions: ActionTree<RootState, RootState> = {
   async makeEmailPrimary({ dispatch }, context) {
     await this.$axios.patch("/users/me", { primaryEmail: context });
     return dispatch("getEmails");
+  },
+  async getEvents({ commit }, context) {
+    const securityEvents: SecurityEvent[] = (await this.$axios.get(
+      "/users/me/events"
+    )).data;
+    commit("setSecurityEvents", securityEvents);
   }
 };
 
 export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   emails: state => state.emails,
+  securityEvents: state => state.securityEvents,
   notificationEmails: state => (state.user ? state.user.notificationEmails : 0)
 };

@@ -15,7 +15,12 @@ export interface Email {
   id: number;
 }
 
+export interface SecurityEvent {
+  id: number;
+}
+
 export interface RootState {
   user?: User;
-  emails?: Email[];
+  emails: Email[];
+  securityEvents: SecurityEvent[];
 }

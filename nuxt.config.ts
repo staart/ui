@@ -27,6 +27,7 @@ const config: NuxtConfiguration = {
   plugins: [
     "~/plugins/axios",
     "~/plugins/vue-notification",
+    "~/plugins/vue-timeago",
     { src: "~/plugins/vuex-persist", ssr: false }
   ],
   modules: ["@nuxtjs/axios", "@nuxtjs/pwa"],

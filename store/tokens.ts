@@ -1,7 +1,7 @@
 import { ActionTree } from "vuex";
 import { RootState } from "../types/settings";
 
-export const state = (): RootState => ({});
+export const state = () => ({});
 
 export const actions: ActionTree<RootState, RootState> = {
   async verify({ commit }, context) {
