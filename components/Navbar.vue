@@ -19,7 +19,14 @@
       </nav>
       <nav v-else>
         <nuxt-link class="item" to="/solutions">Solutions</nuxt-link>
-        <nuxt-link class="item" to="/resources">Resources</nuxt-link>
+        <span>
+          <nuxt-link class="item" to="/">Resources</nuxt-link>
+          <div class="dropdown">
+            <nuxt-link class="item" to="/">Blog</nuxt-link>
+            <nuxt-link class="item" to="/">Help Center</nuxt-link>
+            <nuxt-link class="item" to="/">Developer API</nuxt-link>
+          </div>
+        </span>
         <nuxt-link class="item" to="/pricing">Pricing</nuxt-link>
         <nuxt-link class="button button--color-primary" to="/auth/login"
           >Login &rarr;</nuxt-link
@@ -89,8 +96,10 @@ nav .button {
 
 .dropdown {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  min-width: 175px;
   display: none;
   background: #fff;
   border: 1px solid #ddd;

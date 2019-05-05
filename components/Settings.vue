@@ -4,11 +4,13 @@
       <div class="nav-heading">Settings</div>
       <nav>
         <nuxt-link class="item" to="/settings/account">Account</nuxt-link>
-        <nuxt-link class="item" to="/settings/emails">Your emails</nuxt-link>
+        <nuxt-link class="item" to="/settings/emails">Emails</nuxt-link>
         <nuxt-link class="item" to="/settings/security"
           >Password &amp; security</nuxt-link
         >
-        <nuxt-link class="item" to="/settings/privacy">Privacy</nuxt-link>
+        <nuxt-link class="item" to="/settings/data"
+          >Data &amp; privacy</nuxt-link
+        >
         <nuxt-link class="item" to="/settings/organizations"
           >Organizations</nuxt-link
         >
@@ -34,6 +36,10 @@ export default class Settings extends Vue {}
 }
 aside {
   width: 250px;
+}
+aside nav {
+  position: sticky;
+  top: 0;
 }
 main {
   flex-grow: 1;

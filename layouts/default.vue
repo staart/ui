@@ -142,7 +142,6 @@ body {
   width: 100%;
   text-align: left;
   border-collapse: collapse;
-  margin-bottom: 2rem;
   td,
   th {
     vertical-align: middle;
@@ -170,6 +169,17 @@ h2 {
   + p {
     margin-top: -1.25rem;
     margin-bottom: 2rem;
+  }
+}
+
+form,
+div,
+section,
+table,
+p {
+  + h1,
+  + h2 {
+    margin-top: 2.5rem;
   }
 }
 

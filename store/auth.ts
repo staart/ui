@@ -25,12 +25,16 @@ export const mutations: MutationTree<RootState> = {
 
 export const actions: ActionTree<RootState, RootState> = {
   async loginWithEmailPassword({ commit }, context) {
-    const tokens: Tokens = (await this.$axios.post("/auth/login", {
-      email: context.email,
-      password: context.password
-    })).data;
+    const tokens: Tokens = (await this.$axios.post("/auth/login", context))
+      .data;
     this.$axios.setToken(tokens.token, "Bearer");
     commit("setAuthentication", tokens);
+  },
+  async sendPasswordResetLink({ commit }, context) {
+    await this.$axios.post("/auth/reset-password/request", context);
+  },
+  async resetPassword({ commit }, context) {
+    await this.$axios.post("/auth/reset-password/reset", context);
   },
   logout({ commit }) {
     commit("removeAuthentication");

@@ -9,7 +9,7 @@
       <div v-else>
         <table class="table">
           <tbody>
-            <tr v-for="(email, index) in emails" :key="`${email.id}${index}`">
+            <tr v-for="(email, index) in emails" :key="`${email.id}_${index}`">
               <td>
                 {{ email.email
                 }}<span
@@ -19,11 +19,11 @@
                 >
                   ⭐</span
                 ><span
-                  v-if="email.isVerified"
-                  data-balloon="Verified"
+                  v-if="!email.isVerified"
+                  data-balloon="Unverified"
                   data-balloon-pos="up"
                 >
-                  ✅</span
+                  ⚠️</span
                 >
               </td>
               <td class="text text--align-right">
@@ -59,6 +59,21 @@
             Add another email
           </button>
         </form>
+        <h2>Email notifications</h2>
+        <p>Emails only will be sent to your primary email.</p>
+        <form @submit.prevent="saveNotifications">
+          <Select
+            :value="notificationEmails"
+            label="Notification types"
+            help="Select the type of email notifications do you want to receive"
+            :options="notificationOptions"
+            required
+            @input="val => (notificationEmails = val)"
+          />
+          <button class="button button--color-primary">
+            Update preferences
+          </button>
+        </form>
       </div>
     </Settings>
   </main>
@@ -70,24 +85,42 @@ import { mapGetters } from "vuex";
 import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
+import Select from "@/components/form/Select.vue";
 import { Email } from "../../types/settings";
 
 @Component({
   components: {
     Settings,
     Loading,
+    Select,
     Input
   },
   computed: mapGetters({
-    emails: "settings/emails"
+    emails: "settings/emails",
+    notificationEmailsGetter: "settings/notificationEmails"
   })
 })
 export default class AccountSettings extends Vue {
   loading = "";
   newEmail = "";
+  notificationEmails = 0;
+  notificationEmailsGetter!: number;
+  notificationOptions = {
+    0: "Only mandatory security-related emails",
+    1: "All account-related and mandatory security emails",
+    2: "All non-promotional emails",
+    3: "All emails, including promotional ones"
+  };
+
+  @Watch("notificationEmailsGetter")
+  onNotificationEmailsChanged(value: number) {
+    this.notificationEmails = value;
+  }
 
   private mounted() {
     this.loading = "Loading emails";
+    this.notificationEmails = this.notificationEmailsGetter;
+    this.$store.dispatch("settings/getUser");
     this.$store.dispatch("settings/getEmails").then(() => {
       this.loading = "";
     });
@@ -104,6 +137,7 @@ export default class AccountSettings extends Vue {
   }
 
   private deleteEmail(id: number) {
+    if (!confirm("Are you sure you want to delete this email?")) return;
     this.loading = "Deleting email";
     this.$store
       .dispatch("settings/deleteEmail", id)
@@ -113,7 +147,16 @@ export default class AccountSettings extends Vue {
   private makePrimary(id: number) {
     this.loading = "Setting primary email";
     this.$store
-      .dispatch("settings/updateUser", { primaryEmail: id })
+      .dispatch("settings/makeEmailPrimary", id)
+      .then(() => (this.loading = ""));
+  }
+
+  private saveNotifications() {
+    this.loading = "Saving preferences";
+    this.$store
+      .dispatch("settings/updateUser", {
+        notificationEmails: this.notificationEmails
+      })
       .then(() => (this.loading = ""));
   }
 }

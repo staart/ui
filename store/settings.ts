@@ -36,10 +36,15 @@ export const actions: ActionTree<RootState, RootState> = {
   async deleteEmail({ dispatch }, context) {
     await this.$axios.delete(`/emails/${context}`);
     return dispatch("getEmails");
+  },
+  async makeEmailPrimary({ dispatch }, context) {
+    await this.$axios.patch("/users/me", { primaryEmail: context });
+    return dispatch("getEmails");
   }
 };
 
 export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
-  emails: state => state.emails
+  emails: state => state.emails,
+  notificationEmails: state => (state.user ? state.user.notificationEmails : 0)
 };

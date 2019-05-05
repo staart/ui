@@ -4,15 +4,14 @@
     <select
       :id="labelId"
       :value="value"
-      :type="type"
       :autocomplete="autocomplete"
       :required="required"
       @input="$emit('input', $event.target.value)"
     >
-      <option disabled>{{ placeholder }}</option>
+      <option v-if="placeholder" disabled>{{ placeholder }}</option>
       <option
         v-for="(option, index) in options"
-        :key="`${labelId}${index}`"
+        :key="`${labelId}_${index}`"
         :value="typeof index === 'string' ? index : option"
         >{{ option }}</option
       >
@@ -31,7 +30,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component({})
 export default class Input extends Vue {
-  @Prop({ default: "text" }) type;
   @Prop() value;
   @Prop() label;
   @Prop() required;

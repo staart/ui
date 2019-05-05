@@ -34,6 +34,7 @@
           class="button button--width-full button--size-large button--color-blue"
           type="button"
           style="margin-top: 1rem"
+          @click="loginWithGoogle"
         >
           Login with Google
         </button>
@@ -88,6 +89,12 @@ export default class Login extends Vue {
   }
   private created() {
     if (this.isAuthenticated) return this.$router.replace("/dashboard");
+  }
+  private async loginWithGoogle() {
+    const link = (await this.$axios.post("/auth/google/link", {
+      redirect_uri: location.href
+    })).data.redirect;
+    location.replace(link);
   }
 }
 </script>
