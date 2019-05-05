@@ -1,4 +1,4 @@
-![Staart](https://raw.githubusercontent.com/AnandChowdhary/staart-ui/master/statis/staart-ui-logo.png)
+![Staart](https://raw.githubusercontent.com/AnandChowdhary/staart-ui/master/static/staart-ui-logo.png)
 
 [![Travis CI](https://img.shields.io/travis/AnandChowdhary/staart-ui.svg)](https://travis-ci.org/AnandChowdhary/staart-ui)
 ![Netlify status](https://img.shields.io/endpoint.svg?url=https://platform.oswaldlabs.com/netlify-status/8871ac5a-ee15-475d-9708-418164944ec0)
