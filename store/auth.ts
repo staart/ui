@@ -24,15 +24,12 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  nuxtServerInit({ commit }, context) {
-    if (!context.isStatic) {
-    }
-  },
   async loginWithEmailPassword({ commit }, context) {
     const tokens: Tokens = (await this.$axios.post("/auth/login", {
       email: context.email,
       password: context.password
     })).data;
+    this.$axios.setToken(tokens.token, "Bearer");
     commit("setAuthentication", tokens);
   },
   logout({ commit }) {

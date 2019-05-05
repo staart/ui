@@ -17,6 +17,7 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "no-console": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "standard/computed-property-even-spacing": "off"
   }
 }

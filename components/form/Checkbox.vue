@@ -5,10 +5,9 @@
         :checked="value"
         type="checkbox"
         :required="required"
-        @change="$emit('input', true)"
+        @change="$emit('input', $event.target.checked)"
       />
       <span>{{ label }}</span>
-      {{ value }}
     </label>
     <div
       v-if="help"

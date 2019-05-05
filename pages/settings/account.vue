@@ -3,7 +3,7 @@
     <Settings>
       <h1>Account</h1>
       <Loading v-if="loading" :message="loading" />
-      <form v-else>
+      <form v-else @submit.prevent="save">
         <Input
           :value="name"
           label="Name"
@@ -11,7 +11,6 @@
           required
           @input="val => (name = val)"
         />
-        {{ name }}
         <Input
           :value="nickname"
           label="Nickname"
@@ -45,10 +44,9 @@
         />
         <Checkbox
           :value="prefersReducedMotion"
-          label="Prefer reduced motion"
+          label="I prefer reduced motion (minimize animations and movement)"
           @input="val => (prefersReducedMotion = val)"
         />
-        {{ prefersReducedMotion }}
         <button type="submit" class="button button--color-primary">
           Update account settings
         </button>
@@ -59,7 +57,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { mapGetters } from "vuex";
 import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
@@ -75,26 +72,23 @@ import { User } from "../../types/auth";
     Input,
     Select,
     Checkbox
-  },
-  computed: mapGetters({
-    user: "auth/user"
-  })
+  }
 })
 export default class AccountSettings extends Vue {
-  user!: User;
   loading = "";
   countries = {};
   languages = {
     "en-us": "English (United States)",
     "en-uk": "English (United Kingdom)"
   };
+  timezones = ["Europe/Amsterdam"];
 
   name: string = "";
-  nickname!: string;
-  countryCode!: string;
-  preferredLanguage!: string;
-  prefersReducedMotion!: boolean;
-  timezone!: string;
+  nickname: string = "";
+  countryCode: string = "";
+  preferredLanguage: string = "";
+  prefersReducedMotion: boolean = false;
+  timezone: string = "";
 
   private created() {
     const countries = {};
@@ -105,17 +99,43 @@ export default class AccountSettings extends Vue {
       }
     }
     this.countries = countries;
-
-    this.name = this.user.name;
-    this.nickname = this.user.nickname;
-    this.countryCode = this.user.countryCode;
-    this.preferredLanguage = this.user.preferredLanguage;
-    this.prefersReducedMotion = this.user.prefersReducedMotion;
-    this.timezone = this.user.timezone;
   }
 
-  get timezones() {
-    return getAllCountries()[this.user.countryCode.toUpperCase()].timezones;
+  @Watch("countryCode")
+  onCountryCodeChanged() {
+    this.timezones = getAllCountries()[
+      this.countryCode.toUpperCase()
+    ].timezones;
+    if (!this.timezones.includes(this.timezone)) {
+      this.timezone = this.timezones[0];
+    }
+  }
+
+  private mounted() {
+    this.loading = "Loading account details";
+    this.$store.dispatch("settings/getUser").then(() => {
+      this.loading = "";
+      this.name = this.$store.state.settings.user.name;
+      this.nickname = this.$store.state.settings.user.nickname;
+      this.countryCode = this.$store.state.settings.user.countryCode;
+      this.preferredLanguage = this.$store.state.settings.user.preferredLanguage;
+      this.prefersReducedMotion = this.$store.state.settings.user.prefersReducedMotion;
+      this.timezone = this.$store.state.settings.user.timezone;
+    });
+  }
+
+  private save() {
+    this.loading = "Saving";
+    this.$store
+      .dispatch("settings/updateUser", {
+        name: this.name,
+        nickname: this.nickname,
+        countryCode: this.countryCode,
+        preferredLanguage: this.preferredLanguage,
+        prefersReducedMotion: this.prefersReducedMotion,
+        timezone: this.timezone
+      })
+      .then(() => (this.loading = ""));
   }
 }
 </script>

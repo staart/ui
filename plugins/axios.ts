@@ -12,7 +12,7 @@ const messages = {
     "This magic link is broken, please request a new one"
 };
 
-const redirectErrors = ["unapproved-location"];
+const redirectErrors = ["unapproved-location", "missing-token"];
 
 export default function({
   $axios,
@@ -21,21 +21,40 @@ export default function({
   $axios: NuxtAxiosInstance;
   redirect: any;
 }) {
-  $axios.onError(error => {
-    if (!error.response) return;
-    if (redirectErrors.includes(error.response.data.error)) {
-      return redirect(`/errors/${error.response.data.error}`);
-    } else if (Object.keys(messages).includes(error.response.data.error)) {
+  $axios.onResponse(response => {
+    if (response.data.success === true) {
       Vue.notify({
         group: "auth",
-        text: messages[error.response.data.error],
+        text: "Your changes were successfully saved",
+        type: "notification notification--color-success"
+      });
+    }
+  });
+  $axios.onError(error => {
+    if (!error.response) return;
+    if (
+      redirectErrors.includes(
+        error.response.data.code || error.response.data.error
+      )
+    ) {
+      return redirect(
+        `/errors/${error.response.data.code || error.response.data.error}`
+      );
+    } else if (
+      Object.keys(messages).includes(
+        error.response.data.code || error.response.data.error
+      )
+    ) {
+      Vue.notify({
+        group: "auth",
+        text: messages[error.response.data.code || error.response.data.error],
         duration: 5000,
         type: "notification notification--color-danger"
       });
     } else {
       Vue.notify({
         group: "auth",
-        text: error.response.data.error,
+        text: error.response.data.code,
         type: "notification notification--color-danger"
       });
     }

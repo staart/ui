@@ -15,7 +15,14 @@ import Navbar from "@/components/Navbar.vue";
     Navbar
   }
 })
-export default class Default extends Vue {}
+export default class Default extends Vue {
+  private created() {
+    try {
+      if (this.$store.state.auth.isAuthenticated)
+        this.$axios.setToken(this.$store.state.auth.tokens.token, "Bearer");
+    } catch (error) {}
+  }
+}
 </script>
 
 <style lang="scss">
@@ -51,7 +58,7 @@ body {
 
 .vue-notification.notification {
   font-size: inherit;
-  margin: 0;
+  margin: 3rem 0 0 0;
   color: #fff;
   background: none;
   border-left: none;
@@ -79,6 +86,9 @@ body {
 }
 .vue-notification.notification--color-danger .notification-content {
   background-color: #c0392b;
+}
+.vue-notification.notification--color-success .notification-content {
+  background-color: #27ae60;
 }
 
 .button {
