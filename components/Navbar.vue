@@ -9,8 +9,7 @@
             user.name
           }}</nuxt-link>
           <div class="dropdown">
-            <nuxt-link class="item" to="/settings/account">Account</nuxt-link>
-            <nuxt-link class="item" to="/settings/privacy">Privacy</nuxt-link>
+            <nuxt-link class="item" to="/settings/account">Settings</nuxt-link>
             <nuxt-link class="item" to="/settings/organizations"
               >Organizations</nuxt-link
             >

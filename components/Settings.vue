@@ -4,7 +4,10 @@
       <div class="nav-heading">Settings</div>
       <nav>
         <nuxt-link class="item" to="/settings/account">Account</nuxt-link>
-        <nuxt-link class="item" to="/settings/emails">Emails</nuxt-link>
+        <nuxt-link class="item" to="/settings/emails">Your emails</nuxt-link>
+        <nuxt-link class="item" to="/settings/security"
+          >Password &amp; security</nuxt-link
+        >
         <nuxt-link class="item" to="/settings/privacy">Privacy</nuxt-link>
         <nuxt-link class="item" to="/settings/organizations"
           >Organizations</nuxt-link
@@ -50,9 +53,5 @@ main {
   &.nuxt-link-exact-active {
     background-color: #fff;
   }
-}
-h1 {
-  margin: 0 0 2rem 0;
-  font-size: 150%;
 }
 </style>

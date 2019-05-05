@@ -127,12 +127,50 @@ body {
 .text--color-light {
   color: #555;
 }
+.text--align-right {
+  text-align: right;
+}
 
 .section--mt-05 {
   margin-top: 0.5rem;
 }
 .section--mt-1 {
   margin-top: 1rem;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  td,
+  th {
+    vertical-align: middle;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    .button {
+      margin: -0.75rem 0;
+    }
+  }
+  tr:nth-child(even) {
+    background-color: whitesmoke;
+  }
+}
+
+h1 {
+  margin: 0 0 2rem 0;
+  font-size: 150%;
+}
+h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 125%;
+}
+h1,
+h2 {
+  + p {
+    margin-top: -1.25rem;
+    margin-bottom: 2rem;
+  }
 }
 
 *,

@@ -11,6 +11,11 @@ export interface User {
   twoFactorEnabled: boolean;
 }
 
+export interface Email {
+  id: number;
+}
+
 export interface RootState {
   user?: User;
+  emails?: Email[];
 }

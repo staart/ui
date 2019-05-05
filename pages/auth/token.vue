@@ -13,8 +13,8 @@
       v-else-if="hasSuccess"
       :heading="successMessage().heading"
       :text="successMessage().text"
-      cta-text="Go to login"
-      cta-to="/auth/login"
+      :cta-text="ctaText"
+      :cta-to="ctaTo"
     />
     <LargeMessage
       v-else
@@ -37,6 +37,8 @@ import { mapGetters } from "vuex";
 export default class Token extends Vue {
   hasError = false;
   hasSuccess = false;
+  ctaText = "Go to login";
+  ctaTo = "/auth/login";
   private successMessage() {
     switch (this.$route.query.subject) {
       case "email-verify":
@@ -66,6 +68,10 @@ export default class Token extends Vue {
   private mounted() {
     const token = this.$route.query.token;
     const subject = this.$route.query.subject;
+    if (this.$store.state.auth.isAuthenticated) {
+      this.ctaText = "Go to dashboard";
+      this.ctaTo = "/";
+    }
     if (!token || !subject) return (this.hasError = true);
     this.$store
       .dispatch(`tokens/${this.tokenAction()}`, { token, subject })
@@ -73,8 +79,8 @@ export default class Token extends Vue {
         this.hasSuccess = true;
       })
       .then(() => {
-        if (this.$store.state.auth.isAuthenticated)
-          return this.$router.replace("/dashboard");
+        // if (this.$store.state.auth.isAuthenticated)
+        //   return this.$router.replace("/dashboard");
       })
       .catch(error => {
         this.hasError = true;
