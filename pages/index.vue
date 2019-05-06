@@ -34,12 +34,7 @@ import { mapGetters } from "vuex";
     isAuthenticated: "auth/isAuthenticated"
   })
 })
-export default class Home extends Vue {
-  async mounted() {
-    const data = await this.$axios.$get("/");
-    console.log(data);
-  }
-}
+export default class Home extends Vue {}
 </script>
 
 <style lang="scss" scoped>

@@ -19,6 +19,14 @@
           @input="val => (nickname = val)"
         />
         <Select
+          :value="gender"
+          label="Gender"
+          placeholder="Select your preferred gender"
+          :options="genders"
+          required
+          @input="val => (gender = val)"
+        />
+        <Select
           :value="countryCode"
           label="Country"
           placeholder="Select your country"
@@ -81,6 +89,12 @@ export default class AccountSettings extends Vue {
     "en-us": "English (United States)",
     "en-uk": "English (United Kingdom)"
   };
+  genders = {
+    m: "Male (him)",
+    f: "Female (her)",
+    n: "Non-binary (their)",
+    x: "Prefer not to say (their)"
+  };
   timezones = ["Europe/Amsterdam"];
 
   name: string = "";
@@ -89,6 +103,7 @@ export default class AccountSettings extends Vue {
   preferredLanguage: string = "";
   prefersReducedMotion: boolean = false;
   timezone: string = "";
+  gender: string = "x";
 
   private created() {
     const countries = {};
@@ -121,6 +136,7 @@ export default class AccountSettings extends Vue {
       this.preferredLanguage = this.$store.state.settings.user.preferredLanguage;
       this.prefersReducedMotion = this.$store.state.settings.user.prefersReducedMotion;
       this.timezone = this.$store.state.settings.user.timezone;
+      this.gender = this.$store.state.settings.user.gender;
     });
   }
 
@@ -133,7 +149,8 @@ export default class AccountSettings extends Vue {
         countryCode: this.countryCode,
         preferredLanguage: this.preferredLanguage,
         prefersReducedMotion: this.prefersReducedMotion,
-        timezone: this.timezone
+        timezone: this.timezone,
+        gender: this.gender
       })
       .then(() => (this.loading = ""));
   }
