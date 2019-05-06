@@ -81,6 +81,9 @@ export default class Token extends Vue {
       .then(() => {
         // if (this.$store.state.auth.isAuthenticated)
         //   return this.$router.replace("/dashboard");
+        if (subject === "password-reset") {
+          this.$router.replace(`/auth/recover?token=${token}`);
+        }
       })
       .catch(error => {
         this.hasError = true;

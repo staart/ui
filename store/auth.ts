@@ -34,7 +34,11 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.post("/auth/reset-password/request", context);
   },
   async resetPassword({ commit }, context) {
-    await this.$axios.post("/auth/reset-password/reset", context);
+    const response = (await this.$axios.post(
+      "/auth/reset-password/recover",
+      context
+    )).data;
+    console.log(response);
   },
   logout({ commit }) {
     commit("removeAuthentication");
