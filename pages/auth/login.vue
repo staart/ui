@@ -95,6 +95,7 @@ export default class Login extends Vue {
     if (this.isAuthenticated) return this.$router.replace("/dashboard");
   }
   private async loginWithGoogle() {
+    this.$store.commit("auth/startLoading");
     const link = (await this.$axios.get("/auth/google/link")).data.redirect;
     location.replace(link);
   }
