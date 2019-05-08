@@ -90,10 +90,10 @@ export default class AccountSettings extends Vue {
     "en-uk": "English (United Kingdom)"
   };
   genders = {
-    m: "Male (his)",
-    f: "Female (her)",
-    n: "Non-binary (their)",
-    x: "Prefer not to say (their)"
+    m: "Male (he/him)",
+    f: "Female (she/her)",
+    n: "Non-binary (them/their)",
+    x: "Prefer not to say (them/their)"
   };
   timezones = ["Europe/Amsterdam"];
 
