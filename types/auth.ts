@@ -20,4 +20,5 @@ export interface RootState {
   isAuthenticated: boolean;
   tokens: Tokens;
   user?: User;
+  loading: boolean;
 }

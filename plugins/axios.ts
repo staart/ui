@@ -9,10 +9,11 @@ const messages = {
   "TokenExpiredjwt expired":
     "This magic link has been expired, please request a new one",
   "JsonWebTokenjwt malformed":
-    "This magic link is broken, please request a new one"
+    "This magic link is broken, please request a new one",
+  "google-auth-error": "We got an error in verifying your Google account"
 };
 
-const redirectErrors = ["unapproved-location", "missing-token"];
+const redirectErrors = ["unapproved-location", "1-missing-token"];
 
 export default function({
   $axios,

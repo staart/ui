@@ -4,7 +4,8 @@
   >
     <Card>
       <h1>Login</h1>
-      <form @submit.prevent="login">
+      <Loading v-if="isLoading" message="Logging you in" />
+      <form v-else @submit.prevent="login">
         <Input
           v-model="email"
           type="email"
@@ -54,16 +55,19 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Card from "@/components/Card.vue";
+import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import { mapGetters } from "vuex";
 
 @Component({
   components: {
     Card,
+    Loading,
     Input
   },
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
+    isAuthenticated: "auth/isAuthenticated",
+    isLoading: "auth/isLoading"
   })
 })
 export default class Login extends Vue {
@@ -91,9 +95,7 @@ export default class Login extends Vue {
     if (this.isAuthenticated) return this.$router.replace("/dashboard");
   }
   private async loginWithGoogle() {
-    const link = (await this.$axios.post("/auth/google/link", {
-      redirect_uri: location.href
-    })).data.redirect;
+    const link = (await this.$axios.get("/auth/google/link")).data.redirect;
     location.replace(link);
   }
 }

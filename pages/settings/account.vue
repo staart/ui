@@ -21,7 +21,7 @@
         <Select
           :value="gender"
           label="Gender"
-          placeholder="Select your preferred gender"
+          placeholder="Select the gender you most identify with"
           :options="genders"
           required
           @input="val => (gender = val)"
@@ -90,7 +90,7 @@ export default class AccountSettings extends Vue {
     "en-uk": "English (United Kingdom)"
   };
   genders = {
-    m: "Male (him)",
+    m: "Male (his)",
     f: "Female (her)",
     n: "Non-binary (their)",
     x: "Prefer not to say (their)"
