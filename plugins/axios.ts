@@ -1,17 +1,7 @@
 import Vue from "vue";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
-
-const messages = {
-  "user-not-found": "We couldn't find a user with this email",
-  "missing-field": "Make sure you've entered all required fields",
-  "unverified-email": "This email has not been verified yet",
-  "invalid-login": "This is an incorrect email/password combination",
-  "TokenExpiredjwt expired":
-    "This magic link has been expired, please request a new one",
-  "JsonWebTokenjwt malformed":
-    "This magic link is broken, please request a new one",
-  "google-auth-error": "We got an error in verifying your Google account"
-};
+import en from "@/locales/en";
+const messages = en.errors;
 
 const redirectErrors = ["unapproved-location", "1-missing-token"];
 
@@ -55,7 +45,7 @@ export default function({
     } else {
       Vue.notify({
         group: "auth",
-        text: error.response.data.code,
+        text: error.response.data.code || error.response.data.error,
         type: "notification notification--color-danger"
       });
     }

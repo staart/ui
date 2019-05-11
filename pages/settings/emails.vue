@@ -36,18 +36,32 @@
               </td>
               <td class="text text--align-right">
                 <button
-                  v-if="!email.isPrimary"
-                  class="button"
-                  @click="deleteEmail(email.id)"
-                >
-                  Delete
-                </button>
-                <button
                   v-if="!email.isPrimary && email.isVerified"
-                  class="button"
+                  data-balloon="Make primary"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
                   @click="makePrimary(email.id)"
                 >
-                  Make primary
+                  <font-awesome-icon
+                    title="Make primary"
+                    class="icon icon--color-gold"
+                    icon="star"
+                    fixed-width
+                  />
+                </button>
+                <button
+                  v-if="!email.isPrimary"
+                  data-balloon="Delete"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                  @click="deleteEmail(email.id)"
+                >
+                  <font-awesome-icon
+                    title="Delete"
+                    class="icon icon--color-danger"
+                    icon="trash"
+                    fixed-width
+                  />
                 </button>
               </td>
             </tr>
@@ -96,9 +110,13 @@ import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faExclamationCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faExclamationCircle,
+  faStar,
+  faTrash
+} from "@fortawesome/free-solid-svg-icons";
 import { Email } from "../../types/settings";
-library.add(faExclamationCircle, faStar);
+library.add(faExclamationCircle, faStar, faTrash);
 
 @Component({
   components: {

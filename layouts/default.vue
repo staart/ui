@@ -50,7 +50,7 @@ a {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .container--size-small {
@@ -123,6 +123,10 @@ a {
 .button--color-blue {
   color: #69e;
   border-color: #69e;
+}
+.button--type-icon {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .icon--mr-1 {

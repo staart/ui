@@ -57,7 +57,7 @@
               v-for="(event, index) in securityEvents"
               :key="`${event.id}_${index}`"
             >
-              <td>{{ event.type }}</td>
+              <td>{{ textify(event.type) }}</td>
               <td>
                 {{ parse(event.userAgent).browser.name }}
               </td>
@@ -93,6 +93,8 @@ import Select from "@/components/form/Select.vue";
 import UAParser from "ua-parser-js";
 import { Email, SecurityEvent } from "../../types/settings";
 import { User } from "../../types/auth";
+import en from "@/locales/en";
+const text = en.securityEvents;
 
 @Component({
   components: {
@@ -114,6 +116,11 @@ export default class AccountSettings extends Vue {
 
   private mounted() {
     this.$store.dispatch("settings/getEvents");
+  }
+
+  private textify(type: string) {
+    if (text[type]) return text[type];
+    return type;
   }
 
   private parse(userAgent: string) {
