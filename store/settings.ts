@@ -104,6 +104,10 @@ export const actions: ActionTree<RootState, RootState> = {
     )).data;
     commit("setMemberships", memberships);
   },
+  async deleteMembership({ dispatch }, context) {
+    await this.$axios.delete(`/memberships/${context}`);
+    return dispatch("getMemberships");
+  },
   async createOrganization({ dispatch }, context) {
     await this.$axios.put("/organizations", context);
     return dispatch("getMemberships");

@@ -12,7 +12,9 @@ export default {
     "validation-email": "Please enter a valid email",
     "validation-phone": "Please enter a valid phone number",
     "validation-url": "Please enter a valid URL (start with http(s))",
-    "email-exists": "An account with this email already exists"
+    "email-exists": "An account with this email already exists",
+    "cannot-delete-sole-owner":
+      "Add another owner to this organization before deleting"
   },
   securityEvents: {
     "user.created": "Created an account",

@@ -64,7 +64,7 @@
                   v-if="!email.isPrimary"
                   data-balloon="Delete"
                   data-balloon-pos="up"
-                  class="button button--type-icon"
+                  class="button button--color-danger button--type-icon"
                   @click="deleteEmail(email.id)"
                 >
                   <font-awesome-icon

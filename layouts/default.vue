@@ -139,6 +139,9 @@ a {
   &:hover {
     text-decoration: none;
   }
+  + .button {
+    margin-left: 0.5rem;
+  }
 }
 .button--size-large {
   font-size: 120%;
@@ -252,6 +255,9 @@ a {
     padding: 0.75rem 1rem;
     .button {
       margin: -0.75rem 0;
+    }
+    .button + .button {
+      margin-left: 0.5rem;
     }
   }
   tr:nth-child(even) {

@@ -31,6 +31,19 @@
               <td><TimeAgo :date="membership.createdAt" /></td>
               <td>{{ membershipRoles[membership.role] || membership.role }}</td>
               <td class="text text--align-right">
+                <button
+                  data-balloon="Leave organization"
+                  data-balloon-pos="up"
+                  class="button button--color-danger button--type-icon"
+                  @click="deleteMembership(membership.id)"
+                >
+                  <font-awesome-icon
+                    title="Leave organization"
+                    class="icon icon--color-danger"
+                    icon="trash"
+                    fixed-width
+                  />
+                </button>
                 <button class="button button--color-primary">
                   Visit &rarr;
                 </button>
@@ -69,6 +82,11 @@ import LargeMessage from "@/components/LargeMessage.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Input from "@/components/form/Input.vue";
 import en from "@/locales/en";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Email } from "../../types/settings";
+library.add(faTrash);
 
 @Component({
   components: {
@@ -76,7 +94,8 @@ import en from "@/locales/en";
     Settings,
     Loading,
     Input,
-    TimeAgo
+    TimeAgo,
+    FontAwesomeIcon
   },
   computed: mapGetters({
     memberships: "settings/memberships"
@@ -90,9 +109,20 @@ export default class AccountSettings extends Vue {
 
   private mounted() {
     this.loading = "Loading your organizations";
-    this.$store.dispatch("settings/getMemberships").then(() => {
-      this.loading = "";
-    });
+    this.$store
+      .dispatch("settings/getMemberships")
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => (this.loading = ""));
+  }
+
+  private deleteMembership(id: number) {
+    this.loading = "Leaving organization";
+    this.$store
+      .dispatch("settings/deleteMembership", id)
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => (this.loading = ""));
   }
 
   private createOrganization() {
@@ -105,6 +135,7 @@ export default class AccountSettings extends Vue {
         throw new Error(error);
       })
       .then(() => (this.isCreating = false));
+    this.organizationName = "";
   }
 }
 </script>
