@@ -272,6 +272,9 @@ h2 {
   + p {
     margin-top: -1.25rem;
     margin-bottom: 2rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 

@@ -1,9 +1,16 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import download from "downloadjs";
-import { RootState, User, Email, SecurityEvent } from "../types/settings";
+import {
+  RootState,
+  User,
+  Email,
+  SecurityEvent,
+  Membership
+} from "../types/settings";
 
 export const state = (): RootState => ({
   emails: [],
+  memberships: [],
   securityEvents: [],
   isDownloading: false
 });
@@ -27,12 +34,16 @@ export const mutations: MutationTree<RootState> = {
   setEmails(state: RootState, emails: Email[]): void {
     state.emails = emails;
   },
+  setMemberships(state: RootState, memberships: Membership[]): void {
+    state.memberships = memberships;
+  },
   setSecurityEvents(state: RootState, securityEvents: SecurityEvent[]): void {
     state.securityEvents = securityEvents;
   },
   clearAll(state: RootState): void {
     delete state.user;
     delete state.emails;
+    delete state.memberships;
     delete state.securityEvents;
   },
   startDownloading(state: RootState): void {
@@ -86,12 +97,23 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async deleteAccount({ commit }, context) {
     await this.$axios.delete("/users/me");
+  },
+  async getMemberships({ commit }, context) {
+    const memberships: Membership[] = (await this.$axios.get(
+      "/users/me/memberships"
+    )).data;
+    commit("setMemberships", memberships);
+  },
+  async createOrganization({ dispatch }, context) {
+    await this.$axios.put("/organizations", context);
+    return dispatch("getMemberships");
   }
 };
 
 export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   emails: state => state.emails,
+  memberships: state => state.memberships,
   securityEvents: state => state.securityEvents,
   isDownloading: state => state.isDownloading,
   notificationEmails: state => (state.user ? state.user.notificationEmails : 0)

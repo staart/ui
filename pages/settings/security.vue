@@ -74,7 +74,7 @@
                 {{ event.location.country_code }}
               </td>
               <td>
-                <timeago :datetime="event.createdAt" :auto-update="60" />
+                <TimeAgo :date="event.createdAt" />
               </td>
             </tr>
           </tbody>
@@ -93,6 +93,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import UAParser from "ua-parser-js";
@@ -105,6 +106,7 @@ const text = en.securityEvents;
   components: {
     Settings,
     Loading,
+    TimeAgo,
     Select,
     Input
   },

@@ -14,13 +14,13 @@
           <font-awesome-icon class="nav-icon" icon="key" fixed-width />
           <span>Password &amp; security</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/settings/data">
-          <font-awesome-icon class="nav-icon" icon="database" fixed-width />
-          <span>Data &amp; privacy</span>
-        </nuxt-link>
         <nuxt-link class="item" to="/settings/organizations">
           <font-awesome-icon class="nav-icon" icon="building" fixed-width />
           <span>Organizations</span>
+        </nuxt-link>
+        <nuxt-link class="item" to="/settings/data">
+          <font-awesome-icon class="nav-icon" icon="database" fixed-width />
+          <span>Data &amp; privacy</span>
         </nuxt-link>
       </nav>
     </aside>

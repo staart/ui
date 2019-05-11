@@ -32,5 +32,12 @@ export default {
     "email.updated": "Updated an email",
     "email.deleted": "Deleted an email",
     "email.verified": "Verified an email"
+  },
+  membershipRoles: {
+    1: "Owner",
+    2: "Admin",
+    3: "Manager",
+    4: "Member",
+    5: "Basic"
   }
 };

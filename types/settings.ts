@@ -16,6 +16,10 @@ export interface Email {
   id: number;
 }
 
+export interface Membership {
+  id: number;
+}
+
 export interface SecurityEvent {
   id: number;
 }
@@ -23,6 +27,7 @@ export interface SecurityEvent {
 export interface RootState {
   user?: User;
   emails: Email[];
+  memberships: Membership[];
   securityEvents: SecurityEvent[];
   isDownloading: boolean;
 }

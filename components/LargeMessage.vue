@@ -27,6 +27,8 @@ export default class LargeMessage extends Vue {
 <style lang="scss" scoped>
 div {
   text-align: center;
+  max-width: 600px;
+  margin: auto;
 }
 h1 {
   font-size: 200%;
