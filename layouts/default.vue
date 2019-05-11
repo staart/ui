@@ -38,7 +38,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background-color: #f7f8fb;
+  background-color: #f0f1f9;
 }
 
 body {
@@ -101,7 +101,9 @@ a {
 .button {
   font: inherit;
   border-radius: 0.2rem;
-  border: 1px solid #ddd;
+  border: none;
+  box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
   line-height: 1;
   text-decoration: none;
   display: inline-block;
@@ -116,13 +118,25 @@ a {
   width: 100%;
   box-sizing: border-box;
 }
+.button--color-primary-dark {
+  background: #492257;
+  color: #fff;
+  box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
+}
 .button--color-primary {
-  color: #1abc9c;
-  border-color: #1abc9c;
+  color: #492257;
+  box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
 }
 .button--color-blue {
   color: #69e;
   border-color: #69e;
+}
+.button--color-danger {
+  color: #af1101;
+  box-shadow: rgba(175, 17, 1, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(175, 17, 1, 0.12) 0px 2px 5px 0px;
 }
 .button--type-icon {
   padding-left: 0.75rem;
@@ -208,6 +222,17 @@ p {
   + h2 {
     margin-top: 2.5rem;
   }
+}
+
+p {
+  max-width: 720px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 0.2rem;
+  box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.075),
+    0 3px 6px 0 rgba(0, 0, 0, 0.035);
 }
 
 [data-balloon]::after {

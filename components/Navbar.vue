@@ -56,8 +56,6 @@ export default class Card extends Vue {
 
 <style lang="scss" scoped>
 .navbar {
-  background-color: white;
-  border-bottom: 1px solid #ddd;
 }
 .container {
   display: flex;
@@ -95,16 +93,32 @@ nav .button {
 }
 
 .dropdown {
+  z-index: 1000;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   min-width: 175px;
   display: none;
+  top: 95%;
   background: #fff;
-  border: 1px solid #ddd;
-  border-top: 1px solid #fff;
-  padding: 0 0 0.5rem 0;
+  box-shadow: 0px 0px 0px 1px rgba(136, 152, 170, 0.1),
+    0px 15px 35px 0px rgba(49, 49, 93, 0.1),
+    0px 5px 15px 0px rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 0;
+  &::before {
+    content: "";
+    position: absolute;
+    top: -21px;
+    left: 50%;
+    margin-left: -10px;
+    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSI5IiB2aWV3Qm94PSIwIDAgMjEgOSI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBmaWxsPSIjODg5OEFBIiBmaWxsLW9wYWNpdHk9Ii4xIiBkPSJNMSA5LjA5MmgxOWwtNi40MDItNi43NGMtMS43MTctMS44MDYtNC40ODUtMS44LTYuMTk2IDBMMSA5LjA5M3pNMjAuMzQyIDhsLTYuMDItNi4zMzZjLTIuMTA4LTIuMjItNS41MzgtMi4yMTgtNy42NDUgMEwuNjU4IDhoMTkuNjg0eiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik03LjQwMiAyLjM1M2MxLjcxMS0xLjgwMSA0LjQ4LTEuODA3IDYuMTk2IDBMMjAgOS4wOTNIMWw2LjQwMi02Ljc0eiIvPjwvZz48L3N2Zz4=")
+      no-repeat;
+    background-position: bottom center;
+    height: 21px;
+    width: 21px;
+    z-index: 1;
+  }
 }
 nav span:hover .dropdown,
 nav .item:focus + .dropdown {

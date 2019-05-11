@@ -40,8 +40,9 @@ export default class Home extends Vue {}
 <style lang="scss" scoped>
 header {
   background-color: #fff;
-  padding: 10vh 0;
-  margin-bottom: 10vh;
+  padding: 15rem 0 7.5rem 0;
+  margin-bottom: 7.5rem;
+  margin-top: -7.5rem;
   h1 {
     margin: 0 0 2rem 0;
   }

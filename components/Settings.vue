@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <aside>
-      <div class="nav-heading">Settings</div>
       <nav>
         <nuxt-link class="item" to="/settings/account">Account</nuxt-link>
         <nuxt-link class="item" to="/settings/emails">Emails</nuxt-link>
@@ -16,7 +15,7 @@
         >
       </nav>
     </aside>
-    <main>
+    <main class="card">
       <slot />
     </main>
   </div>
@@ -39,12 +38,11 @@ aside {
 }
 aside nav {
   position: sticky;
-  top: 0;
+  top: 1rem;
 }
 main {
   flex-grow: 1;
   padding: 2rem;
-  background-color: #fff;
 }
 .nav-heading {
   font-weight: bold;
@@ -54,10 +52,16 @@ main {
 .item {
   display: block;
   text-decoration: none;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0;
   color: inherit;
   &.nuxt-link-exact-active {
+    font-weight: bold;
+    padding-left: 1rem;
+    margin-left: -1rem;
+    color: #492257;
     background-color: #fff;
+    border-radius: 0.2rem 0 0 0.2rem;
+    box-shadow: -7px 10px 10px rgba(60, 66, 87, 0.075), 2px 0 0 #fff;
   }
 }
 </style>
