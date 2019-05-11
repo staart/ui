@@ -5,7 +5,7 @@
       <nav v-if="isAuthenticated">
         <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
         <span>
-          <nuxt-link class="item" to="/settings/account">
+          <nuxt-link class="item item--type-user" to="/settings/account">
             <img alt="" :src="user.profilePicture" />
             {{ user.nickname }}
           </nuxt-link>
@@ -136,5 +136,8 @@ nav .item:focus + .dropdown {
   padding: 0.5rem 1.5rem;
   display: block;
   width: 100%;
+}
+nav .item.item--type-user {
+  padding-right: 0.5rem;
 }
 </style>

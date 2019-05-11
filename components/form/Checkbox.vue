@@ -7,6 +7,9 @@
         :required="required"
         @change="$emit('input', $event.target.checked)"
       />
+      <div class="fake-checkbox">
+        <font-awesome-icon class="icon icon--type-check" icon="check" />
+      </div>
       <span>{{ label }}</span>
     </label>
     <div
@@ -20,8 +23,16 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+library.add(faCheck);
 
-@Component({})
+@Component({
+  components: {
+    FontAwesomeIcon
+  }
+})
 export default class Checkbox extends Vue {
   @Prop({ default: "text" }) type;
   @Prop() value;
@@ -44,8 +55,33 @@ export default class Checkbox extends Vue {
     margin-bottom: 0.5rem;
   }
   input {
-    display: inline-block;
-    width: auto;
+    display: none;
+  }
+}
+.fake-checkbox {
+  background-color: #fff;
+  box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
+  border-radius: 0.2rem;
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  margin-top: 0.1rem;
+}
+.icon--type-check {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: #492257;
+}
+input:checked + .fake-checkbox {
+  .icon--type-check {
+    opacity: 1;
   }
 }
 </style>

@@ -23,7 +23,18 @@
                     icon="star"
                   /> </span
                 ><span
-                  v-if="!email.isVerified"
+                  v-if="email.isVerified && !email.isPrimary"
+                  data-balloon="Verified"
+                  data-balloon-pos="up"
+                >
+                  <font-awesome-icon
+                    title="Verified"
+                    class="icon icon--ml-2 icon--color-success"
+                    icon="check-circle"
+                  />
+                </span>
+                <span
+                  v-else-if="!email.isVerified"
                   data-balloon="Unverified"
                   data-balloon-pos="up"
                 >
@@ -113,10 +124,11 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faExclamationCircle,
   faStar,
-  faTrash
+  faTrash,
+  faCheckCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { Email } from "../../types/settings";
-library.add(faExclamationCircle, faStar, faTrash);
+library.add(faExclamationCircle, faStar, faTrash, faCheckCircle);
 
 @Component({
   components: {

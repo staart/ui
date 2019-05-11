@@ -42,6 +42,10 @@ html {
   color: #130f40;
 }
 
+::selection {
+  background-color: rgba(73, 34, 87, 0.15);
+}
+
 body {
   margin: 0;
 }
@@ -107,7 +111,7 @@ a {
   font: inherit;
   border-radius: 0.2rem;
   border: none;
-  background: #fff;
+  background: rgba(180, 0, 240, 0.03);
   box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
   &:focus {
@@ -156,6 +160,7 @@ a {
 }
 .button--color-blue {
   color: #4285f4;
+  background-color: rgba(100, 100, 255, 0.01);
   box-shadow: rgba(66, 133, 244, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
     rgba(66, 133, 244, 0.12) 0px 2px 5px 0px;
@@ -168,6 +173,7 @@ a {
 }
 .button--color-danger {
   color: #af1101;
+  background-color: rgba(255, 0, 0, 0.01);
   box-shadow: rgba(175, 17, 1, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(175, 17, 1, 0.12) 0px 2px 5px 0px;
   &:focus {
@@ -192,6 +198,9 @@ a {
 }
 .icon--color-danger {
   color: #e74c3c;
+}
+.icon--color-success {
+  color: #2ecc71;
 }
 .icon--color-gold {
   color: #f1c40f;
@@ -230,7 +239,7 @@ a {
     }
   }
   tr:nth-child(even) {
-    background-color: whitesmoke;
+    background-color: rgba(180, 0, 240, 0.04);
   }
 }
 
