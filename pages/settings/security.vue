@@ -1,15 +1,20 @@
 <template>
   <main>
     <Settings>
-      <h1>Password &amp; security</h1>
-      <p>
-        You can login to your account with any of the following verified emails.
-      </p>
       <Loading v-if="loading" :message="loading" />
       <div v-else>
         <h2>Change password</h2>
         <form @submit.prevent="changePassword">
           <input hidden type="text" autocomplete="username" />
+          <Input
+            :value="currentPassword"
+            type="password"
+            autocomplete="current-password"
+            label="Current password"
+            placeholder="Enter your current password"
+            required
+            @input="val => (currentPassword = val)"
+          />
           <Input
             :value="newPassword"
             type="password"
@@ -110,6 +115,7 @@ const text = en.securityEvents;
 })
 export default class AccountSettings extends Vue {
   loading = "";
+  currentPassword = "";
   newPassword = "";
   user!: User[];
   securityEvents!: SecurityEvent[];
@@ -133,6 +139,7 @@ export default class AccountSettings extends Vue {
     this.$store
       .dispatch("settings/updateUser", { password: this.newPassword })
       .then(() => (this.loading = ""));
+    this.currentPassword = "";
     this.newPassword = "";
   }
 }

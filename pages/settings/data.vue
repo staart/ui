@@ -1,7 +1,7 @@
 <template>
   <main>
     <Settings>
-      <h1>Data &amp; privacy</h1>
+      <h2>Export data</h2>
       <p>
         You can download an export of your data in JSON format. This will help
         you keep track of what we have and transfer your settings to other apps.
@@ -18,7 +18,8 @@
         reversable, and all your data will be permanently lost. If you ever
         change your mind, you'll have to create a new account.
       </p>
-      <form>
+      <Loading v-if="isDeleting" message="Deleting your account" />
+      <form v-else @submit.prevent="deleteAccount">
         <Input
           :value="deleteText"
           label='To confirm, enter "delete my account" below'
@@ -60,9 +61,25 @@ export default class AccountSettings extends Vue {
   loading = "";
   deleteText = "";
   isDownloading!: boolean;
+  isDeleting = false;
 
   private exportData() {
     this.$store.dispatch("settings/getExport");
+  }
+
+  private deleteAccount() {
+    if (this.deleteText !== "delete my account") return;
+    this.isDeleting = true;
+    this.$store
+      .dispatch("settings/deleteAccount")
+      .then(() => {
+        this.$store.dispatch("auth/logout");
+        this.$router.push("/errors/user-deleted");
+      })
+      .catch(error => {
+        throw new Error(error);
+      })
+      .then(() => (this.isDeleting = false));
   }
 }
 </script>

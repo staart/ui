@@ -34,5 +34,6 @@ h1 {
 }
 img {
   max-width: 200px;
+  margin-bottom: 1rem;
 }
 </style>

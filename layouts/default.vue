@@ -39,6 +39,7 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   background-color: #f0f1f9;
+  color: #130f40;
 }
 
 body {
@@ -102,12 +103,19 @@ a {
   font: inherit;
   border-radius: 0.2rem;
   border: none;
+  background: #fff;
   box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
+  &:focus {
+    box-shadow: rgba(42, 47, 69, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba(42, 47, 69, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
   line-height: 1;
   text-decoration: none;
   display: inline-block;
   padding: 0.75rem 1rem;
+  outline: none;
 }
 .button--size-large {
   font-size: 120%;
@@ -123,20 +131,43 @@ a {
   color: #fff;
   box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
+  &:focus {
+    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
 }
 .button--color-primary {
   color: #492257;
   box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
+  &:focus {
+    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
 }
 .button--color-blue {
-  color: #69e;
-  border-color: #69e;
+  color: #4285f4;
+  box-shadow: rgba(66, 133, 244, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
+    rgba(66, 133, 244, 0.12) 0px 2px 5px 0px;
+  &:focus {
+    box-shadow: rgba(66, 133, 244, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba(66, 133, 244, 0.42) 0px 2px 5px 0px,
+      0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
 }
 .button--color-danger {
   color: #af1101;
   box-shadow: rgba(175, 17, 1, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(175, 17, 1, 0.12) 0px 2px 5px 0px;
+  &:focus {
+    box-shadow: rgba(175, 17, 1, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba(175, 17, 1, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
 }
 .button--type-icon {
   padding-left: 0.75rem;
@@ -186,8 +217,7 @@ a {
   td,
   th {
     vertical-align: middle;
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    padding: 0.75rem 1rem;
     .button {
       margin: -0.75rem 0;
     }
@@ -217,7 +247,9 @@ form,
 div,
 section,
 table,
-p {
+p,
+input,
+button {
   + h1,
   + h2 {
     margin-top: 2.5rem;
@@ -233,6 +265,9 @@ p {
   border-radius: 0.2rem;
   box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.075),
     0 3px 6px 0 rgba(0, 0, 0, 0.035);
+  &.card--type-padded {
+    padding: 2rem;
+  }
 }
 
 [data-balloon]::after {

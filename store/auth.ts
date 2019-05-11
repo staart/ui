@@ -26,25 +26,38 @@ export const mutations: MutationTree<RootState> = {
   },
   startLoading(state: RootState): void {
     state.loading = true;
+  },
+  stopLoading(state: RootState): void {
+    state.loading = false;
   }
 };
 
 export const actions: ActionTree<RootState, RootState> = {
   async loginWithEmailPassword({ commit }, context) {
     commit("startLoading");
-    const tokens: Tokens = (await this.$axios.post("/auth/login", context))
-      .data;
-    this.$axios.setToken(tokens.token, "Bearer");
-    commit("setAuthentication", tokens);
+    try {
+      const tokens: Tokens = (await this.$axios.post("/auth/login", context))
+        .data;
+      this.$axios.setToken(tokens.token, "Bearer");
+      commit("setAuthentication", tokens);
+    } catch (error) {
+      commit("stopLoading");
+      throw new Error(error);
+    }
   },
   async loginWithGoogle({ commit }, context) {
     commit("startLoading");
-    const tokens: Tokens = (await this.$axios.post(
-      "/auth/google/verify",
-      context
-    )).data;
-    this.$axios.setToken(tokens.token, "Bearer");
-    commit("setAuthentication", tokens);
+    try {
+      const tokens: Tokens = (await this.$axios.post(
+        "/auth/google/verify",
+        context
+      )).data;
+      this.$axios.setToken(tokens.token, "Bearer");
+      commit("setAuthentication", tokens);
+    } catch (error) {
+      commit("stopLoading");
+      throw new Error(error);
+    }
   },
   async sendPasswordResetLink({ commit }, context) {
     await this.$axios.post("/auth/reset-password/request", context);

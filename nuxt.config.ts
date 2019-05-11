@@ -22,7 +22,7 @@ const config: NuxtConfiguration = {
       }
     ]
   },
-  loading: { color: "#1abc9c" },
+  loading: { color: "#492257" },
   css: [],
   plugins: [
     "~/plugins/axios",

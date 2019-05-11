@@ -1,7 +1,7 @@
 <template>
   <main>
     <Settings>
-      <h1>Account</h1>
+      <h2>Profile</h2>
       <Loading v-if="loading" :message="loading" />
       <form v-else @submit.prevent="save">
         <Input
@@ -26,6 +26,10 @@
           required
           @input="val => (gender = val)"
         />
+        <button class="button button--color-primary">
+          Update profile
+        </button>
+        <h2>Location</h2>
         <Select
           :value="countryCode"
           label="Country"
@@ -50,13 +54,17 @@
           required
           @input="val => (timezone = val)"
         />
+        <button class="button button--color-primary">
+          Update location settings
+        </button>
+        <h2>Accessibility</h2>
         <Checkbox
           :value="prefersReducedMotion"
           label="I prefer reduced motion (minimize animations and movement)"
           @input="val => (prefersReducedMotion = val)"
         />
-        <button type="submit" class="button button--color-primary">
-          Update account settings
+        <button class="button button--color-primary">
+          Update accessibility settings
         </button>
       </form>
     </Settings>

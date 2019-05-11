@@ -71,6 +71,9 @@ export const actions: ActionTree<RootState, RootState> = {
       "application/json"
     );
     commit("stopDownloading");
+  },
+  async deleteAccount({ commit }, context) {
+    await this.$axios.delete("/users/me");
   }
 };
 
