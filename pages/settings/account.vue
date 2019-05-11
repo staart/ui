@@ -11,6 +11,12 @@
           required
           @input="val => (name = val)"
         />
+        <!-- <ImageInput
+          :value="profilePicture"
+          label="Profile picture"
+          required
+          @input="val => (profilePicture = val)"
+        /> -->
         <Input
           :value="nickname"
           label="Nickname"
@@ -77,6 +83,7 @@ import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
+import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "../../types/auth";
@@ -87,6 +94,7 @@ import { User } from "../../types/auth";
     Loading,
     Input,
     Select,
+    ImageInput,
     Checkbox
   }
 })
@@ -109,6 +117,7 @@ export default class AccountSettings extends Vue {
   nickname: string = "";
   countryCode: string = "";
   preferredLanguage: string = "";
+  profilePicture: string = "";
   prefersReducedMotion: boolean = false;
   timezone: string = "";
   gender: string = "x";
@@ -145,6 +154,7 @@ export default class AccountSettings extends Vue {
       this.prefersReducedMotion = this.$store.state.settings.user.prefersReducedMotion;
       this.timezone = this.$store.state.settings.user.timezone;
       this.gender = this.$store.state.settings.user.gender;
+      this.profilePicture = this.$store.state.settings.user.profilePicture;
     });
   }
 
@@ -158,9 +168,13 @@ export default class AccountSettings extends Vue {
         preferredLanguage: this.preferredLanguage,
         prefersReducedMotion: this.prefersReducedMotion,
         timezone: this.timezone,
+        profilePicture: this.profilePicture,
         gender: this.gender
       })
-      .then(() => (this.loading = ""));
+      .then(() => {
+        this.loading = "";
+        this.$store.dispatch("auth/refresh");
+      });
   }
 }
 </script>

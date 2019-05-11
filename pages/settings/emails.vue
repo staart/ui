@@ -178,9 +178,10 @@ export default class AccountSettings extends Vue {
 
   private makePrimary(id: number) {
     this.loading = "Setting primary email";
-    this.$store
-      .dispatch("settings/makeEmailPrimary", id)
-      .then(() => (this.loading = ""));
+    this.$store.dispatch("settings/makeEmailPrimary", id).then(() => {
+      this.loading = "";
+      this.$store.dispatch("auth/refresh");
+    });
   }
 
   private saveNotifications() {

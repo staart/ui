@@ -6,10 +6,7 @@
         <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
         <span>
           <nuxt-link class="item" to="/settings/account">
-            <img
-              alt=""
-              src="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60"
-            />
+            <img alt="" :src="user.profilePicture" />
             {{ user.nickname }}
           </nuxt-link>
           <div class="dropdown">

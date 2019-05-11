@@ -48,6 +48,19 @@ export const actions: ActionTree<RootState, RootState> = {
   async register({ commit }, context) {
     return (await this.$axios.put("/users", context)).data;
   },
+  async refresh({ state, commit }) {
+    commit("startLoading");
+    try {
+      const tokens: Tokens = (await this.$axios.post("/auth/refresh", {
+        token: state.tokens.refresh
+      })).data;
+      this.$axios.setToken(tokens.token, "Bearer");
+      commit("setAuthentication", tokens);
+    } catch (error) {
+      commit("stopLoading");
+      throw new Error(error);
+    }
+  },
   async loginWithGoogle({ commit }, context) {
     commit("startLoading");
     try {
