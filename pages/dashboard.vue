@@ -1,14 +1,33 @@
 <template>
   <div>
-    <h1>Welcome</h1>
+    {{ organization }}
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component
-export default class Dashboard extends Vue {}
+@Component({
+  computed: mapGetters({
+    organization: "auth/activeOrganization"
+  })
+})
+export default class Dashboard extends Vue {
+  organization?: any;
+
+  private mounted() {
+    if (!this.organization) {
+      this.$store
+        .dispatch("auth/setOrganization")
+        .then(() => {})
+        .catch(error => {
+          this.$router.replace("/onboarding/organization");
+          throw new Error(error);
+        });
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

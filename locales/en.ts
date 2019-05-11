@@ -14,7 +14,9 @@ export default {
     "validation-url": "Please enter a valid URL (start with http(s))",
     "email-exists": "An account with this email already exists",
     "cannot-delete-sole-owner":
-      "Add another owner to this organization before deleting"
+      "Add another owner to this organization before deleting",
+    "insufficient-permission":
+      "You don't have the permission to perform this action"
   },
   securityEvents: {
     "user.created": "Created an account",

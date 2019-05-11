@@ -22,6 +22,7 @@ export const mutations: MutationTree<RootState> = {
     state.tokens = { token: "", refresh: "" };
     state.loading = false;
     state.isAuthenticated = false;
+    delete state.activeOrganization;
     delete state.user;
   },
   startLoading(state: RootState): void {
@@ -29,6 +30,12 @@ export const mutations: MutationTree<RootState> = {
   },
   stopLoading(state: RootState): void {
     state.loading = false;
+  },
+  setOrganization(state: RootState, organization: any): void {
+    state.activeOrganization = organization;
+  },
+  setOrganizationDetails(state: RootState, organization: any): void {
+    state.activeOrganization.organization = organization;
   }
 };
 
@@ -87,11 +94,22 @@ export const actions: ActionTree<RootState, RootState> = {
   logout({ commit }) {
     commit("removeAuthentication");
     commit("settings/clearAll", undefined, { root: true });
+  },
+  async setOrganization({ commit }) {
+    const organizations = (await this.$axios.get("/users/me/memberships")).data;
+    if (!organizations.length) throw new Error();
+    commit("setOrganization", organizations[0]);
+  },
+  async resetOrganization({ commit, state }) {
+    const org = state.activeOrganization.organization.id;
+    const organization = (await this.$axios.get(`/organizations/${org}`)).data;
+    commit("setOrganizationDetails", organization);
   }
 };
 
 export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   isLoading: state => state.loading,
+  activeOrganization: state => state.activeOrganization,
   isAuthenticated: state => state.isAuthenticated
 };

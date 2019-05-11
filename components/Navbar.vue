@@ -1,9 +1,15 @@
 <template>
   <div class="navbar">
     <div class="container">
-      <nuxt-link class="item item--type-logo" to="/">Product</nuxt-link>
+      <nuxt-link class="item" to="/">
+        <span class="item--type-logo">Product</span>
+        <span v-if="organization" class="organization-name">
+          {{ organization.organization.name }}
+        </span>
+      </nuxt-link>
       <nav v-if="isAuthenticated">
         <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
+        <nuxt-link class="item" to="/manage/settings">Settings</nuxt-link>
         <span>
           <nuxt-link class="item item--type-user" to="/settings/account">
             <img alt="" :src="user.profilePicture" />
@@ -44,7 +50,8 @@ import { mapGetters } from "vuex";
 @Component({
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user"
+    user: "auth/user",
+    organization: "auth/activeOrganization"
   })
 })
 export default class Card extends Vue {
@@ -139,5 +146,8 @@ nav .item:focus + .dropdown {
 }
 nav .item.item--type-user {
   padding-right: 0.5rem;
+}
+.organization-name {
+  margin-left: 0.5rem;
 }
 </style>

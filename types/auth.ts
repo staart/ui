@@ -21,4 +21,5 @@ export interface RootState {
   tokens: Tokens;
   user?: User;
   loading: boolean;
+  activeOrganization?: any;
 }
