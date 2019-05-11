@@ -6,7 +6,8 @@
         You can download an export of your data in JSON format. This will help
         you keep track of what we have and transfer your settings to other apps.
       </p>
-      <form>
+      <Loading v-if="isDownloading" message="Generating your export" />
+      <form v-else @submit.prevent="exportData">
         <button class="button button--color-primary">
           Export my data
         </button>
@@ -50,11 +51,19 @@ import Input from "@/components/form/Input.vue";
     Settings,
     Loading,
     Input
-  }
+  },
+  computed: mapGetters({
+    isDownloading: "settings/isDownloading"
+  })
 })
 export default class AccountSettings extends Vue {
   loading = "";
   deleteText = "";
+  isDownloading!: boolean;
+
+  private exportData() {
+    this.$store.dispatch("settings/getExport");
+  }
 }
 </script>
 

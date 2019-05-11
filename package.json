@@ -21,6 +21,7 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
     "countries-and-timezones": "^1.0.1",
+    "downloadjs": "^1.4.7",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.4.0",
     "ua-parser-js": "^0.7.19",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@nuxt/typescript": "^2.6.3",
     "@nuxtjs/eslint-config": "^0.0.1",
+    "@types/downloadjs": "^1.4.1",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "babel-eslint": "^10.0.1",
     "concurrently": "^4.1.0",

@@ -23,4 +23,5 @@ export interface RootState {
   user?: User;
   emails: Email[];
   securityEvents: SecurityEvent[];
+  isDownloading: boolean;
 }

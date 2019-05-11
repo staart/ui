@@ -1,9 +1,11 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
+import download from "downloadjs";
 import { RootState, User, Email, SecurityEvent } from "../types/settings";
 
 export const state = (): RootState => ({
   emails: [],
-  securityEvents: []
+  securityEvents: [],
+  isDownloading: false
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -20,6 +22,12 @@ export const mutations: MutationTree<RootState> = {
     delete state.user;
     delete state.emails;
     delete state.securityEvents;
+  },
+  startDownloading(state: RootState): void {
+    state.isDownloading = true;
+  },
+  stopDownloading(state: RootState): void {
+    state.isDownloading = false;
   }
 };
 
@@ -53,6 +61,16 @@ export const actions: ActionTree<RootState, RootState> = {
       "/users/me/events"
     )).data;
     commit("setSecurityEvents", securityEvents);
+  },
+  async getExport({ commit }, context) {
+    commit("startDownloading");
+    const data = (await this.$axios.get("/users/me/data")).data;
+    download(
+      JSON.stringify(data),
+      `export-${new Date().getTime()}.json`,
+      "application/json"
+    );
+    commit("stopDownloading");
   }
 };
 
@@ -60,5 +78,6 @@ export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   emails: state => state.emails,
   securityEvents: state => state.securityEvents,
+  isDownloading: state => state.isDownloading,
   notificationEmails: state => (state.user ? state.user.notificationEmails : 0)
 };
