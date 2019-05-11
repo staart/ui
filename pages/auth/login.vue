@@ -37,6 +37,10 @@
           style="margin-top: 1rem"
           @click="loginWithGoogle"
         >
+          <font-awesome-icon
+            class="icon icon--mr-1"
+            :icon="['fab', 'google']"
+          />
           Login with Google
         </button>
       </form>
@@ -58,12 +62,17 @@ import Card from "@/components/Card.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import { mapGetters } from "vuex";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+library.add(faGoogle);
 
 @Component({
   components: {
     Card,
     Loading,
-    Input
+    Input,
+    FontAwesomeIcon
   },
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",

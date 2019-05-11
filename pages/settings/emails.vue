@@ -17,14 +17,22 @@
                   data-balloon="Primary"
                   data-balloon-pos="up"
                 >
-                  ⭐</span
+                  <font-awesome-icon
+                    title="Primary"
+                    class="icon icon--ml-2 icon--color-gold"
+                    icon="star"
+                  /> </span
                 ><span
                   v-if="!email.isVerified"
                   data-balloon="Unverified"
                   data-balloon-pos="up"
                 >
-                  ⚠️</span
-                >
+                  <font-awesome-icon
+                    title="Unverified"
+                    class="icon icon--ml-2 icon--color-danger"
+                    icon="exclamation-circle"
+                  />
+                </span>
               </td>
               <td class="text text--align-right">
                 <button
@@ -86,14 +94,19 @@ import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faExclamationCircle, faStar } from "@fortawesome/free-solid-svg-icons";
 import { Email } from "../../types/settings";
+library.add(faExclamationCircle, faStar);
 
 @Component({
   components: {
     Settings,
     Loading,
     Select,
-    Input
+    Input,
+    FontAwesomeIcon
   },
   computed: mapGetters({
     emails: "settings/emails",

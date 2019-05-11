@@ -125,6 +125,22 @@ a {
   border-color: #69e;
 }
 
+.icon--mr-1 {
+  margin-right: 0.25rem;
+}
+.icon--ml-1 {
+  margin-left: 0.25rem;
+}
+.icon--ml-2 {
+  margin-left: 0.5rem;
+}
+.icon--color-danger {
+  color: #e74c3c;
+}
+.icon--color-gold {
+  color: #f1c40f;
+}
+
 .text--size-small {
   font-size: 80%;
 }
