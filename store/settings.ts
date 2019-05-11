@@ -11,6 +11,18 @@ export const state = (): RootState => ({
 export const mutations: MutationTree<RootState> = {
   setUser(state: RootState, user: User): void {
     state.user = user;
+    try {
+      if (user.prefersReducedMotion) {
+        document.body.classList.add("prefers-reduced-motion");
+      } else {
+        document.body.classList.remove("prefers-reduced-motion");
+      }
+      if (user.prefersColorSchemeDark) {
+        document.body.classList.add("prefers-color-scheme-dark");
+      } else {
+        document.body.classList.remove("prefers-color-scheme-dark");
+      }
+    } catch (error) {}
   },
   setEmails(state: RootState, emails: Email[]): void {
     state.emails = emails;

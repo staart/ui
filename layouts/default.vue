@@ -23,7 +23,15 @@ export default class Default extends Vue {
     try {
       if (this.$store.state.auth.isAuthenticated)
         this.$axios.setToken(this.$store.state.auth.tokens.token, "Bearer");
-    } catch (error) {}
+      if (this.$store.state.auth && this.$store.state.auth.user) {
+        if (this.$store.state.auth.user.prefersReducedMotion)
+          document.body.classList.add("prefers-reduced-motion");
+        if (this.$store.state.auth.user.prefersColorSchemeDark)
+          document.body.classList.add("prefers-color-scheme-dark");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 </script>
@@ -114,6 +122,10 @@ a {
   background: rgba(180, 0, 240, 0.03);
   box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
+  &:hover {
+    box-shadow: rgba(42, 47, 69, 0.2) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba(42, 47, 69, 0.2) 0px 2px 5px 0px;
+  }
   &:focus {
     box-shadow: rgba(42, 47, 69, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
@@ -176,6 +188,10 @@ a {
   background-color: rgba(255, 0, 0, 0.01);
   box-shadow: rgba(175, 17, 1, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(175, 17, 1, 0.12) 0px 2px 5px 0px;
+  &:hover {
+    box-shadow: rgba(175, 17, 1, 0.2) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba(175, 17, 1, 0.2) 0px 2px 5px 0px;
+  }
   &:focus {
     box-shadow: rgba(175, 17, 1, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
@@ -300,5 +316,47 @@ p {
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+.prefers-color-scheme-dark {
+  background-color: #151d21;
+  color: rgba(255, 255, 255, 0.95);
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  a {
+    color: #fff;
+  }
+  .card,
+  .item.nuxt-link-exact-active,
+  .dropdown {
+    background-color: #263238 !important;
+  }
+  .button {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px,
+      rgba(255, 255, 255, 0.5) 0px 1px 1px 0px,
+      rgba(255, 255, 255, 0.1) 0px 2px 5px 0px;
+  }
+  input,
+  select {
+    background-color: #121415 !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #fff !important;
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25) !important;
+    }
+  }
+  .item.nuxt-link-exact-active {
+    color: #fff !important;
+    box-shadow: -7px 10px 10px rgba(255, 255, 255, 0.02), 2px 0 0 #263238 !important;
+  }
+  .table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+  .text--color-light {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
 }
 </style>

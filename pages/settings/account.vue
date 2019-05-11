@@ -69,6 +69,11 @@
           label="I prefer reduced motion (minimize animations and movement)"
           @input="val => (prefersReducedMotion = val)"
         />
+        <Checkbox
+          :value="prefersColorSchemeDark"
+          label="I prefer a dark color scheme"
+          @input="val => (prefersColorSchemeDark = val)"
+        />
         <button class="button button--color-primary">
           Update accessibility settings
         </button>
@@ -113,14 +118,15 @@ export default class AccountSettings extends Vue {
   };
   timezones = ["Europe/Amsterdam"];
 
-  name: string = "";
-  nickname: string = "";
-  countryCode: string = "";
-  preferredLanguage: string = "";
-  profilePicture: string = "";
-  prefersReducedMotion: boolean = false;
-  timezone: string = "";
-  gender: string = "x";
+  name = "";
+  nickname = "";
+  countryCode = "";
+  preferredLanguage = "";
+  profilePicture = "";
+  prefersReducedMotion = false;
+  prefersColorSchemeDark = false;
+  timezone = "";
+  gender = "x";
 
   private created() {
     const countries = {};
@@ -152,6 +158,7 @@ export default class AccountSettings extends Vue {
       this.countryCode = this.$store.state.settings.user.countryCode;
       this.preferredLanguage = this.$store.state.settings.user.preferredLanguage;
       this.prefersReducedMotion = this.$store.state.settings.user.prefersReducedMotion;
+      this.prefersColorSchemeDark = this.$store.state.settings.user.prefersColorSchemeDark;
       this.timezone = this.$store.state.settings.user.timezone;
       this.gender = this.$store.state.settings.user.gender;
       this.profilePicture = this.$store.state.settings.user.profilePicture;
@@ -167,6 +174,7 @@ export default class AccountSettings extends Vue {
         countryCode: this.countryCode,
         preferredLanguage: this.preferredLanguage,
         prefersReducedMotion: this.prefersReducedMotion,
+        prefersColorSchemeDark: this.prefersColorSchemeDark,
         timezone: this.timezone,
         profilePicture: this.profilePicture,
         gender: this.gender

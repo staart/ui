@@ -6,6 +6,7 @@ export interface User {
   notificationEmails: number;
   preferredLanguage: string;
   prefersReducedMotion: boolean;
+  prefersColorSchemeDark: boolean;
   role: number;
   timezone: string;
   twoFactorEnabled: boolean;
