@@ -10,6 +10,10 @@ Staart UI is a frontend starter for SaaS startups written in TypeScript and Vue 
 
 It's built to work with [Staart](https://github.com/o15y/staart), the backend starter for SaaS startups.
 
+![Login screen](https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/1.png)
+![Settings screen](https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/2.png)
+![Privacy screen](https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/3.png)
+
 ## 🛠 Usage
 
 Clone or fork this repository, then install dependencies:
