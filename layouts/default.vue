@@ -47,7 +47,11 @@ body {
 }
 
 a {
-  color: darkblue;
+  color: #714880;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .container {
@@ -116,6 +120,9 @@ a {
   display: inline-block;
   padding: 0.75rem 1rem;
   outline: none;
+  &:hover {
+    text-decoration: none;
+  }
 }
 .button--size-large {
   font-size: 120%;
@@ -258,6 +265,11 @@ button {
 
 p {
   max-width: 720px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
 }
 
 .card {

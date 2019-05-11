@@ -16,6 +16,7 @@
           label="Name"
           placeholder="Enter your full name"
           autocomplete="name"
+          required
         />
         <Input
           v-model="email"
@@ -23,6 +24,7 @@
           label="Email"
           placeholder="Enter your work email"
           autocomplete="email"
+          required
         />
         <Input
           v-model="password"

@@ -11,7 +11,8 @@ export default {
     "google-auth-error": "We got an error in verifying your Google account",
     "validation-email": "Please enter a valid email",
     "validation-phone": "Please enter a valid phone number",
-    "validation-url": "Please enter a valid URL (start with http(s))"
+    "validation-url": "Please enter a valid URL (start with http(s))",
+    "email-exists": "An account with this email already exists"
   },
   securityEvents: {
     "user.created": "Created an account",

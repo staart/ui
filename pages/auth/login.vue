@@ -28,9 +28,6 @@
         >
           Login to your account
         </button>
-        <p style="text-align: center">
-          <em>or</em>
-        </p>
         <button
           class="button button--width-full button--size-large button--color-blue"
           type="button"
@@ -45,14 +42,10 @@
         </button>
       </form>
     </Card>
-    <p>
-      Forgot your password
-      <nuxt-link to="/auth/forgot">Recover it now</nuxt-link>
-    </p>
-    <p>
-      Don't have an account?
+    <div class="row section section--mt-1">
+      <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
       <nuxt-link to="/auth/register">Create an account</nuxt-link>
-    </p>
+    </div>
   </main>
 </template>
 

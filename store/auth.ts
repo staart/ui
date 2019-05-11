@@ -45,6 +45,9 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new Error(error);
     }
   },
+  async register({ commit }, context) {
+    return (await this.$axios.put("/users", context)).data;
+  },
   async loginWithGoogle({ commit }, context) {
     commit("startLoading");
     try {
