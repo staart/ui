@@ -24,21 +24,31 @@
             <td>{{ membershipRoles[member.role] || member.role }}</td>
             <td class="text text--align-right">
               <button
-                data-balloon="Remove from organization"
+                data-balloon="Remove"
                 data-balloon-pos="up"
                 class="button button--color-danger button--type-icon"
-                @click="deleteMembership(membership.id)"
+                @click="deleteMembership(member.id)"
               >
                 <font-awesome-icon
-                  title="Remove from organization"
+                  title="Remove"
                   class="icon icon--color-danger"
                   icon="trash"
                   fixed-width
                 />
               </button>
-              <button class="button">
-                Visit &rarr;
-              </button>
+              <router-link
+                :to="`/manage/members/${member.id}`"
+                data-balloon="Edit"
+                data-balloon-pos="up"
+                class="button button--type-icon"
+              >
+                <font-awesome-icon
+                  title="Edit"
+                  class="icon"
+                  icon="pencil-alt"
+                  fixed-width
+                />
+              </router-link>
             </td>
           </tr>
         </tbody>
@@ -91,10 +101,10 @@ import { getAllCountries } from "countries-and-timezones";
 import locale from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { User } from "../../types/auth";
-import { Email } from "../../types/settings";
-library.add(faTrash);
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { User } from "@/types/auth";
+import { Email } from "@/types/settings";
+library.add(faTrash, faPencilAlt);
 
 @Component({
   components: {
@@ -140,6 +150,15 @@ export default class ManageMembers extends Vue {
       .then(() => {})
       .catch(() => {})
       .finally(() => (this.inviting = false));
+  }
+
+  private deleteMembership(id: number) {
+    this.loading = "Deleting membership";
+    this.$store
+      .dispatch("manage/deleteMembership", id)
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => (this.loading = ""));
   }
 }
 </script>

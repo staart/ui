@@ -44,6 +44,19 @@ export const actions: ActionTree<RootState, RootState> = {
       context
     );
     return dispatch("getMembers");
+  },
+  async deleteMembership({ dispatch }, context) {
+    await this.$axios.delete(`/memberships/${context}`);
+    return dispatch("getMembers");
+  },
+  async getMembership(actions, context) {
+    return (await this.$axios.get(`/memberships/${context}`)).data;
+  },
+  async updateMembership({ dispatch }, context) {
+    const data = JSON.parse(JSON.stringify(context));
+    delete data.id;
+    await this.$axios.patch(`/memberships/${context.id}`, data);
+    return dispatch("getMembership", context.id);
   }
 };
 

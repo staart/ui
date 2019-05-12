@@ -248,6 +248,9 @@ a {
       margin-left: 0.5rem;
     }
   }
+  th {
+    border-bottom: 2px solid rgba(180, 0, 240, 0.04);
+  }
   tr:nth-child(even) {
     background-color: rgba(180, 0, 240, 0.04);
   }
