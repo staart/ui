@@ -8,7 +8,7 @@
       </p>
       <Loading v-if="isDownloading" message="Generating your export" />
       <form v-else @submit.prevent="exportData">
-        <button class="button button--color-primary">
+        <button class="button">
           Export my data
         </button>
       </form>

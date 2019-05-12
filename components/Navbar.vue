@@ -35,9 +35,7 @@
           </div>
         </span>
         <nuxt-link class="item" to="/">Pricing</nuxt-link>
-        <nuxt-link class="button button--color-primary" to="/auth/login"
-          >Login &rarr;</nuxt-link
-        >
+        <nuxt-link class="button" to="/auth/login">Login &rarr;</nuxt-link>
       </nav>
     </div>
   </div>

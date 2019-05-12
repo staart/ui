@@ -1,5 +1,6 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import decode from "jwt-decode";
+import { Vue } from "vue-property-decorator";
 import { RootState, Tokens } from "../types/auth";
 
 export const state = (): RootState => ({
@@ -19,7 +20,7 @@ export const mutations: MutationTree<RootState> = {
     state.user = decode(tokens.token);
   },
   removeAuthentication(state: RootState): void {
-    state.tokens = { token: "", refresh: "" };
+    Vue.set(state, "tokens", { token: "", refresh: "" });
     state.loading = false;
     state.isAuthenticated = false;
     delete state.activeOrganization;
@@ -32,10 +33,10 @@ export const mutations: MutationTree<RootState> = {
     state.loading = false;
   },
   setOrganization(state: RootState, organization: any): void {
-    state.activeOrganization = organization;
+    Vue.set(state, "activeOrganization", organization);
   },
   setOrganizationDetails(state: RootState, organization: any): void {
-    state.activeOrganization.organization = organization;
+    Vue.set(state.activeOrganization, "organization", organization);
   }
 };
 

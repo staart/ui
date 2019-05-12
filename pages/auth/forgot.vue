@@ -20,7 +20,7 @@
             required
           />
           <button
-            class="button button--width-full button--size-large button--color-primary"
+            class="button button--width-full button--size-large"
             type="submit"
           >
             Send a magic link

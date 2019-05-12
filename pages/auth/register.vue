@@ -35,7 +35,7 @@
           help="Tip: Use a strong password generator"
         />
         <button
-          class="button button--width-full button--size-large button--color-primary"
+          class="button button--width-full button--size-large"
           type="submit"
         >
           Register for an account

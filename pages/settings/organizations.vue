@@ -44,7 +44,7 @@
                     fixed-width
                   />
                 </button>
-                <button class="button button--color-primary">
+                <button class="button">
                   Visit &rarr;
                 </button>
               </td>
@@ -65,7 +65,7 @@
           required
           @input="val => (organizationName = val)"
         />
-        <button class="button button--color-primary">
+        <button class="button">
           Create organization
         </button>
       </form>

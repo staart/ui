@@ -36,7 +36,7 @@
                   fixed-width
                 />
               </button>
-              <button class="button button--color-primary">
+              <button class="button">
                 Visit &rarr;
               </button>
             </td>
@@ -72,7 +72,7 @@
           required
           @input="val => (newUserRole = val)"
         />
-        <button class="button button--color-primary">Send invitation</button>
+        <button class="button">Send invitation</button>
       </form>
     </Manage>
   </main>

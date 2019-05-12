@@ -1,5 +1,6 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import download from "downloadjs";
+import Vue from "vue";
 import {
   RootState,
   User,
@@ -17,7 +18,7 @@ export const state = (): RootState => ({
 
 export const mutations: MutationTree<RootState> = {
   setUser(state: RootState, user: User): void {
-    state.user = user;
+    Vue.set(state, "user", user);
     try {
       if (user.prefersReducedMotion) {
         document.body.classList.add("prefers-reduced-motion");
@@ -32,13 +33,13 @@ export const mutations: MutationTree<RootState> = {
     } catch (error) {}
   },
   setEmails(state: RootState, emails: Email[]): void {
-    state.emails = emails;
+    Vue.set(state, "emails", emails);
   },
   setMemberships(state: RootState, memberships: Membership[]): void {
-    state.memberships = memberships;
+    Vue.set(state, "memberships", memberships);
   },
   setSecurityEvents(state: RootState, securityEvents: SecurityEvent[]): void {
-    state.securityEvents = securityEvents;
+    Vue.set(state, "securityEvents", securityEvents);
   },
   clearAll(state: RootState): void {
     delete state.user;

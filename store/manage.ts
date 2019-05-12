@@ -1,5 +1,6 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-import { RootState, Membership, Organization, Member } from "~/types/manage";
+import { RootState, Organization, Member } from "~/types/manage";
+import Vue from "vue";
 
 export const state = (): RootState => ({
   members: []
@@ -7,10 +8,10 @@ export const state = (): RootState => ({
 
 export const mutations: MutationTree<RootState> = {
   setOrganization(state: RootState, organization: Organization): void {
-    state.organization = organization;
+    Vue.set(state, "organization", organization);
   },
   setMembers(state: RootState, members: Member[]): void {
-    state.members = members;
+    Vue.set(state, "members", members);
   },
   clearAll(state: RootState): void {
     delete state.organization;

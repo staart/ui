@@ -120,16 +120,17 @@ a {
   border-radius: 0.2rem;
   border: none;
   background: rgba(180, 0, 240, 0.03);
-  box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
+  color: #492257;
+  box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
   &:hover {
     box-shadow: rgba(42, 47, 69, 0.2) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba(42, 47, 69, 0.2) 0px 2px 5px 0px;
   }
   &:focus {
-    box-shadow: rgba(42, 47, 69, 0.46) 0px 0px 0px 1px,
+    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(42, 47, 69, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
   }
   line-height: 1;
   text-decoration: none;
@@ -149,19 +150,9 @@ a {
   width: 100%;
   box-sizing: border-box;
 }
-.button--color-primary-dark {
+.button--color-primary {
   background: #492257;
   color: #fff;
-  box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
-  &:focus {
-    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
-  }
-}
-.button--color-primary {
-  color: #492257;
   box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
   &:focus {

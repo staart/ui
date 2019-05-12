@@ -24,7 +24,7 @@
             required
             @input="val => (newPassword = val)"
           />
-          <button class="button button--color-primary">
+          <button class="button">
             Change password
           </button>
         </form>
@@ -36,7 +36,7 @@
           >.
         </p>
         <form @submit.prevent="saveNotifications">
-          <button class="button button--color-primary">
+          <button class="button">
             Enable 2FA
           </button>
         </form>

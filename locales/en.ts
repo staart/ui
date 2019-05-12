@@ -16,7 +16,8 @@ export default {
     "cannot-delete-sole-owner":
       "Add another owner to this organization before deleting",
     "insufficient-permission":
-      "You don't have the permission to perform this action"
+      "You don't have the permission to perform this action",
+    "user-is-member-already": "This user is already a member"
   },
   securityEvents: {
     "user.created": "Created an account",

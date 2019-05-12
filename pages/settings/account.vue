@@ -32,7 +32,7 @@
           required
           @input="val => (gender = val)"
         />
-        <button class="button button--color-primary">
+        <button class="button">
           Update profile
         </button>
         <h2>Location</h2>
@@ -60,7 +60,7 @@
           required
           @input="val => (timezone = val)"
         />
-        <button class="button button--color-primary">
+        <button class="button">
           Update location settings
         </button>
         <h2>Accessibility</h2>
@@ -74,7 +74,7 @@
           label="I prefer a dark color scheme"
           @input="val => (prefersColorSchemeDark = val)"
         />
-        <button class="button button--color-primary">
+        <button class="button">
           Update accessibility settings
         </button>
       </form>

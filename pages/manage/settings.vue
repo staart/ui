@@ -19,7 +19,7 @@
           required
           @input="val => (invitationDomain = val)"
         />
-        <button class="button button--color-primary">
+        <button class="button">
           Update settings
         </button>
       </form>

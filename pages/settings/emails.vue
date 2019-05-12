@@ -88,7 +88,7 @@
             required
             @input="val => (newEmail = val)"
           />
-          <button class="button button--color-primary">
+          <button class="button">
             Add another email
           </button>
         </form>
@@ -103,7 +103,7 @@
             required
             @input="val => (notificationEmails = val)"
           />
-          <button class="button button--color-primary">
+          <button class="button">
             Update preferences
           </button>
         </form>
