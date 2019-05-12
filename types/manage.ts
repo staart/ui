@@ -7,7 +7,12 @@ export interface Membership {
   organization: Organization;
 }
 
+export interface Member {
+  id: number;
+}
+
 export interface RootState {
   membership?: Membership;
   organization?: Organization;
+  members: Member[];
 }

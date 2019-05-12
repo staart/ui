@@ -139,9 +139,6 @@ a {
   &:hover {
     text-decoration: none;
   }
-  + .button {
-    margin-left: 0.5rem;
-  }
 }
 .button--size-large {
   font-size: 120%;

@@ -1,7 +1,7 @@
 <template>
   <main>
     <Manage>
-      <h2>Settings</h2>
+      <h1>Settings</h1>
       <Loading v-if="loading" :message="loading" />
       <form v-else @submit.prevent="save">
         <Input

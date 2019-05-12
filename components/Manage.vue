@@ -3,8 +3,12 @@
     <aside>
       <nav>
         <nuxt-link class="item" to="/manage/settings">
-          <font-awesome-icon class="nav-icon" icon="users" fixed-width />
+          <font-awesome-icon class="nav-icon" icon="cog" fixed-width />
           <span>Settings</span>
+        </nuxt-link>
+        <nuxt-link class="item" to="/manage/members">
+          <font-awesome-icon class="nav-icon" icon="users" fixed-width />
+          <span>Members</span>
         </nuxt-link>
         <!-- <nuxt-link class="item" to="/manage/data">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
@@ -23,8 +27,8 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faDatabase, faUsers } from "@fortawesome/free-solid-svg-icons";
-library.add(faDatabase, faUsers);
+import { faDatabase, faUsers, faCog } from "@fortawesome/free-solid-svg-icons";
+library.add(faDatabase, faUsers, faCog);
 
 @Component({
   components: {
