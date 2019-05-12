@@ -254,6 +254,14 @@ a {
   tr:nth-child(even) {
     background-color: rgba(180, 0, 240, 0.04);
   }
+  &.table--type-cols {
+    td:first-child {
+      font-weight: bold;
+    }
+    td:last-child {
+      text-align: right;
+    }
+  }
 }
 
 h1 {
@@ -316,6 +324,14 @@ p {
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+code {
+  font-size: 110%;
+  background-color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.2rem;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.035);
 }
 
 .prefers-color-scheme-dark {

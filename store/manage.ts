@@ -67,6 +67,12 @@ export const actions: ActionTree<RootState, RootState> = {
       `/organizations/${context}/billing`
     )).data;
     commit("setBilling", billing);
+  },
+  async updateBilling({ dispatch }, context) {
+    const data = JSON.parse(JSON.stringify(context));
+    delete data.id;
+    await this.$axios.patch(`/organizations/${context.id}/billing`, data);
+    return dispatch("getBilling", context.id);
   }
 };
 

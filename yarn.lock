@@ -1391,6 +1391,13 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
+"@types/hashids@^1.0.30":
+  version "1.0.30"
+  resolved "https://registry.yarnpkg.com/@types/hashids/-/hashids-1.0.30.tgz#c0a056b25c5b13c80bf330fb8d379ac4d4049999"
+  integrity sha512-ESXJxz/GRY+SGa3n0WuWZLR0xM3k8LTr4+2xOoj/a0ZThglF/UfEeKVaMQNNFvFQ+mw3ng8LbC3gmJx/GmR5EQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/html-minifier@^3.5.3":
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/@types/html-minifier/-/html-minifier-3.5.3.tgz#5276845138db2cebc54c789e0aaf87621a21e84f"
@@ -4755,6 +4762,11 @@ hash.js@^1.0.0, hash.js@^1.0.3:
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
+
+hashids@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/hashids/-/hashids-1.2.2.tgz#28635c7f2f7360ba463686078eee837479e8eafb"
+  integrity sha512-dEHCG2LraR6PNvSGxosZHIRgxF5sNLOIBFEHbj8lfP9WWmu/PWPMzsip1drdVSOFi51N2pU7gZavrgn7sbGFuw==
 
 he@1.2.x, he@^1.1.0, he@^1.2.0:
   version "1.2.0"
