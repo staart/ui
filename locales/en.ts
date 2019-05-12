@@ -15,9 +15,12 @@ export default {
     "email-exists": "An account with this email already exists",
     "cannot-delete-sole-owner":
       "Add another owner to this organization before deleting",
+    "cannot-update-sole-owner":
+      "Add another owner to this organization before updating this role",
     "insufficient-permission":
       "You don't have the permission to perform this action",
-    "user-is-member-already": "This user is already a member"
+    "user-is-member-already": "This user is already a member",
+    "no-customer": "You don't have billing set up"
   },
   securityEvents: {
     "user.created": "Created an account",

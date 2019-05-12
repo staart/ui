@@ -10,6 +10,10 @@
           <font-awesome-icon class="nav-icon" icon="users" fixed-width />
           <span>Members</span>
         </nuxt-link>
+        <nuxt-link class="item" to="/manage/billing">
+          <font-awesome-icon class="nav-icon" icon="credit-card" fixed-width />
+          <span>Billing</span>
+        </nuxt-link>
         <!-- <nuxt-link class="item" to="/manage/data">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
@@ -27,8 +31,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faDatabase, faUsers, faCog } from "@fortawesome/free-solid-svg-icons";
-library.add(faDatabase, faUsers, faCog);
+import {
+  faDatabase,
+  faUsers,
+  faCog,
+  faCreditCard
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faDatabase, faUsers, faCog, faCreditCard);
 
 @Component({
   components: {

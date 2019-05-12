@@ -1,5 +1,5 @@
 <template>
   <main>
-    Set one
+    Set up an organization please
   </main>
 </template>

@@ -95,6 +95,7 @@ export const actions: ActionTree<RootState, RootState> = {
   logout({ commit }) {
     commit("removeAuthentication");
     commit("settings/clearAll", undefined, { root: true });
+    commit("manage/clearAll", undefined, { root: true });
   },
   async setOrganization({ commit }) {
     const organizations = (await this.$axios.get("/users/me/memberships")).data;
