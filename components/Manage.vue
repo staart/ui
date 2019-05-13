@@ -16,7 +16,11 @@
         </nuxt-link>
         <nuxt-link class="item" to="/manage/billing">
           <font-awesome-icon class="nav-icon" icon="address-card" fixed-width />
-          <span>Billing</span>
+          <span>Billing info</span>
+        </nuxt-link>
+        <nuxt-link class="item" to="/manage/sources">
+          <font-awesome-icon class="nav-icon" icon="credit-card" fixed-width />
+          <span>Payment methods</span>
         </nuxt-link>
         <nuxt-link class="item" to="/manage/invoices">
           <font-awesome-icon class="nav-icon" icon="file-invoice" fixed-width />

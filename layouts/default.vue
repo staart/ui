@@ -303,6 +303,13 @@ p {
 .row {
   display: flex;
   justify-content: space-between;
+  > * {
+    flex: 1 0 0;
+    margin-right: 1rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .card {

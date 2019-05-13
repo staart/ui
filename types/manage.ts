@@ -19,4 +19,5 @@ export interface RootState {
   invoices?: any;
   subscriptions?: any;
   pricingPlans?: any;
+  sources?: any;
 }

@@ -48,7 +48,9 @@
                   data-balloon="Dashboard"
                   data-balloon-pos="up"
                   class="button button--type-icon"
-                  @click="visitOrganization(membership.id, '/dashboard')"
+                  @click="
+                    visitOrganization(membership.organizationId, '/dashboard')
+                  "
                 >
                   <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
                 </button>
