@@ -30,10 +30,10 @@
           <font-awesome-icon class="nav-icon" icon="user" fixed-width />
           <span>Account settings</span>
         </nuxt-link>
-        <!-- <nuxt-link class="item" to="/manage/data">
+        <nuxt-link class="item" to="/manage/data">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
-        </nuxt-link> -->
+        </nuxt-link>
       </nav>
     </aside>
     <main class="card">

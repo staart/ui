@@ -20,4 +20,5 @@ export interface RootState {
   subscriptions?: any;
   pricingPlans?: any;
   sources?: any;
+  isDownloading: boolean;
 }

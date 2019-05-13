@@ -129,7 +129,7 @@
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
         <h2>Are you sure you want to remove this card?</h2>
         <p>
-          Removing a card is not reversable, and you'll have to add another card
+          Removing a card is not reversible, and you'll have to add another card
           if you change your mind. If you have any pending charges, your
           subscription might be cancelled without a payment method.
         </p>

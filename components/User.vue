@@ -6,7 +6,11 @@
     />
     <div>
       <span>{{ user.name }}</span>
-      <span v-if="self.id === user.id" class="text text--color-light text--type-you">You</span>
+      <span
+        v-if="self.id === user.id"
+        class="text text--color-light text--type-you"
+        >You</span
+      >
     </div>
   </div>
 </template>

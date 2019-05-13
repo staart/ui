@@ -100,6 +100,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async setOrganization({ commit }, organizationId) {
     const memberships = (await this.$axios.get("/users/me/memberships")).data;
     if (!memberships.length) throw new Error();
+    commit("manage/clearAll", undefined, { root: true });
     const set = memberships.filter(
       membership =>
         parseInt(membership.organizationId) === parseInt(organizationId)

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Settings>
+    <Manage>
       <h2>Export data</h2>
       <p>
         You can download an export of your data in JSON format. This will help
@@ -9,19 +9,20 @@
       <Loading v-if="isDownloading" message="Generating your export" />
       <form v-else @submit.prevent="exportData">
         <button class="button">
-          Export my data
+          Export all data
         </button>
       </form>
-      <h2>Delete account</h2>
+      <h2>Delete organization</h2>
       <p>
-        You can delete your Staart account. Note that this action is not
+        You can delete your organization. Note that this action is not
         reversible, and all your data will be permanently lost. If you ever
-        change your mind, you'll have to create a new account.
+        change your mind, you'll have to create a new team and invite all
+        members again.
       </p>
-      <Loading v-if="isDeleting" message="Deleting your account" />
+      <Loading v-if="isDeleting" message="Deleting your organization" />
       <form v-else @submit.prevent="showDelete = true">
         <button class="button button--color-danger">
-          Delete my account
+          Delete organization
         </button>
       </form>
       <h2>Data Protection Officer</h2>
@@ -29,21 +30,26 @@
         If you have any questions or concerns about your data or our security
         measures, you can get in touch with our Data Protection Officer.
       </p>
-    </Settings>
+    </Manage>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
-        <h2>Are you sure you want to delete your account?</h2>
-        <p>Deleting your account is not reversible.</p>
+        <h2>
+          Are you sure you want to delete {{ organization.organization.name }}?
+        </h2>
+        <p>
+          Deleting an organization is not reversible, and all members will be
+          removed.
+        </p>
         <form @submit.prevent="deleteAccount">
           <Input
             :value="deleteText"
-            label='To confirm, enter "delete my account" below'
+            label='To confirm, enter "delete organization" below'
             placeholder="Write those exact words"
             required
             @input="val => (deleteText = val)"
           />
           <button class="button button--color-danger-cta">
-            Yes, delete my account
+            Yes, delete organization
           </button>
           <button type="button" class="button" @click="showDelete = false">
             No, don't delete
@@ -57,42 +63,43 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Settings from "@/components/Settings.vue";
+import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
 
 @Component({
   components: {
-    Settings,
+    Manage,
     Loading,
     Confirm,
     Input
   },
   computed: mapGetters({
-    isDownloading: "settings/isDownloading"
+    isDownloading: "manage/isDownloading",
+    organization: "auth/activeOrganization"
   })
 })
-export default class AccountSettings extends Vue {
+export default class AccountManage extends Vue {
   loading = "";
   deleteText = "";
   isDownloading!: boolean;
+  organization!: any;
   showDelete = false;
   isDeleting = false;
 
   private exportData() {
-    this.$store.dispatch("settings/getExport");
+    this.$store.dispatch("manage/getExport");
   }
 
   private deleteAccount() {
-    if (this.deleteText !== "delete my account") return;
+    if (this.deleteText !== "delete organization") return;
     this.showDelete = false;
     this.isDeleting = true;
     this.$store
-      .dispatch("settings/deleteAccount")
+      .dispatch("manage/deleteOrganization")
       .then(() => {
-        this.$store.dispatch("auth/logout");
-        this.$router.push("/errors/user-deleted");
+        this.$router.push("/settings/organizations");
       })
       .catch(error => {
         throw new Error(error);

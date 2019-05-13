@@ -82,7 +82,7 @@
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
         <h2>Are you sure you want to remove {{ showDelete.user.name }}?</h2>
         <p>
-          Remove someone from an organization is not reversable, and you'll have
+          Remove someone from an organization is not reversible, and you'll have
           to invite them again if you change your mind.
         </p>
         <button

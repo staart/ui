@@ -7,7 +7,7 @@
         <Input
           :value="name"
           label="Name"
-          placeholder="Enter your full name"
+          placeholder="Enter your organization's name"
           required
           @input="val => (name = val)"
         />

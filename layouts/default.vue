@@ -117,6 +117,7 @@ a {
 
 .button {
   font: inherit;
+  transition: 0.2s;
   border-radius: 0.2rem;
   border: none;
   background: rgba(180, 0, 240, 0.03);

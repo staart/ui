@@ -96,7 +96,7 @@
           Are you sure you want to leave {{ showDelete.organization.name }}?
         </h2>
         <p>
-          Leaving an organization is not reversable, and you'll have to ask an
+          Leaving an organization is not reversible, and you'll have to ask an
           admin to add you again if you change your mind.
         </p>
         <button

@@ -1,10 +1,12 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import { RootState, Organization, Member } from "~/types/manage";
+import download from "downloadjs";
 import Vue from "vue";
 
 const stripeProductId = "prod_CtJZklN9W4QmxA";
 export const state = (): RootState => ({
-  members: []
+  members: [],
+  isDownloading: false
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -29,6 +31,12 @@ export const mutations: MutationTree<RootState> = {
   setSources(state: RootState, sources: any): void {
     Vue.set(state, "sources", sources);
   },
+  startDownloading(state: RootState): void {
+    state.isDownloading = true;
+  },
+  stopDownloading(state: RootState): void {
+    state.isDownloading = false;
+  },
   clearAll(state: RootState): void {
     delete state.organization;
     delete state.billing;
@@ -48,10 +56,31 @@ export const actions: ActionTree<RootState, RootState> = {
     )).data;
     commit("setOrganization", org);
   },
-  async updateOrganization({ dispatch, state }, context) {
-    if (!state.organization) return;
-    await this.$axios.patch(`/organizations/${state.organization.id}`, context);
-    return dispatch("getOrganization", state.organization.id);
+  async updateOrganization({ dispatch, rootGetters }, context) {
+    const org = rootGetters["auth/activeOrganization"];
+    const organizationId = org.organizationId;
+    await this.$axios.patch(`/organizations/${organizationId}`, context);
+    return dispatch("getOrganization", organizationId);
+  },
+  async deleteOrganization({ commit, rootGetters }) {
+    const org = rootGetters["auth/activeOrganization"];
+    const organizationId = org.organizationId;
+    await this.$axios.delete(`/organizations/${organizationId}`);
+    commit("clearAll");
+  },
+  async getExport({ commit, rootGetters }) {
+    commit("startDownloading");
+    const org = rootGetters["auth/activeOrganization"];
+    const organizationId = org.organizationId;
+    const data = (await this.$axios.get(
+      `/organizations/${organizationId}/data`
+    )).data;
+    download(
+      JSON.stringify(data, null, 2),
+      `export-${new Date().getTime()}.json`,
+      "application/json"
+    );
+    commit("stopDownloading");
   },
   async getMembers({ rootGetters, commit }) {
     const org = rootGetters["auth/activeOrganization"];

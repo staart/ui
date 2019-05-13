@@ -7,7 +7,12 @@
         :required="required"
         @change="$emit('input', $event.target.checked)"
       />
-      <div class="fake-checkbox">
+      <div
+        class="fake-checkbox"
+        role="checkbox"
+        :aria-checked="value"
+        tabindex="0"
+      >
         <font-awesome-icon class="icon icon--type-check" icon="check" />
       </div>
       <span>{{ label }}</span>
@@ -59,9 +64,16 @@ export default class Checkbox extends Vue {
   }
 }
 .fake-checkbox {
+  outline: none;
+  transition: 0.2s;
   background-color: #fff;
   box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
+  &:focus {
+    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
   border-radius: 0.2rem;
   height: 1.25rem;
   width: 1.25rem;
