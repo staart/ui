@@ -4,35 +4,88 @@
       <h1>Payment methods</h1>
       <Loading v-if="loading" :message="loading" />
       <div v-else-if="sources && sources.data && sources.data.length">
-        <table class="table table--type-cols">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Number</th>
+              <th>Network</th>
+              <th>Name on card</th>
+              <th>Country</th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
             <tr
-              v-for="(invoice, index) in sources.data"
-              :key="`${invoice.id}_${index}`"
+              v-for="(source, index) in sources.data"
+              :key="`${source.id}_${index}`"
             >
+              <td style="text-transform: capitalize">
+                {{ source.funding }} {{ source.object }}
+              </td>
               <td>
-                {{ invoice }}
+                •••• •••• ••••
+                {{ source.last4 }}
+              </td>
+              <td>
+                {{ source.brand }}
+              </td>
+              <td>
+                {{ source.name }}
+              </td>
+              <td>
+                {{ source.country }}
+              </td>
+              <td class="text text--align-right">
+                <router-link
+                  data-balloon="Edit"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                  :to="`/manage/sources/${source.id}`"
+                >
+                  <font-awesome-icon
+                    title="Edit"
+                    icon="pencil-alt"
+                    fixed-width
+                  />
+                </router-link>
+                <button
+                  data-balloon="Delete"
+                  data-balloon-pos="up"
+                  class="button button--color-danger button--type-icon"
+                  @click="deleteCard(source.id)"
+                >
+                  <font-awesome-icon
+                    title="Delete"
+                    class="icon icon--color-danger"
+                    icon="trash"
+                    fixed-width
+                  />
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <form>
-        <h2>Add card</h2>
-        <Input
-          :value="newCardName"
-          label="Name on card"
-          placeholder="Enter your full name as on card"
-          required
-          @input="val => (newCardName = val)"
-        />
-        <Input
-          :value="newCardNumber"
-          label="Credit card number"
-          placeholder="Enter your credit card number (16 digits)"
-          required
-          @input="val => (newCardNumber = val)"
-        />
+      <h2>Add card</h2>
+      <Loading v-if="addingCard" :message="addingCard" />
+      <form v-else @submit.prevent="addCard">
+        <div class="row">
+          <Input
+            :value="newCardName"
+            label="Name on card"
+            placeholder="Enter your full name as on card"
+            required
+            @input="val => (newCardName = val)"
+          />
+          <Input
+            :value="newCardNumber"
+            label="Credit card number"
+            placeholder="Enter your credit card number (16 digits)"
+            required
+            @input="val => (newCardNumber = val)"
+          />
+        </div>
         <div class="row">
           <Select
             :value="newCardExpMonth"
@@ -69,6 +122,7 @@
             @input="val => (newCardCvv = val)"
           />
         </div>
+        <button class="button">Add credit card</button>
       </form>
     </Manage>
   </main>
@@ -85,6 +139,10 @@ import Select from "@/components/form/Select.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "@/types/auth";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+library.add(faTrash, faPencilAlt);
 
 @Component({
   components: {
@@ -93,7 +151,8 @@ import { User } from "@/types/auth";
     Input,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
+    FontAwesomeIcon
   },
   computed: mapGetters({
     organization: "auth/activeOrganization",
@@ -106,6 +165,7 @@ export default class ManageSettings extends Vue {
   sources!: any;
   user!: any;
   loading = "";
+  addingCard = "";
   years: number[] = [];
 
   newCardNumber = "";
@@ -133,6 +193,33 @@ export default class ManageSettings extends Vue {
         }
       })
       .finally(() => (this.loading = ""));
+  }
+
+  private addCard() {
+    this.addingCard = "Loading your sources";
+    this.$store
+      .dispatch("manage/createSource", {
+        id: this.organization.organization.id,
+        number: this.newCardNumber,
+        exp_month: this.newCardExpMonth,
+        exp_year: this.newCardExpYear,
+        cvc: this.newCardCvv,
+        name: this.newCardName
+      })
+      .then(() => {})
+      .catch(error => {
+        if (error.response.data.error === "no-customer") {
+          this.$router.replace("/manage/billing");
+        }
+      })
+      .finally(() => {
+        this.addingCard = "";
+        this.newCardNumber = "";
+        this.newCardExpMonth = "";
+        this.newCardExpYear = new Date().getUTCFullYear() + 5;
+        this.newCardCvv = "";
+        this.newCardName = "";
+      });
   }
 }
 </script>
