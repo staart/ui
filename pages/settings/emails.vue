@@ -127,7 +127,7 @@ import {
   faTrash,
   faCheckCircle
 } from "@fortawesome/free-solid-svg-icons";
-import { Email } from "../../types/settings";
+import { Email } from "@/types/settings";
 library.add(faExclamationCircle, faStar, faTrash, faCheckCircle);
 
 @Component({

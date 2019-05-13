@@ -109,7 +109,7 @@ import Select from "@/components/form/Select.vue";
 import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
-import { User } from "../../types/auth";
+import { User } from "@/types/auth";
 
 @Component({
   components: {

@@ -10,6 +10,10 @@
           <font-awesome-icon class="nav-icon" icon="users" fixed-width />
           <span>Members</span>
         </nuxt-link>
+        <nuxt-link class="item" to="/manage/subscriptions">
+          <font-awesome-icon class="nav-icon" icon="box-open" fixed-width />
+          <span>Subscriptions</span>
+        </nuxt-link>
         <nuxt-link class="item" to="/manage/billing">
           <font-awesome-icon class="nav-icon" icon="credit-card" fixed-width />
           <span>Billing</span>
@@ -40,9 +44,10 @@ import {
   faUsers,
   faCog,
   faCreditCard,
-  faFileInvoice
+  faFileInvoice,
+  faBoxOpen
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faDatabase, faUsers, faCog, faCreditCard, faFileInvoice);
+library.add(faDatabase, faUsers, faCog, faCreditCard, faFileInvoice, faBoxOpen);
 
 @Component({
   components: {

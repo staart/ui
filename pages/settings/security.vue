@@ -97,8 +97,8 @@ import TimeAgo from "@/components/TimeAgo.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import UAParser from "ua-parser-js";
-import { Email, SecurityEvent } from "../../types/settings";
-import { User } from "../../types/auth";
+import { Email, SecurityEvent } from "@/types/settings";
+import { User } from "@/types/auth";
 import en from "@/locales/en";
 const text = en.securityEvents;
 

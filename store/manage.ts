@@ -2,6 +2,7 @@ import { MutationTree, ActionTree, GetterTree } from "vuex";
 import { RootState, Organization, Member } from "~/types/manage";
 import Vue from "vue";
 
+const stripeProductId = "prod_CtJZklN9W4QmxA";
 export const state = (): RootState => ({
   members: []
 });
@@ -19,12 +20,20 @@ export const mutations: MutationTree<RootState> = {
   setInvoices(state: RootState, invoices: any): void {
     Vue.set(state, "invoices", invoices);
   },
+  setSubscriptions(state: RootState, subscriptions: any): void {
+    Vue.set(state, "subscriptions", subscriptions);
+  },
+  setPricingPlans(state: RootState, pricingPlans: any): void {
+    Vue.set(state, "pricingPlans", pricingPlans);
+  },
   clearAll(state: RootState): void {
     delete state.organization;
     delete state.billing;
     delete state.invoices;
     delete state.members;
     delete state.membership;
+    delete state.subscriptions;
+    delete state.pricingPlans;
   }
 };
 
@@ -83,6 +92,18 @@ export const actions: ActionTree<RootState, RootState> = {
       `/organizations/${context}/invoices`
     )).data;
     commit("setInvoices", invoices);
+  },
+  async getSubscriptions({ commit }, context) {
+    const subscriptions: any = (await this.$axios.get(
+      `/organizations/${context}/subscriptions`
+    )).data;
+    commit("setSubscriptions", subscriptions);
+  },
+  async getPricingPlans({ commit }, context) {
+    const subscriptions: any = (await this.$axios.get(
+      `/organizations/${context}/pricing/${stripeProductId}`
+    )).data;
+    commit("setPricingPlans", subscriptions);
   }
 };
 
@@ -90,5 +111,7 @@ export const getters: GetterTree<RootState, RootState> = {
   membership: state => state.membership,
   billing: state => state.billing,
   invoices: state => state.invoices,
+  subscriptions: state => state.subscriptions,
+  pricingPlans: state => state.pricingPlans,
   members: state => state.members
 };

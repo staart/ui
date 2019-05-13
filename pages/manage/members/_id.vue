@@ -34,7 +34,7 @@ import locale from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { Membership } from "../../../types/manage";
+import { Membership } from "@/types/manage";
 library.add(faTrash, faPencilAlt);
 
 @Component({

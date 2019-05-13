@@ -36,7 +36,7 @@ import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
-import { User } from "../../types/auth";
+import { User } from "@/types/auth";
 
 @Component({
   components: {
@@ -60,7 +60,7 @@ export default class ManageSettings extends Vue {
   loading = "";
 
   private mounted() {
-    this.loading = "Loading invoices details";
+    this.loading = "Loading your invoices";
     this.$store
       .dispatch("manage/getInvoices", this.organization.organization.id)
       .then(invoices => {})

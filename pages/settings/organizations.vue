@@ -85,7 +85,7 @@ import en from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Email } from "../../types/settings";
+import { Email } from "@/types/settings";
 library.add(faTrash);
 
 @Component({
