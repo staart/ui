@@ -111,7 +111,7 @@ main {
       opacity: 0.75;
     }
   }
-  &.nuxt-link-exact-active {
+  &.nuxt-link-active {
     font-weight: bold;
     padding-left: 1rem;
     margin-left: -1rem;

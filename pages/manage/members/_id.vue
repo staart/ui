@@ -7,7 +7,7 @@
           <tbody>
             <tr>
               <td>Name</td>
-              <td>{{ membership.user.name }}</td>
+              <td><User :user="membership.user" /></td>
             </tr>
             <tr>
               <td>Joined organization</td>
@@ -15,7 +15,7 @@
             </tr>
             <tr>
               <td>Country</td>
-              <td>{{ membership.user.countryCode }}</td>
+              <td><Country :code="membership.user.countryCode" /></td>
             </tr>
             <tr>
               <td>Timezone</td>
@@ -45,6 +45,8 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
+import Country from "@/components/Country.vue";
+import User from "@/components/User.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
@@ -60,9 +62,11 @@ library.add(faTrash, faPencilAlt);
 @Component({
   components: {
     Manage,
+    Country,
     TimeAgo,
     Loading,
     Input,
+    User,
     Select,
     Checkbox,
     FontAwesomeIcon

@@ -43,7 +43,7 @@
             @input="val => (deleteText = val)"
           />
           <button class="button button--color-danger-cta">
-            Yes, delete
+            Yes, delete my account
           </button>
           <button type="button" class="button" @click="showDelete = false">
             No, don't delete

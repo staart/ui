@@ -12,14 +12,7 @@
         </thead>
         <tbody>
           <tr v-for="(member, index) in members" :key="`${member.id}_${index}`">
-            <td>
-              <img
-                class="user-image"
-                alt=""
-                :src="member.user.profilePicture"
-              />
-              {{ member.user.name }}
-            </td>
+            <td><User :user="member.user" /></td>
             <td><TimeAgo :date="member.createdAt" /></td>
             <td>{{ membershipRoles[member.role] || member.role }}</td>
             <td class="text text--align-right">
@@ -96,7 +89,7 @@
           class="button button--color-danger-cta"
           @click="deleteMembership(showDelete.id)"
         >
-          Yes, remove
+          Yes, remove {{ showDelete.user.nickname }}
         </button>
         <button type="button" class="button" @click="showDelete = null">
           No, don't remove
@@ -111,6 +104,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
+import User from "@/components/User.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
@@ -121,7 +115,6 @@ import locale from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { User } from "@/types/auth";
 import { Email } from "@/types/settings";
 library.add(faTrash, faPencilAlt);
 
@@ -129,6 +122,7 @@ library.add(faTrash, faPencilAlt);
   components: {
     Manage,
     TimeAgo,
+    User,
     Loading,
     Input,
     Select,
@@ -184,13 +178,3 @@ export default class ManageMembers extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.user-image {
-  height: 2rem;
-  border-radius: 100%;
-  width: 2rem;
-  vertical-align: middle;
-  margin-right: 0.5rem;
-}
-</style>

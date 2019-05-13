@@ -77,9 +77,7 @@ export default class ManageSettings extends Vue {
         name: this.name,
         invitationDomain: this.invitationDomain
       })
-      .then(() => {
-        this.$store.dispatch("auth/resetOrganization");
-      })
+      .then(() => {})
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }

@@ -45,7 +45,12 @@
                   data-balloon="Settings"
                   data-balloon-pos="up"
                   class="button button--type-icon"
-                  @click="visitOrganization(membership.id, '/manage/settings')"
+                  @click="
+                    visitOrganization(
+                      membership.organizationId,
+                      '/manage/settings'
+                    )
+                  "
                 >
                   <font-awesome-icon title="Settings" icon="cog" fixed-width />
                 </button>
@@ -98,7 +103,7 @@
           class="button button--color-danger-cta"
           @click="deleteMembership(showDelete.id)"
         >
-          Yes, leave
+          Yes, leave {{ showDelete.organization.name }}
         </button>
         <button type="button" class="button" @click="showDelete = null">
           No, don't leave
