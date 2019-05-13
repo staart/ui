@@ -13,7 +13,8 @@ export const state = (): RootState => ({
   emails: [],
   memberships: [],
   securityEvents: [],
-  isDownloading: false
+  isDownloading: false,
+  apiKeys: []
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -41,10 +42,14 @@ export const mutations: MutationTree<RootState> = {
   setSecurityEvents(state: RootState, securityEvents: SecurityEvent[]): void {
     Vue.set(state, "securityEvents", securityEvents);
   },
+  setApiKeys(state: RootState, apiKeys: any): void {
+    Vue.set(state, "apiKeys", apiKeys);
+  },
   clearAll(state: RootState): void {
     delete state.user;
     delete state.emails;
     delete state.memberships;
+    delete state.apiKeys;
     delete state.securityEvents;
   },
   startDownloading(state: RootState): void {
@@ -112,12 +117,25 @@ export const actions: ActionTree<RootState, RootState> = {
   async createOrganization({ dispatch }, context) {
     await this.$axios.put("/organizations", context);
     return dispatch("getMemberships");
+  },
+  async getApiKeys({ commit }, context) {
+    const apiKeys: any = (await this.$axios.get("/users/me/api-keys")).data;
+    commit("setApiKeys", apiKeys);
+  },
+  async deleteApiKey({ dispatch }, context) {
+    await this.$axios.delete(`/users/me/api-keys/${context}`);
+    return dispatch("getApiKeys");
+  },
+  async createApiKey({ dispatch }) {
+    await this.$axios.put("/users/me/api-keys");
+    return dispatch("getApiKeys");
   }
 };
 
 export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   emails: state => state.emails,
+  apiKeys: state => state.apiKeys,
   memberships: state => state.memberships,
   securityEvents: state => state.securityEvents,
   isDownloading: state => state.isDownloading,

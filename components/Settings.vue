@@ -22,6 +22,10 @@
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; privacy</span>
         </nuxt-link>
+        <nuxt-link class="item" to="/settings/developer">
+          <font-awesome-icon class="nav-icon" icon="code" fixed-width />
+          <span>Developer</span>
+        </nuxt-link>
       </nav>
     </aside>
     <main class="card">
@@ -40,9 +44,10 @@ import {
   faKey,
   faDatabase,
   faBuilding,
-  faUser
+  faUser,
+  faCode
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faEnvelope, faKey, faDatabase, faBuilding, faUser);
+library.add(faEnvelope, faKey, faDatabase, faBuilding, faUser, faCode);
 
 @Component({
   components: {

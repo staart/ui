@@ -30,4 +30,5 @@ export interface RootState {
   memberships: Membership[];
   securityEvents: SecurityEvent[];
   isDownloading: boolean;
+  apiKeys: any;
 }
