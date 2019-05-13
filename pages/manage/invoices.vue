@@ -1,26 +1,35 @@
 <template>
   <main>
     <Manage>
-      <h1>Invoices</h1>
-      <Loading v-if="loading" :message="loading" />
-      <LargeMessage
-        v-else-if="!loading && (!invoices || !invoices.length)"
-        heading="No invoices yet"
-        text="You don't have any invoices yet, come back here once you've made your first payment."
+      <largeMessage
+        v-if="noBilling"
+        heading="No billing account"
+        text="You need to setup a billing account before you can view payment methods."
+        cta-text="Setup billing"
+        cta-to="/manage/billing"
       />
       <div v-else>
-        <table class="table table--type-cols">
-          <tbody>
-            <tr
-              v-for="(invoice, index) in invoices.data"
-              :key="`${invoice.id}_${index}`"
-            >
-              <td>
-                {{ invoice }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <h1>Invoices</h1>
+        <Loading v-if="loading" :message="loading" />
+        <LargeMessage
+          v-else-if="!loading && (!invoices || !invoices.length)"
+          heading="No invoices yet"
+          text="You don't have any invoices yet, come back here once you've made your first payment."
+        />
+        <div v-else>
+          <table class="table table--type-cols">
+            <tbody>
+              <tr
+                v-for="(invoice, index) in invoices.data"
+                :key="`${invoice.id}_${index}`"
+              >
+                <td>
+                  {{ invoice }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </Manage>
   </main>
@@ -58,6 +67,7 @@ export default class ManageSettings extends Vue {
   invoices!: any;
   user!: any;
   loading = "";
+  noBilling = false;
 
   private mounted() {
     this.loading = "Loading your invoices";
@@ -66,7 +76,7 @@ export default class ManageSettings extends Vue {
       .then(subscriptions => {})
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          this.$router.replace("/manage/billing");
+          this.noBilling = true;
         }
       })
       .finally(() => (this.loading = ""));

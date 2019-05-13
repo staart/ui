@@ -16,7 +16,6 @@
           label="Email domain"
           placeholder="Enter your company's domain"
           help="We'll allow people with emails from this domain to join this organization automatically"
-          required
           @input="val => (invitationDomain = val)"
         />
         <button class="button">

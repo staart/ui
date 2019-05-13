@@ -3,7 +3,8 @@ import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import en from "@/locales/en";
 const messages = en.errors;
 
-const redirectErrors = ["unapproved-location", "1-missing-token"];
+const redirectErrors = ["unapproved-location", "missing-token"];
+const ignoredErrors = ["no-customer"];
 
 export default function({
   $axios,
@@ -24,6 +25,11 @@ export default function({
   $axios.onError(error => {
     if (!error.response) return;
     if (
+      ignoredErrors.includes(
+        error.response.data.code || error.response.data.error
+      )
+    ) {
+    } else if (
       redirectErrors.includes(
         error.response.data.code || error.response.data.error
       )

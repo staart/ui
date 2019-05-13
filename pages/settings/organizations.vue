@@ -175,10 +175,9 @@ export default class AccountSettings extends Vue {
       .dispatch("settings/createOrganization", {
         name: this.organizationName
       })
-      .catch(error => {
-        throw new Error(error);
-      })
-      .then(() => (this.isCreating = false));
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => (this.isCreating = false));
     this.organizationName = "";
   }
 

@@ -1,112 +1,121 @@
 <template>
   <main>
     <Manage>
-      <h1>Payment method</h1>
-      <Loading v-if="loading" :message="loading" />
+      <largeMessage
+        v-if="noBilling"
+        heading="No billing account"
+        text="You need to setup a billing account before you can view payment methods."
+        cta-text="Setup billing"
+        cta-to="/manage/billing"
+      />
       <div v-else>
-        <table class="table table--type-cols">
-          <tbody>
-            <tr>
-              <td>Number</td>
-              <td>•••• •••• •••• {{ card.last4 }}</td>
-            </tr>
-            <tr>
-              <td>Expiry</td>
-              <td>{{ months[card.exp_month] }} {{ card.exp_year }}</td>
-            </tr>
-            <tr>
-              <td>Card type</td>
-              <td style="text-transform: capitalize">
-                {{ card.brand }} {{ card.funding }} {{ card.object }}
-              </td>
-            </tr>
-            <tr>
-              <td>Fingerprint</td>
-              <td>
-                <code>{{ card.fingerprint }}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>Country</td>
-              <td>{{ card.country }}</td>
-            </tr>
-            <tr>
-              <td>CVV approved</td>
-              <td>
-                <font-awesome-icon
-                  v-if="card.cvc_check === 'pass'"
-                  title="Yes"
-                  class="icon icon--color-success"
-                  icon="check-circle"
-                  fixed-width
-                />
-                <font-awesome-icon
-                  v-else
-                  title="No"
-                  class="icon icon--color-danger"
-                  icon="times-circle"
-                  fixed-width
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Dynamic card number</td>
-              <td>
-                <font-awesome-icon
-                  v-if="card.dynamic_last4"
-                  title="Yes"
-                  class="icon icon--color-success"
-                  icon="check-circle"
-                  fixed-width
-                />
-                <font-awesome-icon
-                  v-else
-                  title="No"
-                  class="icon icon--color-danger"
-                  icon="times-circle"
-                  fixed-width
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <h2>Edit card</h2>
-        <form @submit.prevent="editCard">
-          <div class="row">
-            <Input
-              :value="newCardName"
-              label="Name on card"
-              placeholder="Enter your full name as on card"
-              required
-              @input="val => (newCardName = val)"
-            />
-          </div>
-          <div class="row">
-            <Select
-              :value="newCardExpMonth"
-              label="Expiry month"
-              :options="months"
-              required
-              @input="val => (newCardExpMonth = val)"
-            />
-            <Select
-              :value="newCardExpYear"
-              label="Expiry year"
-              :options="years"
-              required
-              @input="val => (newCardExpYear = val)"
-            />
-          </div>
-          <button class="button">Update credit card</button>
-          <button
-            class="button button--color-danger"
-            style="margin-left: 0.5rem"
-            type="button"
-            @click.prevent="showDelete = card"
-          >
-            Delete this card
-          </button>
-        </form>
+        <h1>Payment method</h1>
+        <Loading v-if="loading" :message="loading" />
+        <div v-else>
+          <table class="table table--type-cols">
+            <tbody>
+              <tr>
+                <td>Number</td>
+                <td>•••• •••• •••• {{ card.last4 }}</td>
+              </tr>
+              <tr>
+                <td>Expiry</td>
+                <td>{{ months[card.exp_month] }} {{ card.exp_year }}</td>
+              </tr>
+              <tr>
+                <td>Card type</td>
+                <td style="text-transform: capitalize">
+                  {{ card.brand }} {{ card.funding }} {{ card.object }}
+                </td>
+              </tr>
+              <tr>
+                <td>Fingerprint</td>
+                <td>
+                  <code>{{ card.fingerprint }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Country</td>
+                <td>{{ card.country }}</td>
+              </tr>
+              <tr>
+                <td>CVV approved</td>
+                <td>
+                  <font-awesome-icon
+                    v-if="card.cvc_check === 'pass'"
+                    title="Yes"
+                    class="icon icon--color-success"
+                    icon="check-circle"
+                    fixed-width
+                  />
+                  <font-awesome-icon
+                    v-else
+                    title="No"
+                    class="icon icon--color-danger"
+                    icon="times-circle"
+                    fixed-width
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Dynamic card number</td>
+                <td>
+                  <font-awesome-icon
+                    v-if="card.dynamic_last4"
+                    title="Yes"
+                    class="icon icon--color-success"
+                    icon="check-circle"
+                    fixed-width
+                  />
+                  <font-awesome-icon
+                    v-else
+                    title="No"
+                    class="icon icon--color-danger"
+                    icon="times-circle"
+                    fixed-width
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Edit card</h2>
+          <form @submit.prevent="editCard">
+            <div class="row">
+              <Input
+                :value="newCardName"
+                label="Name on card"
+                placeholder="Enter your full name as on card"
+                required
+                @input="val => (newCardName = val)"
+              />
+            </div>
+            <div class="row">
+              <Select
+                :value="newCardExpMonth"
+                label="Expiry month"
+                :options="months"
+                required
+                @input="val => (newCardExpMonth = val)"
+              />
+              <Select
+                :value="newCardExpYear"
+                label="Expiry year"
+                :options="years"
+                required
+                @input="val => (newCardExpYear = val)"
+              />
+            </div>
+            <button class="button">Update credit card</button>
+            <button
+              class="button button--color-danger"
+              style="margin-left: 0.5rem"
+              type="button"
+              @click.prevent="showDelete = card"
+            >
+              Delete this card
+            </button>
+          </form>
+        </div>
       </div>
     </Manage>
     <transition name="modal">
@@ -172,6 +181,7 @@ export default class ManageSettings extends Vue {
   user!: any;
   card: any = {};
   loading = "";
+  noBilling = false;
   years: number[] = [];
   showDelete = null;
   months = {
@@ -216,7 +226,7 @@ export default class ManageSettings extends Vue {
       })
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          this.$router.replace("/manage/billing");
+          this.noBilling = true;
         }
       })
       .finally(() => (this.loading = ""));
@@ -233,7 +243,7 @@ export default class ManageSettings extends Vue {
       .then(subscriptions => {})
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          this.$router.replace("/manage/billing");
+          this.noBilling = true;
         }
       })
       .finally(() => {
@@ -255,7 +265,7 @@ export default class ManageSettings extends Vue {
       .then(() => {})
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          this.$router.replace("/manage/billing");
+          this.noBilling = true;
         }
       })
       .finally(() => {

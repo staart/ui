@@ -12,6 +12,12 @@ export default {
     "validation-email": "Please enter a valid email",
     "validation-phone": "Please enter a valid phone number",
     "validation-url": "Please enter a valid URL (start with http(s))",
+    "validation-domain": "Please enter a valid domain nmame",
+    "validation-language": "Please enter a valid language",
+    "validation-timezone": "Please enter a valid timezone",
+    "validation-gender": "Please enter a valid gender",
+    "validation-country-code": "Please enter a valid country code",
+    "validation-text": "Please enter a valid text",
     "email-exists": "An account with this email already exists",
     "cannot-delete-sole-owner":
       "Add another owner to this organization before deleting",
@@ -19,8 +25,7 @@ export default {
       "Add another owner to this organization before updating this role",
     "insufficient-permission":
       "You don't have the permission to perform this action",
-    "user-is-member-already": "This user is already a member",
-    "no-customer": "You don't have billing set up"
+    "user-is-member-already": "This user is already a member"
   },
   securityEvents: {
     "user.created": "Created an account",

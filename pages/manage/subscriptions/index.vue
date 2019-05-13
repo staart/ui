@@ -1,69 +1,80 @@
 <template>
   <main>
     <Manage>
-      <h1>Subscription</h1>
-      <Loading v-if="loading" :message="loading" />
-      <LargeMessage
-        v-else-if="
-          !loading &&
-            (!subscriptions ||
-              !subscriptions.data ||
-              !subscriptions.data.length)
-        "
-        heading="No subscriptions yet"
-        text="You don't have any subscriptions yet, get started by creating one below."
+      <largeMessage
+        v-if="noBilling"
+        heading="No billing account"
+        text="You need to setup a billing account before you can view payment methods."
+        cta-text="Setup billing"
+        cta-to="/manage/billing"
       />
-      <div v-else-if="subscriptions.data && subscriptions.data.length">
-        <table class="table table--type-cols">
-          <tbody>
-            <tr
-              v-for="(subscription, index) in subscriptions.data"
-              :key="`${subscription.id}_${index}`"
-            >
-              <td>
-                {{ subscription }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <h2>New subscription</h2>
-      <p>Create a new subscription for your organization.</p>
-      <Loading v-if="loadingPricingPlans" :message="loadingPricingPlans" />
-      <LargeMessage
-        v-else-if="
-          !loadingPricingPlans &&
-            (!pricingPlans.data || !pricingPlans.data.length)
-        "
-        heading="No plans here"
-        text="Unfortunately, we don't have any subscription plans available for you right now."
-      />
-      <form v-else>
-        <div
-          v-for="(plan, index) in pricingPlans.data"
-          :key="`${plan.id}_${index}`"
-        >
-          <label>
-            <input v-model="newPlan" type="radio" :value="plan.id" required />
-            <strong class="name">{{ plan.nickname }}</strong>
-            <span class="amount">
-              {{ (plan.currency || "eur").toUpperCase() }}
-              {{ parseFloat((plan.amount || 0) / 100).toLocaleString() }}
-            </span>
-            <span class="interval">
-              {{
-                plan.interval_count == 1 ? "per" : `per ${plan.interval_count}`
-              }}
-              {{ plan.interval }}
-            </span>
-          </label>
+      <div v-else>
+        <h1>Subscription</h1>
+        <Loading v-if="loading" :message="loading" />
+        <LargeMessage
+          v-else-if="
+            !loading &&
+              (!subscriptions ||
+                !subscriptions.data ||
+                !subscriptions.data.length)
+          "
+          heading="No subscriptions yet"
+          text="You don't have any subscriptions yet, get started by creating one below."
+        />
+        <div v-else-if="subscriptions.data && subscriptions.data.length">
+          <table class="table table--type-cols">
+            <tbody>
+              <tr
+                v-for="(subscription, index) in subscriptions.data"
+                :key="`${subscription.id}_${index}`"
+              >
+                <td>
+                  {{ subscription }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <p class="text text--size-small">
-          On creating a new subscription, your default payment method will be
-          billed.
-        </p>
-        <button class="button">Create subscription</button>
-      </form>
+        <h2>New subscription</h2>
+        <p>Create a new subscription for your organization.</p>
+        <Loading v-if="loadingPricingPlans" :message="loadingPricingPlans" />
+        <LargeMessage
+          v-else-if="
+            !loadingPricingPlans &&
+              (!pricingPlans.data || !pricingPlans.data.length)
+          "
+          heading="No plans here"
+          text="Unfortunately, we don't have any subscription plans available for you right now."
+        />
+        <form v-else>
+          <div
+            v-for="(plan, index) in pricingPlans.data"
+            :key="`${plan.id}_${index}`"
+          >
+            <label>
+              <input v-model="newPlan" type="radio" :value="plan.id" required />
+              <strong class="name">{{ plan.nickname }}</strong>
+              <span class="amount">
+                {{ (plan.currency || "eur").toUpperCase() }}
+                {{ parseFloat((plan.amount || 0) / 100).toLocaleString() }}
+              </span>
+              <span class="interval">
+                {{
+                  plan.interval_count == 1
+                    ? "per"
+                    : `per ${plan.interval_count}`
+                }}
+                {{ plan.interval }}
+              </span>
+            </label>
+          </div>
+          <p class="text text--size-small">
+            On creating a new subscription, your default payment method will be
+            billed.
+          </p>
+          <button class="button">Create subscription</button>
+        </form>
+      </div>
     </Manage>
   </main>
 </template>
@@ -100,6 +111,7 @@ export default class ManageSettings extends Vue {
   organization!: any;
   subscriptions!: any;
   pricingPlans!: any;
+  noBilling = false;
   user!: any;
   loading = "";
   newPlan = "";
@@ -112,7 +124,7 @@ export default class ManageSettings extends Vue {
       .then(subscriptions => {})
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          this.$router.replace("/manage/billing");
+          this.noBilling = true;
         }
       })
       .finally(() => (this.loading = ""));

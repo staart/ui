@@ -196,6 +196,7 @@ export const getters: GetterTree<RootState, RootState> = {
   subscriptions: state => state.subscriptions,
   pricingPlans: state => state.pricingPlans,
   securityEvents: state => state.recentEvents,
+  isDownloading: state => state.isDownloading,
   sources: state => state.sources,
   members: state => state.members
 };
