@@ -23,19 +23,6 @@
             <td><TimeAgo :date="member.createdAt" /></td>
             <td>{{ membershipRoles[member.role] || member.role }}</td>
             <td class="text text--align-right">
-              <button
-                data-balloon="Remove"
-                data-balloon-pos="up"
-                class="button button--color-danger button--type-icon"
-                @click="deleteMembership(member.id)"
-              >
-                <font-awesome-icon
-                  title="Remove"
-                  class="icon icon--color-danger"
-                  icon="trash"
-                  fixed-width
-                />
-              </button>
               <router-link
                 :to="`/manage/members/${member.id}`"
                 data-balloon="Edit"
@@ -49,6 +36,19 @@
                   fixed-width
                 />
               </router-link>
+              <button
+                data-balloon="Remove"
+                data-balloon-pos="up"
+                class="button button--color-danger button--type-icon"
+                @click="showDelete = member"
+              >
+                <font-awesome-icon
+                  title="Remove"
+                  class="icon icon--color-danger"
+                  icon="trash"
+                  fixed-width
+                />
+              </button>
             </td>
           </tr>
         </tbody>
@@ -85,6 +85,22 @@
         <button class="button">Send invitation</button>
       </form>
     </Manage>
+    <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+      <h2>Are you sure you want to remove {{ showDelete.user.name }}?</h2>
+      <p>
+        Remove someone from an organization is not reversable, and you'll have
+        to invite them again if you change your mind.
+      </p>
+      <button
+        class="button button--color-danger-cta"
+        @click="deleteMembership(showDelete.id)"
+      >
+        Yes, remove
+      </button>
+      <button type="button" class="button" @click="showDelete = null">
+        No, don't remove
+      </button>
+    </Confirm>
   </main>
 </template>
 
@@ -94,6 +110,7 @@ import { mapGetters } from "vuex";
 import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
+import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
@@ -114,7 +131,8 @@ library.add(faTrash, faPencilAlt);
     Input,
     Select,
     Checkbox,
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    Confirm
   },
   computed: mapGetters({
     members: "manage/members"
@@ -124,6 +142,7 @@ export default class ManageMembers extends Vue {
   members!: any;
   loading = "";
   inviting = false;
+  showDelete = null;
   membershipRoles = locale.membershipRoles;
 
   newUserName = "";
@@ -153,6 +172,7 @@ export default class ManageMembers extends Vue {
   }
 
   private deleteMembership(id: number) {
+    this.showDelete = null;
     this.loading = "Deleting membership";
     this.$store
       .dispatch("manage/deleteMembership", id)

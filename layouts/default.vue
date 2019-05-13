@@ -189,6 +189,22 @@ a {
       rgba(175, 17, 1, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
   }
 }
+.button--color-danger-cta {
+  background: #af1101;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: rgba(175, 17, 1, 0.2) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 1px 0px, rgba(175, 17, 1, 0.3) 0px 2px 5px 0px;
+  &:hover {
+    box-shadow: rgba(175, 17, 1, 0.5) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.5) 0px 1px 1px 0px, rgba(175, 17, 1, 0.5) 0px 2px 5px 0px;
+  }
+  &:focus {
+    box-shadow: rgba(175, 17, 1, 0.75) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.75) 0px 1px 1px 0px,
+      rgba(175, 17, 1, 0.75) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.5);
+  }
+}
 .button--type-icon {
   padding-left: 0.75rem;
   padding-right: 0.75rem;

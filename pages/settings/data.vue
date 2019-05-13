@@ -19,14 +19,7 @@
         change your mind, you'll have to create a new account.
       </p>
       <Loading v-if="isDeleting" message="Deleting your account" />
-      <form v-else @submit.prevent="deleteAccount">
-        <Input
-          :value="deleteText"
-          label='To confirm, enter "delete my account" below'
-          placeholder="Write those exact words"
-          required
-          @input="val => (deleteText = val)"
-        />
+      <form v-else @submit.prevent="showDelete = true">
         <button class="button button--color-danger">
           Delete my account
         </button>
@@ -37,6 +30,25 @@
         measures, you can get in touch with our Data Protection Officer.
       </p>
     </Settings>
+    <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
+      <h2>Are you sure you want to delete your account?</h2>
+      <p>Deleting your account is not reversable.</p>
+      <form @submit.prevent="deleteAccount">
+        <Input
+          :value="deleteText"
+          label='To confirm, enter "delete my account" below'
+          placeholder="Write those exact words"
+          required
+          @input="val => (deleteText = val)"
+        />
+        <button class="button button--color-danger-cta">
+          Yes, delete
+        </button>
+        <button type="button" class="button" @click="showDelete = false">
+          No, don't delete
+        </button>
+      </form>
+    </Confirm>
   </main>
 </template>
 
@@ -45,12 +57,14 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
+import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
 
 @Component({
   components: {
     Settings,
     Loading,
+    Confirm,
     Input
   },
   computed: mapGetters({
@@ -61,6 +75,7 @@ export default class AccountSettings extends Vue {
   loading = "";
   deleteText = "";
   isDownloading!: boolean;
+  showDelete = false;
   isDeleting = false;
 
   private exportData() {
@@ -69,6 +84,7 @@ export default class AccountSettings extends Vue {
 
   private deleteAccount() {
     if (this.deleteText !== "delete my account") return;
+    this.showDelete = false;
     this.isDeleting = true;
     this.$store
       .dispatch("settings/deleteAccount")

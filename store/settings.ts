@@ -90,7 +90,7 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("startDownloading");
     const data = (await this.$axios.get("/users/me/data")).data;
     download(
-      JSON.stringify(data),
+      JSON.stringify(data, null, 2),
       `export-${new Date().getTime()}.json`,
       "application/json"
     );

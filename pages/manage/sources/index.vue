@@ -53,7 +53,7 @@
                   data-balloon="Delete"
                   data-balloon-pos="up"
                   class="button button--color-danger button--type-icon"
-                  @click="deleteCard(source.id)"
+                  @click="showDelete = source"
                 >
                   <font-awesome-icon
                     title="Delete"
@@ -125,6 +125,23 @@
         <button class="button">Add credit card</button>
       </form>
     </Manage>
+    <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+      <h2>Are you sure you want to remove this card?</h2>
+      <p>
+        Removing a card is not reversable, and you'll have to add another card
+        if you change your mind. If you have any pending charges, your
+        subscription might be cancelled without a payment method.
+      </p>
+      <button
+        class="button button--color-danger-cta"
+        @click="deleteCard(showDelete.id)"
+      >
+        Yes, remove this card
+      </button>
+      <button type="button" class="button" @click="showDelete = null">
+        No, don't remove
+      </button>
+    </Confirm>
   </main>
 </template>
 
@@ -134,6 +151,7 @@ import { mapGetters } from "vuex";
 import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
+import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
@@ -152,6 +170,7 @@ library.add(faTrash, faPencilAlt);
     Select,
     LargeMessage,
     Checkbox,
+    Confirm,
     FontAwesomeIcon
   },
   computed: mapGetters({
@@ -167,6 +186,7 @@ export default class ManageSettings extends Vue {
   loading = "";
   addingCard = "";
   years: number[] = [];
+  showDelete = null;
 
   newCardNumber = "";
   newCardExpMonth = "01";
@@ -196,6 +216,7 @@ export default class ManageSettings extends Vue {
   }
 
   private deleteCard(sourceId: number) {
+    this.showDelete = null;
     this.loading = "Deleting your card";
     this.$store
       .dispatch("manage/deleteSource", {
@@ -231,7 +252,7 @@ export default class ManageSettings extends Vue {
       .finally(() => {
         this.addingCard = "";
         this.newCardNumber = "";
-        this.newCardExpMonth = "";
+        this.newCardExpMonth = "01";
         this.newCardExpYear = new Date().getUTCFullYear() + 5;
         this.newCardCvv = "";
         this.newCardName = "";

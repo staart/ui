@@ -32,19 +32,6 @@
               <td>{{ membershipRoles[membership.role] || membership.role }}</td>
               <td class="text text--align-right">
                 <button
-                  data-balloon="Leave organization"
-                  data-balloon-pos="up"
-                  class="button button--color-danger button--type-icon"
-                  @click="deleteMembership(membership.id)"
-                >
-                  <font-awesome-icon
-                    title="Leave organization"
-                    class="icon icon--color-danger"
-                    icon="trash"
-                    fixed-width
-                  />
-                </button>
-                <button
                   data-balloon="Dashboard"
                   data-balloon-pos="up"
                   class="button button--type-icon"
@@ -61,6 +48,19 @@
                   @click="visitOrganization(membership.id, '/manage/settings')"
                 >
                   <font-awesome-icon title="Settings" icon="cog" fixed-width />
+                </button>
+                <button
+                  data-balloon="Leave organization"
+                  data-balloon-pos="up"
+                  class="button button--color-danger button--type-icon"
+                  @click="showDelete = membership"
+                >
+                  <font-awesome-icon
+                    title="Leave organization"
+                    class="icon icon--color-danger"
+                    icon="trash"
+                    fixed-width
+                  />
                 </button>
               </td>
             </tr>
@@ -85,6 +85,24 @@
         </button>
       </form>
     </Settings>
+    <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+      <h2>
+        Are you sure you want to leave {{ showDelete.organization.name }}?
+      </h2>
+      <p>
+        Leaving an organization is not reversable, and you'll have to ask an
+        admin to add you again if you change your mind.
+      </p>
+      <button
+        class="button button--color-danger-cta"
+        @click="deleteMembership(showDelete.id)"
+      >
+        Yes, leave
+      </button>
+      <button type="button" class="button" @click="showDelete = null">
+        No, don't leave
+      </button>
+    </Confirm>
   </main>
 </template>
 
@@ -94,6 +112,7 @@ import { mapGetters } from "vuex";
 import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
+import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Input from "@/components/form/Input.vue";
 import en from "@/locales/en";
@@ -110,7 +129,8 @@ library.add(faTrash, faEye, faCog);
     Loading,
     Input,
     TimeAgo,
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    Confirm
   },
   computed: mapGetters({
     memberships: "settings/memberships"
@@ -121,6 +141,7 @@ export default class AccountSettings extends Vue {
   organizationName = "";
   isCreating = false;
   membershipRoles = en.membershipRoles;
+  showDelete = null;
 
   private mounted() {
     this.loading = "Loading your organizations";
@@ -132,6 +153,7 @@ export default class AccountSettings extends Vue {
   }
 
   private deleteMembership(id: number) {
+    this.showDelete = null;
     this.loading = "Leaving organization";
     this.$store
       .dispatch("settings/deleteMembership", id)

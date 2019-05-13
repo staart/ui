@@ -98,9 +98,34 @@
             />
           </div>
           <button class="button">Update credit card</button>
+          <button
+            class="button button--color-danger"
+            style="margin-left: 0.5rem"
+            type="button"
+            @click.prevent="showDelete = card"
+          >
+            Delete this card
+          </button>
         </form>
       </div>
     </Manage>
+    <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+      <h2>Are you sure you want to remove this card?</h2>
+      <p>
+        Removing a card is not reversable, and you'll have to add another card
+        if you change your mind. If you have any pending charges, your
+        subscription might be cancelled without a payment method.
+      </p>
+      <button
+        class="button button--color-danger-cta"
+        @click="deleteCard(showDelete.id)"
+      >
+        Yes, remove this card
+      </button>
+      <button type="button" class="button" @click="showDelete = null">
+        No, don't remove
+      </button>
+    </Confirm>
   </main>
 </template>
 
@@ -109,6 +134,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
+import Confirm from "@/components/Confirm.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
@@ -127,6 +153,7 @@ library.add(faCheckCircle, faTimesCircle);
   components: {
     Manage,
     Loading,
+    Confirm,
     Input,
     Select,
     LargeMessage,
@@ -144,6 +171,7 @@ export default class ManageSettings extends Vue {
   card: any = {};
   loading = "";
   years: number[] = [];
+  showDelete = null;
   months = {
     1: "January",
     2: "February",
@@ -190,6 +218,26 @@ export default class ManageSettings extends Vue {
         }
       })
       .finally(() => (this.loading = ""));
+  }
+
+  private deleteCard() {
+    this.showDelete = null;
+    this.loading = "Deleting your card";
+    this.$store
+      .dispatch("manage/deleteSource", {
+        id: this.organization.organization.id,
+        sourceId: this.$route.params.id
+      })
+      .then(subscriptions => {})
+      .catch(error => {
+        if (error.response.data.error === "no-customer") {
+          this.$router.replace("/manage/billing");
+        }
+      })
+      .finally(() => {
+        this.loading = "";
+        this.$router.push("/manage/sources");
+      });
   }
 
   private editCard() {

@@ -1,9 +1,29 @@
 <template>
   <main>
     <Manage>
-      <h1>Edit Membership</h1>
+      <h1>Membership</h1>
       <div v-if="membership">
-        <h2>{{ membership.user.name }}</h2>
+        <table class="table table--type-cols">
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>{{ membership.user.name }}</td>
+            </tr>
+            <tr>
+              <td>Joined organization</td>
+              <td><TimeAgo :date="membership.createdAt" /></td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td>{{ membership.user.countryCode }}</td>
+            </tr>
+            <tr>
+              <td>Timezone</td>
+              <td>{{ membership.user.timezone }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>Edit memberhsip</h2>
       </div>
       <Loading v-if="inviting" />
       <form v-else @submit.prevent="inviteMember">

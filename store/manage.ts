@@ -130,10 +130,11 @@ export const actions: ActionTree<RootState, RootState> = {
       `/organizations/${context.id}/sources/${context.sourceId}`
     )).data;
   },
-  async deleteSource(actions, context) {
-    return (await this.$axios.delete(
+  async deleteSource({ dispatch }, context) {
+    await this.$axios.delete(
       `/organizations/${context.id}/sources/${context.sourceId}`
-    )).data;
+    );
+    return dispatch("getSources", context.id);
   },
   async updateSource({ dispatch }, context) {
     const data = JSON.parse(JSON.stringify(context));
