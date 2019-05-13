@@ -85,24 +85,26 @@
         </button>
       </form>
     </Settings>
-    <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
-      <h2>
-        Are you sure you want to leave {{ showDelete.organization.name }}?
-      </h2>
-      <p>
-        Leaving an organization is not reversable, and you'll have to ask an
-        admin to add you again if you change your mind.
-      </p>
-      <button
-        class="button button--color-danger-cta"
-        @click="deleteMembership(showDelete.id)"
-      >
-        Yes, leave
-      </button>
-      <button type="button" class="button" @click="showDelete = null">
-        No, don't leave
-      </button>
-    </Confirm>
+    <transition name="modal">
+      <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+        <h2>
+          Are you sure you want to leave {{ showDelete.organization.name }}?
+        </h2>
+        <p>
+          Leaving an organization is not reversable, and you'll have to ask an
+          admin to add you again if you change your mind.
+        </p>
+        <button
+          class="button button--color-danger-cta"
+          @click="deleteMembership(showDelete.id)"
+        >
+          Yes, leave
+        </button>
+        <button type="button" class="button" @click="showDelete = null">
+          No, don't leave
+        </button>
+      </Confirm>
+    </transition>
   </main>
 </template>
 

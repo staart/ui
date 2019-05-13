@@ -30,25 +30,27 @@
         measures, you can get in touch with our Data Protection Officer.
       </p>
     </Settings>
-    <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
-      <h2>Are you sure you want to delete your account?</h2>
-      <p>Deleting your account is not reversable.</p>
-      <form @submit.prevent="deleteAccount">
-        <Input
-          :value="deleteText"
-          label='To confirm, enter "delete my account" below'
-          placeholder="Write those exact words"
-          required
-          @input="val => (deleteText = val)"
-        />
-        <button class="button button--color-danger-cta">
-          Yes, delete
-        </button>
-        <button type="button" class="button" @click="showDelete = false">
-          No, don't delete
-        </button>
-      </form>
-    </Confirm>
+    <transition name="modal">
+      <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
+        <h2>Are you sure you want to delete your account?</h2>
+        <p>Deleting your account is not reversable.</p>
+        <form @submit.prevent="deleteAccount">
+          <Input
+            :value="deleteText"
+            label='To confirm, enter "delete my account" below'
+            placeholder="Write those exact words"
+            required
+            @input="val => (deleteText = val)"
+          />
+          <button class="button button--color-danger-cta">
+            Yes, delete
+          </button>
+          <button type="button" class="button" @click="showDelete = false">
+            No, don't delete
+          </button>
+        </form>
+      </Confirm>
+    </transition>
   </main>
 </template>
 

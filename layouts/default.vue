@@ -365,6 +365,22 @@ code {
   opacity: 0;
 }
 
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s;
+  .card {
+    margin-top: 0;
+    transition: margin-top 0.3s;
+  }
+}
+.modal-enter,
+.modal-leave-to {
+  opacity: 0;
+  .card {
+    margin-top: -10px;
+  }
+}
+
 .prefers-color-scheme-dark {
   background-color: #151d21;
   color: rgba(255, 255, 255, 0.95);

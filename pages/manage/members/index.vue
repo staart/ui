@@ -85,22 +85,24 @@
         <button class="button">Send invitation</button>
       </form>
     </Manage>
-    <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
-      <h2>Are you sure you want to remove {{ showDelete.user.name }}?</h2>
-      <p>
-        Remove someone from an organization is not reversable, and you'll have
-        to invite them again if you change your mind.
-      </p>
-      <button
-        class="button button--color-danger-cta"
-        @click="deleteMembership(showDelete.id)"
-      >
-        Yes, remove
-      </button>
-      <button type="button" class="button" @click="showDelete = null">
-        No, don't remove
-      </button>
-    </Confirm>
+    <transition name="modal">
+      <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+        <h2>Are you sure you want to remove {{ showDelete.user.name }}?</h2>
+        <p>
+          Remove someone from an organization is not reversable, and you'll have
+          to invite them again if you change your mind.
+        </p>
+        <button
+          class="button button--color-danger-cta"
+          @click="deleteMembership(showDelete.id)"
+        >
+          Yes, remove
+        </button>
+        <button type="button" class="button" @click="showDelete = null">
+          No, don't remove
+        </button>
+      </Confirm>
+    </transition>
   </main>
 </template>
 
