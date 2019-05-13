@@ -3,7 +3,7 @@
     <Settings>
       <h2>API keys</h2>
       <p>
-        You can switch which API key you are using Staart as here.
+        You can use these API keys to programmatically access your account.
       </p>
       <Loading v-if="loading" :message="loading" />
       <div v-else>
@@ -56,7 +56,7 @@
                   data-balloon="View secret key"
                   data-balloon-pos="up"
                   class="button button--type-icon"
-                  @click="toggleApiKey(apiKey.apiKey)"
+                  @click="showApiKey = apiKey"
                 >
                   <font-awesome-icon
                     title="View secret key"
@@ -84,7 +84,8 @@
       </div>
       <h2>Create an API key</h2>
       <p>
-        You can invite your team by creating an API key.
+        An API key can be used with our Developer API and helps you perform
+        actions in your account.
       </p>
       <Loading v-if="isCreating" message="Creating your API key" />
       <form v-else @submit.prevent="createApiKey">
@@ -99,8 +100,8 @@
           Are you sure you want to delete this API key?
         </h2>
         <p>
-          Deleting an API key is not reversible, and you'll have to ask an admin
-          to add you again if you change your mind.
+          Deleting an API key is not reversible, and any applications using this
+          API key combination will stop working immediately.
         </p>
         <button
           class="button button--color-danger-cta"
@@ -110,6 +111,25 @@
         </button>
         <button type="button" class="button" @click="showDelete = null">
           No, don't leave
+        </button>
+      </Confirm>
+      <Confirm v-if="showApiKey" :on-close="() => (showApiKey = null)">
+        <h2>
+          This secret key is like your password.
+        </h2>
+        <p>
+          Using the API secret key, you can (or others can!) view your account
+          details, edit your organizations, and charge your payment methods.
+          Make sure you keep it safe!
+        </p>
+        <button
+          class="button button--color-primary"
+          @click="toggleApiKey(showApiKey.apiKey)"
+        >
+          Reveal API key
+        </button>
+        <button type="button" class="button" @click="showApiKey = null">
+          Cancel
         </button>
       </Confirm>
     </transition>
@@ -150,6 +170,7 @@ export default class AccountSettings extends Vue {
   loading = "";
   isCreating = false;
   showDelete = null;
+  showApiKey = null;
   visibleApiKeys: string[] = [];
 
   private mounted() {
@@ -181,6 +202,7 @@ export default class AccountSettings extends Vue {
   }
 
   private toggleApiKey(apiKey: string) {
+    this.showApiKey = null;
     if (this.visibleApiKeys.includes(apiKey)) {
       const index = this.visibleApiKeys.indexOf(apiKey);
       this.visibleApiKeys.splice(index, 1);
