@@ -2,34 +2,40 @@
   <main>
     <Manage>
       <h1>Billing</h1>
+      <p>
+        Manage your billing account details. This information will be used for
+        invoicing.
+      </p>
       <Loading v-if="loading" :message="loading" />
       <div v-else>
-        <table class="table table--type-cols">
-          <tbody>
-            <tr>
-              <td>Account balance</td>
-              <td>
-                <span style="text-transform: uppercase">{{
-                  billing.currency || "eur"
-                }}</span>
-                {{ parseFloat(billing.account_balance).toFixed(2) }}
-              </td>
-            </tr>
-            <tr>
-              <td>Customer ID</td>
-              <td>
-                <code>{{ billing.id }}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>Invoice prefix</td>
-              <td>
-                <code>{{ billing.invoice_prefix }}</code>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <h2>Billing details</h2>
+        <div v-if="billing">
+          <table class="table table--type-cols">
+            <tbody>
+              <tr>
+                <td>Account balance</td>
+                <td>
+                  <span style="text-transform: uppercase">{{
+                    billing.currency || "eur"
+                  }}</span>
+                  {{ parseFloat(billing.account_balance).toFixed(2) }}
+                </td>
+              </tr>
+              <tr>
+                <td>Customer ID</td>
+                <td>
+                  <code>{{ billing.id }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Invoice prefix</td>
+                <td>
+                  <code>{{ billing.invoice_prefix }}</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Billing details</h2>
+        </div>
         <form @submit.prevent="save">
           <Input
             :value="name"
@@ -50,7 +56,6 @@
             :value="phone"
             label="Phone"
             placeholder="Enter your billing phone number"
-            required
             @input="val => (phone = val)"
           />
           <Input
@@ -174,6 +179,7 @@ export default class ManageSettings extends Vue {
       .catch(error => {
         if (error.response.data.error === "no-customer") {
           this.name = this.user.name;
+          this.addressCountry = (this.user.countryCode || "us").toUpperCase();
         }
       })
       .finally(() => (this.loading = ""));

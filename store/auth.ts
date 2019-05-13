@@ -97,10 +97,18 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("settings/clearAll", undefined, { root: true });
     commit("manage/clearAll", undefined, { root: true });
   },
-  async setOrganization({ commit }) {
-    const organizations = (await this.$axios.get("/users/me/memberships")).data;
-    if (!organizations.length) throw new Error();
-    commit("setOrganization", organizations[0]);
+  async setOrganization({ commit }, organizationId) {
+    const memberships = (await this.$axios.get("/users/me/memberships")).data;
+    if (!memberships.length) throw new Error();
+    const set = memberships.filter(
+      membership =>
+        parseInt(membership.organizationId) === parseInt(organizationId)
+    );
+    if (set.length) {
+      commit("setOrganization", set[0]);
+    } else {
+      commit("setOrganization", memberships[0]);
+    }
   },
   async resetOrganization({ commit, state }) {
     const org = state.activeOrganization.organization.id;

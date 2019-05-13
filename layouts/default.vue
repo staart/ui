@@ -334,6 +334,14 @@ code {
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.035);
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .prefers-color-scheme-dark {
   background-color: #151d21;
   color: rgba(255, 255, 255, 0.95);

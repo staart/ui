@@ -44,8 +44,21 @@
                     fixed-width
                   />
                 </button>
-                <button class="button">
-                  Visit &rarr;
+                <button
+                  data-balloon="Dashboard"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                  @click="visitOrganization(membership.id, '/dashboard')"
+                >
+                  <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
+                </button>
+                <button
+                  data-balloon="Settings"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                  @click="visitOrganization(membership.id, '/manage/settings')"
+                >
+                  <font-awesome-icon title="Settings" icon="cog" fixed-width />
                 </button>
               </td>
             </tr>
@@ -84,9 +97,9 @@ import Input from "@/components/form/Input.vue";
 import en from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye, faCog } from "@fortawesome/free-solid-svg-icons";
 import { Email } from "@/types/settings";
-library.add(faTrash);
+library.add(faTrash, faEye, faCog);
 
 @Component({
   components: {
@@ -136,6 +149,15 @@ export default class AccountSettings extends Vue {
       })
       .then(() => (this.isCreating = false));
     this.organizationName = "";
+  }
+
+  private visitOrganization(organizationId: number, thenTo: string) {
+    this.$store
+      .dispatch("auth/setOrganization", organizationId)
+      .then(() => {
+        this.$router.push(thenTo);
+      })
+      .catch(() => {});
   }
 }
 </script>

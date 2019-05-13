@@ -4,7 +4,7 @@
       <h1>Invoices</h1>
       <Loading v-if="loading" :message="loading" />
       <LargeMessage
-        v-else-if="!loading && !invoices.length"
+        v-else-if="!loading && (!invoices || !invoices.length)"
         heading="No invoices yet"
         text="You don't have any invoices yet, come back here once you've made your first payment."
       />
@@ -63,10 +63,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your invoices";
     this.$store
       .dispatch("manage/getInvoices", this.organization.organization.id)
-      .then(invoices => {})
+      .then(subscriptions => {})
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          // this.name = this.user.name;
+          this.$router.replace("/manage/billing");
         }
       })
       .finally(() => (this.loading = ""));

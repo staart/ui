@@ -5,12 +5,15 @@
       <Loading v-if="loading" :message="loading" />
       <LargeMessage
         v-else-if="
-          !loading && (!subscriptions.data || !subscriptions.data.length)
+          !loading &&
+            (!subscriptions ||
+              !subscriptions.data ||
+              !subscriptions.data.length)
         "
         heading="No subscriptions yet"
         text="You don't have any subscriptions yet, get started by creating one below."
       />
-      <div v-else-if="subscriptions.length">
+      <div v-else-if="subscriptions.data && subscriptions.data.length">
         <table class="table table--type-cols">
           <tbody>
             <tr
@@ -109,7 +112,7 @@ export default class ManageSettings extends Vue {
       .then(subscriptions => {})
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          // this.name = this.user.name;
+          this.$router.replace("/manage/billing");
         }
       })
       .finally(() => (this.loading = ""));

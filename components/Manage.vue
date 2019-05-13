@@ -8,19 +8,23 @@
         </nuxt-link>
         <nuxt-link class="item" to="/manage/members">
           <font-awesome-icon class="nav-icon" icon="users" fixed-width />
-          <span>Members</span>
+          <span>Team</span>
         </nuxt-link>
         <nuxt-link class="item" to="/manage/subscriptions">
           <font-awesome-icon class="nav-icon" icon="box-open" fixed-width />
           <span>Subscriptions</span>
         </nuxt-link>
         <nuxt-link class="item" to="/manage/billing">
-          <font-awesome-icon class="nav-icon" icon="credit-card" fixed-width />
+          <font-awesome-icon class="nav-icon" icon="address-card" fixed-width />
           <span>Billing</span>
         </nuxt-link>
         <nuxt-link class="item" to="/manage/invoices">
           <font-awesome-icon class="nav-icon" icon="file-invoice" fixed-width />
           <span>Invoices</span>
+        </nuxt-link>
+        <nuxt-link class="item" to="/settings/account">
+          <font-awesome-icon class="nav-icon" icon="user" fixed-width />
+          <span>Account settings</span>
         </nuxt-link>
         <!-- <nuxt-link class="item" to="/manage/data">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
@@ -45,9 +49,20 @@ import {
   faCog,
   faCreditCard,
   faFileInvoice,
-  faBoxOpen
+  faBoxOpen,
+  faUser,
+  faAddressCard
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faDatabase, faUsers, faCog, faCreditCard, faFileInvoice, faBoxOpen);
+library.add(
+  faDatabase,
+  faUsers,
+  faCog,
+  faCreditCard,
+  faFileInvoice,
+  faBoxOpen,
+  faUser,
+  faAddressCard
+);
 
 @Component({
   components: {
@@ -80,12 +95,18 @@ main {
 .nav-icon {
   margin-right: 0.5rem;
   opacity: 0.3;
+  transition: 0.3s;
 }
 .item {
   display: block;
   text-decoration: none;
   padding: 0.7rem 0;
   color: inherit;
+  &:hover {
+    .nav-icon {
+      opacity: 0.75;
+    }
+  }
   &.nuxt-link-exact-active {
     font-weight: bold;
     padding-left: 1rem;
@@ -94,6 +115,9 @@ main {
     background-color: #fff;
     border-radius: 0.2rem 0 0 0.2rem;
     box-shadow: -7px 10px 10px rgba(60, 66, 87, 0.075), 2px 0 0 #fff;
+    &:hover {
+      opacity: 1;
+    }
     .nav-icon {
       opacity: 0.75;
     }

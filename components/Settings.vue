@@ -75,12 +75,18 @@ main {
 .nav-icon {
   margin-right: 0.5rem;
   opacity: 0.3;
+  transition: 0.3s;
 }
 .item {
   display: block;
   text-decoration: none;
   padding: 0.7rem 0;
   color: inherit;
+  &:hover {
+    .nav-icon {
+      opacity: 0.75;
+    }
+  }
   &.nuxt-link-exact-active {
     font-weight: bold;
     padding-left: 1rem;
@@ -89,6 +95,9 @@ main {
     background-color: #fff;
     border-radius: 0.2rem 0 0 0.2rem;
     box-shadow: -7px 10px 10px rgba(60, 66, 87, 0.075), 2px 0 0 #fff;
+    &:hover {
+      opacity: 1;
+    }
     .nav-icon {
       opacity: 0.75;
     }

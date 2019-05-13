@@ -11,8 +11,19 @@
           <tbody>
             <tr v-for="(email, index) in emails" :key="`${email.id}_${index}`">
               <td>
-                {{ email.email
-                }}<span
+                {{ email.email }}
+                <span
+                  v-if="email.isVerified"
+                  data-balloon="Verified"
+                  data-balloon-pos="up"
+                >
+                  <font-awesome-icon
+                    title="Verified"
+                    class="icon icon--ml-2 icon--color-success"
+                    icon="check-circle"
+                  />
+                </span>
+                <span
                   v-if="email.isPrimary"
                   data-balloon="Primary"
                   data-balloon-pos="up"
@@ -21,16 +32,6 @@
                     title="Primary"
                     class="icon icon--ml-2 icon--color-gold"
                     icon="star"
-                  /> </span
-                ><span
-                  v-if="email.isVerified && !email.isPrimary"
-                  data-balloon="Verified"
-                  data-balloon-pos="up"
-                >
-                  <font-awesome-icon
-                    title="Verified"
-                    class="icon icon--ml-2 icon--color-success"
-                    icon="check-circle"
                   />
                 </span>
                 <span

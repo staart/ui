@@ -1,7 +1,7 @@
 <template>
   <main>
     <Manage>
-      <h1>Members</h1>
+      <h1>Team</h1>
       <Loading v-if="loading" :message="loading" />
       <table v-else class="table">
         <thead>
