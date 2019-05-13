@@ -19,7 +19,6 @@
                 <th>Number</th>
                 <th>Network</th>
                 <th>Name on card</th>
-                <th>Country</th>
                 <th></th>
               </tr>
             </thead>
@@ -40,9 +39,6 @@
                 </td>
                 <td>
                   {{ source.name }}
-                </td>
-                <td>
-                  {{ source.country }}
                 </td>
                 <td class="text text--align-right">
                   <router-link

@@ -21,7 +21,11 @@
           heading="No subscriptions yet"
           text="You don't have any subscriptions yet, get started by creating one below."
         />
-        <div v-else-if="subscriptions.data && subscriptions.data.length">
+        <div
+          v-else-if="
+            subscriptions && subscriptions.data && subscriptions.data.length
+          "
+        >
           <table class="table table--type-cols">
             <tbody>
               <tr
@@ -41,7 +45,7 @@
         <LargeMessage
           v-else-if="
             !loadingPricingPlans &&
-              (!pricingPlans.data || !pricingPlans.data.length)
+              (!pricingPlans || !pricingPlans.data || !pricingPlans.data.length)
           "
           heading="No plans here"
           text="Unfortunately, we don't have any subscription plans available for you right now."

@@ -36,7 +36,7 @@
               </tr>
               <tr>
                 <td>Country</td>
-                <td>{{ card.country }}</td>
+                <td><Country :code="card.country" /></td>
               </tr>
               <tr>
                 <td>CVV approved</td>
@@ -144,6 +144,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Manage from "@/components/Manage.vue";
+import Country from "@/components/Country.vue";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
@@ -166,6 +167,7 @@ library.add(faCheckCircle, faTimesCircle);
     Loading,
     Confirm,
     Input,
+    Country,
     Select,
     LargeMessage,
     Checkbox,

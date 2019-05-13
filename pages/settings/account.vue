@@ -179,9 +179,10 @@ export default class AccountSettings extends Vue {
         profilePicture: this.profilePicture,
         gender: this.gender
       })
+      .then(() => this.$store.dispatch("auth/refresh"))
+      .catch(() => {})
       .then(() => {
         this.loading = "";
-        this.$store.dispatch("auth/refresh");
       });
   }
 }

@@ -191,8 +191,8 @@ a {
   }
 }
 .button--color-danger-cta {
-  background: #af1101;
-  color: #fff;
+  background: #af1101 !important;
+  color: #fff !important;
   font-weight: bold;
   box-shadow: rgba(175, 17, 1, 0.2) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.3) 0px 1px 1px 0px, rgba(175, 17, 1, 0.3) 0px 2px 5px 0px;
@@ -392,7 +392,7 @@ code {
     color: #fff;
   }
   .card,
-  .item.nuxt-link-exact-active,
+  .item.nuxt-link-active,
   .dropdown {
     background-color: #263238 !important;
   }
@@ -404,7 +404,8 @@ code {
       rgba(255, 255, 255, 0.1) 0px 2px 5px 0px;
   }
   input,
-  select {
+  select,
+  code {
     background-color: #121415 !important;
     border: 1px solid rgba(255, 255, 255, 0.25) !important;
     color: #fff !important;
@@ -412,7 +413,7 @@ code {
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25) !important;
     }
   }
-  .item.nuxt-link-exact-active {
+  .item.nuxt-link-active {
     color: #fff !important;
     box-shadow: -7px 10px 10px rgba(255, 255, 255, 0.02), 2px 0 0 #263238 !important;
   }
