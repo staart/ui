@@ -55,46 +55,40 @@
           />
           <Input
             :value="addressLine1"
-            label="Line1"
-            placeholder="Choose the addressLine1"
-            required
+            label="Address"
+            placeholder="Enter your address"
             @input="val => (addressLine1 = val)"
           />
           <Input
             :value="addressLine2"
-            label="Line2"
-            placeholder="Choose the addressLine2"
-            required
+            label="Line 2"
+            placeholder="Add another address line"
             @input="val => (addressLine2 = val)"
           />
           <Input
             :value="addressCity"
             label="City"
-            placeholder="Choose the addressCity"
-            required
+            placeholder="Enter your city"
             @input="val => (addressCity = val)"
+          />
+          <Input
+            :value="addressPostalCode"
+            label="Postal code"
+            placeholder="Enter your postal code"
+            @input="val => (addressPostalCode = val)"
+          />
+          <Input
+            :value="addressState"
+            label="State"
+            placeholder="Enter your state"
+            @input="val => (addressState = val)"
           />
           <Select
             :value="addressCountry"
             label="Country"
             placeholder="Select your billing country"
             :options="countries"
-            required
             @input="val => (addressCountry = val)"
-          />
-          <Input
-            :value="addressPostalCode"
-            label="Postal code"
-            placeholder="Choose the addressPostalCode"
-            required
-            @input="val => (addressPostalCode = val)"
-          />
-          <Input
-            :value="addressState"
-            label="State"
-            placeholder="Choose the addressState"
-            required
-            @input="val => (addressState = val)"
           />
           <button class="button">
             Update settings

@@ -14,6 +14,10 @@
           <font-awesome-icon class="nav-icon" icon="credit-card" fixed-width />
           <span>Billing</span>
         </nuxt-link>
+        <nuxt-link class="item" to="/manage/invoices">
+          <font-awesome-icon class="nav-icon" icon="file-invoice" fixed-width />
+          <span>Invoices</span>
+        </nuxt-link>
         <!-- <nuxt-link class="item" to="/manage/data">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
@@ -35,9 +39,10 @@ import {
   faDatabase,
   faUsers,
   faCog,
-  faCreditCard
+  faCreditCard,
+  faFileInvoice
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faDatabase, faUsers, faCog, faCreditCard);
+library.add(faDatabase, faUsers, faCog, faCreditCard, faFileInvoice);
 
 @Component({
   components: {

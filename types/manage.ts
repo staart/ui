@@ -16,4 +16,5 @@ export interface RootState {
   organization?: Organization;
   members: Member[];
   billing?: any;
+  invoices?: any;
 }

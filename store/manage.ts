@@ -16,9 +16,13 @@ export const mutations: MutationTree<RootState> = {
   setBilling(state: RootState, billing: any): void {
     Vue.set(state, "billing", billing);
   },
+  setInvoices(state: RootState, invoices: any): void {
+    Vue.set(state, "invoices", invoices);
+  },
   clearAll(state: RootState): void {
     delete state.organization;
     delete state.billing;
+    delete state.invoices;
     delete state.members;
     delete state.membership;
   }
@@ -73,11 +77,18 @@ export const actions: ActionTree<RootState, RootState> = {
     delete data.id;
     await this.$axios.patch(`/organizations/${context.id}/billing`, data);
     return dispatch("getBilling", context.id);
+  },
+  async getInvoices({ commit }, context) {
+    const invoices: any = (await this.$axios.get(
+      `/organizations/${context}/invoices`
+    )).data;
+    commit("setInvoices", invoices);
   }
 };
 
 export const getters: GetterTree<RootState, RootState> = {
   membership: state => state.membership,
   billing: state => state.billing,
+  invoices: state => state.invoices,
   members: state => state.members
 };
