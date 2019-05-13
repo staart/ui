@@ -26,10 +26,6 @@
           <font-awesome-icon class="nav-icon" icon="file-invoice" fixed-width />
           <span>Invoices</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/settings/account">
-          <font-awesome-icon class="nav-icon" icon="user" fixed-width />
-          <span>Account settings</span>
-        </nuxt-link>
         <nuxt-link class="item" to="/manage/data">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>

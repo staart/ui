@@ -31,6 +31,9 @@ export const mutations: MutationTree<RootState> = {
   setSources(state: RootState, sources: any): void {
     Vue.set(state, "sources", sources);
   },
+  setRecentEvents(state: RootState, recentEvents: any): void {
+    Vue.set(state, "recentEvents", recentEvents);
+  },
   startDownloading(state: RootState): void {
     state.isDownloading = true;
   },
@@ -44,6 +47,7 @@ export const mutations: MutationTree<RootState> = {
     delete state.members;
     delete state.membership;
     delete state.subscriptions;
+    delete state.recentEvents;
     delete state.pricingPlans;
     delete state.sources;
   }
@@ -174,6 +178,14 @@ export const actions: ActionTree<RootState, RootState> = {
       data
     );
     return dispatch("getSource", context);
+  },
+  async getEvents({ commit, rootGetters }) {
+    const org = rootGetters["auth/activeOrganization"];
+    const organizationId = org.organizationId;
+    const events: any = (await this.$axios.get(
+      `/organizations/${organizationId}/events`
+    )).data;
+    commit("setRecentEvents", events);
   }
 };
 
@@ -183,6 +195,7 @@ export const getters: GetterTree<RootState, RootState> = {
   invoices: state => state.invoices,
   subscriptions: state => state.subscriptions,
   pricingPlans: state => state.pricingPlans,
+  securityEvents: state => state.recentEvents,
   sources: state => state.sources,
   members: state => state.members
 };
