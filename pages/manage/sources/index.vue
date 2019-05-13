@@ -183,7 +183,7 @@ export default class ManageSettings extends Vue {
   }
 
   private mounted() {
-    this.loading = "Loading your sources";
+    this.loading = "Loading your cards";
     this.$store
       .dispatch("manage/getSources", this.organization.organization.id)
       .then(subscriptions => {})
@@ -195,8 +195,24 @@ export default class ManageSettings extends Vue {
       .finally(() => (this.loading = ""));
   }
 
+  private deleteCard(sourceId: number) {
+    this.loading = "Deleting your card";
+    this.$store
+      .dispatch("manage/deleteSource", {
+        id: this.organization.organization.id,
+        sourceId
+      })
+      .then(subscriptions => {})
+      .catch(error => {
+        if (error.response.data.error === "no-customer") {
+          this.$router.replace("/manage/billing");
+        }
+      })
+      .finally(() => (this.loading = ""));
+  }
+
   private addCard() {
-    this.addingCard = "Loading your sources";
+    this.addingCard = "Adding your card";
     this.$store
       .dispatch("manage/createSource", {
         id: this.organization.organization.id,
