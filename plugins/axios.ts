@@ -25,6 +25,12 @@ export default function({
   $axios.onError(error => {
     if (!error.response) return;
     if (
+      (error.response.data.code || error.response.data.error) ===
+      "invalid-token"
+    ) {
+      return redirect("/auth/refresh");
+    }
+    if (
       ignoredErrors.includes(
         error.response.data.code || error.response.data.error
       )
