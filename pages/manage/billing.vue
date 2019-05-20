@@ -1,113 +1,110 @@
 <template>
   <main>
-    <Manage>
-      <h1>Billing</h1>
-      <p>
-        Manage your billing account details. This information will be used for
-        invoicing.
-      </p>
-      <Loading v-if="loading" :message="loading" />
-      <div v-else>
-        <div v-if="billing">
-          <table class="table table--type-cols">
-            <tbody>
-              <tr>
-                <td>Account balance</td>
-                <td>
-                  <span style="text-transform: uppercase">{{
-                    billing.currency || "eur"
-                  }}</span>
-                  {{ parseFloat(billing.account_balance).toFixed(2) }}
-                </td>
-              </tr>
-              <tr>
-                <td>Customer ID</td>
-                <td>
-                  <code>{{ billing.id }}</code>
-                </td>
-              </tr>
-              <tr>
-                <td>Invoice prefix</td>
-                <td>
-                  <code>{{ billing.invoice_prefix }}</code>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <h2>Billing details</h2>
-        </div>
-        <form @submit.prevent="save">
-          <Input
-            :value="name"
-            label="Name"
-            placeholder="Enter your full name"
-            required
-            @input="val => (name = val)"
-          />
-          <Input
-            :value="email"
-            type="email"
-            label="Email"
-            placeholder="Enter your billing email"
-            required
-            @input="val => (email = val)"
-          />
-          <Input
-            :value="phone"
-            label="Phone"
-            placeholder="Enter your billing phone number"
-            @input="val => (phone = val)"
-          />
-          <Input
-            :value="addressLine1"
-            label="Address"
-            placeholder="Enter your address"
-            @input="val => (addressLine1 = val)"
-          />
-          <Input
-            :value="addressLine2"
-            label="Line 2"
-            placeholder="Add another address line"
-            @input="val => (addressLine2 = val)"
-          />
-          <Input
-            :value="addressCity"
-            label="City"
-            placeholder="Enter your city"
-            @input="val => (addressCity = val)"
-          />
-          <Input
-            :value="addressPostalCode"
-            label="Postal code"
-            placeholder="Enter your postal code"
-            @input="val => (addressPostalCode = val)"
-          />
-          <Input
-            :value="addressState"
-            label="State"
-            placeholder="Enter your state"
-            @input="val => (addressState = val)"
-          />
-          <Select
-            :value="addressCountry"
-            label="Country"
-            placeholder="Select your billing country"
-            :options="countries"
-            @input="val => (addressCountry = val)"
-          />
-          <button class="button">
-            Update settings
-          </button>
-        </form>
+    <h1>Billing</h1>
+    <p>
+      Manage your billing account details. This information will be used for
+      invoicing.
+    </p>
+    <Loading v-if="loading" :message="loading" />
+    <div v-else>
+      <div v-if="billing">
+        <table class="table table--type-cols">
+          <tbody>
+            <tr>
+              <td>Account balance</td>
+              <td>
+                <span style="text-transform: uppercase">{{
+                  billing.currency || "eur"
+                }}</span>
+                {{ parseFloat(billing.account_balance).toFixed(2) }}
+              </td>
+            </tr>
+            <tr>
+              <td>Customer ID</td>
+              <td>
+                <code>{{ billing.id }}</code>
+              </td>
+            </tr>
+            <tr>
+              <td>Invoice prefix</td>
+              <td>
+                <code>{{ billing.invoice_prefix }}</code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>Billing details</h2>
       </div>
-    </Manage>
+      <form @submit.prevent="save">
+        <Input
+          :value="name"
+          label="Name"
+          placeholder="Enter your full name"
+          required
+          @input="val => (name = val)"
+        />
+        <Input
+          :value="email"
+          type="email"
+          label="Email"
+          placeholder="Enter your billing email"
+          required
+          @input="val => (email = val)"
+        />
+        <Input
+          :value="phone"
+          label="Phone"
+          placeholder="Enter your billing phone number"
+          @input="val => (phone = val)"
+        />
+        <Input
+          :value="addressLine1"
+          label="Address"
+          placeholder="Enter your address"
+          @input="val => (addressLine1 = val)"
+        />
+        <Input
+          :value="addressLine2"
+          label="Line 2"
+          placeholder="Add another address line"
+          @input="val => (addressLine2 = val)"
+        />
+        <Input
+          :value="addressCity"
+          label="City"
+          placeholder="Enter your city"
+          @input="val => (addressCity = val)"
+        />
+        <Input
+          :value="addressPostalCode"
+          label="Postal code"
+          placeholder="Enter your postal code"
+          @input="val => (addressPostalCode = val)"
+        />
+        <Input
+          :value="addressState"
+          label="State"
+          placeholder="Enter your state"
+          @input="val => (addressState = val)"
+        />
+        <Select
+          :value="addressCountry"
+          label="Country"
+          placeholder="Select your billing country"
+          :options="countries"
+          @input="val => (addressCountry = val)"
+        />
+        <button class="button">
+          Update settings
+        </button>
+      </form>
+    </div>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
@@ -118,7 +115,6 @@ import { User } from "@/types/auth";
 
 @Component({
   components: {
-    Manage,
     Loading,
     Input,
     Select,

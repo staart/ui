@@ -1,73 +1,70 @@
 <template>
   <main>
-    <Manage>
-      <h2>Security events</h2>
-      <p>
-        These are the most recent security-related events from your account. You
-        can export your data for the entire list.
-      </p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Browser</th>
-            <th>OS</th>
-            <th>Location</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(event, index) in securityEvents"
-            :key="`${event.id}_${index}`"
-          >
-            <td>{{ textify(event.type) }}</td>
-            <td>
-              {{ parse(event.userAgent).browser.name }}
-            </td>
-            <td>
-              {{ parse(event.userAgent).os.name }}
-            </td>
-            <td v-if="event.location">
-              {{ event.location.region_code }},
-              {{ event.location.country_code }}
-            </td>
-            <td>
-              <TimeAgo :date="event.createdAt" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <h2>Export data</h2>
-      <p>
-        You can download an export of your data in JSON format. This will help
-        you keep track of what we have and transfer your settings to other apps.
-      </p>
-      <Loading v-if="isDownloading" message="Generating your export" />
-      <form v-else @submit.prevent="exportData">
-        <button class="button">
-          Export all data
-        </button>
-      </form>
-      <h2>Delete organization</h2>
-      <p>
-        You can delete your organization. Note that this action is not
-        reversible, and all your data will be permanently lost. If you ever
-        change your mind, you'll have to create a new team and invite all
-        members again.
-      </p>
-      <Loading v-if="isDeleting" message="Deleting your organization" />
-      <form v-else @submit.prevent="showDelete = true">
-        <button class="button button--color-danger">
-          Delete organization
-        </button>
-      </form>
-      <h2>Data Protection Officer</h2>
-      <p>
-        If you have any questions or concerns about your data or our security
-        measures, you can get in touch with our Data Protection Officer.
-      </p>
-    </Manage>
+    <h2>Security events</h2>
+    <p>
+      These are the most recent security-related events from your account. You
+      can export your data for the entire list.
+    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Browser</th>
+          <th>OS</th>
+          <th>Location</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(event, index) in securityEvents"
+          :key="`${event.id}_${index}`"
+        >
+          <td>{{ textify(event.type) }}</td>
+          <td>
+            {{ parse(event.userAgent).browser.name }}
+          </td>
+          <td>
+            {{ parse(event.userAgent).os.name }}
+          </td>
+          <td v-if="event.location">
+            {{ event.location.region_code }},
+            {{ event.location.country_code }}
+          </td>
+          <td>
+            <TimeAgo :date="event.createdAt" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Export data</h2>
+    <p>
+      You can download an export of your data in JSON format. This will help you
+      keep track of what we have and transfer your settings to other apps.
+    </p>
+    <Loading v-if="isDownloading" message="Generating your export" />
+    <form v-else @submit.prevent="exportData">
+      <button class="button">
+        Export all data
+      </button>
+    </form>
+    <h2>Delete organization</h2>
+    <p>
+      You can delete your organization. Note that this action is not reversible,
+      and all your data will be permanently lost. If you ever change your mind,
+      you'll have to create a new team and invite all members again.
+    </p>
+    <Loading v-if="isDeleting" message="Deleting your organization" />
+    <form v-else @submit.prevent="showDelete = true">
+      <button class="button button--color-danger">
+        Delete organization
+      </button>
+    </form>
+    <h2>Data Protection Officer</h2>
+    <p>
+      If you have any questions or concerns about your data or our security
+      measures, you can get in touch with our Data Protection Officer.
+    </p>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
         <h2>
@@ -100,7 +97,6 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -111,7 +107,6 @@ const text = en.securityEvents;
 
 @Component({
   components: {
-    Manage,
     TimeAgo,
     Loading,
     Confirm,

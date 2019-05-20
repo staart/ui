@@ -1,49 +1,46 @@
 <template>
   <main>
-    <Manage>
-      <h1>Membership</h1>
-      <div v-if="membership">
-        <table class="table table--type-cols">
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td><User :user="membership.user" /></td>
-            </tr>
-            <tr>
-              <td>Joined organization</td>
-              <td><TimeAgo :date="membership.createdAt" /></td>
-            </tr>
-            <tr>
-              <td>Country</td>
-              <td><Country :code="membership.user.countryCode" /></td>
-            </tr>
-            <tr>
-              <td>Timezone</td>
-              <td>{{ membership.user.timezone }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <h2>Edit memberhsip</h2>
-      </div>
-      <Loading v-if="inviting" />
-      <form v-else @submit.prevent="inviteMember">
-        <Select
-          :value="newUserRole"
-          label="Role"
-          :options="membershipRoles"
-          required
-          @input="val => (newUserRole = val)"
-        />
-        <button class="button">Update membership</button>
-      </form>
-    </Manage>
+    <h1>Membership</h1>
+    <div v-if="membership">
+      <table class="table table--type-cols">
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td><User :user="membership.user" /></td>
+          </tr>
+          <tr>
+            <td>Joined organization</td>
+            <td><TimeAgo :date="membership.createdAt" /></td>
+          </tr>
+          <tr>
+            <td>Country</td>
+            <td><Country :code="membership.user.countryCode" /></td>
+          </tr>
+          <tr>
+            <td>Timezone</td>
+            <td>{{ membership.user.timezone }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Edit memberhsip</h2>
+    </div>
+    <Loading v-if="inviting" />
+    <form v-else @submit.prevent="inviteMember">
+      <Select
+        :value="newUserRole"
+        label="Role"
+        :options="membershipRoles"
+        required
+        @input="val => (newUserRole = val)"
+      />
+      <button class="button">Update membership</button>
+    </form>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import Country from "@/components/Country.vue";
 import User from "@/components/User.vue";
@@ -61,7 +58,6 @@ library.add(faTrash, faPencilAlt);
 
 @Component({
   components: {
-    Manage,
     Country,
     TimeAgo,
     Loading,

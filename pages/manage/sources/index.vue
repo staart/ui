@@ -1,135 +1,133 @@
 <template>
   <main>
-    <Manage>
-      <largeMessage
-        v-if="noBilling"
-        heading="No billing account"
-        text="You need to setup a billing account before you can view payment methods."
-        cta-text="Setup billing"
-        cta-to="/manage/billing"
-      />
-      <div v-else>
-        <h1>Payment methods</h1>
-        <Loading v-if="loading" :message="loading" />
-        <div v-else-if="sources && sources.data && sources.data.length">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Number</th>
-                <th>Network</th>
-                <th>Name on card</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(source, index) in sources.data"
-                :key="`${source.id}_${index}`"
-              >
-                <td style="text-transform: capitalize">
-                  {{ source.funding }} {{ source.object }}
-                </td>
-                <td>
-                  •••• •••• ••••
-                  {{ source.last4 }}
-                </td>
-                <td>
-                  {{ source.brand }}
-                </td>
-                <td>
-                  {{ source.name }}
-                </td>
-                <td class="text text--align-right">
-                  <router-link
-                    data-balloon="Edit"
-                    data-balloon-pos="up"
-                    class="button button--type-icon"
-                    :to="`/manage/sources/${source.id}`"
-                  >
-                    <font-awesome-icon
-                      title="Edit"
-                      icon="pencil-alt"
-                      fixed-width
-                    />
-                  </router-link>
-                  <button
-                    data-balloon="Delete"
-                    data-balloon-pos="up"
-                    class="button button--color-danger button--type-icon"
-                    @click="showDelete = source"
-                  >
-                    <font-awesome-icon
-                      title="Delete"
-                      class="icon icon--color-danger"
-                      icon="trash"
-                      fixed-width
-                    />
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <h2>Add card</h2>
-        <Loading v-if="addingCard" :message="addingCard" />
-        <form v-else @submit.prevent="addCard">
-          <div class="row">
-            <Input
-              :value="newCardName"
-              label="Name on card"
-              placeholder="Enter your full name as on card"
-              required
-              @input="val => (newCardName = val)"
-            />
-            <Input
-              :value="newCardNumber"
-              label="Credit card number"
-              placeholder="Enter your credit card number (16 digits)"
-              required
-              @input="val => (newCardNumber = val)"
-            />
-          </div>
-          <div class="row">
-            <Select
-              :value="newCardExpMonth"
-              label="Expiry month"
-              :options="{
-                '01': 'January',
-                '02': 'February',
-                '03': 'March',
-                '04': 'April',
-                '05': 'May',
-                '06': 'June',
-                '07': 'July',
-                '08': 'August',
-                '09': 'September',
-                '10': 'October',
-                '11': 'November',
-                '12': 'December'
-              }"
-              required
-              @input="val => (newCardExpMonth = val)"
-            />
-            <Select
-              :value="newCardExpYear"
-              label="Expiry year"
-              :options="years"
-              required
-              @input="val => (newCardExpYear = val)"
-            />
-            <Input
-              :value="newCardCvv"
-              label="CVV"
-              placeholder="Enter your security code"
-              required
-              @input="val => (newCardCvv = val)"
-            />
-          </div>
-          <button class="button">Add credit card</button>
-        </form>
+    <largeMessage
+      v-if="noBilling"
+      heading="No billing account"
+      text="You need to setup a billing account before you can view payment methods."
+      cta-text="Setup billing"
+      cta-to="/manage/billing"
+    />
+    <div v-else>
+      <h1>Payment methods</h1>
+      <Loading v-if="loading" :message="loading" />
+      <div v-else-if="sources && sources.data && sources.data.length">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Number</th>
+              <th>Network</th>
+              <th>Name on card</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(source, index) in sources.data"
+              :key="`${source.id}_${index}`"
+            >
+              <td style="text-transform: capitalize">
+                {{ source.funding }} {{ source.object }}
+              </td>
+              <td>
+                •••• •••• ••••
+                {{ source.last4 }}
+              </td>
+              <td>
+                {{ source.brand }}
+              </td>
+              <td>
+                {{ source.name }}
+              </td>
+              <td class="text text--align-right">
+                <router-link
+                  data-balloon="Edit"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                  :to="`/manage/sources/${source.id}`"
+                >
+                  <font-awesome-icon
+                    title="Edit"
+                    icon="pencil-alt"
+                    fixed-width
+                  />
+                </router-link>
+                <button
+                  data-balloon="Delete"
+                  data-balloon-pos="up"
+                  class="button button--color-danger button--type-icon"
+                  @click="showDelete = source"
+                >
+                  <font-awesome-icon
+                    title="Delete"
+                    class="icon icon--color-danger"
+                    icon="trash"
+                    fixed-width
+                  />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </Manage>
+      <h2>Add card</h2>
+      <Loading v-if="addingCard" :message="addingCard" />
+      <form v-else @submit.prevent="addCard">
+        <div class="row">
+          <Input
+            :value="newCardName"
+            label="Name on card"
+            placeholder="Enter your full name as on card"
+            required
+            @input="val => (newCardName = val)"
+          />
+          <Input
+            :value="newCardNumber"
+            label="Credit card number"
+            placeholder="Enter your credit card number (16 digits)"
+            required
+            @input="val => (newCardNumber = val)"
+          />
+        </div>
+        <div class="row">
+          <Select
+            :value="newCardExpMonth"
+            label="Expiry month"
+            :options="{
+              '01': 'January',
+              '02': 'February',
+              '03': 'March',
+              '04': 'April',
+              '05': 'May',
+              '06': 'June',
+              '07': 'July',
+              '08': 'August',
+              '09': 'September',
+              '10': 'October',
+              '11': 'November',
+              '12': 'December'
+            }"
+            required
+            @input="val => (newCardExpMonth = val)"
+          />
+          <Select
+            :value="newCardExpYear"
+            label="Expiry year"
+            :options="years"
+            required
+            @input="val => (newCardExpYear = val)"
+          />
+          <Input
+            :value="newCardCvv"
+            label="CVV"
+            placeholder="Enter your security code"
+            required
+            @input="val => (newCardCvv = val)"
+          />
+        </div>
+        <button class="button">Add credit card</button>
+      </form>
+    </div>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
         <h2>Are you sure you want to remove this card?</h2>
@@ -155,7 +153,6 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -171,7 +168,6 @@ library.add(faTrash, faPencilAlt);
 
 @Component({
   components: {
-    Manage,
     Loading,
     Input,
     Select,

@@ -1,35 +1,32 @@
 <template>
   <main>
-    <Manage>
-      <h1>Settings</h1>
-      <Loading v-if="loading" :message="loading" />
-      <form v-else @submit.prevent="save">
-        <Input
-          :value="name"
-          label="Name"
-          placeholder="Enter your organization's name"
-          required
-          @input="val => (name = val)"
-        />
-        <Input
-          :value="invitationDomain"
-          label="Email domain"
-          placeholder="Enter your company's domain"
-          help="We'll allow people with emails from this domain to join this organization automatically"
-          @input="val => (invitationDomain = val)"
-        />
-        <button class="button">
-          Update settings
-        </button>
-      </form>
-    </Manage>
+    <h1>Settings</h1>
+    <Loading v-if="loading" :message="loading" />
+    <form v-else @submit.prevent="save">
+      <Input
+        :value="name"
+        label="Name"
+        placeholder="Enter your organization's name"
+        required
+        @input="val => (name = val)"
+      />
+      <Input
+        :value="invitationDomain"
+        label="Email domain"
+        placeholder="Enter your company's domain"
+        help="We'll allow people with emails from this domain to join this organization automatically"
+        @input="val => (invitationDomain = val)"
+      />
+      <button class="button">
+        Update settings
+      </button>
+    </form>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Manage from "@/components/Manage.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
@@ -40,7 +37,6 @@ import { User } from "@/types/auth";
 
 @Component({
   components: {
-    Manage,
     Loading,
     Input,
     Select,
