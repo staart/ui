@@ -22,9 +22,3 @@ export default class TimeAgo extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-time::first-letter {
-  font-size: 200%;
-}
-</style>

@@ -13,7 +13,7 @@
           <nuxt-link class="item" to="/settings/account">
             Notifications
           </nuxt-link>
-          <div class="dropdown" style="width: 350px; display: block">
+          <div class="dropdown" style="width: 350px">
             <Notifications />
           </div>
         </span>
