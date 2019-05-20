@@ -1,95 +1,93 @@
 <template>
   <main>
-    <Settings>
-      <h2>Memberships</h2>
-      <p>
-        You can switch which organization you are using Staart as here.
-      </p>
-      <Loading v-if="loading" :message="loading" />
-      <div v-else>
-        <div v-if="!memberships.length" class="card card--type-padded">
-          <LargeMessage
-            heading="No organizations"
-            text="You're not a member of any organizations yet, let's change that."
-          />
-        </div>
-        <table v-else class="table">
-          <thead>
-            <tr>
-              <th>Organization</th>
-              <th>Joined</th>
-              <th>Role</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(membership, index) in memberships"
-              :key="`${membership.id}_${index}`"
-            >
-              <td>{{ membership.organization.name }}</td>
-              <td><TimeAgo :date="membership.createdAt" /></td>
-              <td>{{ membershipRoles[membership.role] || membership.role }}</td>
-              <td class="text text--align-right">
-                <button
-                  data-balloon="Dashboard"
-                  data-balloon-pos="up"
-                  class="button button--type-icon"
-                  @click="
-                    visitOrganization(membership.organizationId, '/dashboard')
-                  "
-                >
-                  <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
-                </button>
-                <button
-                  data-balloon="Settings"
-                  data-balloon-pos="up"
-                  class="button button--type-icon"
-                  @click="
-                    visitOrganization(
-                      membership.organizationId,
-                      '/manage/settings'
-                    )
-                  "
-                >
-                  <font-awesome-icon title="Settings" icon="cog" fixed-width />
-                </button>
-                <button
-                  data-balloon="Leave organization"
-                  data-balloon-pos="up"
-                  class="button button--color-danger button--type-icon"
-                  @click="showDelete = membership"
-                >
-                  <font-awesome-icon
-                    title="Leave organization"
-                    class="icon icon--color-danger"
-                    icon="trash"
-                    fixed-width
-                  />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <h2>Create an organization</h2>
-      <p>
-        You can invite your team by creating an organization.
-      </p>
-      <Loading v-if="isCreating" message="Creating your organization" />
-      <form v-else @submit.prevent="createOrganization">
-        <Input
-          :value="organizationName"
-          label="Name"
-          placeholder="Enter your team's name"
-          required
-          @input="val => (organizationName = val)"
+    <h2>Memberships</h2>
+    <p>
+      You can switch which organization you are using Staart as here.
+    </p>
+    <Loading v-if="loading" :message="loading" />
+    <div v-else>
+      <div v-if="!memberships.length" class="card card--type-padded">
+        <LargeMessage
+          heading="No organizations"
+          text="You're not a member of any organizations yet, let's change that."
         />
-        <button class="button">
-          Create organization
-        </button>
-      </form>
-    </Settings>
+      </div>
+      <table v-else class="table">
+        <thead>
+          <tr>
+            <th>Organization</th>
+            <th>Joined</th>
+            <th>Role</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(membership, index) in memberships"
+            :key="`${membership.id}_${index}`"
+          >
+            <td>{{ membership.organization.name }}</td>
+            <td><TimeAgo :date="membership.createdAt" /></td>
+            <td>{{ membershipRoles[membership.role] || membership.role }}</td>
+            <td class="text text--align-right">
+              <button
+                data-balloon="Dashboard"
+                data-balloon-pos="up"
+                class="button button--type-icon"
+                @click="
+                  visitOrganization(membership.organizationId, '/dashboard')
+                "
+              >
+                <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
+              </button>
+              <button
+                data-balloon="Settings"
+                data-balloon-pos="up"
+                class="button button--type-icon"
+                @click="
+                  visitOrganization(
+                    membership.organizationId,
+                    '/manage/settings'
+                  )
+                "
+              >
+                <font-awesome-icon title="Settings" icon="cog" fixed-width />
+              </button>
+              <button
+                data-balloon="Leave organization"
+                data-balloon-pos="up"
+                class="button button--color-danger button--type-icon"
+                @click="showDelete = membership"
+              >
+                <font-awesome-icon
+                  title="Leave organization"
+                  class="icon icon--color-danger"
+                  icon="trash"
+                  fixed-width
+                />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Create an organization</h2>
+    <p>
+      You can invite your team by creating an organization.
+    </p>
+    <Loading v-if="isCreating" message="Creating your organization" />
+    <form v-else @submit.prevent="createOrganization">
+      <Input
+        :value="organizationName"
+        label="Name"
+        placeholder="Enter your team's name"
+        required
+        @input="val => (organizationName = val)"
+      />
+      <button class="button">
+        Create organization
+      </button>
+    </form>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
         <h2>
@@ -116,7 +114,6 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -132,7 +129,6 @@ library.add(faTrash, faEye, faCog);
 @Component({
   components: {
     LargeMessage,
-    Settings,
     Loading,
     Input,
     TimeAgo,

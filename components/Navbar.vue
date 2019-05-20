@@ -9,15 +9,28 @@
       </nuxt-link>
       <nav v-if="isAuthenticated">
         <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
+        <nuxt-link class="item" to="/manage/settings">Settings</nuxt-link>
+        <nuxt-link class="item item--type-less" to="/settings/account">
+          <font-awesome-icon
+            title="Help"
+            class="nav-icon"
+            icon="question-circle"
+            fixed-width
+          />
+        </nuxt-link>
         <span>
-          <nuxt-link class="item" to="/settings/account">
-            Notifications
+          <nuxt-link class="item item--type-less" to="/settings/account">
+            <font-awesome-icon
+              title="Notifications"
+              class="nav-icon"
+              icon="bell"
+              fixed-width
+            />
           </nuxt-link>
           <div class="dropdown" style="width: 350px">
             <Notifications />
           </div>
         </span>
-        <nuxt-link class="item" to="/manage/settings">Settings</nuxt-link>
         <span>
           <nuxt-link class="item item--type-user" to="/settings/account">
             <img alt="" :src="user.profilePicture" />
@@ -53,6 +66,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Notifications from "@/components/Notifications.vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faBell, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+library.add(faBell, faQuestionCircle);
 
 @Component({
   computed: mapGetters({
@@ -61,6 +78,7 @@ import Notifications from "@/components/Notifications.vue";
     organization: "auth/activeOrganization"
   }),
   components: {
+    FontAwesomeIcon,
     Notifications
   }
 })
@@ -154,10 +172,17 @@ nav .item:focus + .dropdown {
   display: block;
   width: 100%;
 }
+nav .item.item--type-less {
+  padding: 1.5rem 0.5rem;
+}
 nav .item.item--type-user {
   padding-right: 0.5rem;
 }
 .organization-name {
   margin-left: 0.5rem;
+}
+.nav-icon {
+  opacity: 0.7;
+  transform: scale(1.1);
 }
 </style>

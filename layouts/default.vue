@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <nuxt />
+    <Layout />
     <Footer />
     <notifications width="100%" group="auth" position="top center" />
   </div>
@@ -10,11 +10,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Navbar from "@/components/Navbar.vue";
+import Layout from "@/components/Layout.vue";
 import Footer from "@/components/Footer.vue";
 
 @Component({
   components: {
     Navbar,
+    Layout,
     Footer
   }
 })

@@ -1,99 +1,94 @@
 <template>
   <main>
-    <Settings>
-      <h2>API keys</h2>
-      <p>
-        You can use these API keys to programmatically access your account.
-      </p>
-      <Loading v-if="loading" :message="loading" />
-      <div v-else>
-        <div v-if="!apiKeys.length" class="card card--type-padded">
-          <LargeMessage
-            heading="No API keys"
-            text="You don't have any API keys yet, let's change that."
-          />
-        </div>
-        <table v-else class="table">
-          <thead>
-            <tr>
-              <th>API key</th>
-              <th>Secret key</th>
-              <th>Created</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(apiKey, index) in apiKeys"
-              :key="`${apiKey.id}_${index}`"
-            >
-              <td>
-                <code>{{ apiKey.apiKey }}</code>
-              </td>
-              <td>
-                <code v-if="isVisible(apiKey.apiKey)">{{
-                  apiKey.secretKey
-                }}</code>
-                <code v-else>••••••••••••••••••••</code>
-              </td>
-              <td><TimeAgo :date="apiKey.createdAt" /></td>
-              <td class="text text--align-right">
-                <button
-                  v-if="isVisible(apiKey.apiKey)"
-                  data-balloon="Hide secret key"
-                  data-balloon-pos="up"
-                  class="button button--type-icon"
-                  @click="toggleApiKey(apiKey.apiKey)"
-                >
-                  <font-awesome-icon
-                    title="Hide secret key"
-                    icon="eye-slash"
-                    fixed-width
-                  />
-                </button>
-                <button
-                  v-else
-                  data-balloon="View secret key"
-                  data-balloon-pos="up"
-                  class="button button--type-icon"
-                  @click="showApiKey = apiKey"
-                >
-                  <font-awesome-icon
-                    title="View secret key"
-                    icon="eye"
-                    fixed-width
-                  />
-                </button>
-                <button
-                  data-balloon="Delete API key"
-                  data-balloon-pos="up"
-                  class="button button--color-danger button--type-icon"
-                  @click="showDelete = apiKey"
-                >
-                  <font-awesome-icon
-                    title="Delete API key"
-                    class="icon icon--color-danger"
-                    icon="trash"
-                    fixed-width
-                  />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <h2>API keys</h2>
+    <p>
+      You can use these API keys to programmatically access your account.
+    </p>
+    <Loading v-if="loading" :message="loading" />
+    <div v-else>
+      <div v-if="!apiKeys.length" class="card card--type-padded">
+        <LargeMessage
+          heading="No API keys"
+          text="You don't have any API keys yet, let's change that."
+        />
       </div>
-      <h2>Create an API key</h2>
-      <p>
-        An API key can be used with our Developer API and helps you perform
-        actions in your account.
-      </p>
-      <Loading v-if="isCreating" message="Creating your API key" />
-      <form v-else @submit.prevent="createApiKey">
-        <button class="button">
-          Create API key
-        </button>
-      </form>
-    </Settings>
+      <table v-else class="table">
+        <thead>
+          <tr>
+            <th>API key</th>
+            <th>Secret key</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(apiKey, index) in apiKeys" :key="`${apiKey.id}_${index}`">
+            <td>
+              <code>{{ apiKey.apiKey }}</code>
+            </td>
+            <td>
+              <code v-if="isVisible(apiKey.apiKey)">{{
+                apiKey.secretKey
+              }}</code>
+              <code v-else>••••••••••••••••••••</code>
+            </td>
+            <td><TimeAgo :date="apiKey.createdAt" /></td>
+            <td class="text text--align-right">
+              <button
+                v-if="isVisible(apiKey.apiKey)"
+                data-balloon="Hide secret key"
+                data-balloon-pos="up"
+                class="button button--type-icon"
+                @click="toggleApiKey(apiKey.apiKey)"
+              >
+                <font-awesome-icon
+                  title="Hide secret key"
+                  icon="eye-slash"
+                  fixed-width
+                />
+              </button>
+              <button
+                v-else
+                data-balloon="View secret key"
+                data-balloon-pos="up"
+                class="button button--type-icon"
+                @click="showApiKey = apiKey"
+              >
+                <font-awesome-icon
+                  title="View secret key"
+                  icon="eye"
+                  fixed-width
+                />
+              </button>
+              <button
+                data-balloon="Delete API key"
+                data-balloon-pos="up"
+                class="button button--color-danger button--type-icon"
+                @click="showDelete = apiKey"
+              >
+                <font-awesome-icon
+                  title="Delete API key"
+                  class="icon icon--color-danger"
+                  icon="trash"
+                  fixed-width
+                />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Create an API key</h2>
+    <p>
+      An API key can be used with our Developer API and helps you perform
+      actions in your account.
+    </p>
+    <Loading v-if="isCreating" message="Creating your API key" />
+    <form v-else @submit.prevent="createApiKey">
+      <button class="button">
+        Create API key
+      </button>
+    </form>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
         <h2>
@@ -139,7 +134,6 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Settings from "@/components/Settings.vue";
 import Loading from "@/components/Loading.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -155,7 +149,6 @@ library.add(faTrash, faEye, faEyeSlash);
 @Component({
   components: {
     LargeMessage,
-    Settings,
     Loading,
     Input,
     TimeAgo,
