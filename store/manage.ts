@@ -71,6 +71,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const organizationId = org.organizationId;
     await this.$axios.delete(`/organizations/${organizationId}`);
     commit("clearAll");
+    commit("auth/setOrganization", undefined, { root: true });
   },
   async getExport({ commit, rootGetters }) {
     commit("startDownloading");

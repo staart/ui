@@ -22,4 +22,5 @@ export interface RootState {
   user?: User;
   loading: boolean;
   activeOrganization?: any;
+  notifications: any[];
 }

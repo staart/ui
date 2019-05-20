@@ -9,6 +9,14 @@
       </nuxt-link>
       <nav v-if="isAuthenticated">
         <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
+        <span>
+          <nuxt-link class="item" to="/settings/account">
+            Notifications
+          </nuxt-link>
+          <div class="dropdown" style="width: 350px; display: block">
+            <Notifications />
+          </div>
+        </span>
         <nuxt-link class="item" to="/manage/settings">Settings</nuxt-link>
         <span>
           <nuxt-link class="item item--type-user" to="/settings/account">
@@ -44,13 +52,17 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
+import Notifications from "@/components/Notifications.vue";
 
 @Component({
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
     user: "auth/user",
     organization: "auth/activeOrganization"
-  })
+  }),
+  components: {
+    Notifications
+  }
 })
 export default class Card extends Vue {
   private logout() {

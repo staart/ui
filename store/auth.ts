@@ -9,7 +9,8 @@ export const state = (): RootState => ({
   tokens: {
     token: "",
     refresh: ""
-  }
+  },
+  notifications: []
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -23,6 +24,7 @@ export const mutations: MutationTree<RootState> = {
     Vue.set(state, "tokens", { token: "", refresh: "" });
     state.loading = false;
     state.isAuthenticated = false;
+    state.notifications = [];
     delete state.activeOrganization;
     delete state.user;
   },
@@ -37,6 +39,9 @@ export const mutations: MutationTree<RootState> = {
   },
   setOrganizationDetails(state: RootState, organization: any): void {
     Vue.set(state.activeOrganization, "organization", organization);
+  },
+  setNotifications(state: RootState, notifications: any): void {
+    Vue.set(state, "notifications", notifications);
   }
 };
 
@@ -115,6 +120,11 @@ export const actions: ActionTree<RootState, RootState> = {
     const org = state.activeOrganization.organization.id;
     const organization = (await this.$axios.get(`/organizations/${org}`)).data;
     commit("setOrganizationDetails", organization);
+  },
+  async getNotifications({ commit, state }) {
+    const notifications = (await this.$axios.get(`/users/me/notifications`))
+      .data;
+    commit("setNotifications", notifications);
   }
 };
 
@@ -122,5 +132,6 @@ export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   isLoading: state => state.loading,
   activeOrganization: state => state.activeOrganization,
+  notifications: state => state.notifications,
   isAuthenticated: state => state.isAuthenticated
 };

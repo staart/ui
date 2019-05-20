@@ -242,6 +242,9 @@ a {
 .text--align-right {
   text-align: right;
 }
+.text--align-center {
+  text-align: center;
+}
 
 .section--mt-05 {
   margin-top: 0.5rem;
