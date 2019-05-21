@@ -28,9 +28,9 @@
         </nuxt-link>
       </nav>
     </aside>
-    <main class="card">
+    <div class="card">
       <slot />
-    </main>
+    </div>
   </div>
 </template>
 
@@ -62,13 +62,13 @@ export default class Settings extends Vue {}
   display: flex;
 }
 aside {
-  width: 250px;
+  width: 300px;
 }
 aside nav {
   position: sticky;
   top: 1rem;
 }
-main {
+.card {
   flex-grow: 1;
   padding: 2rem;
 }
@@ -83,6 +83,7 @@ main {
   transition: 0.3s;
 }
 .item {
+  transition: 0.3s;
   display: block;
   text-decoration: none;
   padding: 0.7rem 0;

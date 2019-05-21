@@ -335,6 +335,7 @@ p {
 }
 
 .card {
+  width: 100%;
   background-color: #fff;
   border-radius: 0.2rem;
   box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.075),

@@ -10,33 +10,80 @@
       <nav v-if="isAuthenticated">
         <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
         <nuxt-link class="item" to="/manage/settings">Settings</nuxt-link>
-        <nuxt-link class="item item--type-less" to="/settings/account">
-          <font-awesome-icon
-            title="Help"
-            class="nav-icon"
-            icon="question-circle"
-            fixed-width
-          />
-        </nuxt-link>
         <span>
-          <nuxt-link class="item item--type-less" to="/settings/account">
+          <button
+            class="item item--type-less"
+            to="/settings/account"
+            aria-controls="help"
+            :aria-expanded="(visible === 'help').toString()"
+          >
+            <font-awesome-icon
+              title="Help"
+              class="nav-icon"
+              icon="question-circle"
+              fixed-width
+            />
+          </button>
+          <div
+            ref="dropdown-help"
+            id="help"
+            :class="
+              `dropdown${visible === 'help' ? ' dropdown--state-visible' : ''}`
+            "
+          >
+            <nuxt-link class="item" to="/settings">Feedback</nuxt-link>
+            <nuxt-link class="item" to="/settings/account"
+              >Help Center</nuxt-link
+            >
+            <button class="item">Accessibility</button>
+          </div>
+        </span>
+        <span>
+          <button
+            class="item item--type-less item--type-last"
+            to="/settings/notifications"
+            aria-controls="notifications"
+            :aria-expanded="(visible === 'notifications').toString()"
+          >
             <font-awesome-icon
               title="Notifications"
               class="nav-icon"
               icon="bell"
               fixed-width
             />
-          </nuxt-link>
-          <div class="dropdown" style="width: 350px">
+          </button>
+          <div
+            ref="dropdown-notifications"
+            id="notifications"
+            :class="
+              `dropdown${
+                visible === 'notifications' ? ' dropdown--state-visible' : ''
+              }`
+            "
+            style="width: 350px"
+          >
             <Notifications />
           </div>
         </span>
         <span>
-          <nuxt-link class="item item--type-user" to="/settings/account">
+          <button
+            class="item item--type-user"
+            to="/settings/account"
+            aria-controls="account"
+            :aria-expanded="(visible === 'account').toString()"
+          >
             <img alt="" :src="user.profilePicture" />
             {{ user.nickname }}
-          </nuxt-link>
-          <div class="dropdown">
+          </button>
+          <div
+            ref="dropdown-account"
+            id="account"
+            :class="
+              `dropdown${
+                visible === 'account' ? ' dropdown--state-visible' : ''
+              }`
+            "
+          >
             <nuxt-link class="item" to="/settings/account">Settings</nuxt-link>
             <nuxt-link class="item" to="/settings/organizations"
               >Organizations</nuxt-link
@@ -83,9 +130,32 @@ library.add(faBell, faQuestionCircle);
   }
 })
 export default class Card extends Vue {
+  visible: string | null = null;
   private logout() {
     this.$store.dispatch("auth/logout");
     this.$router.push("/");
+  }
+  private created() {
+    document.body.addEventListener("click", event => {
+      const path = event.composedPath();
+      this.visible = null;
+      document.querySelectorAll("[aria-controls]").forEach(controller => {
+        if (path && path.includes(controller)) {
+          this.visible = controller.getAttribute("aria-controls");
+          setTimeout(() => {
+            const container = this.$refs[
+              `dropdown-${this.visible}`
+            ] as HTMLDivElement;
+            if (container) {
+              const firstFocus = container.querySelector(
+                "a, button"
+              ) as HTMLAnchorElement;
+              if (firstFocus) firstFocus.focus();
+            }
+          }, 1);
+        }
+      });
+    });
   }
 }
 </script>
@@ -163,8 +233,7 @@ nav .button {
     z-index: 1;
   }
 }
-nav span:hover .dropdown,
-nav .item:focus + .dropdown {
+.dropdown--state-visible {
   display: block;
 }
 .dropdown .item {
@@ -174,6 +243,9 @@ nav .item:focus + .dropdown {
 }
 nav .item.item--type-less {
   padding: 1.5rem 0.5rem;
+}
+nav .item.item--type-last {
+  padding-right: 0;
 }
 nav .item.item--type-user {
   padding-right: 0.5rem;
