@@ -14,56 +14,56 @@
           <button
             class="item item--type-less"
             to="/settings/account"
+            aria-label="Help"
+            data-balloon="Help"
+            data-balloon-pos="down"
             aria-controls="help"
             :aria-expanded="(visible === 'help').toString()"
           >
             <font-awesome-icon
-              title="Help"
               class="nav-icon"
               icon="question-circle"
               fixed-width
             />
           </button>
-          <div
-            ref="dropdown-help"
-            id="help"
-            :class="
-              `dropdown${visible === 'help' ? ' dropdown--state-visible' : ''}`
-            "
-          >
-            <nuxt-link class="item" to="/settings">Feedback</nuxt-link>
-            <nuxt-link class="item" to="/settings/account"
-              >Help Center</nuxt-link
+          <transition name="dropdown-fade">
+            <div
+              v-show="visible === 'help'"
+              id="help"
+              ref="dropdown-help"
+              class="dropdown"
             >
-            <button class="item">Accessibility</button>
-          </div>
+              <nuxt-link class="item" to="/settings">Feedback</nuxt-link>
+              <nuxt-link class="item" to="/settings/account"
+                >Help Center</nuxt-link
+              >
+              <button class="item">Accessibility</button>
+            </div>
+          </transition>
         </span>
         <span>
           <button
             class="item item--type-less item--type-last"
             to="/settings/notifications"
+            aria-label="Notifications"
+            data-balloon="Notifications"
+            data-balloon-pos="down"
             aria-controls="notifications"
             :aria-expanded="(visible === 'notifications').toString()"
           >
-            <font-awesome-icon
-              title="Notifications"
-              class="nav-icon"
-              icon="bell"
-              fixed-width
-            />
+            <font-awesome-icon class="nav-icon" icon="bell" fixed-width />
           </button>
-          <div
-            ref="dropdown-notifications"
-            id="notifications"
-            :class="
-              `dropdown${
-                visible === 'notifications' ? ' dropdown--state-visible' : ''
-              }`
-            "
-            style="width: 350px"
-          >
-            <Notifications />
-          </div>
+          <transition name="dropdown-fade">
+            <div
+              v-show="visible === 'notifications'"
+              id="notifications"
+              ref="dropdown-notifications"
+              class="dropdown"
+              style="width: 350px"
+            >
+              <Notifications />
+            </div>
+          </transition>
         </span>
         <span>
           <button
@@ -75,21 +75,22 @@
             <img alt="" :src="user.profilePicture" />
             {{ user.nickname }}
           </button>
-          <div
-            ref="dropdown-account"
-            id="account"
-            :class="
-              `dropdown${
-                visible === 'account' ? ' dropdown--state-visible' : ''
-              }`
-            "
-          >
-            <nuxt-link class="item" to="/settings/account">Settings</nuxt-link>
-            <nuxt-link class="item" to="/settings/organizations"
-              >Organizations</nuxt-link
+          <transition name="dropdown-fade">
+            <div
+              v-show="visible === 'account'"
+              id="account"
+              ref="dropdown-account"
+              class="dropdown"
             >
-            <button class="item" @click="logout">Logout</button>
-          </div>
+              <nuxt-link class="item" to="/settings/account"
+                >Settings</nuxt-link
+              >
+              <nuxt-link class="item" to="/settings/organizations"
+                >Organizations</nuxt-link
+              >
+              <button class="item" @click="logout">Logout</button>
+            </div>
+          </transition>
         </span>
       </nav>
       <nav v-else>
@@ -233,7 +234,7 @@ nav .button {
     z-index: 1;
   }
 }
-.dropdown--state-visible {
+.dropdown {
   display: block;
 }
 .dropdown .item {
@@ -256,5 +257,17 @@ nav .item.item--type-user {
 .nav-icon {
   opacity: 0.7;
   transform: scale(1.1);
+}
+nav .item.item--type-less:hover {
+  opacity: 1;
+}
+.dropdown-fade-enter-active,
+.dropdown-fade-leave-active {
+  transition: opacity 0.2s, margin-top 0.45s;
+}
+.dropdown-fade-enter,
+.dropdown-fade-leave-to {
+  opacity: 0;
+  margin-top: -0.5rem;
 }
 </style>
