@@ -1251,10 +1251,10 @@
     webpack-node-externals "^1.7.2"
     webpackbar "^3.2.0"
 
-"@nuxtjs/axios@^5.5.0":
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.5.0.tgz#d099691b742190b56a1627ed44821372368213c2"
-  integrity sha512-BumibwUpfJcsormwoRSbDxLSXqPM2yV1v7GyIPtzEWwM5jJZ4GFhleL6yeKuyfb1PEOkRtydsX/dja2TnGl2WA==
+"@nuxtjs/axios@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.5.1.tgz#e0eeddcbbec4f04bd705b96afd05071340169b36"
+  integrity sha512-MRZGuXM13D7tFf01D6LJZ7jYxIxD+poRfqgpVHbXIA/AN2FEWvVx9Sv3VlwniEM50+NqzcHHEGv4k2s2ZSSE6g==
   dependencies:
     "@nuxtjs/proxy" "^1.3.3"
     axios "^0.18.0"
