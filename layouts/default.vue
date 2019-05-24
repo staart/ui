@@ -3,7 +3,9 @@
     <Navbar />
     <Layout />
     <Footer />
-    <notifications width="100%" group="auth" position="top center" />
+    <no-ssr>
+      <notifications width="100%" group="auth" position="top center" />
+    </no-ssr>
   </div>
 </template>
 

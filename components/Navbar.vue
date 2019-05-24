@@ -96,12 +96,25 @@
       <nav v-else>
         <nuxt-link class="item" to="/">Solutions</nuxt-link>
         <span>
-          <nuxt-link class="item" to="/">Resources</nuxt-link>
-          <div class="dropdown">
-            <nuxt-link class="item" to="/">Blog</nuxt-link>
-            <nuxt-link class="item" to="/">Help Center</nuxt-link>
-            <nuxt-link class="item" to="/">Developer API</nuxt-link>
-          </div>
+          <button
+            class="item"
+            aria-controls="resources"
+            :aria-expanded="(visible === 'resources').toString()"
+          >
+            Resources
+          </button>
+          <transition name="dropdown-fade">
+            <div
+              v-show="visible === 'resources'"
+              id="resources"
+              ref="dropdown-resources"
+              class="dropdown"
+            >
+              <nuxt-link class="item" to="/">Blog</nuxt-link>
+              <nuxt-link class="item" to="/">Help Center</nuxt-link>
+              <nuxt-link class="item" to="/">Developer API</nuxt-link>
+            </div>
+          </transition>
         </span>
         <nuxt-link class="item" to="/">Pricing</nuxt-link>
         <nuxt-link class="button" to="/auth/login">Login &rarr;</nuxt-link>
