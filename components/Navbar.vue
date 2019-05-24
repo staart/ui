@@ -137,7 +137,7 @@ export default class Card extends Vue {
     this.$router.push("/");
   }
   private created() {
-    if (document && document.body)
+    if (typeof document !== "undefined" && document.body)
       document.body.addEventListener("click", event => {
         const path = event.composedPath();
         this.visible = null;

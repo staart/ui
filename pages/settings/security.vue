@@ -31,7 +31,7 @@
       <p>
         Adding a second factor increases security while logging in to your
         account and doing sensitive operations. 2FA is currently
-        <strong>{{ user.twoFactorEnabled ? "enabled" : "disabled" }}</strong
+        <strong>{{ user && user.twoFactorEnabled ? "enabled" : "disabled" }}</strong
         >.
       </p>
       <form @submit.prevent="saveNotifications">
