@@ -20,6 +20,12 @@ const config: NuxtConfiguration = {
         href:
           "https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css"
       }
+    ],
+    script: [
+      {
+        src:
+          "https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CrequestIdleCallback%2CBlob%2CIntersectionObserver%2CHTMLPictureElement%2CIntersectionObserverEntry%2CMutationObserver%2Cfetch%2ClocalStorage%2CPromise%2CPromise.prototype.finally"
+      }
     ]
   },
   loading: { color: "#492257" },
