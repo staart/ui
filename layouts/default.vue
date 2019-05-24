@@ -27,9 +27,11 @@ export default class Default extends Vue {
         this.$axios.setToken(this.$store.state.auth.tokens.token, "Bearer");
       if (this.$store.state.auth && this.$store.state.auth.user) {
         if (this.$store.state.auth.user.prefersReducedMotion)
-          document.body.classList.add("prefers-reduced-motion");
+          if (document && document.body)
+            document.body.classList.add("prefers-reduced-motion");
         if (this.$store.state.auth.user.prefersColorSchemeDark)
-          document.body.classList.add("prefers-color-scheme-dark");
+          if (document && document.body)
+            document.body.classList.add("prefers-color-scheme-dark");
       }
     } catch (error) {
       console.log(error);

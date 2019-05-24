@@ -1,7 +1,7 @@
 import NuxtConfiguration from "@nuxt/config";
 
 const config: NuxtConfiguration = {
-  mode: "spa",
+  mode: "universal",
   head: {
     title: "Staart UI",
     meta: [
@@ -23,6 +23,7 @@ const config: NuxtConfiguration = {
     ],
     script: [
       {
+        type: "text/javascript",
         src:
           "https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CrequestIdleCallback%2CBlob%2CIntersectionObserver%2CHTMLPictureElement%2CIntersectionObserverEntry%2CMutationObserver%2Cfetch%2ClocalStorage%2CPromise%2CPromise.prototype.finally"
       }
@@ -32,7 +33,7 @@ const config: NuxtConfiguration = {
   css: [],
   plugins: [
     "~/plugins/axios",
-    "~/plugins/vue-notification",
+    { src: "~/plugins/vue-notification", ssr: false },
     "~/plugins/vue-timeago",
     { src: "~/plugins/vuex-persist", ssr: false }
   ],
