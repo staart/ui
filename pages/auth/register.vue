@@ -42,7 +42,7 @@
         </button>
       </form>
     </Card>
-    <p>
+    <p v-if="!completedRegistration">
       Already have an account?
       <nuxt-link to="/auth/login">Login to your account</nuxt-link>
     </p>

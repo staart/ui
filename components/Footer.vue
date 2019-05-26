@@ -42,6 +42,7 @@
           <nuxt-link to="/">Blog</nuxt-link>
           <nuxt-link to="/">Developer API</nuxt-link>
           <nuxt-link to="/">Help Center</nuxt-link>
+          <nuxt-link to="/policies/privacy">Terms &amp; privacy</nuxt-link>
           <nuxt-link to="/">Partners</nuxt-link>
         </nav>
       </div>

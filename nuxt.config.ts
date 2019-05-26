@@ -37,7 +37,7 @@ const config: NuxtConfiguration = {
     "~/plugins/vue-timeago",
     { src: "~/plugins/vuex-persist", ssr: false }
   ],
-  modules: ["@nuxtjs/axios", "@nuxtjs/pwa"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/markdownit"],
   axios: {
     host: process.env.NODE_ENV === "production" ? "example.com" : "localhost",
     https: process.env.NODE_ENV === "production",

@@ -1,5 +1,5 @@
 <template>
-  <main itemscope itemtype="http://schema.org/Product">
+  <main itemscope itemtype="https://schema.org/Product">
     <div class="hero hero--align-center">
       <h1>Simple, transparent pricing.</h1>
       <p>
@@ -12,7 +12,7 @@
       class="container"
       itemprop="offers"
       itemscope
-      itemtype="http://schema.org/Offer"
+      itemtype="https://schema.org/Offer"
     >
       <div class="row row--padding-large">
         <div>1</div>
@@ -22,7 +22,7 @@
             <div class="price">
               <span itemprop="priceCurrency" content="USD">$</span>
               <span itemprop="price" content="0.00">0</span>
-              <link itemprop="availability" href="http://schema.org/InStock" />
+              <link itemprop="availability" href="https://schema.org/InStock" />
             </div>
             <div class="text text--size-small text--color-light">&nbsp;</div>
             <div class="text text--size-small text--color-light">&nbsp;</div>
@@ -34,7 +34,7 @@
             <div class="price">
               <span itemprop="priceCurrency" content="USD">$</span>
               <span itemprop="price" content="39.00">39</span>
-              <link itemprop="availability" href="http://schema.org/InStock" />
+              <link itemprop="availability" href="https://schema.org/InStock" />
             </div>
             <div class="text text--size-small text--color-light">per month</div>
             <div class="text text--size-small text--color-light">
@@ -48,7 +48,7 @@
             <div class="price">
               <span itemprop="priceCurrency" content="USD">$</span>
               <span itemprop="price" content="99.00">99</span>
-              <link itemprop="availability" href="http://schema.org/InStock" />
+              <link itemprop="availability" href="https://schema.org/InStock" />
             </div>
             <div class="text text--size-small text--color-light">per month</div>
             <div class="text text--size-small text--color-light">

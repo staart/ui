@@ -6,6 +6,9 @@
     <Manage v-else-if="activeRoute === 'organization-settings'">
       <nuxt />
     </Manage>
+    <Policies v-else-if="activeRoute === 'policies'">
+      <nuxt />
+    </Policies>
     <nuxt v-else />
   </div>
 </template>
@@ -14,10 +17,12 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import Settings from "@/components/Settings.vue";
 import Manage from "@/components/Manage.vue";
+import Policies from "@/components/Policies.vue";
 
 @Component({
   components: {
     Settings,
+    Policies,
     Manage
   }
 })
@@ -31,6 +36,8 @@ export default class Layout extends Vue {
       this.activeRoute = "user-settings";
     } else if (this.$route.path.startsWith("/manage")) {
       this.activeRoute = "organization-settings";
+    } else if (this.$route.path.startsWith("/policies")) {
+      this.activeRoute = "policies";
     } else {
       this.activeRoute = "default";
     }

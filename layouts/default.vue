@@ -79,11 +79,21 @@ a {
 .container--size-small {
   max-width: 400px;
 }
+.container--size-medium {
+  max-width: 720px;
+}
 .container--top-20height {
   margin-top: 15vh;
 }
 .container--bottom-20height {
   margin-bottom: 15vh;
+}
+.container--type-padded {
+  padding: 4rem 0 3rem 0;
+}
+
+svg {
+  height: 1rem;
 }
 
 .vue-notification.notification {
@@ -241,6 +251,9 @@ a {
 }
 .text--lh-1 {
   line-height: 1.25;
+}
+.text--lh-16 {
+  line-height: 1.6;
 }
 .text--color-light {
   color: #555;
