@@ -116,7 +116,7 @@
             </div>
           </transition>
         </span>
-        <nuxt-link class="item" to="/">Pricing</nuxt-link>
+        <nuxt-link class="item" to="/pricing">Pricing</nuxt-link>
         <nuxt-link class="button" to="/auth/login">Login &rarr;</nuxt-link>
       </nav>
     </div>

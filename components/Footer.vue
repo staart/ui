@@ -1,14 +1,15 @@
 <template>
   <div class="footer">
     <div v-if="!isAuthenticated" class="banner">
-      <h1>Ready?</h1>
-      <p>Get started now for free.</p>
-      <div>
-        <nuxt-link
-          class="button button--size-large button--color-primary"
-          to="/auth/register"
-          >Get started for free &rarr;</nuxt-link
-        >
+      <div class="hero hero--align-center">
+        <h1>It's a no-brainer&mdash;get started now.</h1>
+        <div>
+          <nuxt-link
+            class="button button--size-large button--color-primary"
+            to="/auth/register"
+            >Get started for free &rarr;</nuxt-link
+          >
+        </div>
       </div>
     </div>
     <div class="container">
@@ -106,7 +107,7 @@ nav a {
 .banner {
   text-align: center;
   background-color: #fff;
-  padding: 4rem 0;
+  padding: 1rem 0;
   margin-bottom: 4rem;
 }
 </style>

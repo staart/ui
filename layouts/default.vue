@@ -336,6 +336,14 @@ p {
       margin-right: 0;
     }
   }
+  &.row--padding-large {
+    > * {
+      margin-right: 2rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 }
 
 .card {
@@ -346,6 +354,10 @@ p {
     0 3px 6px 0 rgba(0, 0, 0, 0.035);
   &.card--type-padded {
     padding: 2rem;
+  }
+  &.card--type-invisible {
+    background-color: transparent;
+    box-shadow: none;
   }
 }
 
@@ -433,6 +445,21 @@ code {
   }
   .text--color-light {
     color: rgba(255, 255, 255, 0.5) !important;
+  }
+}
+.hero {
+  max-width: 550px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  &.hero--align-center {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  h1 {
+    font-size: 200%;
+    font-weight: normal;
   }
 }
 </style>

@@ -28,23 +28,27 @@
         >
           Login to your account
         </button>
-        <button
-          class="button button--width-full button--size-large button--color-blue"
-          type="button"
-          style="margin-top: 1rem"
-          @click="loginWithGoogle"
-        >
-          <font-awesome-icon
-            class="icon icon--mr-1"
-            :icon="['fab', 'google']"
-          />
-          Login with Google
-        </button>
+        <no-ssr>
+          <button
+            class="button button--width-full button--size-large button--color-blue"
+            type="button"
+            style="margin-top: 1rem"
+            @click="loginWithGoogle"
+          >
+            <font-awesome-icon
+              class="icon icon--mr-1"
+              :icon="['fab', 'google']"
+            />
+            Login with Google
+          </button>
+        </no-ssr>
       </form>
     </Card>
     <div class="row section section--mt-1">
       <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
-      <nuxt-link to="/auth/register">Create an account</nuxt-link>
+      <nuxt-link to="/auth/register" style="text-align: right"
+        >Create an account</nuxt-link
+      >
     </div>
   </main>
 </template>

@@ -59,7 +59,7 @@ export const actions: ActionTree<RootState, RootState> = {
     }
   },
   async register({ commit }, context) {
-    return (await this.$axios.put("/users", context)).data;
+    return (await this.$axios.post("/auth/register", context)).data;
   },
   async refresh({ state, commit }) {
     commit("startLoading");
