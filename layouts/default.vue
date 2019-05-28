@@ -70,6 +70,17 @@ a {
   &:hover {
     text-decoration: underline;
   }
+  &:focus {
+    outline: 0;
+    border-radius: 0.2rem;
+    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
+}
+
+.js-focus-visible a:focus:not([data-focus-visible-added]) {
+  box-shadow: none;
 }
 
 .container {
@@ -270,6 +281,9 @@ svg {
 }
 .section--mt-1 {
   margin-top: 1rem;
+}
+.section--mt-4 {
+  margin-top: 4rem;
 }
 
 .table {

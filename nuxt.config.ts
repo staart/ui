@@ -26,6 +26,11 @@ const config: NuxtConfiguration = {
         type: "text/javascript",
         src:
           "https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CrequestIdleCallback%2CBlob%2CIntersectionObserver%2CHTMLPictureElement%2CIntersectionObserverEntry%2CMutationObserver%2Cfetch%2ClocalStorage%2CPromise%2CPromise.prototype.finally"
+      },
+      {
+        type: "text/javascript",
+        src: "https://public-cdn.oswaldlabs.com/focus-visible.js",
+        async: true
       }
     ]
   },
@@ -42,6 +47,9 @@ const config: NuxtConfiguration = {
     host: process.env.NODE_ENV === "production" ? "example.com" : "localhost",
     https: process.env.NODE_ENV === "production",
     port: 7007
+  },
+  scrollBehavior: function() {
+    return { x: 0, y: 0 };
   },
   build: {
     extend(config, ctx) {

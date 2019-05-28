@@ -2,11 +2,11 @@
   <main itemscope itemtype="https://schema.org/Product">
     <div class="hero hero--align-center">
       <h1>Simple, transparent pricing.</h1>
-      <p>
+      <!-- <p>
         Our fair pricing charges websites with higher pageviews a subscription
         cost, but is free for smaller websites with less than 10,000 pageviews
         per month.
-      </p>
+      </p> -->
     </div>
     <div
       class="container"
@@ -30,7 +30,7 @@
         </div>
         <div>
           <div class="card card--type-padded text text--align-center">
-            <h2 class="plan">Basic</h2>
+            <h2 class="plan">Starter</h2>
             <div class="price">
               <span itemprop="priceCurrency" content="USD">$</span>
               <span itemprop="price" content="39.00">39</span>
@@ -153,35 +153,56 @@
           </div>
         </div>
       </div>
-      <div class="row row--padding-large addons">
-        <div>
-          <h2>Addons</h2>
+      <div class="text text--align-center section--mt-4">
+        <h2>Addons</h2>
+      </div>
+      <div class="addons">
+        <div class="card card--type-padded">
+          <h3>100% uptime SLA</h3>
+          <p>Service-level agreement for 100% uptime for our services</p>
+          <a href="#">$99/month &rarr;</a>
         </div>
-        <div>
-          <div class="card card--type-padded">
-            <h3>100% uptime SLA</h3>
-            <p>Service-level agreement for 100% uptime for our services</p>
-            <a href="#">$99/month &rarr;</a>
-          </div>
-          <div class="card card--type-padded">
-            <h3>100% uptime SLA</h3>
-            <p>Service-level agreement for 100% uptime for our services</p>
-            <a href="#">$99/month &rarr;</a>
-          </div>
+        <div class="card card--type-padded">
+          <h3>100% uptime SLA</h3>
+          <p>Service-level agreement for 100% uptime for our services</p>
+          <a href="#">$99/month &rarr;</a>
         </div>
-        <div>
-          <div class="card card--type-padded">
-            <h3>Enterprise support</h3>
-            <p>Live chat, phone, and email support, 7 days a week</p>
-            <a href="#">$99/month &rarr;</a>
-          </div>
+        <div class="card card--type-padded">
+          <h3>Enterprise support</h3>
+          <p>Live chat, phone, and email support, 7 days a week</p>
+          <a href="#">$99/month &rarr;</a>
         </div>
-        <div>
-          <div class="card card--type-padded">
-            <h3>Web analytics</h3>
-            <p>GDPR-compliant tracking for pageviews, clicks, and more</p>
-            <a href="#">$0.0001/event &rarr;</a>
-          </div>
+        <div class="card card--type-padded">
+          <h3>Web analytics</h3>
+          <p>GDPR-compliant tracking for pageviews, clicks, and more</p>
+          <a href="#">$0.0001/event &rarr;</a>
+        </div>
+      </div>
+      <div class="text text--align-center section--mt-4">
+        <h2>More plans</h2>
+      </div>
+      <div class="addons more-plans">
+        <div class="card card--type-padded">
+          <h3>For enterprise</h3>
+          <p>
+            High volume pricing available with dedicated support and
+            customizations
+          </p>
+          <a href="#">Request pricing &rarr;</a>
+        </div>
+        <div class="card card--type-padded">
+          <h3>For students</h3>
+          <p>
+            Free Startup plan for student developers with an educational account
+          </p>
+          <a href="#">Create student account &rarr;</a>
+        </div>
+        <div class="card card--type-padded">
+          <h3>For non-profits</h3>
+          <p>
+            Up to 50% off on all plans and services for registered non-profits
+          </p>
+          <a href="#">Contact us &rarr;</a>
         </div>
       </div>
     </div>
@@ -256,8 +277,16 @@ svg {
 }
 .addons {
   margin-top: 3rem;
-  .card + .card {
-    margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  > div {
+    width: 23%;
+  }
+  &.more-plans > div {
+    width: 100%;
+    &:nth-child(2) {
+      margin: 0 2rem;
+    }
   }
   h3 {
     margin: 0;

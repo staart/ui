@@ -15,6 +15,7 @@
     <div class="container">
       <div class="larger">
         <nuxt-link class="logo" to="/">Staart</nuxt-link>
+        <p>An O15Y company</p>
       </div>
       <div>
         <h2>Product</h2>
@@ -50,6 +51,7 @@
         <h2>Company</h2>
         <nav>
           <nuxt-link to="/">About us</nuxt-link>
+          <nuxt-link to="/">O15Y</nuxt-link>
           <nuxt-link to="/">News</nuxt-link>
           <nuxt-link to="/">Presskit</nuxt-link>
           <nuxt-link to="/">Careers</nuxt-link>

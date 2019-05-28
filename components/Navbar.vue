@@ -2,7 +2,7 @@
   <div class="navbar">
     <div class="container">
       <nuxt-link class="item" to="/">
-        <span class="item--type-logo">Product</span>
+        <span class="item--type-logo">Staart</span>
         <span v-if="organization" class="organization-name">
           {{ organization.organization.name }}
         </span>
@@ -176,8 +176,6 @@ export default class Card extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.navbar {
-}
 .container {
   display: flex;
   justify-content: space-between;
@@ -193,6 +191,9 @@ export default class Card extends Vue {
   background: transparent;
   &:hover {
     opacity: 0.5;
+  }
+  &.nuxt-link-exact-active {
+    font-weight: bold;
   }
 }
 .item--type-logo {
