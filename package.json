@@ -18,7 +18,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.8.2",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",
-    "@nuxtjs/axios": "^5.5.1",
+    "@nuxtjs/axios": "^5.5.2",
     "@nuxtjs/pwa": "^2.6.0",
     "countries-and-timezones": "^1.0.1",
     "date-fns": "^1.30.1",
