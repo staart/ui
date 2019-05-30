@@ -34,7 +34,7 @@
   "devDependencies": {
     "@nuxt/typescript": "^2.7.1",
     "@nuxtjs/eslint-config": "^0.0.1",
-    "@nuxtjs/markdownit": "^1.2.4",
+    "@nuxtjs/markdownit": "^1.2.5",
     "@types/downloadjs": "^1.4.1",
     "@types/hashids": "^1.0.30",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
@@ -59,7 +59,7 @@
     "prettier": "^1.17.1",
     "sass-loader": "^7.1.0",
     "ts-node": "^8.2.0",
-    "typescript": "^3.4.5",
+    "typescript": "^3.5.1",
     "vue-property-decorator": "^8.1.1"
   }
 }
