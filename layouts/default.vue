@@ -432,6 +432,14 @@ code {
   }
 }
 
+.prefers-reduced-motion {
+  a,
+  div,
+  button {
+    transition: none !important;
+  }
+}
+
 .prefers-color-scheme-dark {
   background-color: #151d21;
   color: rgba(255, 255, 255, 0.95);

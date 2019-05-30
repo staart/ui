@@ -2,20 +2,20 @@
   <main>
     <h2>Memberships</h2>
     <p>
-      You can switch which organization you are using Staart as here.
+      You can switch which team you are using Staart as here.
     </p>
     <Loading v-if="loading" :message="loading" />
     <div v-else>
       <div v-if="!memberships.length" class="card card--type-padded">
         <LargeMessage
-          heading="No organizations"
-          text="You're not a member of any organizations yet, let's change that."
+          heading="No teams"
+          text="You're not a member of any teams yet, let's change that."
         />
       </div>
       <table v-else class="table">
         <thead>
           <tr>
-            <th>Organization</th>
+            <th>Team</th>
             <th>Joined</th>
             <th>Role</th>
             <th></th>
@@ -71,11 +71,11 @@
         </tbody>
       </table>
     </div>
-    <h2>Create an organization</h2>
+    <h2>Create a team</h2>
     <p>
-      You can invite your team by creating an organization.
+      To invite your team to Staart, get started by creating a new team.
     </p>
-    <Loading v-if="isCreating" message="Creating your organization" />
+    <Loading v-if="isCreating" message="Creating your team" />
     <form v-else @submit.prevent="createOrganization">
       <Input
         :value="organizationName"
@@ -85,7 +85,7 @@
         @input="val => (organizationName = val)"
       />
       <button class="button">
-        Create organization
+        Create team
       </button>
     </form>
     <transition name="modal">
@@ -94,8 +94,8 @@
           Are you sure you want to leave {{ showDelete.organization.name }}?
         </h2>
         <p>
-          Leaving an organization is not reversible, and you'll have to ask an
-          admin to add you again if you change your mind.
+          Leaving a team is not reversible, and you'll have to ask an admin to
+          add you again if you change your mind.
         </p>
         <button
           class="button button--color-danger-cta"

@@ -76,11 +76,11 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("setEmails", emails);
   },
   async addEmail({ dispatch }, context) {
-    await this.$axios.put("/emails", context);
+    await this.$axios.put("/users/me/emails", context);
     return dispatch("getEmails");
   },
   async deleteEmail({ dispatch }, context) {
-    await this.$axios.delete(`/emails/${context}`);
+    await this.$axios.delete(`/users/me/emails/${context}`);
     return dispatch("getEmails");
   },
   async makeEmailPrimary({ dispatch }, context) {

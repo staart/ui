@@ -7,6 +7,12 @@
     <Loading v-if="loading" :message="loading" />
     <div v-else>
       <table class="table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th></th>
+          </tr>
+        </thead>
         <tbody>
           <tr v-for="(email, index) in emails" :key="`${email.id}_${index}`">
             <td>
@@ -65,7 +71,7 @@
                 data-balloon="Delete"
                 data-balloon-pos="up"
                 class="button button--color-danger button--type-icon"
-                @click="deleteEmail(email.id)"
+                @click="showDelete = email"
               >
                 <font-awesome-icon
                   title="Delete"
@@ -107,6 +113,23 @@
           Update preferences
         </button>
       </form>
+      <transition name="modal">
+        <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+          <h2>Are you sure you want to delete {{ showDelete.email }}?</h2>
+          <p>
+            You won't be able to log in with this email anymore.
+          </p>
+          <button
+            class="button button--color-danger-cta"
+            @click="deleteEmail(showDelete.id)"
+          >
+            Yes, delete this email
+          </button>
+          <button type="button" class="button" @click="showDelete = null">
+            No, don't delete
+          </button>
+        </Confirm>
+      </transition>
     </div>
   </main>
 </template>
@@ -119,6 +142,7 @@ import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import Confirm from "@/components/Confirm.vue";
 import {
   faExclamationCircle,
   faStar,
@@ -133,6 +157,7 @@ library.add(faExclamationCircle, faStar, faTrash, faCheckCircle);
     Loading,
     Select,
     Input,
+    Confirm,
     FontAwesomeIcon
   },
   computed: mapGetters({
@@ -144,6 +169,7 @@ export default class AccountSettings extends Vue {
   loading = "";
   newEmail = "";
   notificationEmails = 0;
+  showDelete = null;
   emails!: Email[];
   notificationEmailsGetter!: number;
   notificationOptions = {
@@ -178,7 +204,7 @@ export default class AccountSettings extends Vue {
   }
 
   private deleteEmail(id: number) {
-    if (!confirm("Are you sure you want to delete this email?")) return;
+    this.showDelete = null;
     this.loading = "Deleting email";
     this.$store
       .dispatch("settings/deleteEmail", id)
