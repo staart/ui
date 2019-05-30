@@ -25,7 +25,9 @@ export default {
       "Add another owner to this organization before updating this role",
     "insufficient-permission":
       "You don't have the permission to perform this action",
-    "user-is-member-already": "This user is already a member"
+    "user-is-member-already": "This user is already a member",
+    "invalid-2fa-token": "This 2FA verification code is incorrect",
+    "400/invalid-2fa-token": "2FA has not been enabled"
   },
   securityEvents: {
     "user.created": "Created an account",

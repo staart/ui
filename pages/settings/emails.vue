@@ -140,9 +140,9 @@ import { mapGetters } from "vuex";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
+import Confirm from "@/components/Confirm.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import Confirm from "@/components/Confirm.vue";
 import {
   faExclamationCircle,
   faStar,

@@ -6,7 +6,8 @@ import {
   User,
   Email,
   SecurityEvent,
-  Membership
+  Membership,
+  BackupCode
 } from "../types/settings";
 
 export const state = (): RootState => ({
@@ -14,6 +15,7 @@ export const state = (): RootState => ({
   memberships: [],
   securityEvents: [],
   isDownloading: false,
+  backupCodes: [],
   apiKeys: []
 });
 
@@ -43,6 +45,9 @@ export const mutations: MutationTree<RootState> = {
   },
   setSecurityEvents(state: RootState, securityEvents: SecurityEvent[]): void {
     Vue.set(state, "securityEvents", securityEvents);
+  },
+  setBackupCodes(state: RootState, backupCodes: BackupCode[]): void {
+    Vue.set(state, "backupCodes", backupCodes);
   },
   setApiKeys(state: RootState, apiKeys: any): void {
     Vue.set(state, "apiKeys", apiKeys);
@@ -93,6 +98,12 @@ export const actions: ActionTree<RootState, RootState> = {
     )).data;
     commit("setSecurityEvents", securityEvents);
   },
+  async getBackupCodes({ commit }, context) {
+    const backupCodes: BackupCode[] = (await this.$axios.get(
+      "/users/me/backup-codes"
+    )).data;
+    commit("setBackupCodes", backupCodes);
+  },
   async getExport({ commit }, context) {
     commit("startDownloading");
     const data = (await this.$axios.get("/users/me/data")).data;
@@ -131,6 +142,23 @@ export const actions: ActionTree<RootState, RootState> = {
   async createApiKey({ dispatch }) {
     await this.$axios.put("/users/me/api-keys");
     return dispatch("getApiKeys");
+  },
+  async getEnable2FA({ commit }, context) {
+    return (await this.$axios.get("/users/me/2fa/enable")).data;
+  },
+  async disable2FA({ dispatch }) {
+    await this.$axios.delete("/users/me/2fa");
+    return dispatch("getApiKeys");
+  },
+  async postVerify2FA({ dispatch }, context) {
+    await this.$axios.post("/users/me/2fa/verify", { code: context });
+    return dispatch("getUser");
+  },
+  async regenerateCodes({ dispatch }, context) {
+    await this.$axios.post("/users/me/backup-codes/regenerate", {
+      code: context
+    });
+    return dispatch("getBackupCodes");
   }
 };
 
@@ -140,6 +168,7 @@ export const getters: GetterTree<RootState, RootState> = {
   apiKeys: state => state.apiKeys,
   memberships: state => state.memberships,
   securityEvents: state => state.securityEvents,
+  backupCodes: state => state.backupCodes,
   isDownloading: state => state.isDownloading,
   notificationEmails: state => (state.user ? state.user.notificationEmails : 0)
 };

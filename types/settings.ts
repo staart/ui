@@ -24,11 +24,16 @@ export interface SecurityEvent {
   id: number;
 }
 
+export interface BackupCode {
+  id: number;
+}
+
 export interface RootState {
   user?: User;
   emails: Email[];
   memberships: Membership[];
   securityEvents: SecurityEvent[];
+  backupCodes: BackupCode[];
   isDownloading: boolean;
   apiKeys: any;
 }
