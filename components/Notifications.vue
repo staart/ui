@@ -53,7 +53,8 @@ export default class Notifications extends Vue {
     if (typeof this.onCount === "function") this.onCount(this.count);
   }
   private readNotification(notification: any) {
-    this.$store.dispatch("auth/readNotification", notification.id);
+    if (!notification.isRead)
+      this.$store.dispatch("auth/readNotification", notification.id);
     this.$router.push(notification.link);
   }
   private created() {
@@ -86,5 +87,8 @@ export default class Notifications extends Vue {
   time {
     font-size: 90%;
   }
+}
+.notification--type-read {
+  opacity: 0.5;
 }
 </style>

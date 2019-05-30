@@ -1,7 +1,11 @@
 <template>
-  <div>
-    {{ organization }}
-  </div>
+  <main>
+    <div class="container container--size-small">
+      <div class="card">
+        {{ organization }}
+      </div>
+    </div>
+  </main>
 </template>
 
 <script lang="ts">

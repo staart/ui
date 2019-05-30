@@ -105,7 +105,7 @@
           Yes, delete this API key
         </button>
         <button type="button" class="button" @click="showDelete = null">
-          No, don't leave
+          No, don't delete
         </button>
       </Confirm>
       <Confirm v-if="showApiKey" :on-close="() => (showApiKey = null)">

@@ -89,6 +89,13 @@ import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "@/types/auth";
+const countries = {};
+const allCountries = getAllCountries();
+for (const country in allCountries) {
+  if (allCountries.hasOwnProperty(country)) {
+    countries[country.toLowerCase()] = allCountries[country].name;
+  }
+}
 
 @Component({
   components: {
@@ -101,7 +108,7 @@ import { User } from "@/types/auth";
 })
 export default class AccountSettings extends Vue {
   loading = "";
-  countries = {};
+  countries = countries;
   languages = {
     "en-us": "English (United States)",
     "en-uk": "English (United Kingdom)"
@@ -123,17 +130,6 @@ export default class AccountSettings extends Vue {
   prefersColorSchemeDark = false;
   timezone = "";
   gender = "x";
-
-  private created() {
-    const countries = {};
-    const allCountries = getAllCountries();
-    for (const country in allCountries) {
-      if (allCountries.hasOwnProperty(country)) {
-        countries[country.toLowerCase()] = allCountries[country].name;
-      }
-    }
-    this.countries = countries;
-  }
 
   @Watch("countryCode")
   onCountryCodeChanged() {

@@ -72,7 +72,7 @@ import { mapGetters } from "vuex";
   })
 })
 export default class Footer extends Vue {
-  isVisible = false;
+  isVisible = true;
   @Watch("$route")
   private onRouteChanged() {
     this.updateNavBar();
