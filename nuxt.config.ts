@@ -44,9 +44,9 @@ const config: NuxtConfiguration = {
   ],
   modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/markdownit"],
   axios: {
-    host: process.env.NODE_ENV === "production" ? "example.com" : "localhost",
+    host: process.env.NODE_ENV === "production" ? "staart.caprover.o15y.com" : "localhost",
     https: process.env.NODE_ENV === "production",
-    port: 7007
+    port: process.env.NODE_ENV === "production" ? undefined : 7007
   },
   scrollBehavior: function() {
     return { x: 0, y: 0 };
