@@ -3,23 +3,15 @@
     class="container container--size-small container--top-20height container--bottom-20height"
   >
     <Card>
-      <h1>Login</h1>
+      <h1>Two-factor Authentication</h1>
       <Loading v-if="isLoading" message="Logging you in" />
       <form v-else @submit.prevent="login">
         <Input
-          v-model="email"
-          type="email"
-          label="Email"
-          placeholder="Enter your work email"
-          autocomplete="authname"
-          required
-        />
-        <Input
-          v-model="password"
-          type="password"
-          label="Password"
-          placeholder="Enter your password"
-          autocomplete="current-password"
+          v-model="code"
+          type="number"
+          autocomplete="one-time-code"
+          label="One-time Password"
+          placeholder="Enter your one-time password"
           required
         />
         <button
@@ -28,28 +20,8 @@
         >
           Login to your account
         </button>
-        <no-ssr>
-          <button
-            class="button button--width-full button--size-large button--color-blue"
-            type="button"
-            style="margin-top: 1rem"
-            @click="loginWithGoogle"
-          >
-            <font-awesome-icon
-              class="icon icon--mr-1"
-              :icon="['fab', 'google']"
-            />
-            Login with Google
-          </button>
-        </no-ssr>
       </form>
     </Card>
-    <div class="row section section--mt-1">
-      <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
-      <nuxt-link to="/auth/register" style="text-align: right"
-        >Create an account</nuxt-link
-      >
-    </div>
   </main>
 </template>
 
@@ -77,34 +49,26 @@ library.add(faGoogle);
   })
 })
 export default class Login extends Vue {
-  email = "";
-  password = "";
+  code = "";
   isAuthenticated!: boolean;
   private login() {
     this.$store
-      .dispatch("auth/loginWithEmailPassword", {
-        email: this.email,
-        password: this.password
+      .dispatch("auth/loginWith2FA", {
+        code: this.code,
+        token: this.$store.state.auth.tokens.twoFactorToken
       })
       .then(response => {
-        if (response === "2fa") return this.$router.push("/auth/2fa");
         this.$router.push("/dashboard");
       })
       .catch(error => {
         throw new Error(error);
       })
       .finally(() => {
-        this.email = "";
-        this.password = "";
+        this.code = "";
       });
   }
   private created() {
     if (this.isAuthenticated) return this.$router.replace("/dashboard");
-  }
-  private async loginWithGoogle() {
-    this.$store.commit("auth/startLoading");
-    const link = (await this.$axios.get("/auth/google/link")).data.redirect;
-    location.replace(link);
   }
 }
 </script>

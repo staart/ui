@@ -42,6 +42,10 @@ export const mutations: MutationTree<RootState> = {
   },
   setNotifications(state: RootState, notifications: any): void {
     Vue.set(state, "notifications", notifications);
+  },
+  set2FA(state: RootState, twoFactorToken: string): void {
+    Vue.set(state, "tokens", { twoFactorToken });
+    state.loading = false;
   }
 };
 
@@ -49,7 +53,23 @@ export const actions: ActionTree<RootState, RootState> = {
   async loginWithEmailPassword({ commit }, context) {
     commit("startLoading");
     try {
-      const tokens: Tokens = (await this.$axios.post("/auth/login", context))
+      const tokens = (await this.$axios.post("/auth/login", context)).data;
+      if (tokens.twoFactorToken) {
+        commit("set2FA", tokens.twoFactorToken);
+        return "2fa";
+      } else {
+        this.$axios.setToken(tokens.token, "Bearer");
+        commit("setAuthentication", tokens);
+      }
+    } catch (error) {
+      commit("stopLoading");
+      throw new Error(error);
+    }
+  },
+  async loginWith2FA({ commit }, context) {
+    commit("startLoading");
+    try {
+      const tokens: Tokens = (await this.$axios.post("/auth/2fa", context))
         .data;
       this.$axios.setToken(tokens.token, "Bearer");
       commit("setAuthentication", tokens);

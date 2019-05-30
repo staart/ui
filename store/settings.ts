@@ -154,10 +154,8 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.post("/users/me/2fa/verify", { code: context });
     return dispatch("getUser");
   },
-  async regenerateCodes({ dispatch }, context) {
-    await this.$axios.post("/users/me/backup-codes/regenerate", {
-      code: context
-    });
+  async regenerateCodes({ dispatch }) {
+    await this.$axios.get("/users/me/backup-codes/regenerate");
     return dispatch("getBackupCodes");
   }
 };
