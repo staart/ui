@@ -40,7 +40,8 @@ export default class Token extends Vue {
     }
     this.$store
       .dispatch(`auth/loginWithGoogle`, { code })
-      .then(() => {
+      .then(response => {
+        if (response === "2fa") return this.$router.push("/auth/2fa");
         if (this.$store.state.auth.isAuthenticated)
           return this.$router.replace("/dashboard");
       })

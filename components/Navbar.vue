@@ -89,7 +89,7 @@
                 >Settings</nuxt-link
               >
               <nuxt-link class="item" to="/settings/organizations"
-                >Organizations</nuxt-link
+                >Your teams</nuxt-link
               >
               <button class="item" @click="logout">Logout</button>
             </div>

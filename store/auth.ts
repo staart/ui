@@ -97,12 +97,15 @@ export const actions: ActionTree<RootState, RootState> = {
   async loginWithGoogle({ commit }, context) {
     commit("startLoading");
     try {
-      const tokens: Tokens = (await this.$axios.post(
-        "/auth/google/verify",
-        context
-      )).data;
-      this.$axios.setToken(tokens.token, "Bearer");
-      commit("setAuthentication", tokens);
+      const tokens = (await this.$axios.post("/auth/google/verify", context))
+        .data;
+      if (tokens.twoFactorToken) {
+        commit("set2FA", tokens.twoFactorToken);
+        return "2fa";
+      } else {
+        this.$axios.setToken(tokens.token, "Bearer");
+        commit("setAuthentication", tokens);
+      }
     } catch (error) {
       commit("stopLoading");
       throw new Error(error);
