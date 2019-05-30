@@ -52,6 +52,7 @@
             :aria-expanded="(visible === 'notifications').toString()"
           >
             <font-awesome-icon class="nav-icon" icon="bell" fixed-width />
+            <span class="notif-count">{{ notificationCount }}</span>
           </button>
           <transition name="dropdown-fade">
             <div
@@ -61,7 +62,7 @@
               class="dropdown"
               style="width: 350px"
             >
-              <Notifications />
+              <Notifications :on-count="updateNotificationCount" />
             </div>
           </transition>
         </span>
@@ -146,6 +147,7 @@ library.add(faBell, faQuestionCircle);
 export default class Card extends Vue {
   visible: string | null = null;
   isVisible = false;
+  notificationCount = 0;
   @Watch("$route")
   private onRouteChanged() {
     this.updateNavBar();
@@ -156,6 +158,9 @@ export default class Card extends Vue {
     } else {
       this.isVisible = true;
     }
+  }
+  private updateNotificationCount(count: number) {
+    this.notificationCount = count;
   }
   private logout() {
     this.$store.dispatch("auth/logout");
@@ -299,5 +304,18 @@ nav .item.item--type-less:hover {
 .dropdown-fade-leave-to {
   opacity: 0;
   margin-top: -0.5rem;
+}
+.notif-count {
+  background-color: #e74c3c;
+  display: inline-block;
+  color: #fff;
+  font-size: 80%;
+  font-weight: bold;
+  min-width: 1.25rem;
+  text-align: center;
+  padding: 0 0.25rem;
+  border-radius: 100%;
+  position: absolute;
+  transform: translateX(0.75rem) translateY(-0.75rem) scale(0.8);
 }
 </style>

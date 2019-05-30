@@ -30,6 +30,10 @@
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
         </nuxt-link>
+        <nuxt-link class="item" to="/settings/account">
+          <font-awesome-icon class="nav-icon" icon="user" fixed-width />
+          <span>Your account</span>
+        </nuxt-link>
       </nav>
     </aside>
     <div class="card">

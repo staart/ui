@@ -125,6 +125,12 @@ export const actions: ActionTree<RootState, RootState> = {
     const notifications = (await this.$axios.get(`/users/me/notifications`))
       .data;
     commit("setNotifications", notifications);
+  },
+  async readNotification({ commit }, notificationId) {
+    await this.$axios.patch(`/users/me/notifications/${notificationId}`, {
+      isRead: true
+    });
+    return this.dispatch("getNotifications");
   }
 };
 

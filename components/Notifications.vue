@@ -4,27 +4,28 @@
       You don't have any notifications.
     </p>
     <div v-else>
-      <nuxt-link
+      <a
         v-for="(notification, index) in notifications"
         :key="`notif_${notification.id}_${index}`"
+        :href="notification.link"
         :class="
           `notification notification--type-${
             notification.isRead ? 'read' : 'unread'
           }`
         "
-        :to="notification.link"
+        @click.prevent="readNotification(notification)"
       >
         <span>{{ notification.text }}</span>
         <time class="text text--color-light"
           ><TimeAgo :date="notification.createdAt"
         /></time>
-      </nuxt-link>
+      </a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import LargeMessage from "@/components/LargeMessage.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -41,6 +42,20 @@ import TimeAgo from "@/components/TimeAgo.vue";
 })
 export default class Notifications extends Vue {
   self!: any;
+  notifications!: any;
+  count = 0;
+  @Prop() onCount;
+  @Watch("notifications")
+  onNotifications() {
+    this.count = this.notifications.filter(
+      notification => !notification.isRead
+    ).length;
+    if (typeof this.onCount === "function") this.onCount(this.count);
+  }
+  private readNotification(notification: any) {
+    this.$store.dispatch("auth/readNotification", notification.id);
+    this.$router.push(notification.link);
+  }
   private created() {
     this.$store.dispatch("auth/getNotifications");
   }
