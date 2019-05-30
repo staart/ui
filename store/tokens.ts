@@ -9,7 +9,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return data;
   },
   async verifyEmail({ commit }, context) {
-    const data = (await this.$axios.post("/emails/verify", context)).data;
+    const data = (await this.$axios.post("/auth/verify-email", context)).data;
     return data;
   },
   async approveLocation({ commit }, context) {

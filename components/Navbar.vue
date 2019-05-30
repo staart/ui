@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div v-if="isVisible" class="navbar">
     <div class="container">
       <nuxt-link class="item" to="/">
         <span class="item--type-logo">Staart</span>
@@ -124,7 +124,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Notifications from "@/components/Notifications.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -145,9 +145,24 @@ library.add(faBell, faQuestionCircle);
 })
 export default class Card extends Vue {
   visible: string | null = null;
+  isVisible = false;
+  @Watch("$route")
+  private onRouteChanged() {
+    this.updateNavBar();
+  }
+  private updateNavBar() {
+    if (this.$route.path.startsWith("/onboarding")) {
+      this.isVisible = false;
+    } else {
+      this.isVisible = true;
+    }
+  }
   private logout() {
     this.$store.dispatch("auth/logout");
     this.$router.push("/");
+  }
+  private mounted() {
+    this.updateNavBar();
   }
   private created() {
     if (typeof document !== "undefined" && document.body)

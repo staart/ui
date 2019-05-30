@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div v-if="isVisible" class="footer">
     <div v-if="!isAuthenticated" class="banner">
       <div class="hero hero--align-center">
         <h1>It's a no-brainer&mdash;get started now.</h1>
@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 
 @Component({
@@ -71,7 +71,23 @@ import { mapGetters } from "vuex";
     user: "auth/user"
   })
 })
-export default class Footer extends Vue {}
+export default class Footer extends Vue {
+  isVisible = false;
+  @Watch("$route")
+  private onRouteChanged() {
+    this.updateNavBar();
+  }
+  private updateNavBar() {
+    if (this.$route.path.startsWith("/onboarding")) {
+      this.isVisible = false;
+    } else {
+      this.isVisible = true;
+    }
+  }
+  private mounted() {
+    this.updateNavBar();
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -44,7 +44,10 @@ const config: NuxtConfiguration = {
   ],
   modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/markdownit"],
   axios: {
-    host: process.env.NODE_ENV === "production" ? "staart.caprover.o15y.com" : "localhost",
+    host:
+      process.env.NODE_ENV === "production"
+        ? "staart.caprover.o15y.com"
+        : "localhost",
     https: process.env.NODE_ENV === "production",
     port: process.env.NODE_ENV === "production" ? 443 : 7007
   },
