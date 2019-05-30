@@ -46,7 +46,7 @@ const config: NuxtConfiguration = {
   axios: {
     host: process.env.NODE_ENV === "production" ? "staart.caprover.o15y.com" : "localhost",
     https: process.env.NODE_ENV === "production",
-    port: process.env.NODE_ENV === "production" ? 80 : 7007
+    port: process.env.NODE_ENV === "production" ? 443 : 7007
   },
   scrollBehavior: function() {
     return { x: 0, y: 0 };
