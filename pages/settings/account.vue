@@ -135,7 +135,7 @@ export default class AccountSettings extends Vue {
   onCountryCodeChanged() {
     this.timezones = getAllCountries()[
       this.countryCode.toUpperCase()
-    ].timezones;
+    ].timezones.map(t => t.replace(/_/g, " "));
     if (!this.timezones.includes(this.timezone)) {
       this.timezone = this.timezones[0];
     }

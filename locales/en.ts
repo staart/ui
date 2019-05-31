@@ -4,6 +4,7 @@ export default {
     "missing-field": "Make sure you've entered all required fields",
     "unverified-email": "This email has not been verified yet",
     "invalid-login": "This is an incorrect email/password combination",
+    "incorrect-password": "This password is incorrect",
     "TokenExpiredjwt expired":
       "This magic link has been expired, please request a new one",
     "JsonWebTokenjwt malformed":
@@ -26,8 +27,7 @@ export default {
     "insufficient-permission":
       "You don't have the permission to perform this action",
     "user-is-member-already": "This user is already a member",
-    "invalid-2fa-token": "This 2FA verification code is incorrect",
-    "400/invalid-2fa-token": "2FA has not been enabled"
+    "invalid-2fa-token": "This 2FA verification code is incorrect"
   },
   securityEvents: {
     "user.created": "Created an account",

@@ -6,13 +6,13 @@
       <form @submit.prevent="changePassword">
         <input hidden type="text" autocomplete="username" />
         <Input
-          :value="currentPassword"
+          :value="oldPassword"
           type="password"
           autocomplete="current-password"
           label="Current password"
           placeholder="Enter your current password"
           required
-          @input="val => (currentPassword = val)"
+          @input="val => (oldPassword = val)"
         />
         <Input
           :value="newPassword"
@@ -37,8 +37,15 @@
         >.
       </p>
       <form v-if="user && !user.twoFactorEnabled" @submit.prevent="enable2FA">
-        <button class="button">
-          Enable 2FA
+        <button class="button button--type-loading" :disabled="enabling">
+          <span>Enable 2FA</span>
+          <font-awesome-icon
+            v-if="enabling"
+            title="Available"
+            class="icon icon--ml-2 icon--color-light"
+            icon="sync"
+            spin
+          />
         </button>
       </form>
       <div v-else-if="user">
@@ -231,10 +238,11 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faExclamationCircle,
-  faCheckCircle
+  faCheckCircle,
+  faSync
 } from "@fortawesome/free-solid-svg-icons";
 const text = en.securityEvents;
-library.add(faExclamationCircle, faCheckCircle);
+library.add(faExclamationCircle, faCheckCircle, faSync);
 
 @Component({
   components: {
@@ -254,10 +262,11 @@ library.add(faExclamationCircle, faCheckCircle);
 })
 export default class AccountSettings extends Vue {
   loading = "";
-  currentPassword = "";
+  oldPassword = "";
   newPassword = "";
   user!: User[];
   showOTP = false;
+  enabling = false;
   showDisable = false;
   securityEvents!: SecurityEvent[];
   backupCodes!: BackupCode[];
@@ -283,18 +292,21 @@ export default class AccountSettings extends Vue {
   private changePassword() {
     this.loading = "Updating your password";
     this.$store
-      .dispatch("settings/updateUser", { password: this.newPassword })
+      .dispatch("settings/updatePassword", {
+        oldPassword: this.oldPassword,
+        newPassword: this.newPassword
+      })
       .then(() => this.$store.dispatch("auth/refresh"))
       .catch(() => {})
       .then(() => {
         this.loading = "";
       });
-    this.currentPassword = "";
+    this.oldPassword = "";
     this.newPassword = "";
   }
 
   private enable2FA() {
-    this.loading = "Generating QR code";
+    this.enabling = true;
     this.$store
       .dispatch("settings/getEnable2FA")
       .then(response => {
@@ -303,7 +315,7 @@ export default class AccountSettings extends Vue {
       })
       .catch(() => {})
       .then(() => {
-        this.loading = "";
+        this.enabling = false;
       });
   }
 

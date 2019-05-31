@@ -168,6 +168,18 @@ svg {
   &:hover {
     text-decoration: none;
   }
+  &[disabled] {
+    opacity: 0.5;
+    background-color: #eee;
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .button--size-large {
   font-size: 120%;

@@ -76,6 +76,10 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.patch("/users/me", context);
     return dispatch("getUser");
   },
+  async updatePassword({ dispatch }, context) {
+    await this.$axios.put("/users/me/password", context);
+    return dispatch("getUser");
+  },
   async getEmails({ commit }, context) {
     const emails: Email[] = (await this.$axios.get("/users/me/emails")).data;
     commit("setEmails", emails);
