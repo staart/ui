@@ -177,6 +177,9 @@ svg {
     opacity: 0.5;
     background-color: #eee;
   }
+  span + .icon {
+    margin-left: 0.5rem;
+  }
 }
 @keyframes spin {
   from {
@@ -331,6 +334,9 @@ svg {
     td:last-child {
       text-align: right;
     }
+  }
+  + .pagination {
+    margin-top: 1rem;
   }
 }
 

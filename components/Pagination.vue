@@ -67,8 +67,7 @@ export default class Pagination extends Vue {
   }
   @Watch("activePage")
   onPageChanged(activePage: number) {
-    if (typeof this.onChange === "function")
-      return this.onChange(activePage)
+    if (typeof this.onChange === "function") return this.onChange(activePage);
   }
 }
 </script>

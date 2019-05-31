@@ -11,10 +11,16 @@ export interface Member {
   id: number;
 }
 
+export interface Members {
+  data: Member[];
+  hasMore: boolean;
+  next?: number;
+}
+
 export interface RootState {
   membership?: Membership;
   organization?: Organization;
-  members: Member[];
+  members: Members;
   billing?: any;
   invoices?: any;
   subscriptions?: any;

@@ -5,7 +5,7 @@ import Vue from "vue";
 
 const stripeProductId = "prod_CtJZklN9W4QmxA";
 export const state = (): RootState => ({
-  members: [],
+  members: { data: [], hasMore: false },
   isDownloading: false
 });
 
@@ -13,8 +13,14 @@ export const mutations: MutationTree<RootState> = {
   setOrganization(state: RootState, organization: Organization): void {
     Vue.set(state, "organization", organization);
   },
-  setMembers(state: RootState, members: Member[]): void {
-    Vue.set(state, "members", members);
+  setMembers(state: RootState, { members, start }): void {
+    if (start) {
+      const currentMembers = state.members;
+      members.data = [...currentMembers.data, ...members.data];
+      Vue.set(state, "members", members);
+    } else {
+      Vue.set(state, "members", members);
+    }
   },
   setBilling(state: RootState, billing: any): void {
     Vue.set(state, "billing", billing);
@@ -87,13 +93,13 @@ export const actions: ActionTree<RootState, RootState> = {
     );
     commit("stopDownloading");
   },
-  async getMembers({ rootGetters, commit }) {
+  async getMembers({ rootGetters, commit }, start = 0) {
     const org = rootGetters["auth/activeOrganization"];
     const organizationId = org.organizationId;
     const members = (await this.$axios.get(
-      `/organizations/${organizationId}/memberships`
+      `/organizations/${organizationId}/memberships?start=${start}`
     )).data;
-    commit("setMembers", members);
+    commit("setMembers", { members, start });
   },
   async inviteMember({ dispatch, rootGetters }, context) {
     const org = rootGetters["auth/activeOrganization"];

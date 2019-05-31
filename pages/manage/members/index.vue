@@ -10,7 +10,10 @@
         <th></th>
       </thead>
       <tbody>
-        <tr v-for="(member, index) in members" :key="`${member.id}_${index}`">
+        <tr
+          v-for="(member, index) in members.data"
+          :key="`${member.id}_${index}`"
+        >
           <td><User :user="member.user" /></td>
           <td><TimeAgo :date="member.createdAt" /></td>
           <td>{{ membershipRoles[member.role] || member.role }}</td>
@@ -45,7 +48,24 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :number-of-items="members.length" :items-per-page="5" />
+    <div class="pagination text text--align-center">
+      <button
+        v-if="members.hasMore"
+        class="button"
+        :disabled="loadingMore"
+        @click="loadMoreMembers"
+      >
+        <span>Load more members</span>
+        <font-awesome-icon v-if="!loadingMore" class="icon" icon="arrow-down" />
+        <font-awesome-icon
+          v-else
+          title="Available"
+          class="icon icon--ml-2 icon--color-light"
+          icon="sync"
+          spin
+        />
+      </button>
+    </div>
     <h2>Invite another member</h2>
     <p>
       Use this form to invite another user from your team to this organization.
@@ -102,24 +122,28 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Loading from "@/components/Loading.vue";
 import User from "@/components/User.vue";
-import Pagination from "@/components/Pagination.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
+import { Email } from "@/types/settings";
 import locale from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { Email } from "@/types/settings";
-library.add(faTrash, faPencilAlt);
+import {
+  faTrash,
+  faPencilAlt,
+  faArrowDown,
+  faSync
+} from "@fortawesome/free-solid-svg-icons";
+import { Members } from "../../../types/manage";
+library.add(faTrash, faPencilAlt, faArrowDown, faSync);
 
 @Component({
   components: {
     TimeAgo,
-    Pagination,
     User,
     Loading,
     Input,
@@ -133,10 +157,11 @@ library.add(faTrash, faPencilAlt);
   })
 })
 export default class ManageMembers extends Vue {
-  members!: any;
+  members!: Members;
   loading = "";
   inviting = false;
   showDelete = null;
+  loadingMore = false;
   membershipRoles = locale.membershipRoles;
 
   newUserName = "";
@@ -150,6 +175,14 @@ export default class ManageMembers extends Vue {
       .then(() => {})
       .catch(() => {})
       .finally(() => (this.loading = ""));
+  }
+  private loadMoreMembers() {
+    this.loadingMore = true;
+    this.$store
+      .dispatch("manage/getMembers", this.$store.state.manage.members.next)
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => (this.loadingMore = false));
   }
 
   private inviteMember() {
