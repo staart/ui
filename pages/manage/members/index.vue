@@ -45,7 +45,7 @@
         </tr>
       </tbody>
     </table>
-    <Pagination />
+    <Pagination :number-of-items="members.length" :items-per-page="5" />
     <h2>Invite another member</h2>
     <p>
       Use this form to invite another user from your team to this organization.

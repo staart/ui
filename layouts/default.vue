@@ -4,7 +4,12 @@
     <Layout />
     <Footer />
     <no-ssr>
-      <notifications width="100%" group="auth" position="top center" />
+      <notifications
+        aria-live="alert"
+        width="100%"
+        group="auth"
+        position="top center"
+      />
     </no-ssr>
   </div>
 </template>
@@ -354,7 +359,8 @@ section,
 table,
 p,
 input,
-button {
+button,
+nav {
   + h1,
   + h2 {
     margin-top: 2.5rem;
