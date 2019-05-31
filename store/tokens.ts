@@ -16,6 +16,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const data = (await this.$axios.post("/auth/approve-location", context))
       .data;
     if (data.token) {
+      this.$axios.setToken(data.token, "Bearer");
       commit("auth/setAuthentication", data, { root: true });
     }
     return data;
