@@ -45,6 +45,7 @@
         </tr>
       </tbody>
     </table>
+    <Pagination />
     <h2>Invite another member</h2>
     <p>
       Use this form to invite another user from your team to this organization.
@@ -101,6 +102,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Loading from "@/components/Loading.vue";
 import User from "@/components/User.vue";
+import Pagination from "@/components/Pagination.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
@@ -117,6 +119,7 @@ library.add(faTrash, faPencilAlt);
 @Component({
   components: {
     TimeAgo,
+    Pagination,
     User,
     Loading,
     Input,
