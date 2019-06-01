@@ -80,6 +80,7 @@ export default class Login extends Vue {
   email = "";
   password = "";
   isAuthenticated!: boolean;
+  redirect: string | undefined = "";
   private login() {
     this.$store
       .dispatch("auth/loginWithEmailPassword", {
@@ -88,7 +89,7 @@ export default class Login extends Vue {
       })
       .then(response => {
         if (response === "2fa") return this.$router.push("/auth/2fa");
-        this.$router.push("/dashboard");
+        this.$router.push(this.redirect || "/dashboard");
       })
       .catch(error => {
         throw new Error(error);
@@ -99,7 +100,9 @@ export default class Login extends Vue {
       });
   }
   private created() {
-    if (this.isAuthenticated) return this.$router.replace("/dashboard");
+    this.redirect = this.$route.query.redirect as string | undefined;
+    if (this.isAuthenticated)
+      return this.$router.replace(this.redirect || "/dashboard");
   }
   private async loginWithGoogle() {
     this.$store.commit("auth/startLoading");

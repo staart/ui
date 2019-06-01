@@ -116,7 +116,8 @@ const text = en.securityEvents;
     isDownloading: "manage/isDownloading",
     organization: "auth/activeOrganization",
     securityEvents: "manage/securityEvents"
-  })
+  }),
+  middleware: "auth"
 })
 export default class AccountManage extends Vue {
   loading = "";

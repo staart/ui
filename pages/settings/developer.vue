@@ -157,7 +157,8 @@ library.add(faTrash, faEye, faEyeSlash);
   },
   computed: mapGetters({
     apiKeys: "settings/apiKeys"
-  })
+  }),
+  middleware: "auth"
 })
 export default class AccountSettings extends Vue {
   loading = "";

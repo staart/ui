@@ -163,7 +163,8 @@ library.add(faExclamationCircle, faStar, faTrash, faCheckCircle);
   computed: mapGetters({
     emails: "settings/emails",
     notificationEmailsGetter: "settings/notificationEmails"
-  })
+  }),
+  middleware: "auth"
 })
 export default class AccountSettings extends Vue {
   loading = "";

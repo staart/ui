@@ -137,7 +137,8 @@ library.add(faTrash, faEye, faCog);
   },
   computed: mapGetters({
     memberships: "settings/memberships"
-  })
+  }),
+  middleware: "auth"
 })
 export default class AccountSettings extends Vue {
   loading = "";

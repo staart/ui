@@ -56,7 +56,8 @@ import { User } from "@/types/auth";
     organization: "auth/activeOrganization",
     user: "auth/user",
     invoices: "manage/invoices"
-  })
+  }),
+  middleware: "auth"
 })
 export default class ManageSettings extends Vue {
   organization!: any;

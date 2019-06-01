@@ -15,7 +15,8 @@ import { mapGetters } from "vuex";
 @Component({
   computed: mapGetters({
     organization: "auth/activeOrganization"
-  })
+  }),
+  middleware: "auth"
 })
 export default class Dashboard extends Vue {
   organization?: any;

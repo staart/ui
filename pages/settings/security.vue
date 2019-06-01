@@ -258,7 +258,8 @@ library.add(faExclamationCircle, faCheckCircle, faSync);
     securityEvents: "settings/securityEvents",
     backupCodes: "settings/backupCodes",
     user: "auth/user"
-  })
+  }),
+  middleware: "auth"
 })
 export default class AccountSettings extends Vue {
   loading = "";

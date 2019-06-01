@@ -173,7 +173,8 @@ library.add(faCheckCircle, faTimesCircle);
   computed: mapGetters({
     organization: "auth/activeOrganization",
     user: "auth/user"
-  })
+  }),
+  middleware: "auth"
 })
 export default class ManageSettings extends Vue {
   organization!: any;

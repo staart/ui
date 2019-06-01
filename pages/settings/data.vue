@@ -67,7 +67,8 @@ import Input from "@/components/form/Input.vue";
   },
   computed: mapGetters({
     isDownloading: "settings/isDownloading"
-  })
+  }),
+  middleware: "auth"
 })
 export default class AccountSettings extends Vue {
   loading = "";

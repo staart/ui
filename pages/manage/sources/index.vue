@@ -180,7 +180,8 @@ library.add(faTrash, faPencilAlt);
     organization: "auth/activeOrganization",
     user: "auth/user",
     sources: "manage/sources"
-  })
+  }),
+  middleware: "auth"
 })
 export default class ManageSettings extends Vue {
   organization!: any;

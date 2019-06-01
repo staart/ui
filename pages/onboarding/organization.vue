@@ -55,7 +55,8 @@ import Input from "@/components/form/Input.vue";
   components: {
     Input,
     Loading
-  }
+  },
+  middleware: "auth"
 })
 export default class OnboardingTeam extends Vue {
   teamName = "";

@@ -45,7 +45,8 @@ import { User } from "@/types/auth";
   },
   computed: mapGetters({
     organization: "auth/activeOrganization"
-  })
+  }),
+  middleware: "auth"
 })
 export default class ManageSettings extends Vue {
   organization!: any;

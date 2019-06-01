@@ -69,7 +69,8 @@ library.add(faTrash, faPencilAlt);
   },
   computed: mapGetters({
     members: "manage/members"
-  })
+  }),
+  middleware: "auth"
 })
 export default class ManageMembers extends Vue {
   members!: any;

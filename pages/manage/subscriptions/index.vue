@@ -103,7 +103,8 @@ import { User } from "@/types/auth";
     user: "auth/user",
     subscriptions: "manage/subscriptions",
     pricingPlans: "manage/pricingPlans"
-  })
+  }),
+  middleware: "auth"
 })
 export default class ManageSettings extends Vue {
   organization!: any;

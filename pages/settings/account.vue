@@ -104,7 +104,8 @@ for (const country in allCountries) {
     Select,
     ImageInput,
     Checkbox
-  }
+  },
+  middleware: "auth"
 })
 export default class AccountSettings extends Vue {
   loading = "";
