@@ -5,7 +5,7 @@
       You can login to your account with any of the following verified emails.
     </p>
     <Loading v-if="loading" :message="loading" />
-    <div v-else>
+    <div v-else-if="emails">
       <table class="table">
         <thead>
           <tr>
@@ -14,7 +14,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(email, index) in emails" :key="`${email.id}_${index}`">
+          <tr
+            v-for="(email, index) in emails.data"
+            :key="`${email.id}_${index}`"
+          >
             <td>
               {{ email.email }}
               <span
@@ -84,6 +87,28 @@
           </tr>
         </tbody>
       </table>
+      <div class="pagination text text--align-center">
+        <button
+          v-if="emails && emails.hasMore"
+          class="button"
+          :disabled="loadingMore"
+          @click="loadMore"
+        >
+          <span>Load more emails</span>
+          <font-awesome-icon
+            v-if="!loadingMore"
+            class="icon"
+            icon="arrow-down"
+          />
+          <font-awesome-icon
+            v-else
+            title="Available"
+            class="icon icon--ml-2 icon--color-light"
+            icon="sync"
+            spin
+          />
+        </button>
+      </div>
       <h2>Add another email</h2>
       <form @submit.prevent="addEmail">
         <Input
@@ -147,10 +172,19 @@ import {
   faExclamationCircle,
   faStar,
   faTrash,
-  faCheckCircle
+  faCheckCircle,
+  faArrowDown,
+  faSync
 } from "@fortawesome/free-solid-svg-icons";
 import { Email } from "@/types/settings";
-library.add(faExclamationCircle, faStar, faTrash, faCheckCircle);
+library.add(
+  faExclamationCircle,
+  faStar,
+  faTrash,
+  faCheckCircle,
+  faArrowDown,
+  faSync
+);
 
 @Component({
   components: {
@@ -172,6 +206,7 @@ export default class AccountSettings extends Vue {
   notificationEmails = 0;
   showDelete = null;
   emails!: Email[];
+  loadingMore = false;
   notificationEmailsGetter!: number;
   notificationOptions = {
     0: "Only mandatory security-related emails",
@@ -192,6 +227,14 @@ export default class AccountSettings extends Vue {
     this.$store.dispatch("settings/getEmails").then(() => {
       this.loading = "";
     });
+  }
+  private loadMore() {
+    this.loadingMore = true;
+    this.$store
+      .dispatch("settings/getEmails", this.$store.state.emails.start)
+      .then(() => {
+        this.loadingMore = false;
+      });
   }
 
   private addEmail() {

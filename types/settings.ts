@@ -15,13 +15,28 @@ export interface User {
 export interface Email {
   id: number;
 }
+export interface Emails {
+  data: Email[];
+  hasMore: boolean;
+  next?: number;
+}
 
 export interface Membership {
   id: number;
 }
+export interface Memberships {
+  data: Membership[];
+  hasMore: boolean;
+  next?: number;
+}
 
 export interface SecurityEvent {
   id: number;
+}
+export interface SecurityEvents {
+  data: SecurityEvent[];
+  hasMore: boolean;
+  next?: number;
 }
 
 export interface BackupCode {
@@ -30,9 +45,9 @@ export interface BackupCode {
 
 export interface RootState {
   user?: User;
-  emails: Email[];
-  memberships: Membership[];
-  securityEvents: SecurityEvent[];
+  emails: Emails;
+  memberships: Memberships;
+  securityEvents: SecurityEvents;
   backupCodes: BackupCode[];
   isDownloading: boolean;
   apiKeys: any;

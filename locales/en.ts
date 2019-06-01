@@ -30,7 +30,7 @@ export default {
     "invalid-2fa-token": "This 2FA verification code is incorrect"
   },
   securityEvents: {
-    "user.created": "Created an account",
+    "user.created": "Created account",
     "user.updated": "Updated settings",
     "user.deleted": "Deleted account",
     "auth.refresh": "Continued session",
@@ -41,12 +41,15 @@ export default {
     "auth.passwordReset": "Password reset request",
     "auth.approveLocation": "Approved a new location",
     "organization.created": "Created a new organization",
-    "organization.updated": "Updated an organization",
-    "organization.deleted": "Deleted an organization",
+    "organization.updated": "Updated organization",
+    "organization.deleted": "Deleted organization",
     "email.created": "Created a new email",
-    "email.updated": "Updated an email",
-    "email.deleted": "Deleted an email",
-    "email.verified": "Verified an email"
+    "email.updated": "Updated email",
+    "email.deleted": "Deleted email",
+    "email.verified": "Verified email",
+    "membership.created": "Updated membership",
+    "membership.updated": "Updated membership",
+    "membership.deleted": "Updated membership"
   },
   membershipRoles: {
     1: "Owner",

@@ -11,9 +11,9 @@ import {
 } from "../types/settings";
 
 export const state = (): RootState => ({
-  emails: [],
-  memberships: [],
-  securityEvents: [],
+  emails: { data: [], hasMore: false },
+  memberships: { data: [], hasMore: false },
+  securityEvents: { data: [], hasMore: false },
   isDownloading: false,
   backupCodes: [],
   apiKeys: []
@@ -37,14 +37,32 @@ export const mutations: MutationTree<RootState> = {
       }
     } catch (error) {}
   },
-  setEmails(state: RootState, emails: Email[]): void {
-    Vue.set(state, "emails", emails);
+  setEmails(state: RootState, { start, emails }): void {
+    if (start) {
+      const currentValue = state.emails;
+      emails.data = [...currentValue.data, ...emails.data];
+      Vue.set(state, "emails", emails);
+    } else {
+      Vue.set(state, "emails", emails);
+    }
   },
-  setMemberships(state: RootState, memberships: Membership[]): void {
-    Vue.set(state, "memberships", memberships);
+  setMemberships(state: RootState, { memberships, start }): void {
+    if (start) {
+      const currentValue = state.memberships;
+      memberships.data = [...currentValue.data, ...memberships.data];
+      Vue.set(state, "memberships", memberships);
+    } else {
+      Vue.set(state, "memberships", memberships);
+    }
   },
-  setSecurityEvents(state: RootState, securityEvents: SecurityEvent[]): void {
-    Vue.set(state, "securityEvents", securityEvents);
+  setSecurityEvents(state: RootState, { securityEvents, start }): void {
+    if (start) {
+      const currentValue = state.securityEvents;
+      securityEvents.data = [...currentValue.data, ...securityEvents.data];
+      Vue.set(state, "securityEvents", securityEvents);
+    } else {
+      Vue.set(state, "securityEvents", securityEvents);
+    }
   },
   setBackupCodes(state: RootState, backupCodes: BackupCode[]): void {
     Vue.set(state, "backupCodes", backupCodes);
@@ -80,9 +98,11 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.put("/users/me/password", context);
     return dispatch("getUser");
   },
-  async getEmails({ commit }, context) {
-    const emails: Email[] = (await this.$axios.get("/users/me/emails")).data;
-    commit("setEmails", emails);
+  async getEmails({ commit }, start = 0) {
+    const emails: Email[] = (await this.$axios.get(
+      `/users/me/emails?start=${start}`
+    )).data;
+    commit("setEmails", { emails, start });
   },
   async addEmail({ dispatch }, context) {
     await this.$axios.put("/users/me/emails", context);
@@ -96,11 +116,11 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.patch("/users/me", { primaryEmail: context });
     return dispatch("getEmails");
   },
-  async getEvents({ commit }, context) {
+  async getEvents({ commit }, start = 0) {
     const securityEvents: SecurityEvent[] = (await this.$axios.get(
-      "/users/me/events"
+      `/users/me/events?start=${start}`
     )).data;
-    commit("setSecurityEvents", securityEvents);
+    commit("setSecurityEvents", { securityEvents, start });
   },
   async getBackupCodes({ commit }, context) {
     const backupCodes: BackupCode[] = (await this.$axios.get(
@@ -121,11 +141,11 @@ export const actions: ActionTree<RootState, RootState> = {
   async deleteAccount({ commit }, context) {
     await this.$axios.delete("/users/me");
   },
-  async getMemberships({ commit }, context) {
+  async getMemberships({ commit }, start = 0) {
     const memberships: Membership[] = (await this.$axios.get(
-      "/users/me/memberships"
+      `/users/me/memberships?start=${start}`
     )).data;
-    commit("setMemberships", memberships);
+    commit("setMemberships", { memberships, start });
   },
   async deleteMembership({ dispatch }, context) {
     await this.$axios.delete(`/memberships/${context}`);

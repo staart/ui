@@ -5,8 +5,8 @@
       You can switch which team you are using Staart as here.
     </p>
     <Loading v-if="loading" :message="loading" />
-    <div v-else>
-      <div v-if="!memberships.length" class="card card--type-padded">
+    <div v-else-if="memberships">
+      <div v-if="!memberships.data.length" class="card card--type-padded">
         <LargeMessage
           heading="No teams"
           text="You're not a member of any teams yet, let's change that."
@@ -23,7 +23,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(membership, index) in memberships"
+            v-for="(membership, index) in memberships.data"
             :key="`${membership.id}_${index}`"
           >
             <td>{{ membership.organization.name }}</td>
@@ -70,6 +70,28 @@
           </tr>
         </tbody>
       </table>
+      <div class="pagination text text--align-center">
+        <button
+          v-if="memberships && memberships.hasMore"
+          class="button"
+          :disabled="loadingMore"
+          @click="loadMore"
+        >
+          <span>Load more memberships</span>
+          <font-awesome-icon
+            v-if="!loadingMore"
+            class="icon"
+            icon="arrow-down"
+          />
+          <font-awesome-icon
+            v-else
+            title="Available"
+            class="icon icon--ml-2 icon--color-light"
+            icon="sync"
+            spin
+          />
+        </button>
+      </div>
     </div>
     <h2>Create a team</h2>
     <p>
@@ -122,9 +144,15 @@ import Input from "@/components/form/Input.vue";
 import en from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEye, faCog } from "@fortawesome/free-solid-svg-icons";
-import { Email } from "@/types/settings";
-library.add(faTrash, faEye, faCog);
+import {
+  faTrash,
+  faEye,
+  faCog,
+  faSync,
+  faArrowDown
+} from "@fortawesome/free-solid-svg-icons";
+import { Email, Memberships } from "@/types/settings";
+library.add(faTrash, faEye, faCog, faSync, faArrowDown);
 
 @Component({
   components: {
@@ -145,6 +173,8 @@ export default class AccountSettings extends Vue {
   organizationName = "";
   isCreating = false;
   membershipRoles = en.membershipRoles;
+  loadingMore = false;
+  memberships!: Memberships;
   showDelete = null;
 
   private mounted() {
@@ -154,6 +184,18 @@ export default class AccountSettings extends Vue {
       .then(() => {})
       .catch(() => {})
       .finally(() => (this.loading = ""));
+  }
+
+  private loadMore() {
+    this.loadingMore = true;
+    this.$store
+      .dispatch(
+        "settings/getMemberships",
+        this.$store.state.settings.memberships.start
+      )
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => (this.loadingMore = false));
   }
 
   private deleteMembership(id: number) {

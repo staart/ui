@@ -134,7 +134,7 @@
         <nuxt-link to="/settings/data">export your data</nuxt-link> for the
         entire list.
       </p>
-      <table class="table">
+      <table v-if="securityEvents" class="table">
         <thead>
           <tr>
             <th>Event</th>
@@ -146,7 +146,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(event, index) in securityEvents"
+            v-for="(event, index) in securityEvents.data"
             :key="`${event.id}_${index}`"
           >
             <td>{{ textify(event.type) }}</td>
@@ -157,8 +157,12 @@
               {{ parse(event.userAgent).os.name }}
             </td>
             <td v-if="event.location">
-              {{ event.location.region_code }},
-              {{ event.location.country_code }}
+              {{
+                event.location.region_name ||
+                  `${event.location.region_name}, ${
+                    event.location.country_code
+                  }`
+              }}
             </td>
             <td>
               <TimeAgo :date="event.createdAt" />
@@ -166,6 +170,28 @@
           </tr>
         </tbody>
       </table>
+      <div class="pagination text text--align-center">
+        <button
+          v-if="securityEvents && securityEvents.hasMore"
+          class="button"
+          :disabled="loadingMore"
+          @click="loadMore"
+        >
+          <span>Load more events</span>
+          <font-awesome-icon
+            v-if="!loadingMore"
+            class="icon"
+            icon="arrow-down"
+          />
+          <font-awesome-icon
+            v-else
+            title="Available"
+            class="icon icon--ml-2 icon--color-light"
+            icon="sync"
+            spin
+          />
+        </button>
+      </div>
       <p>
         If you don't recognize an event, you should immediately reset your
         password.
@@ -231,7 +257,12 @@ import Select from "@/components/form/Select.vue";
 import Confirm from "@/components/Confirm.vue";
 import Modal from "@/components/Modal.vue";
 import UAParser from "ua-parser-js";
-import { Email, SecurityEvent, BackupCode } from "@/types/settings";
+import {
+  Email,
+  SecurityEvent,
+  BackupCode,
+  SecurityEvents
+} from "@/types/settings";
 import { User } from "@/types/auth";
 import en from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -239,10 +270,11 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faExclamationCircle,
   faCheckCircle,
-  faSync
+  faSync,
+  faArrowDown
 } from "@fortawesome/free-solid-svg-icons";
 const text = en.securityEvents;
-library.add(faExclamationCircle, faCheckCircle, faSync);
+library.add(faExclamationCircle, faCheckCircle, faSync, faArrowDown);
 
 @Component({
   components: {
@@ -268,8 +300,9 @@ export default class AccountSettings extends Vue {
   user!: User[];
   showOTP = false;
   enabling = false;
+  loadingMore = false;
   showDisable = false;
-  securityEvents!: SecurityEvent[];
+  securityEvents!: SecurityEvents;
   backupCodes!: BackupCode[];
   disableText = "";
   verificationCode = "";
@@ -278,6 +311,18 @@ export default class AccountSettings extends Vue {
   private mounted() {
     this.$store.dispatch("settings/getEvents");
     this.$store.dispatch("settings/getBackupCodes");
+  }
+
+  private loadMore() {
+    this.loadingMore = true;
+    this.$store
+      .dispatch(
+        "settings/getEvents",
+        this.$store.state.settings.securityEvents.next
+      )
+      .then(() => {})
+      .catch(() => {})
+      .then(() => (this.loadingMore = false));
   }
 
   private textify(type: string) {

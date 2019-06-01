@@ -2,7 +2,7 @@
   <main>
     <h1>Team</h1>
     <Loading v-if="loading" :message="loading" />
-    <table v-else class="table">
+    <table v-else-if="members" class="table">
       <thead>
         <th>Name</th>
         <th>Joined</th>
@@ -50,7 +50,7 @@
     </table>
     <div class="pagination text text--align-center">
       <button
-        v-if="members.hasMore"
+        v-if="members && members.hasMore"
         class="button"
         :disabled="loadingMore"
         @click="loadMoreMembers"
