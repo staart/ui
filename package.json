@@ -32,7 +32,7 @@
     "vuex-persist": "^2.0.1"
   },
   "devDependencies": {
-    "@nuxt/typescript": "^2.8.0",
+    "@nuxt/typescript": "^2.8.1",
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/markdownit": "^1.2.5",
     "@types/downloadjs": "^1.4.1",
