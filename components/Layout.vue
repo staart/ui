@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="content">
     <Settings v-if="activeRoute === 'user-settings'">
       <nuxt />
     </Settings>

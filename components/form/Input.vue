@@ -32,9 +32,13 @@ export default class Input extends Vue {
   @Prop() placeholder;
   @Prop() help;
   @Prop() autocomplete;
-  labelId = Math.random()
-    .toString(36)
-    .substring(7);
+  labelId = "";
+
+  private created() {
+    this.labelId = Math.random()
+      .toString(36)
+      .substring(7);
+  }
 }
 </script>
 

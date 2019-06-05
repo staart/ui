@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a href="#content" class="sr-only sr-only-focusable sk">Skip navigation</a>
     <Navbar />
     <Layout />
     <Footer />
@@ -179,6 +180,16 @@ svg {
   }
   span + .icon {
     margin-left: 0.5rem;
+  }
+}
+.button--type-list {
+  margin: 0 0 1rem 0;
+  + .button--type-list {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  &:last-of-type {
+    margin-bottom: 0;
   }
 }
 @keyframes spin {
@@ -520,5 +531,36 @@ code {
     font-size: 200%;
     font-weight: normal;
   }
+}
+// https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+  clip: auto !important;
+  -webkit-clip-path: none !important;
+  clip-path: none !important;
+  height: auto !important;
+  margin: auto !important;
+  overflow: visible !important;
+  width: auto !important;
+  white-space: normal !important;
+}
+.sk {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  background-color: #fff;
 }
 </style>

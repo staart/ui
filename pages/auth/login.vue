@@ -29,18 +29,36 @@
           Login to your account
         </button>
         <no-ssr>
-          <button
-            class="button button--width-full button--size-large button--color-blue"
-            type="button"
-            style="margin-top: 1rem"
-            @click="loginWithGoogle"
-          >
-            <font-awesome-icon
-              class="icon icon--mr-1"
-              :icon="['fab', 'google']"
-            />
-            Login with Google
-          </button>
+          <p class="text text--align-center text--color-light or">
+            or, login with:
+          </p>
+          <div class="row">
+            <button
+              v-for="service in ['google', 'salesforce', 'microsoft']"
+              :key="`login_${service}`"
+              class="button button--width-full button--size-large button--color-blue"
+              type="button"
+              :aria-label="`Login with ${service}`"
+              @click="loginWithGoogle"
+            >
+              <font-awesome-icon
+                v-if="service !== 'more'"
+                class="icon"
+                :icon="['fab', service]"
+                fixed-width
+              />
+            </button>
+            <button
+              class="button button--width-full button--size-large button--color-blue"
+              type="button"
+              aria-label="More services"
+              data-balloon="More services"
+              data-balloon-pos="down"
+              @click="() => (showMore = true)"
+            >
+              <font-awesome-icon class="icon" icon="ellipsis-h" fixed-width />
+            </button>
+          </div>
         </no-ssr>
       </form>
     </Card>
@@ -50,22 +68,78 @@
         >Create an account</nuxt-link
       >
     </div>
+    <transition name="modal">
+      <Modal v-if="showMore" :on-close="() => (showMore = false)">
+        <h2>Login with third-party services</h2>
+        <p>
+          You can securely login with these services. We never share your
+          personal information with third-parties.
+        </p>
+        <div>
+          <button
+            v-for="service in [
+              'Google',
+              'Salesforce',
+              'Microsoft',
+              'Facebook',
+              'Twitter',
+              'LinkedIn'
+            ]"
+            :key="`option_${service}`"
+            class="button button--width-full button--size-large button--color-blue button--type-list"
+            type="button"
+            @click="loginWithGoogle"
+          >
+            <font-awesome-icon
+              v-if="service !== 'more'"
+              class="icon"
+              :icon="['fab', service.toLowerCase()]"
+              fixed-width
+            />
+            <span>{{ service }}</span>
+          </button>
+        </div>
+      </Modal>
+    </transition>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Card from "@/components/Card.vue";
+import Modal from "@/components/Modal.vue";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-library.add(faGoogle);
+import {
+  faGoogle,
+  faSalesforce,
+  faFacebook,
+  faMicrosoft,
+  faTwitter,
+  faLinkedin
+} from "@fortawesome/free-brands-svg-icons";
+import { faDotCircle, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+library.add(
+  faGoogle,
+  faSalesforce,
+  faFacebook,
+  faMicrosoft,
+  faDotCircle,
+  faEllipsisH,
+  faTwitter,
+  faLinkedin
+);
+
+interface IWindow extends Window {
+  AppleID: any;
+}
 
 @Component({
   components: {
+    Modal,
     Card,
     Loading,
     Input,
@@ -80,6 +154,7 @@ export default class Login extends Vue {
   email = "";
   password = "";
   isAuthenticated!: boolean;
+  showMore = false;
   redirect: string | undefined = "";
   private login() {
     this.$store
@@ -109,5 +184,28 @@ export default class Login extends Vue {
     const link = (await this.$axios.get("/auth/google/link")).data.redirect;
     location.replace(link);
   }
+  private mounted() {
+    console.log("Here I am");
+    if ((window as IWindow).AppleID) {
+      (window as IWindow).AppleID.auth.init({
+        clientId: "com.oswaldlabs.signin",
+        scope: "email",
+        redirectURI: "https://staart-demo.o15y.com/auth/apple",
+        state: "IN"
+      });
+    } else {
+      console.log("Not in window");
+    }
+  }
+  private loginWithApple() {
+    (window as IWindow).AppleID.auth.signIn();
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+.or {
+  text-align: center;
+  margin: 1rem 0;
+}
+</style>
