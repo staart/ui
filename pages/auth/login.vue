@@ -34,7 +34,7 @@
           </p>
           <div class="row">
             <button
-              v-for="service in ['google', 'salesforce', 'microsoft']"
+              v-for="service in ['apple', 'google']"
               :key="`login_${service}`"
               class="button button--width-full button--size-large button--color-blue"
               type="button"
@@ -50,6 +50,7 @@
             </button>
             <button
               class="button button--width-full button--size-large button--color-blue"
+              style="width: 20%"
               type="button"
               aria-label="More services"
               data-balloon="More services"
@@ -119,7 +120,8 @@ import {
   faFacebook,
   faMicrosoft,
   faTwitter,
-  faLinkedin
+  faLinkedin,
+  faApple
 } from "@fortawesome/free-brands-svg-icons";
 import { faDotCircle, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 library.add(
@@ -127,6 +129,7 @@ library.add(
   faSalesforce,
   faFacebook,
   faMicrosoft,
+  faApple,
   faDotCircle,
   faEllipsisH,
   faTwitter,
@@ -183,22 +186,6 @@ export default class Login extends Vue {
     this.$store.commit("auth/startLoading");
     const link = (await this.$axios.get("/auth/google/link")).data.redirect;
     location.replace(link);
-  }
-  private mounted() {
-    console.log("Here I am");
-    if ((window as IWindow).AppleID) {
-      (window as IWindow).AppleID.auth.init({
-        clientId: "com.oswaldlabs.signin",
-        scope: "email",
-        redirectURI: "https://staart-demo.o15y.com/auth/apple",
-        state: "IN"
-      });
-    } else {
-      console.log("Not in window");
-    }
-  }
-  private loginWithApple() {
-    (window as IWindow).AppleID.auth.signIn();
   }
 }
 </script>

@@ -1,19 +1,24 @@
 <template>
-  <div>
+  <Trap>
     <div class="modal-back">
-      <button class="close" @click="close">&times;</button>
+      <button class="close" aria-label="Close" @click="close">&times;</button>
       <div class="card card--type-padded modal-front">
         <slot />
       </div>
       <div class="background" @click="close"></div>
     </div>
-  </div>
+  </Trap>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import Trap from "vue-focus-lock";
 
-@Component({})
+@Component({
+  components: {
+    Trap
+  }
+})
 export default class Modal extends Vue {
   @Prop() onClose;
   private close() {

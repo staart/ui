@@ -159,9 +159,7 @@
             <td v-if="event.location">
               {{
                 event.location.region_name ||
-                  `${event.location.region_name}, ${
-                    event.location.country_code
-                  }`
+                  `${event.location.region_name}, ${event.location.country_code}`
               }}
             </td>
             <td>
