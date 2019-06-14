@@ -1,3 +1,10 @@
+@import "variables";
+
+html {
+  background-color: $background-color;
+  color: $text-color;
+}
+
 h1 {
   margin: 0 0 2rem 0;
   font-size: 150%;
@@ -36,7 +43,7 @@ nav {
 }
 
 a {
-  color: #714880;
+  color: $link-color;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -63,8 +70,8 @@ code {
   transition: 0.2s;
   border-radius: 0.2rem;
   border: none;
-  background: rgba(180, 0, 240, 0.03);
-  color: #492257;
+  background: $button-background-color;
+  color: $button-text-color;
   box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
   &:hover {
@@ -86,7 +93,7 @@ code {
   }
   &[disabled] {
     opacity: 0.5;
-    background-color: #eee;
+    background-color: $button-disabled-background-color;
   }
   span + .icon {
     margin-left: 0.5rem;
@@ -120,8 +127,8 @@ code {
   box-sizing: border-box;
 }
 .button--color-primary {
-  background: #492257;
-  color: #fff;
+  background: $button-primary-background-color;
+  color: $button-primary-text-color;
   box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
   &:focus {
@@ -131,8 +138,8 @@ code {
   }
 }
 .button--color-blue {
-  color: #4285f4;
-  background-color: rgba(100, 100, 255, 0.01);
+  color: $button-info-background-color;
+  background-color: $button-info-text-color;
   box-shadow: rgba(66, 133, 244, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
     rgba(66, 133, 244, 0.12) 0px 2px 5px 0px;
@@ -144,8 +151,8 @@ code {
   }
 }
 .button--color-danger {
-  color: #af1101;
-  background-color: rgba(255, 0, 0, 0.01);
+  color: $button-danger-background-color;
+  background-color: $button-danger-text-color;
   box-shadow: rgba(175, 17, 1, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(175, 17, 1, 0.12) 0px 2px 5px 0px;
   &:hover {
@@ -159,7 +166,7 @@ code {
   }
 }
 .button--color-danger-cta {
-  background: #af1101 !important;
+  background: $button-danger-background-color !important;
   color: #fff !important;
   font-weight: bold;
   box-shadow: rgba(175, 17, 1, 0.2) 0px 0px 0px 1px,

@@ -1,20 +1,22 @@
+@import "variables";
+
 .prefers-color-scheme-dark {
-  background-color: #151d21;
-  color: rgba(255, 255, 255, 0.95);
+  color: $dark-text-color;
+  background-color: $dark-background-color;
   ::selection {
     background-color: rgba(255, 255, 255, 0.1);
   }
   a {
-    color: #fff;
+    color: $dark-link-color;
   }
   .card,
   .item.nuxt-link-active,
   .dropdown {
-    background-color: #263238 !important;
+    background-color: $dark-background-color-lighter !important;
   }
   .button {
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.05);
+    color: $dark-button-text-color;
+    background-color: $dark-button-background-color;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px,
       rgba(255, 255, 255, 0.5) 0px 1px 1px 0px,
       rgba(255, 255, 255, 0.1) 0px 2px 5px 0px;
@@ -22,8 +24,8 @@
   input,
   select,
   code {
-    background-color: #121415 !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    background-color: $dark-background-color !important;
+    border: 1px solid #000 !important;
     color: #fff !important;
     &:focus {
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25) !important;
