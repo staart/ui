@@ -1,0 +1,42 @@
+.prefers-color-scheme-dark {
+  background-color: #151d21;
+  color: rgba(255, 255, 255, 0.95);
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  a {
+    color: #fff;
+  }
+  .card,
+  .item.nuxt-link-active,
+  .dropdown {
+    background-color: #263238 !important;
+  }
+  .button {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px,
+      rgba(255, 255, 255, 0.5) 0px 1px 1px 0px,
+      rgba(255, 255, 255, 0.1) 0px 2px 5px 0px;
+  }
+  input,
+  select,
+  code {
+    background-color: #121415 !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #fff !important;
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25) !important;
+    }
+  }
+  .item.nuxt-link-active {
+    color: #fff !important;
+    box-shadow: -7px 10px 10px rgba(255, 255, 255, 0.02), 2px 0 0 #263238 !important;
+  }
+  .table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+  .text--color-light {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+}

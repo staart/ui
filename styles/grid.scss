@@ -1,0 +1,39 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.container--size-small {
+  max-width: 400px;
+}
+.container--size-medium {
+  max-width: 720px;
+}
+.container--top-20height {
+  margin-top: 15vh;
+}
+.container--bottom-20height {
+  margin-bottom: 15vh;
+}
+.container--type-padded {
+  padding: 4rem 0 3rem 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  > * {
+    flex: 1 0 0;
+    margin-right: 1rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  &.row--padding-large {
+    > * {
+      margin-right: 2rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

@@ -7,9 +7,9 @@
     />
     <div
       v-else
-      class="container container--size-medium container--top-20height"
+      class="container container--size-medium container--top-20height container--bottom-20height"
     >
-      <h1>Do you have a team?</h1>
+      <h1>👋 Hi {{ user.nickname || "there" }}, do you have a team?</h1>
       <form class="row" @submit.prevent="setupTeam">
         <div class="card card--type-padded">
           <div class="emoji">👨‍👩‍👦‍👦</div>
@@ -38,6 +38,9 @@
           </div>
         </div>
       </form>
+      <p class="section section--mt-2">
+        <a href="#">Want to join an existing team?</a>
+      </p>
     </div>
   </main>
 </template>

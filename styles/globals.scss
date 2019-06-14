@@ -1,0 +1,35 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  background-color: #f0f1f9;
+  color: #130f40;
+}
+
+::selection {
+  background-color: rgba(73, 34, 87, 0.15);
+}
+
+body {
+  margin: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+svg {
+  height: 1rem;
+}
+img {
+  max-width: 100%;
+}
+
+p {
+  max-width: 720px;
+}

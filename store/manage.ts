@@ -1,11 +1,11 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-import { RootState, Organization, Member } from "~/types/manage";
+import { RootState, Organization, emptyMembers } from "~/types/manage";
 import download from "downloadjs";
 import Vue from "vue";
 
 const stripeProductId = "prod_CtJZklN9W4QmxA";
 export const state = (): RootState => ({
-  members: { data: [], hasMore: false },
+  memberships: {},
   isDownloading: false,
   organizations: {}
 });
@@ -16,14 +16,12 @@ export const mutations: MutationTree<RootState> = {
     organizations[organization.id] = organization;
     Vue.set(state, "organizations", organizations);
   },
-  setMembers(state: RootState, { members, start }): void {
-    if (start) {
-      const currentMembers = state.members;
-      members.data = [...currentMembers.data, ...members.data];
-      Vue.set(state, "members", members);
-    } else {
-      Vue.set(state, "members", members);
-    }
+  setMembers(state: RootState, { team, members, start }): void {
+    const currentMembers = state.memberships;
+    currentMembers[team] = currentMembers[team] || emptyMembers;
+    currentMembers[team].data = [...currentMembers[team].data, ...members.data];
+    currentMembers[team].next = start;
+    Vue.set(state, "memberships", currentMembers);
   },
   setBilling(state: RootState, billing: any): void {
     Vue.set(state, "billing", billing);
@@ -53,7 +51,7 @@ export const mutations: MutationTree<RootState> = {
     delete state.organizations;
     delete state.billing;
     delete state.invoices;
-    delete state.members;
+    delete state.memberships;
     delete state.membership;
     delete state.subscriptions;
     delete state.recentEvents;
@@ -96,26 +94,25 @@ export const actions: ActionTree<RootState, RootState> = {
     );
     commit("stopDownloading");
   },
-  async getMembers({ rootGetters, commit }, start = 0) {
-    const org = rootGetters["auth/activeOrganization"];
-    const organizationId = org.organizationId;
+  async getMembers({ commit }, { team, start = 0 }) {
     const members = (await this.$axios.get(
-      `/organizations/${organizationId}/memberships?start=${start}`
+      `/organizations/${team}/memberships?start=${start}`
     )).data;
-    commit("setMembers", { members, start });
+    commit("setMembers", { team, members, start });
+    return members;
   },
   async inviteMember({ dispatch, rootGetters }, context) {
-    const org = rootGetters["auth/activeOrganization"];
-    const organizationId = org.organizationId;
+    const toInvite = { ...context };
+    delete toInvite.team;
     await this.$axios.put(
-      `/organizations/${organizationId}/memberships`,
-      context
+      `/organizations/${context.team}/memberships`,
+      toInvite
     );
-    return dispatch("getMembers");
+    return dispatch("getMembers", { team: context.team });
   },
-  async deleteMembership({ dispatch }, context) {
-    await this.$axios.delete(`/memberships/${context}`);
-    return dispatch("getMembers");
+  async deleteMembership({ dispatch }, { id, team }) {
+    await this.$axios.delete(`/memberships/${id}`);
+    return dispatch("getMembers", { team });
   },
   async getMembership(actions, context) {
     return (await this.$axios.get(`/memberships/${context}`)).data;
@@ -208,6 +205,6 @@ export const getters: GetterTree<RootState, RootState> = {
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
   sources: state => state.sources,
-  members: state => state.members,
-  organization: state => orgId => state.organizations[parseInt(orgId)]
+  memberships: state => (orgId: string) => state.memberships[parseInt(orgId)],
+  organization: state => (orgId: string) => state.organizations[parseInt(orgId)]
 };

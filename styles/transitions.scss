@@ -1,0 +1,32 @@
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s;
+  .card {
+    margin-top: 0;
+    transition: margin-top 0.3s;
+  }
+}
+.modal-enter,
+.modal-leave-to {
+  opacity: 0;
+  .card {
+    margin-top: -10px;
+  }
+}
+
+.prefers-reduced-motion {
+  a,
+  div,
+  button {
+    transition: none !important;
+  }
+}

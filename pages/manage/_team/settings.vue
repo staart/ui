@@ -13,7 +13,7 @@
       <Input
         :value="organization.invitationDomain"
         label="Email domain"
-        placeholder="Enter your company's domain"
+        placeholder="Enter your company's domain, eg. oswaldlabs.com"
         help="We'll allow people with emails from this domain to join this organization automatically"
         @input="val => (organization.invitationDomain = val)"
       />

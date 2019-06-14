@@ -2,7 +2,7 @@
   <main>
     <h1>Team</h1>
     <Loading v-if="loading" :message="loading" />
-    <table v-else-if="members" class="table">
+    <table v-else-if="memberships && memberships.data" class="table">
       <thead>
         <th>Name</th>
         <th>Joined</th>
@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(member, index) in members.data"
+          v-for="(member, index) in memberships.data"
           :key="`${member.id}_${index}`"
         >
           <td><User :user="member.user" /></td>
@@ -50,7 +50,7 @@
     </table>
     <div class="pagination text text--align-center">
       <button
-        v-if="members && members.hasMore"
+        v-if="memberships && memberships.hasMore"
         class="button"
         :disabled="loadingMore"
         @click="loadMoreMembers"
@@ -100,8 +100,12 @@
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
         <h2>Are you sure you want to remove {{ showDelete.user.name }}?</h2>
         <p>
-          Remove someone from an organization is not reversible, and you'll have
-          to invite them again if you change your mind.
+          Removing someone from your organization is not reversible, and you'll
+          need to invite them again if you change your mind.
+        </p>
+        <p>
+          If they have any organization-specific data, that will also be
+          deleted.
         </p>
         <button
           class="button button--color-danger-cta"
@@ -138,7 +142,7 @@ import {
   faArrowDown,
   faSync
 } from "@fortawesome/free-solid-svg-icons";
-import { Members } from "@/types/manage";
+import { Members, emptyMembers } from "@/types/manage";
 library.add(faTrash, faPencilAlt, faArrowDown, faSync);
 
 @Component({
@@ -152,13 +156,10 @@ library.add(faTrash, faPencilAlt, faArrowDown, faSync);
     FontAwesomeIcon,
     Confirm
   },
-  computed: mapGetters({
-    members: "manage/members"
-  }),
   middleware: "auth"
 })
 export default class ManageMembers extends Vue {
-  members!: Members;
+  memberships: Members = emptyMembers;
   loading = "";
   inviting = false;
   showDelete = null;
@@ -169,19 +170,28 @@ export default class ManageMembers extends Vue {
   newUserEmail = "";
   newUserRole = 3;
 
+  private created() {
+    this.memberships = {
+      ...this.$store.getters["manage/memberships"](this.$route.params.team)
+    };
+  }
+
   private mounted() {
     this.loading = "Loading members";
     this.$store
-      .dispatch("manage/getMembers")
-      .then(() => {})
+      .dispatch("manage/getMembers", { team: this.$route.params.team })
+      .then(memberships => (this.memberships = { ...memberships }))
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }
   private loadMoreMembers() {
     this.loadingMore = true;
     this.$store
-      .dispatch("manage/getMembers", this.$store.state.manage.members.next)
-      .then(() => {})
+      .dispatch("manage/getMembers", {
+        team: this.$route.params.team,
+        start: this.$store.state.manage.members.next
+      })
+      .then(memberships => (this.memberships = { ...memberships }))
       .catch(() => {})
       .finally(() => (this.loadingMore = false));
   }
@@ -192,9 +202,10 @@ export default class ManageMembers extends Vue {
       .dispatch("manage/inviteMember", {
         name: this.newUserName,
         email: this.newUserEmail,
-        role: this.newUserRole
+        role: this.newUserRole,
+        team: this.$route.params.team
       })
-      .then(() => {})
+      .then(memberships => (this.memberships = { ...memberships }))
       .catch(() => {})
       .finally(() => (this.inviting = false));
   }
@@ -203,8 +214,11 @@ export default class ManageMembers extends Vue {
     this.showDelete = null;
     this.loading = "Deleting membership";
     this.$store
-      .dispatch("manage/deleteMembership", id)
-      .then(() => {})
+      .dispatch("manage/deleteMembership", {
+        id,
+        team: this.$route.params.team
+      })
+      .then(memberships => (this.memberships = { ...memberships }))
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }

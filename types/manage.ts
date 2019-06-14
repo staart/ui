@@ -10,22 +10,22 @@ export interface Membership extends IdRow {
   organization: Organization;
 }
 
-export interface Member extends IdRow {
-}
-
 export interface Members {
-  data: Member[];
+  data: Membership[];
   hasMore: boolean;
   next?: number;
 }
 export interface OrganizationsKV {
   [index: string]: Organization;
 }
+export interface MembershipsKV {
+  [index: string]: Members;
+}
 
 export interface RootState {
   membership?: Membership;
   organizations: OrganizationsKV;
-  members: Members;
+  memberships: MembershipsKV;
   billing?: any;
   invoices?: any;
   subscriptions?: any;
@@ -42,4 +42,8 @@ export const emptyOrganization: Organization = {
   name: "",
   invitationDomain: "",
   stripeCustomerId: ""
+};
+export const emptyMembers: Members = {
+  data: [],
+  hasMore: false
 };
