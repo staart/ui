@@ -117,6 +117,8 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("removeAuthentication");
     commit("settings/clearAll", undefined, { root: true });
     commit("manage/clearAll", undefined, { root: true });
+    document.documentElement.classList.remove("prefers-reduced-motion");
+    document.documentElement.classList.remove("prefers-color-scheme-dark");
   },
   async getNotifications({ commit, state }) {
     const notifications = (await this.$axios.get(`/users/me/notifications`))

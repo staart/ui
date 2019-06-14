@@ -14,6 +14,7 @@ export interface User {
   role: number;
   timezone: string;
   twoFactorEnabled: boolean;
+  email: string;
 }
 
 export interface RootState {

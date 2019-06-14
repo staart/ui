@@ -38,10 +38,10 @@ export default class Default extends Vue {
       if (this.$store.state.auth && this.$store.state.auth.user) {
         if (this.$store.state.auth.user.prefersReducedMotion)
           if (document && document.body)
-            document.body.classList.add("prefers-reduced-motion");
+            document.documentElement.classList.add("prefers-reduced-motion");
         if (this.$store.state.auth.user.prefersColorSchemeDark)
           if (document && document.body)
-            document.body.classList.add("prefers-color-scheme-dark");
+            document.documentElement.classList.add("prefers-color-scheme-dark");
       }
     } catch (error) {
       console.log(error);

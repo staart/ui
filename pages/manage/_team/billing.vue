@@ -37,62 +37,62 @@
       </div>
       <form @submit.prevent="save">
         <Input
-          :value="name"
+          :value="billing.name"
           label="Name"
           placeholder="Enter your full name"
           required
-          @input="val => (name = val)"
+          @input="val => (billing.name = val)"
         />
         <Input
-          :value="email"
+          :value="billing.email"
           type="email"
           label="Email"
           placeholder="Enter your billing email"
           required
-          @input="val => (email = val)"
+          @input="val => (billing.email = val)"
         />
         <Input
-          :value="phone"
+          :value="billing.phone"
           label="Phone"
           placeholder="Enter your billing phone number"
-          @input="val => (phone = val)"
+          @input="val => (billing.phone = val)"
         />
         <Input
-          :value="addressLine1"
+          :value="billing.address.line1"
           label="Address"
           placeholder="Enter your address"
-          @input="val => (addressLine1 = val)"
+          @input="val => (billing.address.line1 = val)"
         />
         <Input
-          :value="addressLine2"
+          :value="billing.address.line2"
           label="Line 2"
           placeholder="Add another address line"
-          @input="val => (addressLine2 = val)"
+          @input="val => (billing.address.line2 = val)"
         />
         <Input
-          :value="addressCity"
+          :value="billing.address.city"
           label="City"
           placeholder="Enter your city"
-          @input="val => (addressCity = val)"
+          @input="val => (billing.address.city = val)"
         />
         <Input
-          :value="addressPostalCode"
+          :value="billing.address.postal_code"
           label="Postal code"
           placeholder="Enter your postal code"
-          @input="val => (addressPostalCode = val)"
+          @input="val => (billing.address.postal_code = val)"
         />
         <Input
-          :value="addressState"
+          :value="billing.address.state"
           label="State"
           placeholder="Enter your state"
-          @input="val => (addressState = val)"
+          @input="val => (billing.address.state = val)"
         />
         <Select
-          :value="addressCountry"
+          :value="billing.address.country"
           label="Country"
           placeholder="Select your billing country"
           :options="countries"
-          @input="val => (addressCountry = val)"
+          @input="val => (billing.address.country = val)"
         />
         <button class="button">
           Update settings
@@ -112,6 +112,7 @@ import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "@/types/auth";
+import { Billing, emptyBilling, emptyAddress } from "../../../types/manage";
 
 @Component({
   components: {
@@ -122,30 +123,21 @@ import { User } from "@/types/auth";
     Checkbox
   },
   computed: mapGetters({
-    organization: "auth/activeOrganization",
-    user: "auth/user",
-    billing: "manage/billing"
+    user: "auth/user"
   }),
   middleware: "auth"
 })
 export default class ManageSettings extends Vue {
-  organization!: any;
-  billing!: any;
-  user!: any;
+  user!: User;
+  billing: Billing = emptyBilling;
   loading = "";
   countries = {};
 
-  name = "";
-  email = "";
-  phone = "";
-  addressLine1 = "";
-  addressCity = "";
-  addressCountry = "";
-  addressLine2 = "";
-  addressPostalCode = "";
-  addressState = "";
-
   private created() {
+    this.billing = {
+      ...this.$store.getters["manage/billing"](this.$route.params.team),
+      address: { ...emptyAddress, country: this.user.countryCode.toUpperCase() }
+    };
     const countries = {};
     const allCountries = getAllCountries();
     for (const country in allCountries) {
@@ -159,24 +151,28 @@ export default class ManageSettings extends Vue {
   private mounted() {
     this.loading = "Loading billing details";
     this.$store
-      .dispatch("manage/getBilling", this.organization.organization.id)
+      .dispatch("manage/getBilling", this.$route.params.team)
       .then(billing => {
-        this.name = this.billing.name;
-        this.email = this.billing.email;
-        this.phone = this.billing.phone;
-        if (this.billing.address) {
-          this.addressLine1 = this.billing.address.line1;
-          this.addressCity = this.billing.address.city;
-          this.addressCountry = this.billing.address.country;
-          this.addressLine2 = this.billing.address.line2;
-          this.addressPostalCode = this.billing.address.postal_code;
-          this.addressState = this.billing.address.state;
-        }
+        this.billing = {
+          ...billing,
+          address: billing.address
+            ? { ...billing.address }
+            : {
+                ...emptyAddress,
+                country: this.user.countryCode.toUpperCase()
+              }
+        };
       })
       .catch(error => {
         if (error.response.data.error === "no-customer") {
-          this.name = this.user.name;
-          this.addressCountry = (this.user.countryCode || "us").toUpperCase();
+          this.billing = {
+            email: this.user.email,
+            name: this.user.name,
+            address: {
+              ...emptyAddress,
+              country: this.user.countryCode.toUpperCase()
+            }
+          };
         }
       })
       .finally(() => (this.loading = ""));
@@ -184,24 +180,16 @@ export default class ManageSettings extends Vue {
 
   private save() {
     this.loading = "Saving";
-    const data: any = {
-      id: this.organization.organization.id,
-      name: this.name,
-      email: this.email,
-      phone: this.phone
-    };
-    if (this.addressLine1) {
-      data.address = {
-        line1: this.addressLine1,
-        city: this.addressCity,
-        country: this.addressCountry,
-        line2: this.addressLine2,
-        postal_code: this.addressPostalCode,
-        state: this.addressState
-      };
-    }
     this.$store
-      .dispatch("manage/updateBilling", data)
+      .dispatch("manage/updateBilling", {
+        team: this.$route.params.team,
+        email: this.billing.email,
+        name: this.billing.name,
+        address:
+          this.billing.address &&
+          this.billing.address.line1 &&
+          this.billing.address
+      })
       .then(() => {})
       .catch(() => {})
       .finally(() => (this.loading = ""));

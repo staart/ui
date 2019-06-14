@@ -25,14 +25,14 @@ export const mutations: MutationTree<RootState> = {
     try {
       if (document) {
         if (user.prefersReducedMotion) {
-          document.body.classList.add("prefers-reduced-motion");
+          document.documentElement.classList.add("prefers-reduced-motion");
         } else {
-          document.body.classList.remove("prefers-reduced-motion");
+          document.documentElement.classList.remove("prefers-reduced-motion");
         }
         if (user.prefersColorSchemeDark) {
-          document.body.classList.add("prefers-color-scheme-dark");
+          document.documentElement.classList.add("prefers-color-scheme-dark");
         } else {
-          document.body.classList.remove("prefers-color-scheme-dark");
+          document.documentElement.classList.remove("prefers-color-scheme-dark");
         }
       }
     } catch (error) {}

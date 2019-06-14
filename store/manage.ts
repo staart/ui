@@ -7,7 +7,8 @@ const stripeProductId = "prod_CtJZklN9W4QmxA";
 export const state = (): RootState => ({
   memberships: {},
   isDownloading: false,
-  organizations: {}
+  organizations: {},
+  billing: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -23,8 +24,10 @@ export const mutations: MutationTree<RootState> = {
     currentMembers[team].next = start;
     Vue.set(state, "memberships", currentMembers);
   },
-  setBilling(state: RootState, billing: any): void {
-    Vue.set(state, "billing", billing);
+  setBilling(state: RootState, { billing, team }): void {
+    const currentBilling = state.billing;
+    currentBilling[team] = billing;
+    Vue.set(state, "billing", currentBilling);
   },
   setInvoices(state: RootState, invoices: any): void {
     Vue.set(state, "invoices", invoices);
@@ -123,17 +126,18 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.patch(`/memberships/${context.id}`, data);
     return dispatch("getMembership", context.id);
   },
-  async getBilling({ commit }, context) {
+  async getBilling({ commit }, team) {
     const billing: any = (await this.$axios.get(
-      `/organizations/${context}/billing`
+      `/organizations/${team}/billing`
     )).data;
-    commit("setBilling", billing);
+    commit("setBilling", { billing, team });
+    return billing;
   },
   async updateBilling({ dispatch }, context) {
     const data = JSON.parse(JSON.stringify(context));
-    delete data.id;
-    await this.$axios.patch(`/organizations/${context.id}/billing`, data);
-    return dispatch("getBilling", context.id);
+    delete data.team;
+    await this.$axios.patch(`/organizations/${context.team}/billing`, data);
+    return dispatch("getBilling", context.team);
   },
   async getInvoices({ commit }, context) {
     const invoices: any = (await this.$axios.get(
@@ -198,7 +202,6 @@ export const actions: ActionTree<RootState, RootState> = {
 
 export const getters: GetterTree<RootState, RootState> = {
   membership: state => state.membership,
-  billing: state => state.billing,
   invoices: state => state.invoices,
   subscriptions: state => state.subscriptions,
   pricingPlans: state => state.pricingPlans,
@@ -206,5 +209,6 @@ export const getters: GetterTree<RootState, RootState> = {
   isDownloading: state => state.isDownloading,
   sources: state => state.sources,
   memberships: state => (orgId: string) => state.memberships[parseInt(orgId)],
+  billing: state => (orgId: string) => state.billing[parseInt(orgId)],
   organization: state => (orgId: string) => state.organizations[parseInt(orgId)]
 };
