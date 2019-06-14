@@ -3,9 +3,6 @@
     <div class="container">
       <nuxt-link class="item" to="/">
         <span class="item--type-logo">Staart</span>
-        <span class="organization-name">
-          Organization name
-        </span>
       </nuxt-link>
       <nav v-if="isAuthenticated">
         <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
@@ -37,7 +34,9 @@
               <nuxt-link class="item" to="/settings/account"
                 >Help Center</nuxt-link
               >
-              <button class="item">Accessibility</button>
+              <button class="item" onclick="window.agastya.open()">
+                Accessibility
+              </button>
             </div>
           </transition>
         </span>

@@ -23,7 +23,7 @@
           <nuxt-link to="/">Why Staart?</nuxt-link>
           <nuxt-link to="/">Enterprise</nuxt-link>
           <nuxt-link to="/">Security &amp; privacy</nuxt-link>
-          <nuxt-link to="/">Pricing</nuxt-link>
+          <nuxt-link to="/pricing">Pricing</nuxt-link>
           <nuxt-link to="/">Staart Demo</nuxt-link>
         </nav>
       </div>
@@ -43,8 +43,17 @@
           <nuxt-link to="/">Blog</nuxt-link>
           <nuxt-link to="/">Developer API</nuxt-link>
           <nuxt-link to="/">Help Center</nuxt-link>
-          <nuxt-link to="/policies/privacy">Terms &amp; privacy</nuxt-link>
           <nuxt-link to="/">Partners</nuxt-link>
+          <button onclick="window.agastya.open()">Accessibility</button>
+        </nav>
+      </div>
+      <div>
+        <h2>Policies</h2>
+        <nav>
+          <nuxt-link to="/">Terms of use</nuxt-link>
+          <nuxt-link to="/policies/privacy/">Privacy</nuxt-link>
+          <nuxt-link to="/">Cookies</nuxt-link>
+          <nuxt-link to="/">GDPR</nuxt-link>
         </nav>
       </div>
       <div>
@@ -117,11 +126,19 @@ h2 {
   font-size: 110%;
   margin-bottom: 0.5rem;
 }
-nav a {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-  padding: 0.25rem 0;
+nav {
+  a,
+  button {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    padding: 0.25rem 0;
+  }
+  button {
+    background: none;
+    font: inherit;
+    border: none;
+  }
 }
 .banner {
   text-align: center;

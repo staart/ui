@@ -31,6 +31,11 @@ const config: NuxtConfiguration = {
         type: "text/javascript",
         src: "https://public-cdn.oswaldlabs.com/focus-visible.js",
         async: true
+      },
+      {
+        type: "text/javascript",
+        src: "https://platform.oswaldlabs.com/_/d1b9d3cd29.js",
+        async: true
       }
     ]
   },

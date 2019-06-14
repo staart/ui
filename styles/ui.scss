@@ -65,6 +65,10 @@ code {
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.035);
 }
 
+.section--bg-white {
+  background-color: #fff;
+}
+
 .button {
   font: inherit;
   transition: 0.2s;
@@ -127,8 +131,8 @@ code {
   box-sizing: border-box;
 }
 .button--color-primary {
-  background: $button-primary-background-color;
-  color: $button-primary-text-color;
+  background: $button-primary-background-color !important;
+  color: $button-primary-text-color !important;
   box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
   &:focus {
@@ -290,4 +294,8 @@ code {
   padding: 0.75rem 1rem;
   font: inherit !important;
   font-size: 90% !important;
+}
+
+.modal-front .button {
+  margin-right: 0.5rem;
 }

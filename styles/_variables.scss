@@ -18,8 +18,11 @@ $button-danger-text-color: rgba(255, 0, 0, 0.01);
 
 // Dark theme
 $dark-text-color: rgba(255, 255, 255, 0.95);
-$dark-background-color: #151d21;
-$dark-background-color-lighter: #263238;
+$dark-background-color: #121212;
+$dark-background-color-lighter: #242424;
 $dark-link-color: #fff;
-$dark-button-background-color: rgba(255, 255, 255, 0.05);
+$dark-button-background-color: rgba(255, 255, 255, 0.1);
 $dark-button-text-color: #fff;
+$dark-button-primary-border-color: #492257;
+$dark-button-info-border-color: #4285f4;
+$dark-button-danger-border-color: #af1101;

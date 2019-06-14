@@ -2,11 +2,10 @@
   <main itemscope itemtype="https://schema.org/Product">
     <div class="hero hero--align-center">
       <h1>Simple, transparent pricing.</h1>
-      <!-- <p>
-        Our fair pricing charges websites with higher pageviews a subscription
-        cost, but is free for smaller websites with less than 10,000 pageviews
-        per month.
-      </p> -->
+      <p>
+        This is an example pricing page for a SaaS startup. You can add your own
+        plans, extra addons, and more.
+      </p>
     </div>
     <div
       class="container"
@@ -20,39 +19,40 @@
           <div class="card card--type-padded text text--align-center">
             <h2 class="plan">Free</h2>
             <div class="price">
-              <span itemprop="priceCurrency" content="USD">$</span>
-              <span itemprop="price" content="0.00">0</span>
+              <span itemprop="priceCurrency" content="USD">$</span
+              ><span itemprop="price" content="0.00">0</span>
               <link itemprop="availability" href="https://schema.org/InStock" />
             </div>
             <div class="text text--size-small text--color-light">&nbsp;</div>
             <div class="text text--size-small text--color-light">&nbsp;</div>
-          </div>
-        </div>
-        <div>
-          <div class="card card--type-padded text text--align-center">
-            <h2 class="plan">Starter</h2>
-            <div class="price">
-              <span itemprop="priceCurrency" content="USD">$</span>
-              <span itemprop="price" content="39.00">39</span>
-              <link itemprop="availability" href="https://schema.org/InStock" />
-            </div>
-            <div class="text text--size-small text--color-light">per month</div>
-            <div class="text text--size-small text--color-light">
-              billed monthly
-            </div>
           </div>
         </div>
         <div>
           <div class="card card--type-padded text text--align-center">
             <h2 class="plan">Pro</h2>
             <div class="price">
-              <span itemprop="priceCurrency" content="USD">$</span>
-              <span itemprop="price" content="99.00">99</span>
+              <span itemprop="priceCurrency" content="USD">$</span
+              ><span itemprop="price" content="49.00">49</span>
               <link itemprop="availability" href="https://schema.org/InStock" />
             </div>
             <div class="text text--size-small text--color-light">per month</div>
             <div class="text text--size-small text--color-light">
               billed monthly
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card card--type-padded text text--align-center">
+            <h2 class="plan">Enterprise</h2>
+            <div class="price">
+              <span>Custom</span>
+              <link itemprop="availability" href="https://schema.org/InStock" />
+            </div>
+            <div class="text text--size-small text--color-light">
+              unlimited users
+            </div>
+            <div class="text text--size-small text--color-light">
+              billed annually
             </div>
           </div>
         </div>
@@ -64,20 +64,18 @@
             style="padding-left: 0"
           >
             <ul>
-              <li>&nbsp;</li>
               <li>Pageviews</li>
               <li>Apps &amp; modes</li>
               <li>Usage metrics</li>
               <li>White labeling</li>
-              <li>Branding</li>
               <li>Support</li>
+              <li>Branding</li>
             </ul>
           </div>
         </div>
         <div>
           <div class="card card--type-padded text text--align-center">
             <ul>
-              <li><a href="#">Start with free</a></li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>Unlimited</span>
@@ -88,18 +86,22 @@
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Data analytics</span>
+                <span>Usage analytics</span>
               </li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
             </ul>
+            <div class="section section--mt-2">
+              <router-link to="/" class="button button--size-large"
+                >Get started</router-link
+              >
+            </div>
           </div>
         </div>
         <div>
           <div class="card card--type-padded text text--align-center">
             <ul>
-              <li><a href="#">Start with basic</a></li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>Unlimited</span>
@@ -110,32 +112,7 @@
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Data analytics</span>
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>White labeling</span>
-              </li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-            </ul>
-          </div>
-        </div>
-        <div>
-          <div class="card card--type-padded text text--align-center">
-            <ul>
-              <li><a href="#">Start with pro</a></li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Unlimited</span>
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>20+ included</span>
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Data analytics</span>
+                <span>Usage analytics</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
@@ -143,39 +120,169 @@
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Hide &ldquo;Powered by&rdquo;</span>
+                <span>Chat support</span>
+              </li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+            </ul>
+            <div class="section section--mt-2">
+              <router-link
+                to="/"
+                class="button button--color-primary button--size-large"
+              >
+                <span>Get started</span>
+                <font-awesome-icon icon="arrow-right" class="icon icon--ml-1" />
+              </router-link>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card card--type-padded text text--align-center">
+            <ul>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+                <span>Unlimited</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Email support</span>
+                <span>20+ included</span>
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+                <span>Usage analytics</span>
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+                <span>White labeling</span>
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+                <span>Dedicated support</span>
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+                <span>Hide "Powered by"</span>
               </li>
             </ul>
+            <div class="section section--mt-2">
+              <router-link to="/" class="button button--size-large"
+                >Contact us</router-link
+              >
+            </div>
           </div>
         </div>
       </div>
-      <div class="text text--align-center section--mt-4">
-        <h2>Addons</h2>
-      </div>
-      <div class="addons">
-        <div class="card card--type-padded">
-          <h3>100% uptime SLA</h3>
-          <p>Service-level agreement for 100% uptime for our services</p>
-          <a href="#">$99/month &rarr;</a>
+      <div class="row row--padding-large section section--mt-4">
+        <div>
+          <ul>
+            <li>Invite team members</li>
+            <li>Developer API</li>
+            <li>Bank-grade security</li>
+            <li>Hosted in Europe</li>
+            <li>Data export &amp; delete</li>
+            <li>99.99% uptime SLA</li>
+            <li>Increased rate limit</li>
+            <li>Single-sign on</li>
+            <li>IP whitelisting</li>
+            <li>Self-hosted service</li>
+            <li>Reseller accounts</li>
+          </ul>
         </div>
-        <div class="card card--type-padded">
-          <h3>100% uptime SLA</h3>
-          <p>Service-level agreement for 100% uptime for our services</p>
-          <a href="#">$99/month &rarr;</a>
+        <div>
+          <div class="text text--align-center">
+            <ul>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+            </ul>
+          </div>
         </div>
-        <div class="card card--type-padded">
-          <h3>Enterprise support</h3>
-          <p>Live chat, phone, and email support, 7 days a week</p>
-          <a href="#">$99/month &rarr;</a>
+        <div>
+          <div class="text text--align-center">
+            <ul>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+            </ul>
+          </div>
         </div>
-        <div class="card card--type-padded">
-          <h3>Web analytics</h3>
-          <p>GDPR-compliant tracking for pageviews, clicks, and more</p>
-          <a href="#">$0.0001/event &rarr;</a>
+        <div>
+          <div class="text text--align-center">
+            <ul>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="text text--align-center section--mt-4">
@@ -183,24 +290,26 @@
       </div>
       <div class="addons more-plans">
         <div class="card card--type-padded">
-          <h3>For enterprise</h3>
+          <h3>For open-source</h3>
           <p>
-            High volume pricing available with dedicated support and
-            customizations
+            Free or discounted Pro plan availabile for open-source projects
+            under permissive licenses.
           </p>
-          <a href="#">Request pricing &rarr;</a>
+          <a href="#">Apply for FOSS &rarr;</a>
         </div>
         <div class="card card--type-padded">
           <h3>For students</h3>
           <p>
-            Free Startup plan for student developers with an educational account
+            Free or discounted Startup plan for student developers with an
+            educational account
           </p>
           <a href="#">Create student account &rarr;</a>
         </div>
         <div class="card card--type-padded">
           <h3>For non-profits</h3>
           <p>
-            Up to 50% off on all plans and services for registered non-profits
+            Up to 50% off on all plans and services for registered section
+            501(c)(3) non-profits
           </p>
           <a href="#">Contact us &rarr;</a>
         </div>
@@ -214,8 +323,12 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-library.add(faCheck, faTimes);
+import {
+  faCheck,
+  faTimes,
+  faArrowRight
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faCheck, faTimes, faArrowRight);
 
 @Component({
   components: {

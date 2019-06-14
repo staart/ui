@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header class="section section--bg-white">
       <div class="container">
         <h1>Get work done with Product.</h1>
         <div v-if="isAuthenticated">
@@ -39,7 +39,6 @@ export default class Home extends Vue {}
 
 <style lang="scss" scoped>
 header {
-  background-color: #fff;
   padding: 15rem 0 7.5rem 0;
   margin-bottom: 7.5rem;
   margin-top: -7.5rem;

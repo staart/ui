@@ -65,12 +65,12 @@ export default class Modal extends Vue {
     border: none;
   }
 }
-.button + .button {
-  margin-left: 0.5rem;
-}
 .modal-front {
   margin: 10vh auto;
   max-width: 500px;
   box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.2), 0 3px 6px 0 rgba(0, 0, 0, 0.1);
+}
+.prefers-color-scheme-dark .modal-back {
+  background-color: rgba(0, 0, 0, 0.75);
 }
 </style>
