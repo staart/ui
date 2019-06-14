@@ -361,8 +361,9 @@ h2 {
 }
 h1,
 h2 {
+  line-height: 1.25;
   + p {
-    margin-top: -1.25rem;
+    margin-top: -1rem;
     margin-bottom: 2rem;
     &:last-child {
       margin-bottom: 0;

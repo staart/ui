@@ -34,9 +34,7 @@
                 data-balloon="Dashboard"
                 data-balloon-pos="up"
                 class="button button--type-icon"
-                @click="
-                  visitOrganization(membership.organizationId, '/dashboard')
-                "
+                @click="`/manage/${membership.organizationId}/dashboard`"
               >
                 <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
               </button>
@@ -44,12 +42,7 @@
                 data-balloon="Settings"
                 data-balloon-pos="up"
                 class="button button--type-icon"
-                @click="
-                  visitOrganization(
-                    membership.organizationId,
-                    '/manage/settings'
-                  )
-                "
+                @click="`/manage/${membership.organizationId}/settings`"
               >
                 <font-awesome-icon title="Settings" icon="cog" fixed-width />
               </button>
@@ -218,15 +211,6 @@ export default class AccountSettings extends Vue {
       .catch(() => {})
       .finally(() => (this.isCreating = false));
     this.organizationName = "";
-  }
-
-  private visitOrganization(organizationId: number, thenTo: string) {
-    this.$store
-      .dispatch("auth/setOrganization", organizationId)
-      .then(() => {
-        this.$router.push(thenTo);
-      })
-      .catch(() => {});
   }
 }
 </script>

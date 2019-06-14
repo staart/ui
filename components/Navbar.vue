@@ -3,8 +3,8 @@
     <div class="container">
       <nuxt-link class="item" to="/">
         <span class="item--type-logo">Staart</span>
-        <span v-if="organization" class="organization-name">
-          {{ organization.organization.name }}
+        <span class="organization-name">
+          Organization name
         </span>
       </nuxt-link>
       <nav v-if="isAuthenticated">
@@ -138,8 +138,7 @@ library.add(faBell, faQuestionCircle);
 @Component({
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user",
-    organization: "auth/activeOrganization"
+    user: "auth/user"
   }),
   components: {
     FontAwesomeIcon,

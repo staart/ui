@@ -25,7 +25,6 @@ export const mutations: MutationTree<RootState> = {
     state.loading = false;
     state.isAuthenticated = false;
     state.notifications = [];
-    delete state.activeOrganization;
     delete state.user;
   },
   startLoading(state: RootState): void {
@@ -33,12 +32,6 @@ export const mutations: MutationTree<RootState> = {
   },
   stopLoading(state: RootState): void {
     state.loading = false;
-  },
-  setOrganization(state: RootState, organization: any): void {
-    Vue.set(state, "activeOrganization", organization);
-  },
-  setOrganizationDetails(state: RootState, organization: any): void {
-    Vue.set(state.activeOrganization, "organization", organization);
   },
   setNotifications(state: RootState, notifications: any): void {
     Vue.set(state, "notifications", notifications);
@@ -125,25 +118,6 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("settings/clearAll", undefined, { root: true });
     commit("manage/clearAll", undefined, { root: true });
   },
-  async setOrganization({ commit }, organizationId) {
-    const memberships = (await this.$axios.get("/users/me/memberships")).data;
-    if (!memberships.length) throw new Error();
-    commit("manage/clearAll", undefined, { root: true });
-    const set = memberships.filter(
-      membership =>
-        parseInt(membership.organizationId) === parseInt(organizationId)
-    );
-    if (set.length) {
-      commit("setOrganization", set[0]);
-    } else {
-      commit("setOrganization", memberships[0]);
-    }
-  },
-  async resetOrganization({ commit, state }) {
-    const org = state.activeOrganization.organization.id;
-    const organization = (await this.$axios.get(`/organizations/${org}`)).data;
-    commit("setOrganizationDetails", organization);
-  },
   async getNotifications({ commit, state }) {
     const notifications = (await this.$axios.get(`/users/me/notifications`))
       .data;
@@ -160,7 +134,6 @@ export const actions: ActionTree<RootState, RootState> = {
 export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   isLoading: state => state.loading,
-  activeOrganization: state => state.activeOrganization,
   notifications: state => state.notifications,
   isAuthenticated: state => state.isAuthenticated
 };

@@ -138,7 +138,7 @@ import {
   faArrowDown,
   faSync
 } from "@fortawesome/free-solid-svg-icons";
-import { Members } from "../../../types/manage";
+import { Members } from "@/types/manage";
 library.add(faTrash, faPencilAlt, faArrowDown, faSync);
 
 @Component({
