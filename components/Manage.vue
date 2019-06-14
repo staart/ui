@@ -1,32 +1,35 @@
 <template>
-  <div class="container">
+  <div :key="`manage_${$route.params.team}`" class="container">
     <aside>
       <nav>
-        <nuxt-link class="item" to="/manage/settings">
+        <nuxt-link class="item" :to="`/manage/${$route.params.team}/settings`">
           <font-awesome-icon class="nav-icon" icon="cog" fixed-width />
           <span>Settings</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/manage/members">
+        <nuxt-link class="item" :to="`/manage/${$route.params.team}/members`">
           <font-awesome-icon class="nav-icon" icon="users" fixed-width />
           <span>Team</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/manage/subscriptions">
+        <nuxt-link
+          class="item"
+          :to="`/manage/${$route.params.team}/subscriptions`"
+        >
           <font-awesome-icon class="nav-icon" icon="box-open" fixed-width />
           <span>Subscriptions</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/manage/billing">
+        <nuxt-link class="item" :to="`/manage/${$route.params.team}/billing`">
           <font-awesome-icon class="nav-icon" icon="address-card" fixed-width />
           <span>Billing info</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/manage/sources">
+        <nuxt-link class="item" :to="`/manage/${$route.params.team}/sources`">
           <font-awesome-icon class="nav-icon" icon="credit-card" fixed-width />
           <span>Payment methods</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/manage/invoices">
+        <nuxt-link class="item" :to="`/manage/${$route.params.team}/invoices`">
           <font-awesome-icon class="nav-icon" icon="file-invoice" fixed-width />
           <span>Invoices</span>
         </nuxt-link>
-        <nuxt-link class="item" to="/manage/data">
+        <nuxt-link class="item" :to="`/manage/${$route.params.team}/data`">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
         </nuxt-link>

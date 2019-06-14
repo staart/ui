@@ -6,12 +6,15 @@ import Vue from "vue";
 const stripeProductId = "prod_CtJZklN9W4QmxA";
 export const state = (): RootState => ({
   members: { data: [], hasMore: false },
-  isDownloading: false
+  isDownloading: false,
+  organizations: {}
 });
 
 export const mutations: MutationTree<RootState> = {
   setOrganization(state: RootState, organization: Organization): void {
-    Vue.set(state, "organization", organization);
+    const organizations = state.organizations;
+    organizations[organization.id] = organization;
+    Vue.set(state, "organizations", organizations);
   },
   setMembers(state: RootState, { members, start }): void {
     if (start) {
@@ -47,7 +50,7 @@ export const mutations: MutationTree<RootState> = {
     state.isDownloading = false;
   },
   clearAll(state: RootState): void {
-    delete state.organization;
+    delete state.organizations;
     delete state.billing;
     delete state.invoices;
     delete state.members;
@@ -65,19 +68,19 @@ export const actions: ActionTree<RootState, RootState> = {
       `/organizations/${context}`
     )).data;
     commit("setOrganization", org);
+    return org;
   },
-  async updateOrganization({ dispatch, rootGetters }, context) {
-    const org = rootGetters["auth/activeOrganization"];
-    const organizationId = org.organizationId;
-    await this.$axios.patch(`/organizations/${organizationId}`, context);
-    return dispatch("getOrganization", organizationId);
+  async updateOrganization({ dispatch }, context) {
+    const update = { ...context };
+    delete update.team;
+    await this.$axios.patch(`/organizations/${context.team}`, update);
+    return dispatch("getOrganization", context.team);
   },
   async deleteOrganization({ commit, rootGetters }) {
     const org = rootGetters["auth/activeOrganization"];
     const organizationId = org.organizationId;
     await this.$axios.delete(`/organizations/${organizationId}`);
     commit("clearAll");
-    commit("auth/setOrganization", undefined, { root: true });
   },
   async getExport({ commit, rootGetters }) {
     commit("startDownloading");
@@ -205,5 +208,6 @@ export const getters: GetterTree<RootState, RootState> = {
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
   sources: state => state.sources,
-  members: state => state.members
+  members: state => state.members,
+  organization: state => orgId => state.organizations[parseInt(orgId)]
 };

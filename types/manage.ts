@@ -1,14 +1,16 @@
-export interface Organization {
-  id: number;
+import { IdRow } from "./root";
+
+export interface Organization extends IdRow {
+  invitationDomain?: string;
+  name?: string;
+  stripeCustomerId?: string;
 }
 
-export interface Membership {
-  id: number;
+export interface Membership extends IdRow {
   organization: Organization;
 }
 
-export interface Member {
-  id: number;
+export interface Member extends IdRow {
 }
 
 export interface Members {
@@ -16,10 +18,13 @@ export interface Members {
   hasMore: boolean;
   next?: number;
 }
+export interface OrganizationsKV {
+  [index: string]: Organization;
+}
 
 export interface RootState {
   membership?: Membership;
-  organization?: Organization;
+  organizations: OrganizationsKV;
   members: Members;
   billing?: any;
   invoices?: any;
@@ -29,3 +34,12 @@ export interface RootState {
   recentEvents?: any;
   isDownloading: boolean;
 }
+
+export const emptyOrganization: Organization = {
+  id: 0,
+  createdAt: new Date().toString(),
+  updatedAt: new Date().toString(),
+  name: "",
+  invitationDomain: "",
+  stripeCustomerId: ""
+};

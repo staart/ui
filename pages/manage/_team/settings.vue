@@ -4,18 +4,18 @@
     <Loading v-if="loading" :message="loading" />
     <form v-else @submit.prevent="save">
       <Input
-        :value="name"
+        :value="organization.name"
         label="Name"
         placeholder="Enter your organization's name"
         required
-        @input="val => (name = val)"
+        @input="val => (organization.name = val)"
       />
       <Input
-        :value="invitationDomain"
+        :value="organization.invitationDomain"
         label="Email domain"
         placeholder="Enter your company's domain"
         help="We'll allow people with emails from this domain to join this organization automatically"
-        @input="val => (invitationDomain = val)"
+        @input="val => (organization.invitationDomain = val)"
       />
       <button class="button">
         Update settings
@@ -34,6 +34,11 @@ import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "@/types/auth";
+import {
+  OrganizationsKV,
+  Organization,
+  emptyOrganization
+} from "../../../types/manage";
 
 @Component({
   components: {
@@ -43,24 +48,24 @@ import { User } from "@/types/auth";
     ImageInput,
     Checkbox
   },
-  computed: mapGetters({
-    organization: "auth/activeOrganization"
-  }),
   middleware: "auth"
 })
 export default class ManageSettings extends Vue {
-  organization!: any;
   loading = "";
-  name = "";
-  invitationDomain = "";
+  organization: Organization = emptyOrganization;
+
+  private created() {
+    this.organization = {
+      ...this.$store.getters["manage/organization"](this.$route.params.team)
+    };
+  }
 
   private mounted() {
     this.loading = "Loading organization details";
     this.$store
-      .dispatch("manage/getOrganization", this.organization.organization.id)
-      .then(() => {
-        this.name = this.$store.state.manage.organization.name;
-        this.invitationDomain = this.$store.state.manage.organization.invitationDomain;
+      .dispatch("manage/getOrganization", this.$route.params.team)
+      .then(org => {
+        this.organization = { ...org };
       })
       .catch(() => {})
       .finally(() => (this.loading = ""));
@@ -70,8 +75,9 @@ export default class ManageSettings extends Vue {
     this.loading = "Saving";
     this.$store
       .dispatch("manage/updateOrganization", {
-        name: this.name,
-        invitationDomain: this.invitationDomain
+        team: this.$route.params.team,
+        name: this.organization.name,
+        invitationDomain: this.organization.invitationDomain
       })
       .then(() => {})
       .catch(() => {})

@@ -425,6 +425,7 @@ p {
 }
 
 [data-balloon]::after {
+  padding: 0.75rem 1rem;
   font: inherit !important;
   font-size: 90% !important;
 }

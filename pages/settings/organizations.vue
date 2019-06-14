@@ -30,22 +30,22 @@
             <td><TimeAgo :date="membership.createdAt" /></td>
             <td>{{ membershipRoles[membership.role] || membership.role }}</td>
             <td class="text text--align-right">
-              <button
+              <nuxt-link
                 data-balloon="Dashboard"
                 data-balloon-pos="up"
                 class="button button--type-icon"
-                @click="`/manage/${membership.organizationId}/dashboard`"
+                :to="`/manage/${membership.organizationId}/dashboard`"
               >
                 <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
-              </button>
-              <button
+              </nuxt-link>
+              <nuxt-link
                 data-balloon="Settings"
                 data-balloon-pos="up"
                 class="button button--type-icon"
-                @click="`/manage/${membership.organizationId}/settings`"
+                :to="`/manage/${membership.organizationId}/settings`"
               >
                 <font-awesome-icon title="Settings" icon="cog" fixed-width />
-              </button>
+              </nuxt-link>
               <button
                 data-balloon="Leave organization"
                 data-balloon-pos="up"
