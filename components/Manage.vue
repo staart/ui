@@ -12,10 +12,10 @@
         </nuxt-link>
         <nuxt-link
           class="item"
-          :to="`/manage/${$route.params.team}/subscriptions`"
+          :to="`/manage/${$route.params.team}/subscription`"
         >
           <font-awesome-icon class="nav-icon" icon="box-open" fixed-width />
-          <span>Subscriptions</span>
+          <span>Subscription</span>
         </nuxt-link>
         <nuxt-link class="item" :to="`/manage/${$route.params.team}/billing`">
           <font-awesome-icon class="nav-icon" icon="address-card" fixed-width />

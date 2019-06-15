@@ -29,10 +29,8 @@
       </div>
       <LargeMessage
         v-if="!loading && (!sources || !sources.data || !sources.data.length)"
-        heading="No sources yet"
-        text="Set up a paid subscription and your payment method will show up here."
-        cta-text="Get started"
-        :cta-to="`/manage/${$route.params.team}/subscriptions`"
+        heading="No payment methods yet"
+        text="Add your credit card to for automatic payments."
       />
       <div v-else-if="sources && sources.data && sources.data.length">
         <table class="table">
@@ -91,6 +89,7 @@
           </button>
         </div>
       </div>
+      <h2>Add card</h2>
     </div>
   </main>
 </template>

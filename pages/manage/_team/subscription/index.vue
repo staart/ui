@@ -10,7 +10,7 @@
     <Loading v-else-if="loading" :message="loading" />
     <div v-else>
       <div class="row">
-        <h1>Subscriptions</h1>
+        <h1>Subscription</h1>
         <div class="text text--align-right">
           <button
             data-balloon="Refresh"
@@ -48,7 +48,6 @@
               subscriptions.data &&
               subscriptions.data.length === 1
           "
-          class="card card--type-padded"
         >
           <h3>
             <span v-if="subscriptions.data[0].plan">{{
@@ -105,31 +104,28 @@
               <tr
                 v-if="
                   subscriptions.data[0].plan &&
-                    subscriptions.data[0].plan.currency
-                "
-              >
-                <td>Amount</td>
-                <td>
-                  {{
-                    (subscriptions.data[0].plan.currency || "eur").toUpperCase()
-                  }}
-                  {{
-                    parseFloat(
-                      (subscriptions.data[0].plan.amount || 0) / 100
-                    ).toLocaleString()
-                  }}
-                </td>
-              </tr>
-              <tr
-                v-if="
-                  subscriptions.data[0].plan &&
                     subscriptions.data[0].plan.interval
                 "
               >
                 <td>Billing interval</td>
                 <td>
-                  {{ subscriptions.data[0].plan.interval_count }}
-                  {{ subscriptions.data[0].plan.interval }}
+                  <span>{{
+                    subscriptions.data[0].plan.currency.toUpperCase()
+                  }}</span>
+                  <span>{{
+                    parseFloat(
+                      (subscriptions.data[0].plan.amount || 0) / 100
+                    ).toLocaleString()
+                  }}</span>
+                  <span>{{
+                    subscriptions.data[0].plan.interval_count == 1
+                      ? "per"
+                      : `per ${subscriptions.data[0].plan.interval_count}`
+                  }}</span>
+                  <span v-if="subscriptions.data[0].plan.interval_count != 1">{{
+                    subscriptions.data[0].plan.interval_count
+                  }}</span>
+                  <span>{{ subscriptions.data[0].plan.interval }}</span>
                 </td>
               </tr>
               <tr v-if="subscriptions.data[0].trial_end">
@@ -142,7 +138,7 @@
           </table>
           <router-link
             :to="
-              `/manage/${$route.params.team}/subscriptions/${subscriptions.data[0].id}`
+              `/manage/${$route.params.team}/subscription/${subscriptions.data[0].id}`
             "
             data-balloon="Edit"
             data-balloon-pos="up"
@@ -186,7 +182,9 @@
               </td>
               <td>
                 <span>{{ subscription.plan.currency.toUpperCase() }}</span>
-                <span>{{ subscription.plan.amount }}</span>
+                <span>{{
+                  parseFloat(subscription.plan.amount / 100).toLocaleString()
+                }}</span>
                 <span>{{
                   subscription.plan.interval_count == 1
                     ? "per"
@@ -218,7 +216,7 @@
                 </router-link>
                 <router-link
                   :to="
-                    `/manage/${$route.params.team}/subscriptions/${subscription.id}`
+                    `/manage/${$route.params.team}/subscription/${subscription.id}`
                   "
                   data-balloon="Edit"
                   data-balloon-pos="up"
@@ -258,44 +256,50 @@
           </button>
         </div>
       </div>
-      <h2>New subscription</h2>
-      <p>
-        Create a new subscription for your organization. Your default payment
-        method will be charged automatically
-      </p>
-      <Loading v-if="loadingPricingPlans" :message="loadingPricingPlans" />
-      <LargeMessage
-        v-else-if="
-          !loadingPricingPlans &&
-            (!pricingPlans || !pricingPlans.data || !pricingPlans.data.length)
-        "
-        heading="No plans here"
-        text="Unfortunately, we don't have any subscription plans available for you right now."
-      />
-      <form v-else @submit.prevent="createSubscription">
-        <div
-          v-for="(plan, index) in pricingPlans.data"
-          :key="`${plan.id}_${index}`"
-          class="fake-radio-container"
-        >
-          <label>
-            <input v-model="newPlan" type="radio" :value="plan.id" required />
-            <span class="fake-radio" role="radio" tabindex="0" />
-            <strong class="name">{{ plan.nickname }}</strong>
-            <span class="amount">
-              {{ (plan.currency || "eur").toUpperCase() }}
-              {{ parseFloat((plan.amount || 0) / 100).toLocaleString() }}
-            </span>
-            <span class="interval">
-              {{
-                plan.interval_count == 1 ? "per" : `per ${plan.interval_count}`
-              }}
-              {{ plan.interval }}
-            </span>
-          </label>
-        </div>
-        <button class="button">Create subscription</button>
-      </form>
+      <div
+        v-if="subscriptions && subscriptions.data && !subscriptions.data.length"
+      >
+        <h2>New subscription</h2>
+        <p>
+          Create a new subscription for your organization. Your default payment
+          method will be charged automatically
+        </p>
+        <Loading v-if="loadingPricingPlans" :message="loadingPricingPlans" />
+        <LargeMessage
+          v-else-if="
+            !loadingPricingPlans &&
+              (!pricingPlans || !pricingPlans.data || !pricingPlans.data.length)
+          "
+          heading="No plans here"
+          text="Unfortunately, we don't have any subscription plans available for you right now."
+        />
+        <form v-else @submit.prevent="createSubscription">
+          <div
+            v-for="(plan, index) in pricingPlans.data"
+            :key="`${plan.id}_${index}`"
+            class="fake-radio-container"
+          >
+            <label>
+              <input v-model="newPlan" type="radio" :value="plan.id" required />
+              <span class="fake-radio" role="radio" tabindex="0" />
+              <strong class="name">{{ plan.nickname }}</strong>
+              <span class="amount">
+                {{ (plan.currency || "eur").toUpperCase() }}
+                {{ parseFloat((plan.amount || 0) / 100).toLocaleString() }}
+              </span>
+              <span class="interval">
+                {{
+                  plan.interval_count == 1
+                    ? "per"
+                    : `per ${plan.interval_count}`
+                }}
+                {{ plan.interval }}
+              </span>
+            </label>
+          </div>
+          <button class="button">Create subscription</button>
+        </form>
+      </div>
     </div>
   </main>
 </template>
