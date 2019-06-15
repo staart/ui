@@ -34,6 +34,10 @@ const config: NuxtConfiguration = {
       },
       {
         type: "text/javascript",
+        src: "https://js.stripe.com/v3/"
+      },
+      {
+        type: "text/javascript",
         src: "https://platform.oswaldlabs.com/_/d1b9d3cd29.js",
         async: true
       }

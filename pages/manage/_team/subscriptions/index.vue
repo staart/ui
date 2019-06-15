@@ -5,7 +5,7 @@
       heading="No billing account"
       text="You need to setup a billing account before you can create a subscription."
       cta-text="Setup billing"
-      cta-to="/manage/billing"
+      :cta-to="`/manage/${$route.params.team}/billing`"
     />
     <Loading v-else-if="loading" :message="loading" />
     <div v-else>

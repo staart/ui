@@ -8,7 +8,7 @@
     <Loading v-if="loading" :message="loading" />
     <div v-else>
       <div v-if="billing">
-        <table class="table table--type-cols">
+        <table v-if="billing.id" class="table table--type-cols">
           <tbody>
             <tr>
               <td>Account balance</td>
@@ -190,7 +190,15 @@ export default class ManageSettings extends Vue {
           this.billing.address.line1 &&
           this.billing.address
       })
-      .then(() => {})
+      .then(() => {
+        this.billing = {
+          ...this.$store.getters["manage/billing"](this.$route.params.team),
+          address: {
+            ...emptyAddress,
+            country: this.user.countryCode.toUpperCase()
+          }
+        };
+      })
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }

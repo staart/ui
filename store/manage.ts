@@ -3,7 +3,7 @@ import { RootState, Organization, emptyPagination } from "~/types/manage";
 import download from "downloadjs";
 import Vue from "vue";
 
-const stripeProductId = "prod_CtJZklN9W4QmxA";
+const stripeProductId = "prod_FGFAYQGEFTm2lu";
 export const state = (): RootState => ({
   memberships: {},
   isDownloading: false,
@@ -12,7 +12,9 @@ export const state = (): RootState => ({
   subscriptions: {},
   subscription: {},
   invoices: {},
-  invoice: {}
+  invoice: {},
+  sources: {},
+  source: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -71,11 +73,25 @@ export const mutations: MutationTree<RootState> = {
     currentInvoices[team][id] = { ...invoice };
     Vue.set(state, "invoice", currentInvoices);
   },
+  setSources(state: RootState, { team, sources, start, next }): void {
+    const currentSources = state.sources;
+    currentSources[team] = currentSources[team] || emptyPagination;
+    if (start) {
+      currentSources[team].data = [...currentSources[team].data, ...sources.data];
+    } else {
+      currentSources[team].data = sources.data;
+    }
+    currentSources[team].next = next;
+    Vue.set(state, "sources", currentSources);
+  },
+  setSource(state: RootState, { team, source, id }): void {
+    const currentSources = state.source;
+    currentSources[team] = currentSources[team] || {};
+    currentSources[team][id] = { ...source };
+    Vue.set(state, "source", currentSources);
+  },
   setPricingPlans(state: RootState, pricingPlans: any): void {
     Vue.set(state, "pricingPlans", pricingPlans);
-  },
-  setSources(state: RootState, sources: any): void {
-    Vue.set(state, "sources", sources);
   },
   setRecentEvents(state: RootState, recentEvents: any): void {
     Vue.set(state, "recentEvents", recentEvents);
@@ -95,9 +111,10 @@ export const mutations: MutationTree<RootState> = {
     delete state.subscription;
     delete state.invoices;
     delete state.invoice;
+    delete state.sources;
+    delete state.source;
     delete state.recentEvents;
     delete state.pricingPlans;
-    delete state.sources;
   }
 };
 
@@ -159,7 +176,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return (await this.$axios.get(`/memberships/${context}`)).data;
   },
   async updateMembership({ dispatch }, context) {
-    const data = JSON.parse(JSON.stringify(context));
+    const data = { ...context };
     delete data.id;
     await this.$axios.patch(`/memberships/${context.id}`, data);
     return dispatch("getMembership", context.id);
@@ -172,10 +189,24 @@ export const actions: ActionTree<RootState, RootState> = {
     return billing;
   },
   async updateBilling({ dispatch }, context) {
-    const data = JSON.parse(JSON.stringify(context));
+    const data = { ...context };
     delete data.team;
     await this.$axios.patch(`/organizations/${context.team}/billing`, data);
     return dispatch("getBilling", context.team);
+  },
+  async getSources({ commit }, { team, start = 0 }) {
+    const sources: any = (await this.$axios.get(
+      `/organizations/${team}/sources?start=${start}`
+    )).data;
+    commit("setSources", { team, sources, start, next: sources.next });
+    return sources;
+  },
+  async getSource({ commit }, { team, id }) {
+    const source: any = (await this.$axios.get(
+      `/organizations/${team}/sources/${id}`
+    )).data;
+    commit("setSource", { team, source, id });
+    return source;
   },
   async getInvoices({ commit }, { team, start = 0 }) {
     const invoices: any = (await this.$axios.get(
@@ -227,22 +258,11 @@ export const actions: ActionTree<RootState, RootState> = {
     )).data;
     commit("setPricingPlans", subscriptions);
   },
-  async getSources({ commit }, context) {
-    const sources: any = (await this.$axios.get(
-      `/organizations/${context}/sources`
-    )).data;
-    commit("setSources", sources);
-  },
   async createSource({ dispatch }, context) {
-    const data = JSON.parse(JSON.stringify(context));
+    const data = { ...context };
     delete data.id;
     await this.$axios.put(`/organizations/${context.id}/sources`, data);
     return dispatch("getSources", context.id);
-  },
-  async getSource(actions, context) {
-    return (await this.$axios.get(
-      `/organizations/${context.id}/sources/${context.sourceId}`
-    )).data;
   },
   async deleteSource({ dispatch }, context) {
     await this.$axios.delete(
@@ -251,7 +271,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return dispatch("getSources", context.id);
   },
   async updateSource({ dispatch }, context) {
-    const data = JSON.parse(JSON.stringify(context));
+    const data = { ...context };
     delete data.id;
     delete data.sourceId;
     await this.$axios.patch(
@@ -275,12 +295,14 @@ export const getters: GetterTree<RootState, RootState> = {
   pricingPlans: state => state.pricingPlans,
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
-  sources: state => state.sources,
+  // New ones below
   memberships: state => (orgId: string) => state.memberships[parseInt(orgId)],
   billing: state => (orgId: string) => state.billing[parseInt(orgId)],
   subscriptions: state => (orgId: string) => state.subscriptions[parseInt(orgId)],
   subscription: state => (orgId: string, subscriptionId: string) => state.subscription[parseInt(orgId)] && state.subscription[parseInt(orgId)][subscriptionId],
   invoices: state => (orgId: string) => state.invoices[parseInt(orgId)],
   invoice: state => (orgId: string, invoiceId: string) => state.invoice[parseInt(orgId)] && state.invoice[parseInt(orgId)][invoiceId],
+  sources: state => (orgId: string) => state.sources[parseInt(orgId)],
+  source: state => (orgId: string, sourceId: string) => state.source[parseInt(orgId)] && state.source[parseInt(orgId)][sourceId],
   organization: state => (orgId: string) => state.organizations[parseInt(orgId)]
 };

@@ -3,21 +3,42 @@
     <largeMessage
       v-if="noBilling"
       heading="No billing account"
-      text="You need to setup a billing account before you can view payment methods."
+      text="You need to setup a billing account before you view your sources."
       cta-text="Setup billing"
-      cta-to="/manage/billing"
+      :cta-to="`/manage/${$route.params.team}/billing`"
     />
+    <Loading v-else-if="loading" :message="loading" />
     <div v-else>
-      <h1>Payment methods</h1>
-      <Loading v-if="loading" :message="loading" />
+      <div class="row">
+        <h1>Payment methods</h1>
+        <div class="text text--align-right">
+          <button
+            data-balloon="Refresh"
+            data-balloon-pos="down"
+            class="button button--type-icon"
+            @click="load"
+          >
+            <font-awesome-icon
+              title="Refresh"
+              class="icon"
+              icon="sync"
+              fixed-width
+            />
+          </button>
+        </div>
+      </div>
+      <LargeMessage
+        v-if="!loading && (!sources || !sources.data || !sources.data.length)"
+        heading="No sources yet"
+        text="Set up a paid subscription and your payment method will show up here."
+        cta-text="Get started"
+        :cta-to="`/manage/${$route.params.team}/subscriptions`"
+      />
       <div v-else-if="sources && sources.data && sources.data.length">
         <table class="table">
           <thead>
             <tr>
-              <th>Type</th>
-              <th>Number</th>
-              <th>Network</th>
-              <th>Name on card</th>
+              <th>Source #</th>
               <th></th>
             </tr>
           </thead>
@@ -26,127 +47,51 @@
               v-for="(source, index) in sources.data"
               :key="`${source.id}_${index}`"
             >
-              <td style="text-transform: capitalize">
-                {{ source.funding }} {{ source.object }}
-              </td>
               <td>
-                •••• •••• ••••
-                {{ source.last4 }}
-              </td>
-              <td>
-                {{ source.brand }}
-              </td>
-              <td>
-                {{ source.name }}
+                <code>{{ source.id }}</code>
               </td>
               <td class="text text--align-right">
                 <router-link
-                  data-balloon="Edit"
+                  :to="`/manage/${$route.params.team}/sources/${source.id}`"
+                  data-balloon="Details"
                   data-balloon-pos="up"
                   class="button button--type-icon"
-                  :to="`/manage/sources/${source.id}`"
                 >
                   <font-awesome-icon
-                    title="Edit"
+                    title="Details"
+                    class="icon"
                     icon="pencil-alt"
                     fixed-width
                   />
                 </router-link>
-                <button
-                  data-balloon="Delete"
-                  data-balloon-pos="up"
-                  class="button button--color-danger button--type-icon"
-                  @click="showDelete = source"
-                >
-                  <font-awesome-icon
-                    title="Delete"
-                    class="icon icon--color-danger"
-                    icon="trash"
-                    fixed-width
-                  />
-                </button>
               </td>
             </tr>
           </tbody>
         </table>
+        <div class="pagination text text--align-center">
+          <button
+            v-if="sources && sources.hasMore"
+            class="button"
+            :disabled="loadingMore"
+            @click="loadMore"
+          >
+            <span>Load more sources</span>
+            <font-awesome-icon
+              v-if="!loadingMore"
+              class="icon"
+              icon="arrow-down"
+            />
+            <font-awesome-icon
+              v-else
+              title="Available"
+              class="icon icon--ml-2 icon--color-light"
+              icon="sync"
+              spin
+            />
+          </button>
+        </div>
       </div>
-      <h2>Add card</h2>
-      <Loading v-if="addingCard" :message="addingCard" />
-      <form v-else @submit.prevent="addCard">
-        <div class="row">
-          <Input
-            :value="newCardName"
-            label="Name on card"
-            placeholder="Enter your full name as on card"
-            required
-            @input="val => (newCardName = val)"
-          />
-          <Input
-            :value="newCardNumber"
-            label="Credit card number"
-            placeholder="Enter your credit card number (16 digits)"
-            required
-            @input="val => (newCardNumber = val)"
-          />
-        </div>
-        <div class="row">
-          <Select
-            :value="newCardExpMonth"
-            label="Expiry month"
-            :options="{
-              '01': 'January',
-              '02': 'February',
-              '03': 'March',
-              '04': 'April',
-              '05': 'May',
-              '06': 'June',
-              '07': 'July',
-              '08': 'August',
-              '09': 'September',
-              '10': 'October',
-              '11': 'November',
-              '12': 'December'
-            }"
-            required
-            @input="val => (newCardExpMonth = val)"
-          />
-          <Select
-            :value="newCardExpYear"
-            label="Expiry year"
-            :options="years"
-            required
-            @input="val => (newCardExpYear = val)"
-          />
-          <Input
-            :value="newCardCvv"
-            label="CVV"
-            placeholder="Enter your security code"
-            required
-            @input="val => (newCardCvv = val)"
-          />
-        </div>
-        <button class="button">Add credit card</button>
-      </form>
     </div>
-    <transition name="modal">
-      <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
-        <h2>Are you sure you want to remove this card?</h2>
-        <p>
-          Removing a card is not reversible, and you'll have to add another card
-          if you change your mind. If you have any pending charges, your
-          subscription might be cancelled without a payment method.
-        </p>
-        <button
-          class="button button--color-danger-cta"
-          @click="deleteCard(showDelete.id)"
-        >
-          Yes, remove this card
-        </button>
-        <button type="button" class="button" @click="showDelete = null">
-          No, don't remove
-        </button>
-      </Confirm>
-    </transition>
   </main>
 </template>
 
@@ -154,114 +99,82 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Loading from "@/components/Loading.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
-import Confirm from "@/components/Confirm.vue";
 import Input from "@/components/form/Input.vue";
-import Select from "@/components/form/Select.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
+import Select from "@/components/form/Select.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "@/types/auth";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-library.add(faTrash, faPencilAlt);
+import {
+  faPencilAlt,
+  faArrowDown,
+  faSync,
+  faCloudDownloadAlt
+} from "@fortawesome/free-solid-svg-icons";
+import { Sources, emptyPagination } from "../../../../types/manage";
+library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync);
 
 @Component({
   components: {
     Loading,
+    TimeAgo,
     Input,
+    FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox,
-    Confirm,
-    FontAwesomeIcon
+    Checkbox
   },
-  computed: mapGetters({
-    organization: "auth/activeOrganization",
-    user: "auth/user",
-    sources: "manage/sources"
-  }),
   middleware: "auth"
 })
 export default class ManageSettings extends Vue {
-  organization!: any;
-  sources!: any;
-  user!: any;
-  loading = "";
-  addingCard = "";
-  years: number[] = [];
-  showDelete = null;
+  sources: Sources = emptyPagination;
+  loadingMore = false;
   noBilling = false;
-
-  newCardNumber = "";
-  newCardExpMonth = "01";
-  newCardExpYear = new Date().getUTCFullYear() + 5;
-  newCardCvv = "";
-  newCardName = "";
+  loading = "";
+  cardNumber = "";
 
   private created() {
-    const years: number[] = [];
-    for (let i = 0; i < 15; i++) {
-      years.push(new Date().getUTCFullYear() + i);
-    }
-    this.years = years;
+    this.sources = {
+      ...this.$store.getters["manage/sources"](this.$route.params.team)
+    };
+  }
+
+  private load() {
+    this.loading = "Loading your sources";
+    this.$store
+      .dispatch("manage/getSources", { team: this.$route.params.team })
+      .then(sources => {
+        this.sources = { ...sources };
+      })
+      .catch(error => {
+        if (error.response.data.error === "no-customer") this.noBilling = true;
+      })
+      .finally(() => (this.loading = ""));
   }
 
   private mounted() {
-    this.loading = "Loading your cards";
-    this.$store
-      .dispatch("manage/getSources", this.organization.organization.id)
-      .then(subscriptions => {})
-      .catch(error => {
-        if (error.response.data.error === "no-customer") {
-          this.noBilling = true;
-        }
-      })
-      .finally(() => (this.loading = ""));
+    this.load();
   }
 
-  private deleteCard(sourceId: number) {
-    this.showDelete = null;
-    this.loading = "Deleting your card";
+  private loadMore() {
+    this.loadingMore = true;
     this.$store
-      .dispatch("manage/deleteSource", {
-        id: this.organization.organization.id,
-        sourceId
+      .dispatch("manage/getSources", {
+        team: this.$route.params.team,
+        start: this.$store.state.manage.sources[this.$route.params.team].next
       })
-      .then(subscriptions => {})
+      .then(() => {
+        this.sources = {
+          ...this.$store.getters["manage/sources"](this.$route.params.team)
+        };
+      })
       .catch(error => {
-        if (error.response.data.error === "no-customer") {
-          this.noBilling = true;
-        }
+        if (error.response.data.error === "no-customer") this.noBilling = true;
       })
-      .finally(() => (this.loading = ""));
-  }
-
-  private addCard() {
-    this.addingCard = "Adding your card";
-    this.$store
-      .dispatch("manage/createSource", {
-        id: this.organization.organization.id,
-        number: this.newCardNumber,
-        exp_month: this.newCardExpMonth,
-        exp_year: this.newCardExpYear,
-        cvc: this.newCardCvv,
-        name: this.newCardName
-      })
-      .then(() => {})
-      .catch(error => {
-        if (error.response.data.error === "no-customer") {
-          this.noBilling = true;
-        }
-      })
-      .finally(() => {
-        this.addingCard = "";
-        this.newCardNumber = "";
-        this.newCardExpMonth = "01";
-        this.newCardExpYear = new Date().getUTCFullYear() + 5;
-        this.newCardCvv = "";
-        this.newCardName = "";
-      });
+      .finally(() => (this.loadingMore = false));
   }
 }
 </script>
