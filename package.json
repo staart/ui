@@ -32,6 +32,7 @@
     "vuex-persist": "^2.0.1"
   },
   "devDependencies": {
+    "@bazzite/nuxt-netlify": "^0.1.1",
     "@nuxt/typescript": "^2.8.1",
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/markdownit": "^1.2.5",
