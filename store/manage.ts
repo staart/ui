@@ -157,6 +157,12 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("setSubscriptions", { team, subscriptions, start });
     return subscriptions;
   },
+  async createSubscription({ dispatch }, { team, plan }) {
+    const subscriptions: any = (await this.$axios.put(
+      `/organizations/${team}/subscriptions`, { plan }
+    )).data;
+    return dispatch("getSubscriptions", { team });
+  },
   async getPricingPlans({ commit }, context) {
     const subscriptions: any = (await this.$axios.get(
       `/organizations/${context}/pricing/${stripeProductId}`
