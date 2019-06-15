@@ -1,7 +1,8 @@
 import Vue from "vue";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import en from "@/locales/en";
-const messages = en.errors;
+const messages = en.messages;
+const errors = en.errors;
 
 const redirectErrors = ["unapproved-location", "missing-token"];
 const ignoredErrors = ["no-customer"];
@@ -15,11 +16,19 @@ export default function({
 }) {
   $axios.onResponse(response => {
     if (response.data.success === true) {
-      Vue.notify({
-        group: "auth",
-        text: "Your changes were successfully saved",
-        type: "notification notification--color-success"
-      });
+      if (response.data.message) {
+        Vue.notify({
+          group: "auth",
+          text: messages[response.data.message || "success"],
+          type: "notification notification--color-success"
+        });
+      } else {
+        Vue.notify({
+          group: "auth",
+          text: messages.success,
+          type: "notification notification--color-success"
+        });
+      }
     }
   });
   $axios.onError(error => {
@@ -44,13 +53,13 @@ export default function({
         `/errors/${error.response.data.code || error.response.data.error}`
       );
     } else if (
-      Object.keys(messages).includes(
+      Object.keys(errors).includes(
         error.response.data.code || error.response.data.error
       )
     ) {
       Vue.notify({
         group: "auth",
-        text: messages[error.response.data.code || error.response.data.error],
+        text: errors[error.response.data.code || error.response.data.error],
         duration: 5000,
         type: "notification notification--color-danger"
       });

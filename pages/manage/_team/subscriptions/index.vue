@@ -249,10 +249,14 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/getSubscriptions", {
         team: this.$route.params.team,
         start: this.$store.state.manage.subscriptions[this.$route.params.team]
-          .start
+          .next
       })
-      .then(subscriptions => {
-        this.subscriptions = { ...subscriptions };
+      .then(() => {
+        this.subscriptions = {
+          ...this.$store.getters["manage/subscriptions"](
+            this.$route.params.team
+          )
+        };
       })
       .catch(error => {
         if (error.response.data.error === "no-customer") this.noBilling = true;

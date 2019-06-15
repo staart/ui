@@ -34,11 +34,15 @@ export const mutations: MutationTree<RootState> = {
   setInvoices(state: RootState, invoices: any): void {
     Vue.set(state, "invoices", invoices);
   },
-  setSubscriptions(state: RootState, { team, subscriptions, start }): void {
+  setSubscriptions(state: RootState, { team, subscriptions, start, next }): void {
     const currentSubscriptions = state.subscriptions;
     currentSubscriptions[team] = currentSubscriptions[team] || emptyPagination;
-    currentSubscriptions[team].data = [...currentSubscriptions[team].data, ...subscriptions.data];
-    currentSubscriptions[team].next = start;
+    if (start) {
+      currentSubscriptions[team].data = [...currentSubscriptions[team].data, ...subscriptions.data];
+    } else {
+      currentSubscriptions[team].data = subscriptions.data;
+    }
+    currentSubscriptions[team].next = next;
     Vue.set(state, "subscriptions", currentSubscriptions);
   },
   setSubscription(state: RootState, { team, subscription, id }): void {
@@ -113,7 +117,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const members = (await this.$axios.get(
       `/organizations/${team}/memberships?start=${start}`
     )).data;
-    commit("setMembers", { team, members, start });
+    commit("setMembers", { team, members, start: members.next });
     return members;
   },
   async inviteMember({ dispatch, rootGetters }, context) {
@@ -161,7 +165,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const subscriptions: any = (await this.$axios.get(
       `/organizations/${team}/subscriptions?start=${start}`
     )).data;
-    commit("setSubscriptions", { team, subscriptions, start });
+    commit("setSubscriptions", { team, subscriptions, start, next: subscriptions.next });
     return subscriptions;
   },
   async getSubscription({ commit }, { team, id }) {

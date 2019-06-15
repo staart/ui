@@ -48,7 +48,7 @@ a {
   &:hover {
     text-decoration: underline;
   }
-  &:focus {
+  &:focus, &:active {
     outline: 0;
     border-radius: 0.2rem;
     box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
@@ -82,7 +82,7 @@ code {
     box-shadow: rgba(42, 47, 69, 0.2) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba(42, 47, 69, 0.2) 0px 2px 5px 0px;
   }
-  &:focus {
+  &:focus, &:active {
     box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
       rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
@@ -135,7 +135,7 @@ code {
   color: $button-primary-text-color !important;
   box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
-  &:focus {
+  &:focus, &:active {
     box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
       rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
@@ -147,7 +147,7 @@ code {
   box-shadow: rgba(66, 133, 244, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
     rgba(66, 133, 244, 0.12) 0px 2px 5px 0px;
-  &:focus {
+  &:focus, &:active {
     box-shadow: rgba(66, 133, 244, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
       rgba(66, 133, 244, 0.42) 0px 2px 5px 0px,
@@ -163,7 +163,7 @@ code {
     box-shadow: rgba($button-danger-background-color, 0.2) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba($button-danger-background-color, 0.2) 0px 2px 5px 0px;
   }
-  &:focus {
+  &:focus, &:active {
     box-shadow: rgba($button-danger-background-color, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
       rgba($button-danger-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
@@ -178,7 +178,7 @@ code {
     box-shadow: rgba($button-success-background-color, 0.2) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba($button-success-background-color, 0.2) 0px 2px 5px 0px;
   }
-  &:focus {
+  &:focus, &:active {
     box-shadow: rgba($button-success-background-color, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
       rgba($button-success-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
@@ -194,7 +194,7 @@ code {
     box-shadow: rgba(175, 17, 1, 0.5) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.5) 0px 1px 1px 0px, rgba(175, 17, 1, 0.5) 0px 2px 5px 0px;
   }
-  &:focus {
+  &:focus, &:active {
     box-shadow: rgba(175, 17, 1, 0.75) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.75) 0px 1px 1px 0px,
       rgba(175, 17, 1, 0.75) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.5);
@@ -346,7 +346,7 @@ input[type="radio"] + .fake-radio {
   outline: none;
   box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
-  &:focus {
+  &:focus, &:active {
     box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
       rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
