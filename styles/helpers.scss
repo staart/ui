@@ -60,7 +60,10 @@
 .label--color-danger,
 .label--color-success,
 .label--color-canceled,
-.label--color-unpaid {
+.label--color-unpaid,
+.label--color-open,
+.label--color-paid,
+.label--color-uncollectible {
   color: #fff !important;
 }
 .label--color-incomplete { background-color: $button-warning-background-color !important; }
@@ -72,3 +75,6 @@
 .label--color-danger { background-color: $button-danger-background-color !important; }
 .label--color-canceled { background-color: $button-danger-background-color !important; }
 .label--color-unpaid { background-color: $button-danger-background-color !important; }
+.label--color-open { background-color: $button-danger-background-color !important; }
+.label--color-paid { background-color: $button-success-background-color !important; }
+.label--color-uncollectible { background-color: $button-warning-background-color !important; }

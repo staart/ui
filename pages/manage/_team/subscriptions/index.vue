@@ -51,7 +51,9 @@
           class="card card--type-padded"
         >
           <h3>
-            <span>{{ subscriptions.data[0].plan.nickname }}</span>
+            <span v-if="subscriptions.data[0].plan">{{
+              subscriptions.data[0].plan.nickname
+            }}</span>
             <span
               :class="`label label--color-${subscriptions.data[0].status}`"
               >{{ subscriptions.data[0].status }}</span
@@ -170,7 +172,9 @@
               :key="`${subscription.id}_${index}`"
             >
               <td>
-                <span>{{ subscription.plan.nickname }}</span>
+                <span v-if="subscription.plan">{{
+                  subscription.plan.nickname
+                }}</span>
                 <span :class="`label label--color-${subscription.status}`">{{
                   subscription.status
                 }}</span>

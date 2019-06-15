@@ -1,5 +1,5 @@
 import { IdRow, Paginated } from "./root";
-import { subscriptions } from "stripe";
+import { subscriptions, invoices } from "stripe";
 
 export interface Organization extends IdRow {
   invitationDomain?: string;
@@ -15,6 +15,9 @@ export interface Members extends Paginated {
 }
 export interface Subscriptions extends Paginated {
   data: subscriptions.ISubscription[];
+}
+export interface Invoices extends Paginated {
+  data: invoices.IInvoice[];
 }
 export interface Address {
   state: string;
@@ -43,9 +46,17 @@ export interface BillingKV {
 export interface SubscriptionsKV {
   [index: string]: Subscriptions;
 }
+export interface InvoicesKV {
+  [index: string]: Invoices;
+}
 export interface SingleSubscriptionKV {
   [index: string]: {
     [index: string]: subscriptions.ISubscription;
+  }
+}
+export interface SingleInvoiceKV {
+  [index: string]: {
+    [index: string]: invoices.IInvoice;
   }
 }
 
@@ -56,7 +67,8 @@ export interface RootState {
   subscriptions: SubscriptionsKV;
   subscription: SingleSubscriptionKV;
   billing: BillingKV;
-  invoices?: any;
+  invoices: InvoicesKV;
+  invoice: SingleInvoiceKV;
   pricingPlans?: any;
   sources?: any;
   recentEvents?: any;

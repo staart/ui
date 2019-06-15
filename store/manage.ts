@@ -10,7 +10,9 @@ export const state = (): RootState => ({
   organizations: {},
   billing: {},
   subscriptions: {},
-  subscription: {}
+  subscription: {},
+  invoices: {},
+  invoice: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -35,9 +37,6 @@ export const mutations: MutationTree<RootState> = {
     currentBilling[team] = billing;
     Vue.set(state, "billing", currentBilling);
   },
-  setInvoices(state: RootState, invoices: any): void {
-    Vue.set(state, "invoices", invoices);
-  },
   setSubscriptions(state: RootState, { team, subscriptions, start, next }): void {
     const currentSubscriptions = state.subscriptions;
     currentSubscriptions[team] = currentSubscriptions[team] || emptyPagination;
@@ -54,6 +53,23 @@ export const mutations: MutationTree<RootState> = {
     currentSubscriptions[team] = currentSubscriptions[team] || {};
     currentSubscriptions[team][id] = { ...subscription };
     Vue.set(state, "subscription", currentSubscriptions);
+  },
+  setInvoices(state: RootState, { team, invoices, start, next }): void {
+    const currentInvoices = state.invoices;
+    currentInvoices[team] = currentInvoices[team] || emptyPagination;
+    if (start) {
+      currentInvoices[team].data = [...currentInvoices[team].data, ...invoices.data];
+    } else {
+      currentInvoices[team].data = invoices.data;
+    }
+    currentInvoices[team].next = next;
+    Vue.set(state, "invoices", currentInvoices);
+  },
+  setInvoice(state: RootState, { team, invoice, id }): void {
+    const currentInvoices = state.invoice;
+    currentInvoices[team] = currentInvoices[team] || {};
+    currentInvoices[team][id] = { ...invoice };
+    Vue.set(state, "invoice", currentInvoices);
   },
   setPricingPlans(state: RootState, pricingPlans: any): void {
     Vue.set(state, "pricingPlans", pricingPlans);
@@ -73,10 +89,12 @@ export const mutations: MutationTree<RootState> = {
   clearAll(state: RootState): void {
     delete state.organizations;
     delete state.billing;
-    delete state.invoices;
     delete state.memberships;
     delete state.membership;
     delete state.subscriptions;
+    delete state.subscription;
+    delete state.invoices;
+    delete state.invoice;
     delete state.recentEvents;
     delete state.pricingPlans;
     delete state.sources;
@@ -159,11 +177,19 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.patch(`/organizations/${context.team}/billing`, data);
     return dispatch("getBilling", context.team);
   },
-  async getInvoices({ commit }, context) {
+  async getInvoices({ commit }, { team, start = 0 }) {
     const invoices: any = (await this.$axios.get(
-      `/organizations/${context}/invoices`
+      `/organizations/${team}/invoices?start=${start}`
     )).data;
-    commit("setInvoices", invoices);
+    commit("setInvoices", { team, invoices, start, next: invoices.next });
+    return invoices;
+  },
+  async getInvoice({ commit }, { team, id }) {
+    const invoice: any = (await this.$axios.get(
+      `/organizations/${team}/invoices/${id}`
+    )).data;
+    commit("setInvoice", { team, invoice, id });
+    return invoice;
   },
   async getSubscriptions({ commit }, { team, start = 0 }) {
     const subscriptions: any = (await this.$axios.get(
@@ -246,7 +272,6 @@ export const actions: ActionTree<RootState, RootState> = {
 
 export const getters: GetterTree<RootState, RootState> = {
   membership: state => state.membership,
-  invoices: state => state.invoices,
   pricingPlans: state => state.pricingPlans,
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
@@ -255,5 +280,7 @@ export const getters: GetterTree<RootState, RootState> = {
   billing: state => (orgId: string) => state.billing[parseInt(orgId)],
   subscriptions: state => (orgId: string) => state.subscriptions[parseInt(orgId)],
   subscription: state => (orgId: string, subscriptionId: string) => state.subscription[parseInt(orgId)] && state.subscription[parseInt(orgId)][subscriptionId],
+  invoices: state => (orgId: string) => state.invoices[parseInt(orgId)],
+  invoice: state => (orgId: string, invoiceId: string) => state.invoice[parseInt(orgId)] && state.invoice[parseInt(orgId)][invoiceId],
   organization: state => (orgId: string) => state.organizations[parseInt(orgId)]
 };
