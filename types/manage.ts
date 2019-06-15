@@ -43,12 +43,18 @@ export interface BillingKV {
 export interface SubscriptionsKV {
   [index: string]: Subscriptions;
 }
+export interface SingleSubscriptionKV {
+  [index: string]: {
+    [index: string]: subscriptions.ISubscription;
+  }
+}
 
 export interface RootState {
   membership?: Membership;
   organizations: OrganizationsKV;
   memberships: MembershipsKV;
   subscriptions: SubscriptionsKV;
+  subscription: SingleSubscriptionKV;
   billing: BillingKV;
   invoices?: any;
   pricingPlans?: any;

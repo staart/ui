@@ -9,7 +9,8 @@ export const state = (): RootState => ({
   isDownloading: false,
   organizations: {},
   billing: {},
-  subscriptions: {}
+  subscriptions: {},
+  subscription: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -39,6 +40,12 @@ export const mutations: MutationTree<RootState> = {
     currentSubscriptions[team].data = [...currentSubscriptions[team].data, ...subscriptions.data];
     currentSubscriptions[team].next = start;
     Vue.set(state, "subscriptions", currentSubscriptions);
+  },
+  setSubscription(state: RootState, { team, subscription, id }): void {
+    const currentSubscriptions = state.subscription;
+    currentSubscriptions[team] = currentSubscriptions[team] || {};
+    currentSubscriptions[team][id] = { ...subscription };
+    Vue.set(state, "subscription", currentSubscriptions);
   },
   setPricingPlans(state: RootState, pricingPlans: any): void {
     Vue.set(state, "pricingPlans", pricingPlans);
@@ -157,10 +164,27 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("setSubscriptions", { team, subscriptions, start });
     return subscriptions;
   },
-  async createSubscription({ dispatch }, { team, plan }) {
-    const subscriptions: any = (await this.$axios.put(
-      `/organizations/${team}/subscriptions`, { plan }
+  async getSubscription({ commit }, { team, id }) {
+    const subscription: any = (await this.$axios.get(
+      `/organizations/${team}/subscriptions/${id}`
     )).data;
+    commit("setSubscription", { team, subscription, id });
+    return subscription;
+  },
+  async editSubscription({ dispatch }, context) {
+    const data = { ...context };
+    delete data.id;
+    delete data.team;
+    await this.$axios.patch(
+      `/organizations/${context.team}/subscriptions/${context.id}`,
+      data
+    );
+    return dispatch("getSubscription", { team: context.team, id: context.id });
+  },
+  async createSubscription({ dispatch }, { team, plan }) {
+    await this.$axios.put(
+      `/organizations/${team}/subscriptions`, { plan }
+    );
     return dispatch("getSubscriptions", { team });
   },
   async getPricingPlans({ commit }, context) {
@@ -222,5 +246,6 @@ export const getters: GetterTree<RootState, RootState> = {
   memberships: state => (orgId: string) => state.memberships[parseInt(orgId)],
   billing: state => (orgId: string) => state.billing[parseInt(orgId)],
   subscriptions: state => (orgId: string) => state.subscriptions[parseInt(orgId)],
+  subscription: state => (orgId: string, subscriptionId: string) => state.subscription[parseInt(orgId)] && state.subscription[parseInt(orgId)][subscriptionId],
   organization: state => (orgId: string) => state.organizations[parseInt(orgId)]
 };

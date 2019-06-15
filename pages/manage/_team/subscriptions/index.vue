@@ -44,6 +44,11 @@
                 <span :class="`label label--color-${subscription.status}`">{{
                   subscription.status
                 }}</span>
+                <span
+                  v-if="subscription.cancel_at"
+                  :class="`label label--color-danger`"
+                  >Scheduled to cancel</span
+                >
               </td>
               <td>
                 <span>{{ subscription.plan.currency.toUpperCase() }}</span>

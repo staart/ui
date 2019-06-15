@@ -157,16 +157,31 @@ code {
 .button--color-danger {
   color: $button-danger-background-color;
   background-color: $button-danger-text-color;
-  box-shadow: rgba(175, 17, 1, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(175, 17, 1, 0.12) 0px 2px 5px 0px;
+  box-shadow: rgba($button-danger-background-color, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba($button-danger-background-color, 0.12) 0px 2px 5px 0px;
   &:hover {
-    box-shadow: rgba(175, 17, 1, 0.2) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba(175, 17, 1, 0.2) 0px 2px 5px 0px;
+    box-shadow: rgba($button-danger-background-color, 0.2) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba($button-danger-background-color, 0.2) 0px 2px 5px 0px;
   }
   &:focus {
-    box-shadow: rgba(175, 17, 1, 0.46) 0px 0px 0px 1px,
+    box-shadow: rgba($button-danger-background-color, 0.46) 0px 0px 0px 1px,
       rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(175, 17, 1, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+      rgba($button-danger-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  }
+}
+.button--color-success {
+  color: $button-success-background-color;
+  background-color: $button-success-text-color;
+  box-shadow: rgba($button-success-background-color, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba($button-success-background-color, 0.12) 0px 2px 5px 0px;
+  &:hover {
+    box-shadow: rgba($button-success-background-color, 0.2) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba($button-success-background-color, 0.2) 0px 2px 5px 0px;
+  }
+  &:focus {
+    box-shadow: rgba($button-success-background-color, 0.46) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
+      rgba($button-success-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
   }
 }
 .button--color-danger-cta {
@@ -314,22 +329,6 @@ code {
   padding: 0.25rem 0.5rem;
   border-radius: 1rem;
 }
-.label--color-incomplete,
-.label--color-incomplete_expired,
-.label--color-trialing,
-.label--color-active,
-.label--color-past_due,
-.label--color-canceled,
-.label--color-unpaid {
-  color: #fff !important;
-}
-.label--color-incomplete { background-color: $button-warning-background-color !important; }
-.label--color-incomplete_expired { background-color: $button-danger-background-color !important; }
-.label--color-trialing { background-color: $button-warning-background-color !important; }
-.label--color-active { background-color: $button-success-background-color !important; }
-.label--color-past_due { background-color: $button-danger-background-color !important; }
-.label--color-canceled { background-color: $button-danger-background-color !important; }
-.label--color-unpaid { background-color: $button-danger-background-color !important; }
 
 input[type="radio"] {
   display: none;
