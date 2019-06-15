@@ -19,11 +19,15 @@ export const mutations: MutationTree<RootState> = {
     organizations[organization.id] = organization;
     Vue.set(state, "organizations", organizations);
   },
-  setMembers(state: RootState, { team, members, start }): void {
+  setMembers(state: RootState, { team, members, start, next }): void {
     const currentMembers = state.memberships;
     currentMembers[team] = currentMembers[team] || emptyPagination;
-    currentMembers[team].data = [...currentMembers[team].data, ...members.data];
-    currentMembers[team].next = start;
+    if (start) {
+      currentMembers[team].data = [...currentMembers[team].data, ...members.data];
+    } else {
+      currentMembers[team].data = members.data;
+    }
+    currentMembers[team].next = next;
     Vue.set(state, "memberships", currentMembers);
   },
   setBilling(state: RootState, { billing, team }): void {
@@ -117,7 +121,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const members = (await this.$axios.get(
       `/organizations/${team}/memberships?start=${start}`
     )).data;
-    commit("setMembers", { team, members, start: members.next });
+    commit("setMembers", { team, members, start, next: members.next });
     return members;
   },
   async inviteMember({ dispatch, rootGetters }, context) {

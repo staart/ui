@@ -19,7 +19,7 @@ export default function({
       if (response.data.message) {
         Vue.notify({
           group: "auth",
-          text: messages[response.data.message || "success"],
+          text: messages[response.data.message] || messages.success,
           type: "notification notification--color-success"
         });
       } else {

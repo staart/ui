@@ -57,7 +57,7 @@ export default {
     "auth-register-success": "Your account has been successfully created",
     "auth-recover-success": "Your password has been changed",
     "auth-verify-email-success": "Your email have been verified",
-    "membership=updated": "Membership has been updated",
+    "membership-updated": "Membership has been updated",
     "organization-created": "Your team has been created",
     "organization-updated": "Your team has been updated",
     "organization-deleted": "Your team has been deleted",

@@ -9,7 +9,24 @@
     />
     <Loading v-else-if="loading" :message="loading" />
     <div v-else>
-      <h1>Subscriptions</h1>
+      <div class="row">
+        <h1>Subscriptions</h1>
+        <div class="text text--align-right">
+          <button
+            data-balloon="Refresh"
+            data-balloon-pos="down"
+            class="button button--type-icon"
+            @click="load"
+          >
+            <font-awesome-icon
+              title="Refresh"
+              class="icon"
+              icon="sync"
+              fixed-width
+            />
+          </button>
+        </div>
+      </div>
       <LargeMessage
         v-if="
           !loading &&
@@ -25,7 +42,120 @@
           subscriptions && subscriptions.data && subscriptions.data.length
         "
       >
-        <table class="table">
+        <div
+          v-if="
+            subscriptions &&
+              subscriptions.data &&
+              subscriptions.data.length === 1
+          "
+          class="card card--type-padded"
+        >
+          <h3>
+            <span>{{ subscriptions.data[0].plan.nickname }}</span>
+            <span
+              :class="`label label--color-${subscriptions.data[0].status}`"
+              >{{ subscriptions.data[0].status }}</span
+            >
+            <span
+              v-if="subscriptions.data[0].cancel_at"
+              :class="`label label--color-danger`"
+              >Scheduled to cancel</span
+            >
+          </h3>
+          <table class="table table--type-cols">
+            <tbody>
+              <tr>
+                <td>Subscription ID</td>
+                <td>
+                  <code>{{ subscriptions.data[0].id }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Created</td>
+                <td>
+                  <TimeAgo :date="subscriptions.data[0].created * 1000" />
+                </td>
+              </tr>
+              <tr v-if="subscriptions.data[0].cancel_at">
+                <td>Cancels</td>
+                <td>
+                  <TimeAgo :date="subscriptions.data[0].cancel_at * 1000" />
+                </td>
+              </tr>
+              <tr v-if="subscriptions.data[0].current_period_end">
+                <td>Biling period end</td>
+                <td>
+                  <TimeAgo
+                    :date="subscriptions.data[0].current_period_end * 1000"
+                  />
+                </td>
+              </tr>
+              <tr
+                v-if="
+                  subscriptions.data[0].plan && subscriptions.data[0].plan.id
+                "
+              >
+                <td>Plan ID</td>
+                <td>
+                  <code>{{ subscriptions.data[0].plan.id }}</code>
+                </td>
+              </tr>
+              <tr
+                v-if="
+                  subscriptions.data[0].plan &&
+                    subscriptions.data[0].plan.currency
+                "
+              >
+                <td>Amount</td>
+                <td>
+                  {{
+                    (subscriptions.data[0].plan.currency || "eur").toUpperCase()
+                  }}
+                  {{
+                    parseFloat(
+                      (subscriptions.data[0].plan.amount || 0) / 100
+                    ).toLocaleString()
+                  }}
+                </td>
+              </tr>
+              <tr
+                v-if="
+                  subscriptions.data[0].plan &&
+                    subscriptions.data[0].plan.interval
+                "
+              >
+                <td>Billing interval</td>
+                <td>
+                  {{ subscriptions.data[0].plan.interval_count }}
+                  {{ subscriptions.data[0].plan.interval }}
+                </td>
+              </tr>
+              <tr v-if="subscriptions.data[0].trial_end">
+                <td>Trial end</td>
+                <td>
+                  <TimeAgo :date="subscriptions.data[0].trial_end * 1000" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <router-link
+            :to="
+              `/manage/${$route.params.team}/subscriptions/${subscriptions.data[0].id}`
+            "
+            data-balloon="Edit"
+            data-balloon-pos="up"
+            class="button button--type-icon section section--mt-2"
+          >
+            <font-awesome-icon
+              title="Edit"
+              class="icon icon--mr-1"
+              icon="pencil-alt"
+              fixed-width
+            />
+            <span>Edit subscription</span>
+          </router-link>
+        </div>
+        <table v-else class="table">
           <thead>
             <tr>
               <th>Plan</th>
@@ -221,7 +351,7 @@ export default class ManageSettings extends Vue {
     };
   }
 
-  private mounted() {
+  private load() {
     this.loading = "Loading your subscriptions";
     this.$store
       .dispatch("manage/getSubscriptions", { team: this.$route.params.team })
@@ -241,6 +371,10 @@ export default class ManageSettings extends Vue {
       })
       .catch(() => {})
       .finally(() => (this.loadingPricingPlans = ""));
+  }
+
+  private mounted() {
+    this.load();
   }
 
   private loadMore() {

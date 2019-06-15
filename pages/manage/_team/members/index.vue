@@ -19,7 +19,7 @@
           <td>{{ membershipRoles[member.role] || member.role }}</td>
           <td class="text text--align-right">
             <router-link
-              :to="`/manage/members/${member.id}`"
+              :to="`/manage/${$route.params.team}/members/${member.id}`"
               data-balloon="Edit"
               data-balloon-pos="up"
               class="button button--type-icon"
@@ -189,9 +189,14 @@ export default class ManageMembers extends Vue {
     this.$store
       .dispatch("manage/getMembers", {
         team: this.$route.params.team,
-        start: this.$store.state.manage.members.next
+        start: this.$store.state.manage.memberships[this.$route.params.team]
+          .next
       })
-      .then(memberships => (this.memberships = { ...memberships }))
+      .then(memberships => {
+        this.memberships = {
+          ...this.$store.getters["manage/memberships"](this.$route.params.team)
+        };
+      })
       .catch(() => {})
       .finally(() => (this.loadingMore = false));
   }
@@ -208,6 +213,8 @@ export default class ManageMembers extends Vue {
       .then(memberships => (this.memberships = { ...memberships }))
       .catch(() => {})
       .finally(() => (this.inviting = false));
+    this.newUserName = "";
+    this.newUserEmail = "";
   }
 
   private deleteMembership(id: number) {
