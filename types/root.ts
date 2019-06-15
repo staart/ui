@@ -6,3 +6,8 @@ export interface Row {
 export interface IdRow extends Row {
   id: number;
 }
+
+export interface Paginated {
+  hasMore: boolean;
+  next?: number;
+}

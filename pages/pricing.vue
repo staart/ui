@@ -174,7 +174,8 @@
       <div class="row row--padding-large section section--mt-4">
         <div>
           <ul>
-            <li>Invite team members</li>
+            <li>100+ integrations</li>
+            <li>Team members</li>
             <li>Developer API</li>
             <li>Bank-grade security</li>
             <li>Hosted in Europe</li>
@@ -205,6 +206,9 @@
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
               </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
@@ -238,6 +242,9 @@
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
               </li>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
@@ -248,6 +255,9 @@
         <div>
           <div class="text text--align-center">
             <ul>
+              <li>
+                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
               </li>

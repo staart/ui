@@ -142,7 +142,7 @@ import {
   faArrowDown,
   faSync
 } from "@fortawesome/free-solid-svg-icons";
-import { Members, emptyMembers } from "@/types/manage";
+import { Members, emptyPagination } from "@/types/manage";
 library.add(faTrash, faPencilAlt, faArrowDown, faSync);
 
 @Component({
@@ -159,7 +159,7 @@ library.add(faTrash, faPencilAlt, faArrowDown, faSync);
   middleware: "auth"
 })
 export default class ManageMembers extends Vue {
-  memberships: Members = emptyMembers;
+  memberships: Members = emptyPagination;
   loading = "";
   inviting = false;
   showDelete = null;

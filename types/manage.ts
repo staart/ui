@@ -1,4 +1,5 @@
-import { IdRow } from "./root";
+import { IdRow, Paginated } from "./root";
+import { subscriptions } from "stripe";
 
 export interface Organization extends IdRow {
   invitationDomain?: string;
@@ -9,11 +10,11 @@ export interface Organization extends IdRow {
 export interface Membership extends IdRow {
   organization: Organization;
 }
-
-export interface Members {
+export interface Members extends Paginated {
   data: Membership[];
-  hasMore: boolean;
-  next?: number;
+}
+export interface Subscriptions extends Paginated {
+  data: subscriptions.ISubscription[];
 }
 export interface Address {
   state: string;
@@ -36,18 +37,20 @@ export interface OrganizationsKV {
 export interface MembershipsKV {
   [index: string]: Members;
 }
-
 export interface BillingKV {
   [index: string]: Billing;
+}
+export interface SubscriptionsKV {
+  [index: string]: Subscriptions;
 }
 
 export interface RootState {
   membership?: Membership;
   organizations: OrganizationsKV;
   memberships: MembershipsKV;
+  subscriptions: SubscriptionsKV;
   billing: BillingKV;
   invoices?: any;
-  subscriptions?: any;
   pricingPlans?: any;
   sources?: any;
   recentEvents?: any;
@@ -62,7 +65,7 @@ export const emptyOrganization: Organization = {
   invitationDomain: "",
   stripeCustomerId: ""
 };
-export const emptyMembers: Members = {
+export const emptyPagination = {
   data: [],
   hasMore: false
 };

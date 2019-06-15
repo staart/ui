@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-import { RootState, Organization, emptyMembers } from "~/types/manage";
+import { RootState, Organization, emptyPagination } from "~/types/manage";
 import download from "downloadjs";
 import Vue from "vue";
 
@@ -8,7 +8,8 @@ export const state = (): RootState => ({
   memberships: {},
   isDownloading: false,
   organizations: {},
-  billing: {}
+  billing: {},
+  subscriptions: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -19,7 +20,7 @@ export const mutations: MutationTree<RootState> = {
   },
   setMembers(state: RootState, { team, members, start }): void {
     const currentMembers = state.memberships;
-    currentMembers[team] = currentMembers[team] || emptyMembers;
+    currentMembers[team] = currentMembers[team] || emptyPagination;
     currentMembers[team].data = [...currentMembers[team].data, ...members.data];
     currentMembers[team].next = start;
     Vue.set(state, "memberships", currentMembers);
@@ -32,8 +33,12 @@ export const mutations: MutationTree<RootState> = {
   setInvoices(state: RootState, invoices: any): void {
     Vue.set(state, "invoices", invoices);
   },
-  setSubscriptions(state: RootState, subscriptions: any): void {
-    Vue.set(state, "subscriptions", subscriptions);
+  setSubscriptions(state: RootState, { team, subscriptions, start }): void {
+    const currentSubscriptions = state.subscriptions;
+    currentSubscriptions[team] = currentSubscriptions[team] || emptyPagination;
+    currentSubscriptions[team].data = [...currentSubscriptions[team].data, ...subscriptions.data];
+    currentSubscriptions[team].next = start;
+    Vue.set(state, "subscriptions", currentSubscriptions);
   },
   setPricingPlans(state: RootState, pricingPlans: any): void {
     Vue.set(state, "pricingPlans", pricingPlans);
@@ -145,11 +150,12 @@ export const actions: ActionTree<RootState, RootState> = {
     )).data;
     commit("setInvoices", invoices);
   },
-  async getSubscriptions({ commit }, context) {
+  async getSubscriptions({ commit }, { team, start = 0 }) {
     const subscriptions: any = (await this.$axios.get(
-      `/organizations/${context}/subscriptions`
+      `/organizations/${team}/subscriptions?start=${start}`
     )).data;
-    commit("setSubscriptions", subscriptions);
+    commit("setSubscriptions", { team, subscriptions, start });
+    return subscriptions;
   },
   async getPricingPlans({ commit }, context) {
     const subscriptions: any = (await this.$axios.get(
@@ -203,12 +209,12 @@ export const actions: ActionTree<RootState, RootState> = {
 export const getters: GetterTree<RootState, RootState> = {
   membership: state => state.membership,
   invoices: state => state.invoices,
-  subscriptions: state => state.subscriptions,
   pricingPlans: state => state.pricingPlans,
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
   sources: state => state.sources,
   memberships: state => (orgId: string) => state.memberships[parseInt(orgId)],
   billing: state => (orgId: string) => state.billing[parseInt(orgId)],
+  subscriptions: state => (orgId: string) => state.subscriptions[parseInt(orgId)],
   organization: state => (orgId: string) => state.organizations[parseInt(orgId)]
 };

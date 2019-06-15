@@ -89,6 +89,7 @@ import Select from "@/components/form/Select.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "@/types/auth";
+import { Subscriptions, emptyPagination } from "../../../../types/manage";
 
 @Component({
   components: {
@@ -99,16 +100,13 @@ import { User } from "@/types/auth";
     Checkbox
   },
   computed: mapGetters({
-    organization: "auth/activeOrganization",
     user: "auth/user",
-    subscriptions: "manage/subscriptions",
     pricingPlans: "manage/pricingPlans"
   }),
   middleware: "auth"
 })
 export default class ManageSettings extends Vue {
-  organization!: any;
-  subscriptions!: any;
+  subscriptions: Subscriptions = emptyPagination;
   pricingPlans!: any;
   noBilling = false;
   user!: any;
@@ -116,21 +114,27 @@ export default class ManageSettings extends Vue {
   newPlan = "";
   loadingPricingPlans = "";
 
+  private created() {
+    this.subscriptions = {
+      ...this.$store.getters["manage/subscriptions"](this.$route.params.team)
+    };
+  }
+
   private mounted() {
     this.loading = "Loading your subscriptions";
     this.$store
-      .dispatch("manage/getSubscriptions", this.organization.organization.id)
-      .then(subscriptions => {})
+      .dispatch("manage/getSubscriptions", { team: this.$route.params.team })
+      .then(subscriptions => {
+        this.subscriptions = { ...subscriptions };
+      })
       .catch(error => {
-        if (error.response.data.error === "no-customer") {
-          this.noBilling = true;
-        }
+        if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => (this.loading = ""));
 
     this.loadingPricingPlans = "Loading pricing plans";
     this.$store
-      .dispatch("manage/getPricingPlans", this.organization.organization.id)
+      .dispatch("manage/getPricingPlans", this.$route.params.team)
       .then(() => {})
       .catch(() => {})
       .finally(() => (this.loadingPricingPlans = ""));

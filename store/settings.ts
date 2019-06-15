@@ -118,7 +118,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async getEvents({ commit }, start = 0) {
     const securityEvents: SecurityEvent[] = (await this.$axios.get(
-      `/users/me/events?start=${start}`
+      `/users/me/events?start=${start}&sort=desc`
     )).data;
     commit("setSecurityEvents", { securityEvents, start });
   },

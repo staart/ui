@@ -12,6 +12,7 @@
           label="Email"
           placeholder="Enter your work email"
           autocomplete="authname"
+          autofocus
           required
         />
         <Input
@@ -76,18 +77,21 @@
           You can securely login with these services. We never share your
           personal information with third-parties.
         </p>
-        <div>
+        <div class="row row--type-social">
           <button
             v-for="service in [
+              'Apple',
               'Google',
               'Salesforce',
               'Microsoft',
               'Facebook',
               'Twitter',
-              'LinkedIn'
+              'LinkedIn',
+              'GitHub',
+              'Weixin'
             ]"
             :key="`option_${service}`"
-            class="button button--width-full button--size-large button--color-blue button--type-list"
+            class="button button--type-social"
             type="button"
             @click="loginWithGoogle"
           >
@@ -121,7 +125,9 @@ import {
   faMicrosoft,
   faTwitter,
   faLinkedin,
-  faApple
+  faApple,
+  faWeixin,
+  faGithub
 } from "@fortawesome/free-brands-svg-icons";
 import { faDotCircle, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 library.add(
@@ -133,6 +139,8 @@ library.add(
   faDotCircle,
   faEllipsisH,
   faTwitter,
+  faWeixin,
+  faGithub,
   faLinkedin
 );
 
@@ -194,5 +202,20 @@ export default class Login extends Vue {
 .or {
   text-align: center;
   margin: 1rem 0;
+}
+.row--type-social {
+  flex-wrap: wrap;
+}
+.button--type-social {
+  margin: 0 1rem;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  .icon {
+    font-size: 200%;
+    margin-bottom: 0.75rem;
+  }
+  span {
+    display: block;
+  }
 }
 </style>
