@@ -5,6 +5,7 @@ export interface Organization extends IdRow {
   invitationDomain?: string;
   name?: string;
   stripeCustomerId?: string;
+  username: string;
 }
 
 export interface Membership extends IdRow {
@@ -92,6 +93,7 @@ export const emptyOrganization: Organization = {
   createdAt: new Date().toString(),
   updatedAt: new Date().toString(),
   name: "",
+  username: "",
   invitationDomain: "",
   stripeCustomerId: ""
 };

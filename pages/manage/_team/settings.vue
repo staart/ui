@@ -11,6 +11,13 @@
         @input="val => (organization.name = val)"
       />
       <Input
+        :value="organization.username"
+        label="Username"
+        placeholder="Enter a unique username"
+        help="Changing your username can have unintended side effects"
+        @input="val => (organization.username = val)"
+      />
+      <Input
         :value="organization.invitationDomain"
         label="Email domain"
         placeholder="Enter your company's domain, eg. oswaldlabs.com"
@@ -77,9 +84,11 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/updateOrganization", {
         team: this.$route.params.team,
         name: this.organization.name,
-        invitationDomain: this.organization.invitationDomain
+        ...this.organization
       })
-      .then(() => {})
+      .then(() => {
+        this.$router.replace(`/manage/${this.organization.username}/settings`);
+      })
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }

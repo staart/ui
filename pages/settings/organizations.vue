@@ -34,7 +34,13 @@
                 data-balloon="Dashboard"
                 data-balloon-pos="up"
                 class="button button--type-icon"
-                :to="`/manage/${membership.organizationId}/dashboard`"
+                :to="
+                  `/manage/${
+                    membership.organization && membership.organization.username
+                      ? membership.organization.username
+                      : membership.organizationId
+                  }/dashboard`
+                "
               >
                 <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
               </nuxt-link>
@@ -42,7 +48,13 @@
                 data-balloon="Settings"
                 data-balloon-pos="up"
                 class="button button--type-icon"
-                :to="`/manage/${membership.organizationId}/settings`"
+                :to="
+                  `/manage/${
+                    membership.organization && membership.organization.username
+                      ? membership.organization.username
+                      : membership.organizationId
+                  }/settings`
+                "
               >
                 <font-awesome-icon title="Settings" icon="cog" fixed-width />
               </nuxt-link>
