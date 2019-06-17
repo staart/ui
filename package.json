@@ -58,7 +58,7 @@
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "sass-loader": "^7.1.0",
-    "ts-node": "^8.2.0",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.2",
     "vue-property-decorator": "^8.1.1"
   }
