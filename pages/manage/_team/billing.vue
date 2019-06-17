@@ -35,7 +35,7 @@
         </table>
         <h2>Billing details</h2>
       </div>
-      <form @submit.prevent="save">
+      <form v-meta-ctrl-enter="save" @submit.prevent="save">
         <Input
           :value="billing.name"
           label="Name"

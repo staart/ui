@@ -5,7 +5,7 @@
     <Card>
       <h1>Login</h1>
       <Loading v-if="isLoading" message="Logging you in" />
-      <form v-else @submit.prevent="login">
+      <form v-else v-meta-ctrl-enter="login" @submit.prevent="login">
         <Input
           v-model="email"
           type="email"

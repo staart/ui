@@ -9,7 +9,7 @@
     />
     <Card v-else>
       <h1>Register</h1>
-      <form @submit.prevent="register">
+      <form v-meta-ctrl-enter="register" @submit.prevent="register">
         <Input
           v-model="name"
           type="text"

@@ -2,7 +2,7 @@
   <main>
     <h2>Profile</h2>
     <Loading v-if="loading" :message="loading" />
-    <form v-else @submit.prevent="save">
+    <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
       <Input
         :value="name"
         label="Name"

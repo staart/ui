@@ -84,7 +84,11 @@
       actions in your account.
     </p>
     <Loading v-if="isCreating" message="Creating your API key" />
-    <form v-else @submit.prevent="createApiKey">
+    <form
+      v-else
+      v-meta-ctrl-enter="createApiKey"
+      @submit.prevent="createApiKey"
+    >
       <button class="button">
         Create API key
       </button>

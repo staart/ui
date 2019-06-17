@@ -25,7 +25,11 @@
       <h2>Edit memberhsip</h2>
     </div>
     <Loading v-if="inviting" />
-    <form v-else @submit.prevent="inviteMember">
+    <form
+      v-else
+      v-meta-ctrl-enter="inviteMember"
+      @submit.prevent="inviteMember"
+    >
       <Select
         :value="newUserRole"
         label="Role"

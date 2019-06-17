@@ -6098,6 +6098,11 @@ merge-source-map@^1.1.0:
   dependencies:
     source-map "^0.6.1"
 
+meta-ctrl-enter@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/meta-ctrl-enter/-/meta-ctrl-enter-1.0.2.tgz#361885eb98d5c6c90c49ebf29f151e0ccbbe8bb9"
+  integrity sha1-NhiF65jVxskMSevynxUeDMu+i7k=
+
 methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"

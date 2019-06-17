@@ -103,7 +103,11 @@
       To invite your team to Staart, get started by creating a new team.
     </p>
     <Loading v-if="isCreating" message="Creating your team" />
-    <form v-else @submit.prevent="createOrganization">
+    <form
+      v-else
+      v-meta-ctrl-enter="createOrganization"
+      @submit.prevent="createOrganization"
+    >
       <Input
         :value="organizationName"
         label="Name"

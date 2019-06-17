@@ -10,7 +10,7 @@
     <div v-else>
       <Card>
         <h1>Forgot password</h1>
-        <form @submit.prevent="forgot">
+        <form v-meta-ctrl-enter="forgot" @submit.prevent="forgot">
           <Input
             v-model="email"
             type="email"

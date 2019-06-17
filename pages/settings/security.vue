@@ -3,7 +3,7 @@
     <Loading v-if="loading" :message="loading" />
     <div v-else>
       <h2>Change password</h2>
-      <form @submit.prevent="changePassword">
+      <form v-meta-ctrl-enter="changePassword" @submit.prevent="changePassword">
         <input hidden type="text" autocomplete="username" />
         <Input
           :value="oldPassword"
@@ -36,7 +36,11 @@
         }}</strong
         >.
       </p>
-      <form v-if="user && !user.twoFactorEnabled" @submit.prevent="enable2FA">
+      <form
+        v-if="user && !user.twoFactorEnabled"
+        v-meta-ctrl-enter="enable2FA"
+        @submit.prevent="enable2FA"
+      >
         <button class="button button--type-loading" :disabled="enabling">
           <span>Enable 2FA</span>
           <font-awesome-icon
@@ -202,7 +206,7 @@
         <div class="text text--align-center">
           <img class="qr-code" alt="QR code" :src="qrCode" />
         </div>
-        <form @submit.prevent="verify2FA">
+        <form v-meta-ctrl-enter="verify2FA" @submit.prevent="verify2FA">
           <Input
             :value="verificationCode"
             type="number"
@@ -225,7 +229,7 @@
           Disabling two-factor authentication means your account will be less
           secure.
         </p>
-        <form @submit.prevent="disable2FA">
+        <form v-meta-ctrl-enter="disable2FA" @submit.prevent="disable2FA">
           <Input
             :value="disableText"
             label='To confirm, enter "disable 2FA" below'

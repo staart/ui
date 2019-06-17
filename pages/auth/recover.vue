@@ -12,7 +12,7 @@
     <div v-else>
       <Card>
         <h1>Reset password</h1>
-        <form @submit.prevent="forgot">
+        <form v-meta-ctrl-enter="forgot" @submit.prevent="forgot">
           <input hidden type="text" autocomplete="username" />
           <Input
             v-model="password"

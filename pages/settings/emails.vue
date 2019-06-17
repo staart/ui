@@ -110,7 +110,7 @@
         </button>
       </div>
       <h2>Add another email</h2>
-      <form @submit.prevent="addEmail">
+      <form v-meta-ctrl-enter="addEmail" @submit.prevent="addEmail">
         <Input
           :value="newEmail"
           type="email"
@@ -125,7 +125,10 @@
       </form>
       <h2>Email notifications</h2>
       <p>Emails only will be sent to your primary email.</p>
-      <form @submit.prevent="saveNotifications">
+      <form
+        v-meta-ctrl-enter="saveNotifications"
+        @submit.prevent="saveNotifications"
+      >
         <Select
           :value="notificationEmails"
           label="Notification types"

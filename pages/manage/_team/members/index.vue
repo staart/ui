@@ -71,7 +71,11 @@
       Use this form to invite another user from your team to this organization.
     </p>
     <Loading v-if="inviting" />
-    <form v-else @submit.prevent="inviteMember">
+    <form
+      v-else
+      v-meta-ctrl-enter="inviteMember"
+      @submit.prevent="inviteMember"
+    >
       <Input
         :value="newUserName"
         label="Name"

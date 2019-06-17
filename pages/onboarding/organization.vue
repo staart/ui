@@ -10,7 +10,11 @@
       class="container container--size-medium container--top-20height container--bottom-20height"
     >
       <h1>👋 Hi {{ user.nickname || "there" }}, do you have a team?</h1>
-      <form class="row" @submit.prevent="setupTeam">
+      <form
+        v-meta-ctrl-enter="setupTeam"
+        class="row"
+        @submit.prevent="setupTeam"
+      >
         <div class="card card--type-padded">
           <div class="emoji">👨‍👩‍👦‍👦</div>
           <h2>Yes, I have a team</h2>

@@ -43,7 +43,7 @@
       keep track of what we have and transfer your settings to other apps.
     </p>
     <Loading v-if="isDownloading" message="Generating your export" />
-    <form v-else @submit.prevent="exportData">
+    <form v-else v-meta-ctrl-enter="exportData" @submit.prevent="exportData">
       <button class="button">
         Export all data
       </button>
@@ -55,7 +55,7 @@
       you'll have to create a new team and invite all members again.
     </p>
     <Loading v-if="isDeleting" message="Deleting your organization" />
-    <form v-else @submit.prevent="showDelete = true">
+    <form v-else v-meta-ctrl-enter="(showDelete = true)">
       <button class="button button--color-danger">
         Delete organization
       </button>

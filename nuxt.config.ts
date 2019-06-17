@@ -49,6 +49,7 @@ const config: NuxtConfiguration = {
     "~/plugins/axios",
     { src: "~/plugins/vue-notification", ssr: false },
     "~/plugins/vue-timeago",
+    "~/plugins/meta-ctrl-enter",
     { src: "~/plugins/vuex-persist", ssr: false }
   ],
   modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/markdownit", "@bazzite/nuxt-netlify"],

@@ -273,7 +273,11 @@
           heading="No plans here"
           text="Unfortunately, we don't have any subscription plans available for you right now."
         />
-        <form v-else @submit.prevent="createSubscription">
+        <form
+          v-else
+          v-meta-ctrl-enter="createSubscription"
+          @submit.prevent="createSubscription"
+        >
           <div
             v-for="(plan, index) in pricingPlans.data"
             :key="`${plan.id}_${index}`"
