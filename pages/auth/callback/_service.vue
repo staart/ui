@@ -5,8 +5,8 @@
     <LargeMessage
       v-if="hasError"
       heading="That's not good"
-      text="We got an error in verifying your login with Google. This happens if you revoked our access to your account."
-      cta-text="Go to login"
+      text="We couldn't verify your login. This happens if you revoked our access to your third-party account."
+      cta-text="Try another login method"
       cta-to="/auth/login"
     />
     <LargeMessage
@@ -43,15 +43,13 @@ export default class Token extends Vue {
     this.$store
       .dispatch(`auth/oauthLogin`, { code, service })
       .then(response => {
-        console.log("Got response", response);
-        // if (response === "2fa") return this.$router.push("/auth/2fa");
-        // if (this.$store.state.auth.isAuthenticated)
-        //   return this.$router.replace("/dashboard");
+        if (response === "2fa") return this.$router.push("/auth/2fa");
+        if (this.$store.state.auth.isAuthenticated)
+          return this.$router.replace("/dashboard");
       })
       .catch(error => {
-        console.log("Got error", error);
-        // this.hasError = true;
-        // throw new Error(error);
+        this.hasError = true;
+        throw new Error(error);
       });
   }
 }
