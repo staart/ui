@@ -93,7 +93,7 @@
             :key="`option_${service}`"
             class="button button--type-social"
             type="button"
-            @click="loginWithGoogle"
+            @click="oauthLogin(service.toLowerCase())"
           >
             <font-awesome-icon
               v-if="service !== 'more'"
@@ -193,6 +193,12 @@ export default class Login extends Vue {
   private async loginWithGoogle() {
     this.$store.commit("auth/startLoading");
     const link = (await this.$axios.get("/auth/google/link")).data.redirect;
+    location.replace(link);
+  }
+  private async oauthLogin(service: string) {
+    this.$store.commit("auth/startLoading");
+    const link = (await this.$axios.get(`/auth/oauth/${service}`)).data
+      .redirect;
     location.replace(link);
   }
 }

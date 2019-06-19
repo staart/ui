@@ -104,6 +104,23 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new Error(error);
     }
   },
+  async oauthLogin({ commit }, { service, code }) {
+    commit("startLoading");
+    try {
+      const tokens = (await this.$axios.post(`/auth/oauth/${service}`, { code }))
+        .data;
+      if (tokens.twoFactorToken) {
+        commit("set2FA", tokens.twoFactorToken);
+        return "2fa";
+      } else {
+        this.$axios.setToken(tokens.token, "Bearer");
+        commit("setAuthentication", tokens);
+      }
+    } catch (error) {
+      commit("stopLoading");
+      throw new Error(error);
+    }
+  },
   async sendPasswordResetLink({ commit }, context) {
     await this.$axios.post("/auth/reset-password/request", context);
   },

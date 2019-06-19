@@ -30,6 +30,7 @@ import Footer from "@/components/Footer.vue";
 })
 export default class Default extends Vue {
   private created() {
+    this.$axios.setHeader("X-Requested-With", "XMLHttpRequest");
     if (process.env.API_KEY)
       this.$axios.setHeader("X-Api-Key", process.env.API_KEY);
     try {
