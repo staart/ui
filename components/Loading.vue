@@ -1,14 +1,22 @@
 <template>
   <div>
-    <div class="spinner"></div>
+    <font-awesome-icon class="spinner" icon="sync" spin />
     <div>{{ message }}...</div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
+library.add(faSync);
 
-@Component
+@Component({
+  components: {
+    FontAwesomeIcon
+  }
+})
 export default class Loading extends Vue {
   @Prop({ default: "Loading" }) message;
 }
@@ -21,14 +29,7 @@ div {
 .spinner {
   width: 3rem;
   height: 3rem;
-  border-radius: 50%;
-  border: 0.25rem solid #000;
-  border-color: #000 transparent #000 transparent;
-  margin: 2rem auto;
-  animation-name: rotate;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  margin: 2rem 0;
   opacity: 0.5;
 }
 @keyframes rotate {
