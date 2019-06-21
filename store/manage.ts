@@ -325,7 +325,7 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.delete(
       `/organizations/${context.team}/api-keys/${context.id}`
     );
-    return dispatch("getApiKeys", context.team);
+    return dispatch("getApiKeys", { team: context.team });
   },
   async updateApiKey({ dispatch }, context) {
     const data = { ...context };
@@ -352,15 +352,15 @@ export const getters: GetterTree<RootState, RootState> = {
   pricingPlans: state => state.pricingPlans,
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
-  memberships: state => (orgId: string) => state.memberships[parseInt(orgId)],
-  billing: state => (orgId: string) => state.billing[parseInt(orgId)],
-  subscriptions: state => (orgId: string) => state.subscriptions[parseInt(orgId)],
-  subscription: state => (orgId: string, subscriptionId: string) => state.subscription[parseInt(orgId)] && state.subscription[parseInt(orgId)][subscriptionId],
-  invoices: state => (orgId: string) => state.invoices[parseInt(orgId)],
-  invoice: state => (orgId: string, invoiceId: string) => state.invoice[parseInt(orgId)] && state.invoice[parseInt(orgId)][invoiceId],
-  sources: state => (orgId: string) => state.sources[parseInt(orgId)],
-  source: state => (orgId: string, sourceId: string) => state.source[parseInt(orgId)] && state.source[parseInt(orgId)][sourceId],
-  apiKeys: state => (orgId: string) => state.apiKeys[parseInt(orgId)],
-  apiKey: state => (orgId: string, apiKey: string) => state.apiKey[parseInt(orgId)] && state.apiKey[parseInt(orgId)][apiKey],
-  organization: state => (orgId: string) => state.organizations[parseInt(orgId)]
+  memberships: state => (team: string) => state.memberships[team],
+  billing: state => (team: string) => state.billing[team],
+  subscriptions: state => (team: string) => state.subscriptions[team],
+  subscription: state => (team: string, subscriptionId: string) => state.subscription[team] && state.subscription[team][subscriptionId],
+  invoices: state => (team: string) => state.invoices[team],
+  invoice: state => (team: string, invoiceId: string) => state.invoice[team] && state.invoice[team][invoiceId],
+  sources: state => (team: string) => state.sources[team],
+  source: state => (team: string, sourceId: string) => state.source[team] && state.source[team][sourceId],
+  apiKeys: state => (team: string) => state.apiKeys[team],
+  apiKey: state => (team: string, apiKey: string) => state.apiKey[team] && state.apiKey[team][apiKey],
+  organization: state => (team: string) => state.organizations[team]
 };

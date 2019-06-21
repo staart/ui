@@ -17,18 +17,33 @@
           <font-awesome-icon class="nav-icon" icon="box-open" fixed-width />
           <span>Subscription</span>
         </nuxt-link>
-        <nuxt-link class="item" :to="`/manage/${$route.params.team}/billing`">
+        <nuxt-link
+          class="item item--type-parent"
+          :to="`/manage/${$route.params.team}/billing/details`"
+        >
           <font-awesome-icon class="nav-icon" icon="address-card" fixed-width />
-          <span>Billing info</span>
+          <span>Billing</span>
         </nuxt-link>
-        <nuxt-link class="item" :to="`/manage/${$route.params.team}/sources`">
-          <font-awesome-icon class="nav-icon" icon="credit-card" fixed-width />
-          <span>Payment methods</span>
-        </nuxt-link>
-        <nuxt-link class="item" :to="`/manage/${$route.params.team}/invoices`">
-          <font-awesome-icon class="nav-icon" icon="file-invoice" fixed-width />
-          <span>Invoices</span>
-        </nuxt-link>
+        <nav v-if="$route.path.includes('/billing/')" class="sub-nav">
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/billing/details`"
+          >
+            <span>Customer info</span>
+          </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/billing/sources`"
+          >
+            <span>Payment methods</span>
+          </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/billing/invoices`"
+          >
+            <span>Invoices</span>
+          </nuxt-link>
+        </nav>
         <nuxt-link class="item" :to="`/manage/${$route.params.team}/data`">
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
@@ -36,10 +51,6 @@
         <nuxt-link class="item" :to="`/manage/${$route.params.team}/api-keys`">
           <font-awesome-icon class="nav-icon" icon="code" fixed-width />
           <span>Developer APIs</span>
-        </nuxt-link>
-        <nuxt-link class="item" to="/settings/account">
-          <font-awesome-icon class="nav-icon" icon="user" fixed-width />
-          <span>Your account</span>
         </nuxt-link>
       </nav>
     </aside>
@@ -58,8 +69,6 @@ import {
   faDatabase,
   faUsers,
   faCog,
-  faCreditCard,
-  faFileInvoice,
   faBoxOpen,
   faUser,
   faAddressCard,
@@ -69,8 +78,6 @@ library.add(
   faDatabase,
   faUsers,
   faCog,
-  faCreditCard,
-  faFileInvoice,
   faBoxOpen,
   faUser,
   faCode,
@@ -121,20 +128,22 @@ aside nav {
       opacity: 0.75;
     }
   }
+  &.nuxt-link-active:not(.item--type-parent) {
+    font-weight: bold;
+  }
+}
+.sub-nav {
+  margin-top: -0.5rem;
+  border-left: 0.1rem solid rgba(0, 0, 0, 0.1);
+  padding-left: 1.4rem;
+  margin-left: 0.5rem;
+}
+.sub-item {
+  display: block;
+  color: inherit;
+  margin: 0.5rem 0;
   &.nuxt-link-active {
     font-weight: bold;
-    padding-left: 1rem;
-    margin-left: -1rem;
-    color: #492257;
-    background-color: #fff;
-    border-radius: 0.2rem 0 0 0.2rem;
-    box-shadow: -7px 10px 10px rgba(60, 66, 87, 0.075), 2px 0 0 #fff;
-    &:hover {
-      opacity: 1;
-    }
-    .nav-icon {
-      opacity: 0.75;
-    }
   }
 }
 </style>

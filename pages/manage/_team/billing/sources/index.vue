@@ -3,14 +3,14 @@
     <largeMessage
       v-if="noBilling"
       heading="No billing account"
-      text="You need to setup a billing account before you view your invoices."
+      text="You need to setup a billing account before you view your sources."
       cta-text="Setup billing"
-      :cta-to="`/manage/${$route.params.team}/billing`"
+      :cta-to="`/manage/${$route.params.team}/billing/details`"
     />
     <Loading v-else-if="loading" :message="loading" />
     <div v-else>
       <div class="row">
-        <h1>Invoices</h1>
+        <h1>Payment methods</h1>
         <div class="text text--align-right">
           <button
             data-balloon="Refresh"
@@ -28,72 +28,31 @@
         </div>
       </div>
       <LargeMessage
-        v-if="
-          !loading && (!invoices || !invoices.data || !invoices.data.length)
-        "
-        heading="No invoices yet"
-        text="You don't have any invoices yet, you'll see them here as soon as you have some."
+        v-if="!loading && (!sources || !sources.data || !sources.data.length)"
+        heading="No payment methods yet"
+        text="Add your credit card to for automatic payments."
       />
-      <div v-else-if="invoices && invoices.data && invoices.data.length">
+      <div v-else-if="sources && sources.data && sources.data.length">
         <table class="table">
           <thead>
             <tr>
-              <th>Invoice #</th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Created</th>
+              <th>Source #</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="(invoice, index) in invoices.data"
-              :key="`${invoice.id}_${index}`"
+              v-for="(source, index) in sources.data"
+              :key="`${source.id}_${index}`"
             >
               <td>
-                <code>{{ invoice.number }}</code>
-              </td>
-              <td>
-                {{ invoice.currency.toUpperCase() }}
-                {{ invoice.total | currency }}
-              </td>
-              <td>
-                <span :class="`label label--color-${invoice.status}`">
-                  {{ invoice.status }}
-                </span>
-              </td>
-              <td>
-                <TimeAgo :date="invoice.date * 1000" />
+                <code>{{ source.id }}</code>
               </td>
               <td class="text text--align-right">
-                <a
-                  v-if="!invoice.paid"
-                  :href="invoice.hosted_invoice_url"
-                  target="_blank"
-                  class="button button--type-icon button--color-primary"
-                >
-                  <font-awesome-icon
-                    class="icon icon--mr-1"
-                    icon="credit-card"
-                    fixed-width
-                  />
-                  <span>Pay</span>
-                </a>
-                <a
-                  :href="invoice.invoice_pdf"
-                  data-balloon="Download PDF"
-                  data-balloon-pos="up"
-                  class="button button--type-icon"
-                >
-                  <font-awesome-icon
-                    title="Download PDF"
-                    class="icon"
-                    icon="cloud-download-alt"
-                    fixed-width
-                  />
-                </a>
                 <router-link
-                  :to="`/manage/${$route.params.team}/invoices/${invoice.id}`"
+                  :to="
+                    `/manage/${$route.params.team}/billing/sources/${source.id}`
+                  "
                   data-balloon="Details"
                   data-balloon-pos="up"
                   class="button button--type-icon"
@@ -101,7 +60,7 @@
                   <font-awesome-icon
                     title="Details"
                     class="icon"
-                    icon="file-invoice-dollar"
+                    icon="pencil-alt"
                     fixed-width
                   />
                 </router-link>
@@ -111,12 +70,12 @@
         </table>
         <div class="pagination text text--align-center">
           <button
-            v-if="invoices && invoices.hasMore"
+            v-if="sources && sources.hasMore"
             class="button"
             :disabled="loadingMore"
             @click="loadMore"
           >
-            <span>Load more invoices</span>
+            <span>Load more sources</span>
             <font-awesome-icon
               v-if="!loadingMore"
               class="icon"
@@ -132,6 +91,7 @@
           </button>
         </div>
       </div>
+      <h2>Add card</h2>
     </div>
   </main>
 </template>
@@ -150,20 +110,13 @@ import { User } from "@/types/auth";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faFileInvoiceDollar,
+  faPencilAlt,
   faArrowDown,
   faSync,
-  faCreditCard,
   faCloudDownloadAlt
 } from "@fortawesome/free-solid-svg-icons";
-import { Invoices, emptyPagination } from "../../../../types/manage";
-library.add(
-  faFileInvoiceDollar,
-  faCreditCard,
-  faCloudDownloadAlt,
-  faArrowDown,
-  faSync
-);
+import { Sources, emptyPagination } from "@/types/manage";
+library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync);
 
 @Component({
   components: {
@@ -178,23 +131,24 @@ library.add(
   middleware: "auth"
 })
 export default class ManageSettings extends Vue {
-  invoices: Invoices = emptyPagination;
+  sources: Sources = emptyPagination;
   loadingMore = false;
   noBilling = false;
   loading = "";
+  cardNumber = "";
 
   private created() {
-    this.invoices = {
-      ...this.$store.getters["manage/invoices"](this.$route.params.team)
+    this.sources = {
+      ...this.$store.getters["manage/sources"](this.$route.params.team)
     };
   }
 
   private load() {
-    this.loading = "Loading your invoices";
+    this.loading = "Loading your sources";
     this.$store
-      .dispatch("manage/getInvoices", { team: this.$route.params.team })
-      .then(invoices => {
-        this.invoices = { ...invoices };
+      .dispatch("manage/getSources", { team: this.$route.params.team })
+      .then(sources => {
+        this.sources = { ...sources };
       })
       .catch(error => {
         if (error.response.data.error === "no-customer") this.noBilling = true;
@@ -209,13 +163,13 @@ export default class ManageSettings extends Vue {
   private loadMore() {
     this.loadingMore = true;
     this.$store
-      .dispatch("manage/getInvoices", {
+      .dispatch("manage/getSources", {
         team: this.$route.params.team,
-        start: this.$store.state.manage.invoices[this.$route.params.team].next
+        start: this.$store.state.manage.sources[this.$route.params.team].next
       })
       .then(() => {
-        this.invoices = {
-          ...this.$store.getters["manage/invoices"](this.$route.params.team)
+        this.sources = {
+          ...this.$store.getters["manage/sources"](this.$route.params.team)
         };
       })
       .catch(error => {
@@ -225,3 +179,5 @@ export default class ManageSettings extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped></style>

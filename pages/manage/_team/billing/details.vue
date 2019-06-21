@@ -1,6 +1,23 @@
 <template>
   <main>
-    <h1>Billing</h1>
+    <div class="row">
+      <h1>Billing</h1>
+      <div class="text text--align-right">
+        <button
+          data-balloon="Refresh"
+          data-balloon-pos="down"
+          class="button button--type-icon"
+          @click="load"
+        >
+          <font-awesome-icon
+            title="Refresh"
+            class="icon"
+            icon="sync"
+            fixed-width
+          />
+        </button>
+      </div>
+    </div>
     <p>
       Manage your billing account details. This information will be used for
       invoicing.
@@ -16,7 +33,7 @@
                 <span style="text-transform: uppercase">{{
                   billing.currency || "eur"
                 }}</span>
-                {{ parseFloat(billing.account_balance).toFixed(2) }}
+                {{ billing.account_balance | currency }}
               </td>
             </tr>
             <tr>
@@ -112,7 +129,18 @@ import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
 import { User } from "@/types/auth";
-import { Billing, emptyBilling, emptyAddress } from "../../../types/manage";
+import {
+  Billing,
+  emptyBilling,
+  emptyAddress,
+  Sources,
+  emptyPagination
+} from "@/types/manage";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faSync);
 
 @Component({
   components: {
@@ -120,7 +148,8 @@ import { Billing, emptyBilling, emptyAddress } from "../../../types/manage";
     Input,
     Select,
     ImageInput,
-    Checkbox
+    Checkbox,
+    FontAwesomeIcon
   },
   computed: mapGetters({
     user: "auth/user"
@@ -149,6 +178,10 @@ export default class ManageSettings extends Vue {
   }
 
   private mounted() {
+    this.load();
+  }
+
+  private load() {
     this.loading = "Loading billing details";
     this.$store
       .dispatch("manage/getBilling", this.$route.params.team)

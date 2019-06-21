@@ -113,7 +113,7 @@ import {
   faFileInvoice
 } from "@fortawesome/free-solid-svg-icons";
 import { invoices } from "stripe";
-import { Invoices, emptyPagination } from "../../../../types/manage";
+import { Invoices, emptyPagination } from "@/types/manage";
 library.add(faCloudDownloadAlt, faFileInvoice);
 
 @Component({

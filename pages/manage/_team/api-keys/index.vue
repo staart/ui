@@ -67,7 +67,7 @@
                   data-balloon="Delete"
                   data-balloon-pos="up"
                   class="button button--type-icon button--color-danger"
-                  @click="deleteApiKey(apiKey.apiKey)"
+                  @click="() => (showDelete = apiKey)"
                 >
                   <font-awesome-icon
                     title="Delete"
@@ -104,6 +104,10 @@
         </div>
       </div>
       <h2>Create API key</h2>
+      <p>
+        You can use API keys to programmatically access Staart in your
+        applications.
+      </p>
       <form @submit.prevent="createApiKey">
         <div class="fake-radio-container">
           <label>
@@ -122,6 +126,24 @@
         <button class="button">Create API key</button>
       </form>
     </div>
+    <transition name="modal">
+      <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+        <h2>Are you sure you want to delete this API key?</h2>
+        <p>
+          Deleting an API key is not reversible, and you'll need to update any
+          apps using this key.
+        </p>
+        <button
+          class="button button--color-danger-cta"
+          @click="deleteApiKey(showDelete.apiKey)"
+        >
+          Yes, delete API key
+        </button>
+        <button type="button" class="button" @click="showDelete = null">
+          No, don't delete
+        </button>
+      </Confirm>
+    </transition>
   </main>
 </template>
 
@@ -129,6 +151,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Loading from "@/components/Loading.vue";
+import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
@@ -145,12 +168,13 @@ import {
   faCloudDownloadAlt,
   faTrash
 } from "@fortawesome/free-solid-svg-icons";
-import { ApiKeys, emptyPagination } from "../../../../types/manage";
+import { ApiKeys, emptyPagination, ApiKey } from "../../../../types/manage";
 library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync, faTrash);
 
 @Component({
   components: {
     Loading,
+    Confirm,
     TimeAgo,
     Input,
     FontAwesomeIcon,
@@ -162,6 +186,7 @@ library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync, faTrash);
 })
 export default class ManageSettings extends Vue {
   apiKeys: ApiKeys = emptyPagination;
+  showDelete: ApiKey | null = null;
   loadingMore = false;
   loading = "";
   newApiKeyAccess = 0;
@@ -213,6 +238,23 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/createApiKey", {
         team: this.$route.params.team,
         access: this.newApiKeyAccess
+      })
+      .then(apiKeys => {
+        this.apiKeys = { ...apiKeys };
+      })
+      .catch(error => {
+        throw new Error(error);
+      })
+      .finally(() => (this.loading = ""));
+  }
+
+  private deleteApiKey(key: string) {
+    this.showDelete = null;
+    this.loading = "Deleting your API key";
+    this.$store
+      .dispatch("manage/deleteApiKey", {
+        team: this.$route.params.team,
+        id: key
       })
       .then(apiKeys => {
         this.apiKeys = { ...apiKeys };

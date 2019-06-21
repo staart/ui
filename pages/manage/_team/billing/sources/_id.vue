@@ -39,7 +39,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons";
 import { sources } from "stripe";
-import { Sources, emptyPagination } from "../../../../types/manage";
+import { Sources, emptyPagination } from "@/types/manage";
 library.add(faCloudDownloadAlt);
 
 @Component({
