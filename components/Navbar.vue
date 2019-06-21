@@ -5,8 +5,12 @@
         <span class="item--type-logo">Staart</span>
       </nuxt-link>
       <nav v-if="isAuthenticated">
-        <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
-        <nuxt-link class="item" to="/manage/settings">Settings</nuxt-link>
+        <nuxt-link class="item" :to="`/dashboard/${activeOrganization}`"
+          >Dashboard</nuxt-link
+        >
+        <nuxt-link class="item" :to="`/manage/${activeOrganization}/settings`"
+          >Settings</nuxt-link
+        >
         <span>
           <button
             class="item item--type-less"
@@ -148,6 +152,7 @@ export default class Card extends Vue {
   visible: string | null = null;
   isVisible = true;
   notificationCount = 0;
+  activeOrganization: string | null = null;
   @Watch("$route")
   private onRouteChanged() {
     this.updateNavBar();
@@ -157,6 +162,11 @@ export default class Card extends Vue {
       this.isVisible = false;
     } else {
       this.isVisible = true;
+    }
+    if (this.$route.params.team) {
+      this.activeOrganization = this.$route.params.team;
+    } else {
+      this.activeOrganization = this.$store.getters["auth/activeOrganization"];
     }
   }
   private updateNotificationCount(count: number) {

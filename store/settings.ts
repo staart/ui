@@ -141,6 +141,7 @@ export const actions: ActionTree<RootState, RootState> = {
       `/users/me/memberships?start=${start}`
     )).data;
     commit("setMemberships", { memberships, start });
+    return memberships;
   },
   async deleteMembership({ dispatch }, context) {
     await this.$axios.delete(`/memberships/${context}`);

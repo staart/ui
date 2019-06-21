@@ -14,31 +14,34 @@ export const state = (): RootState => ({
 });
 
 export const mutations: MutationTree<RootState> = {
-  setAuthentication(state: RootState, tokens: Tokens): void {
+  setAuthentication(state: RootState, tokens: Tokens) {
     Vue.set(state, "tokens", tokens);
     Vue.set(state, "user", decode(tokens.token));
     state.loading = false;
     state.isAuthenticated = true;
   },
-  removeAuthentication(state: RootState): void {
+  removeAuthentication(state: RootState) {
     Vue.set(state, "tokens", { token: "", refresh: "" });
     state.loading = false;
     state.isAuthenticated = false;
     state.notifications = [];
     delete state.user;
   },
-  startLoading(state: RootState): void {
+  startLoading(state: RootState) {
     state.loading = true;
   },
-  stopLoading(state: RootState): void {
+  stopLoading(state: RootState) {
     state.loading = false;
   },
-  setNotifications(state: RootState, notifications: any): void {
+  setNotifications(state: RootState, notifications: any) {
     Vue.set(state, "notifications", notifications);
   },
-  set2FA(state: RootState, twoFactorToken: string): void {
+  set2FA(state: RootState, twoFactorToken: string) {
     Vue.set(state, "tokens", { twoFactorToken });
     state.loading = false;
+  },
+  setActiveOrganization(state: RootState, team: string) {
+    Vue.set(state, "activeOrganization", team);
   }
 };
 
@@ -154,5 +157,6 @@ export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   isLoading: state => state.loading,
   notifications: state => state.notifications,
+  activeOrganization: state => state.activeOrganization,
   isAuthenticated: state => state.isAuthenticated
 };

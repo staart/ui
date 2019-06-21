@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -89,7 +89,18 @@ library.add(
     FontAwesomeIcon
   }
 })
-export default class Manage extends Vue {}
+export default class Manage extends Vue {
+  private mounted() {
+    this.update();
+  }
+  private update() {
+    this.$store.commit("auth/setActiveOrganization", this.$route.params.team);
+  }
+  @Watch("$route.path")
+  onRouteChanged() {
+    this.update();
+  }
+}
 </script>
 
 <style lang="scss" scoped>
