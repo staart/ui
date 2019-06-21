@@ -27,7 +27,8 @@ export default {
     "insufficient-permission":
       "You don't have the permission to perform this action",
     "user-is-member-already": "This user is already a member",
-    "invalid-2fa-token": "This 2FA verification code is incorrect"
+    "invalid-2fa-token": "This 2FA verification code is incorrect",
+    "oauth-no-email": "We couldn't find an account with that email"
   },
   securityEvents: {
     "user.created": "Created account",

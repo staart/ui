@@ -30,22 +30,21 @@
           Login to your account
         </button>
         <no-ssr>
-          <p class="text text--align-center text--color-light or">
-            or, login with:
-          </p>
-          <div class="row">
+          <div class="row section section--mt-1">
             <button
-              v-for="service in ['apple', 'google']"
+              v-for="service in ['Salesforce', 'Github', 'Facebook']"
               :key="`login_${service}`"
               class="button button--width-full button--size-large button--color-blue"
               type="button"
               :aria-label="`Login with ${service}`"
-              @click="loginWithGoogle"
+              :data-balloon="`Login with ${service}`"
+              data-balloon-pos="down"
+              @click="oauthLogin(service.toLowerCase())"
             >
               <font-awesome-icon
                 v-if="service !== 'more'"
                 class="icon"
-                :icon="['fab', service]"
+                :icon="['fab', service.toLowerCase()]"
                 fixed-width
               />
             </button>
@@ -80,15 +79,15 @@
         <div class="row row--type-social">
           <button
             v-for="service in [
-              'Apple',
-              'Google',
+              //'Apple',
+              //'Google',
               'Salesforce',
-              'Microsoft',
+              //'Microsoft',
               'Facebook',
-              'Twitter',
+              //'Twitter',
               'LinkedIn',
-              'GitHub',
-              'Weixin'
+              'GitHub'
+              //'Weixin'
             ]"
             :key="`option_${service}`"
             class="button button--type-social"
