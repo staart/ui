@@ -317,22 +317,22 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async createApiKey({ dispatch }, context) {
     const data = { ...context };
-    delete data.id;
-    await this.$axios.put(`/organizations/${context.id}/api-keys`, data);
-    return dispatch("getApiKeys", context.id);
+    delete data.team;
+    await this.$axios.put(`/organizations/${context.team}/api-keys`, data);
+    return dispatch("getApiKeys", { team: context.team });
   },
   async deleteApiKey({ dispatch }, context) {
     await this.$axios.delete(
-      `/organizations/${context.id}/api-keys/${context.apiKeyId}`
+      `/organizations/${context.team}/api-keys/${context.id}`
     );
-    return dispatch("getApiKeys", context.id);
+    return dispatch("getApiKeys", context.team);
   },
   async updateApiKey({ dispatch }, context) {
     const data = { ...context };
+    delete data.team;
     delete data.id;
-    delete data.apiKeyId;
     await this.$axios.patch(
-      `/organizations/${context.id}/api-keys/${context.apiKeyId}`,
+      `/organizations/${context.team}/api-keys/${context.id}`,
       data
     );
     return dispatch("getApiKey", context);

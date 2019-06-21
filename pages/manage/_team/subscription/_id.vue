@@ -60,11 +60,7 @@
               <td>Amount</td>
               <td>
                 {{ (subscription.plan.currency || "eur").toUpperCase() }}
-                {{
-                  parseFloat(
-                    (subscription.plan.amount || 0) / 100
-                  ).toLocaleString()
-                }}
+                {{ subscription.plan.amount | currency }}
               </td>
             </tr>
             <tr v-if="subscription.plan && subscription.plan.interval">

@@ -53,7 +53,10 @@
               <td>
                 <code>{{ invoice.number }}</code>
               </td>
-              <td>{{ invoice.currency.toUpperCase() }} {{ invoice.total }}</td>
+              <td>
+                {{ invoice.currency.toUpperCase() }}
+                {{ invoice.total | currency }}
+              </td>
               <td>
                 <span :class="`label label--color-${invoice.status}`">
                   {{ invoice.status }}

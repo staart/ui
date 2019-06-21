@@ -113,9 +113,7 @@
                     subscriptions.data[0].plan.currency.toUpperCase()
                   }}</span>
                   <span>{{
-                    parseFloat(
-                      (subscriptions.data[0].plan.amount || 0) / 100
-                    ).toLocaleString()
+                    subscriptions.data[0].plan.amount | currency
                   }}</span>
                   <span>{{
                     subscriptions.data[0].plan.interval_count == 1
@@ -182,9 +180,7 @@
               </td>
               <td>
                 <span>{{ subscription.plan.currency.toUpperCase() }}</span>
-                <span>{{
-                  parseFloat(subscription.plan.amount / 100).toLocaleString()
-                }}</span>
+                <span>{{ subscription.plan.amount | currency }}</span>
                 <span>{{
                   subscription.plan.interval_count == 1
                     ? "per"
@@ -289,7 +285,7 @@
               <strong class="name">{{ plan.nickname }}</strong>
               <span class="amount">
                 {{ (plan.currency || "eur").toUpperCase() }}
-                {{ parseFloat((plan.amount || 0) / 100).toLocaleString() }}
+                {{ plan.amount | currency }}
               </span>
               <span class="interval">
                 {{

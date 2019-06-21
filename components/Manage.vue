@@ -33,6 +33,10 @@
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
         </nuxt-link>
+        <nuxt-link class="item" :to="`/manage/${$route.params.team}/api-keys`">
+          <font-awesome-icon class="nav-icon" icon="code" fixed-width />
+          <span>Developer APIs</span>
+        </nuxt-link>
         <nuxt-link class="item" to="/settings/account">
           <font-awesome-icon class="nav-icon" icon="user" fixed-width />
           <span>Your account</span>
@@ -58,7 +62,8 @@ import {
   faFileInvoice,
   faBoxOpen,
   faUser,
-  faAddressCard
+  faAddressCard,
+  faCode
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
   faDatabase,
@@ -68,6 +73,7 @@ library.add(
   faFileInvoice,
   faBoxOpen,
   faUser,
+  faCode,
   faAddressCard
 );
 

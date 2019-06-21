@@ -37,21 +37,21 @@
               <td>Amount due</td>
               <td>
                 {{ invoice.currency && invoice.currency.toUpperCase() }}
-                {{ invoice.amount_due }}
+                {{ invoice.amount_due | currency }}
               </td>
             </tr>
             <tr>
               <td>Amount paid</td>
               <td>
                 {{ invoice.currency && invoice.currency.toUpperCase() }}
-                {{ invoice.amount_paid }}
+                {{ invoice.amount_paid | currency }}
               </td>
             </tr>
             <tr>
               <td>Amount remaining</td>
               <td>
                 {{ invoice.currency && invoice.currency.toUpperCase() }}
-                {{ invoice.amount_remaining }}
+                {{ invoice.amount_remaining | currency }}
               </td>
             </tr>
             <tr>
