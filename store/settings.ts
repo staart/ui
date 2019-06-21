@@ -16,7 +16,6 @@ export const state = (): RootState => ({
   securityEvents: { data: [], hasMore: false },
   isDownloading: false,
   backupCodes: [],
-  apiKeys: []
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -67,14 +66,10 @@ export const mutations: MutationTree<RootState> = {
   setBackupCodes(state: RootState, backupCodes: BackupCode[]): void {
     Vue.set(state, "backupCodes", backupCodes);
   },
-  setApiKeys(state: RootState, apiKeys: any): void {
-    Vue.set(state, "apiKeys", apiKeys);
-  },
   clearAll(state: RootState): void {
     delete state.user;
     delete state.emails;
     delete state.memberships;
-    delete state.apiKeys;
     delete state.securityEvents;
   },
   startDownloading(state: RootState): void {
@@ -155,24 +150,11 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.put("/organizations", context);
     return dispatch("getMemberships");
   },
-  async getApiKeys({ commit }, context) {
-    const apiKeys: any = (await this.$axios.get("/users/me/api-keys")).data;
-    commit("setApiKeys", apiKeys);
-  },
-  async deleteApiKey({ dispatch }, context) {
-    await this.$axios.delete(`/users/me/api-keys/${context}`);
-    return dispatch("getApiKeys");
-  },
-  async createApiKey({ dispatch }) {
-    await this.$axios.put("/users/me/api-keys");
-    return dispatch("getApiKeys");
-  },
   async getEnable2FA({ commit }, context) {
     return (await this.$axios.get("/users/me/2fa/enable")).data;
   },
   async disable2FA({ dispatch }) {
     await this.$axios.delete("/users/me/2fa");
-    return dispatch("getApiKeys");
   },
   async postVerify2FA({ dispatch }, context) {
     await this.$axios.post("/users/me/2fa/verify", { code: context });
@@ -187,7 +169,6 @@ export const actions: ActionTree<RootState, RootState> = {
 export const getters: GetterTree<RootState, RootState> = {
   user: state => state.user,
   emails: state => state.emails,
-  apiKeys: state => state.apiKeys,
   memberships: state => state.memberships,
   securityEvents: state => state.securityEvents,
   backupCodes: state => state.backupCodes,

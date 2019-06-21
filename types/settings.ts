@@ -50,5 +50,4 @@ export interface RootState {
   securityEvents: SecurityEvents;
   backupCodes: BackupCode[];
   isDownloading: boolean;
-  apiKeys: any;
 }
