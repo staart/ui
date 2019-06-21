@@ -54,7 +54,7 @@
                 <code>{{ invoice.number }}</code>
               </td>
               <td>
-                {{ invoice.currency.toUpperCase() }}
+                {{ invoice.currency && invoice.currency.toUpperCase() }}
                 {{ invoice.total | currency }}
               </td>
               <td>
