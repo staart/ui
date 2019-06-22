@@ -102,7 +102,6 @@
           />
           <font-awesome-icon
             v-else
-            title="Available"
             class="icon icon--ml-2 icon--color-light"
             icon="sync"
             spin

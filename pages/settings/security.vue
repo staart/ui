@@ -45,7 +45,6 @@
           <span>Enable 2FA</span>
           <font-awesome-icon
             v-if="enabling"
-            title="Available"
             class="icon icon--ml-2 icon--color-light"
             icon="sync"
             spin
@@ -72,7 +71,6 @@
                   data-balloon-pos="up"
                 >
                   <font-awesome-icon
-                    title="Available"
                     class="icon icon--ml-2 icon--color-success"
                     icon="check-circle"
                   />
@@ -98,7 +96,6 @@
                   data-balloon-pos="up"
                 >
                   <font-awesome-icon
-                    title="Available"
                     class="icon icon--ml-2 icon--color-success"
                     icon="check-circle"
                   />
@@ -187,7 +184,6 @@
           />
           <font-awesome-icon
             v-else
-            title="Available"
             class="icon icon--ml-2 icon--color-light"
             icon="sync"
             spin

@@ -11,12 +11,7 @@
             class="button button--type-icon"
             @click="load"
           >
-            <font-awesome-icon
-              title="Refresh"
-              class="icon"
-              icon="sync"
-              fixed-width
-            />
+            <font-awesome-icon class="icon" icon="sync" fixed-width />
           </button>
         </div>
       </div>
@@ -44,20 +39,44 @@
                 <code>{{ apiKey.apiKey }}</code>
               </td>
               <td>
-                <code>{{ apiKey.secretKey }}</code>
+                <code v-if="!revealed.includes(apiKey.apiKey)"
+                  >····················</code
+                >
+                <code v-else>{{ apiKey.secretKey }}</code>
               </td>
               <td>{{ apiKey.access ? "Full access" : "Read-only access" }}</td>
               <td class="text text--align-right">
+                <button
+                  v-if="!revealed.includes(apiKey.apiKey)"
+                  aria-label="Reveal secret key"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                  @click="() => (showReveal = apiKey)"
+                >
+                  <font-awesome-icon class="icon" icon="eye" fixed-width />
+                </button>
+                <button
+                  v-else
+                  aria-label="Hide secret key"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                  @click="hideApiKey(apiKey.apiKey)"
+                >
+                  <font-awesome-icon
+                    class="icon"
+                    icon="eye-slash"
+                    fixed-width
+                  />
+                </button>
                 <router-link
                   :to="
                     `/manage/${$route.params.team}/api-keys/${apiKey.apiKey}`
                   "
-                  aria-label="Details"
+                  aria-label="Edit"
                   data-balloon-pos="up"
                   class="button button--type-icon"
                 >
                   <font-awesome-icon
-                    title="Details"
                     class="icon"
                     icon="pencil-alt"
                     fixed-width
@@ -69,12 +88,7 @@
                   class="button button--type-icon button--color-danger"
                   @click="() => (showDelete = apiKey)"
                 >
-                  <font-awesome-icon
-                    title="Delete"
-                    class="icon"
-                    icon="trash"
-                    fixed-width
-                  />
+                  <font-awesome-icon class="icon" icon="trash" fixed-width />
                 </button>
               </td>
             </tr>
@@ -95,7 +109,6 @@
             />
             <font-awesome-icon
               v-else
-              title="Available"
               class="icon icon--ml-2 icon--color-light"
               icon="sync"
               spin
@@ -144,6 +157,29 @@
         </button>
       </Confirm>
     </transition>
+    <transition name="modal">
+      <Confirm v-if="showReveal" :on-close="() => (showReveal = null)">
+        <h2>Are you sure you want to reveal this secret key?</h2>
+        <p>
+          Your secret key is like your password. Anyone with access to it can
+          make changes to your account including charging your credit card.
+        </p>
+        <button
+          class="button button--color-primary"
+          @click="
+            () => {
+              revealed.push(showReveal.apiKey);
+              showReveal = null;
+            }
+          "
+        >
+          Yes, reveal secret key
+        </button>
+        <button type="button" class="button" @click="showReveal = null">
+          No, don't reveal
+        </button>
+      </Confirm>
+    </transition>
   </main>
 </template>
 
@@ -165,11 +201,12 @@ import {
   faPencilAlt,
   faArrowDown,
   faSync,
-  faCloudDownloadAlt,
-  faTrash
+  faTrash,
+  faEye,
+  faEyeSlash
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiKeys, emptyPagination, ApiKey } from "../../../../types/manage";
-library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync, faTrash);
+library.add(faPencilAlt, faArrowDown, faSync, faTrash, faEye, faEyeSlash);
 
 @Component({
   components: {
@@ -187,6 +224,8 @@ library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync, faTrash);
 export default class ManageSettings extends Vue {
   apiKeys: ApiKeys = emptyPagination;
   showDelete: ApiKey | null = null;
+  showReveal: ApiKey | null = null;
+  revealed: string[] = [];
   loadingMore = false;
   loading = "";
   newApiKeyAccess = 0;
@@ -245,7 +284,10 @@ export default class ManageSettings extends Vue {
       .catch(error => {
         throw new Error(error);
       })
-      .finally(() => (this.loading = ""));
+      .finally(() => {
+        this.loading = "";
+        this.newApiKeyAccess = 0;
+      });
   }
 
   private deleteApiKey(key: string) {
@@ -263,6 +305,14 @@ export default class ManageSettings extends Vue {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
+  }
+
+  private hideApiKey(apiKey: string) {
+    const index = this.revealed.indexOf(apiKey);
+    if (index > -1) {
+      this.revealed.splice(index, 1);
+    }
+    this.showReveal = null;
   }
 }
 </script>
