@@ -4,7 +4,7 @@
       <h1>Team</h1>
       <div class="text text--align-right">
         <button
-          data-balloon="Refresh"
+          aria-label="Refresh"
           data-balloon-pos="down"
           class="button button--type-icon"
           @click="load"
@@ -38,7 +38,7 @@
             <router-link
               v-if="user && member.userId !== user.id"
               :to="`/manage/${$route.params.team}/members/${member.id}`"
-              data-balloon="Edit"
+              aria-label="Edit"
               data-balloon-pos="up"
               class="button button--type-icon"
             >
@@ -51,7 +51,7 @@
             </router-link>
             <button
               v-if="user && member.userId !== user.id"
-              data-balloon="Remove"
+              aria-label="Remove"
               data-balloon-pos="up"
               class="button button--color-danger button--type-icon"
               @click="showDelete = member"

@@ -4,7 +4,7 @@
       <h1>Customer details</h1>
       <div class="text text--align-right">
         <button
-          data-balloon="Refresh"
+          aria-label="Refresh"
           data-balloon-pos="down"
           class="button button--type-icon"
           @click="load"

@@ -5,7 +5,6 @@
       <router-link
         v-if="labelHelp && labelHelpTo"
         :to="labelHelpTo"
-        :data-balloon="labelHelp"
         :aria-label="labelHelp"
         class="label-help"
         data-balloon-pos="up"

@@ -68,7 +68,7 @@
                 <code>{{ code.code }}</code>
                 <span
                   v-if="!code.used"
-                  data-balloon="Available"
+                  aria-label="Available"
                   data-balloon-pos="up"
                 >
                   <font-awesome-icon
@@ -77,7 +77,7 @@
                     icon="check-circle"
                   />
                 </span>
-                <span v-else data-balloon="Used" data-balloon-pos="up">
+                <span v-else aria-label="Used" data-balloon-pos="up">
                   <font-awesome-icon
                     title="Used"
                     class="icon icon--ml-2 icon--color-danger"
@@ -94,7 +94,7 @@
                 <code>{{ code.code }}</code>
                 <span
                   v-if="!code.used"
-                  data-balloon="Available"
+                  aria-label="Available"
                   data-balloon-pos="up"
                 >
                   <font-awesome-icon
@@ -103,7 +103,7 @@
                     icon="check-circle"
                   />
                 </span>
-                <span v-else data-balloon="Used" data-balloon-pos="up">
+                <span v-else aria-label="Used" data-balloon-pos="up">
                   <font-awesome-icon
                     title="Used"
                     class="icon icon--ml-2 icon--color-danger"

@@ -13,7 +13,7 @@
         <h1>Payment methods</h1>
         <div class="text text--align-right">
           <button
-            data-balloon="Refresh"
+            aria-label="Refresh"
             data-balloon-pos="down"
             class="button button--type-icon"
             @click="load"
@@ -53,7 +53,7 @@
                   :to="
                     `/manage/${$route.params.team}/billing/sources/${source.id}`
                   "
-                  data-balloon="Details"
+                  aria-label="Details"
                   data-balloon-pos="up"
                   class="button button--type-icon"
                 >

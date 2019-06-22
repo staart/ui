@@ -13,7 +13,7 @@
         <h1>Invoices</h1>
         <div class="text text--align-right">
           <button
-            data-balloon="Refresh"
+            aria-label="Refresh"
             data-balloon-pos="down"
             class="button button--type-icon"
             @click="load"
@@ -81,7 +81,7 @@
                 </a>
                 <a
                   :href="invoice.invoice_pdf"
-                  data-balloon="Download PDF"
+                  aria-label="Download PDF"
                   data-balloon-pos="up"
                   class="button button--type-icon"
                 >
@@ -96,7 +96,7 @@
                   :to="
                     `/manage/${$route.params.team}/billing/invoices/${invoice.id}`
                   "
-                  data-balloon="Details"
+                  aria-label="Details"
                   data-balloon-pos="up"
                   class="button button--type-icon"
                 >

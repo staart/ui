@@ -37,7 +37,6 @@
               class="button button--width-full button--size-large button--color-blue"
               type="button"
               :aria-label="`Login with ${service}`"
-              :data-balloon="`Login with ${service}`"
               data-balloon-pos="down"
               @click="oauthLogin(service.toLowerCase())"
             >
@@ -53,7 +52,6 @@
               style="width: 20%"
               type="button"
               aria-label="More services"
-              data-balloon="More services"
               data-balloon-pos="down"
               @click="() => (showMore = true)"
             >

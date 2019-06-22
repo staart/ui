@@ -22,7 +22,7 @@
               {{ email.email }}
               <span
                 v-if="email.isVerified"
-                data-balloon="Verified"
+                aria-label="Verified"
                 data-balloon-pos="up"
               >
                 <font-awesome-icon
@@ -33,7 +33,7 @@
               </span>
               <span
                 v-if="email.isPrimary"
-                data-balloon="Primary"
+                aria-label="Primary"
                 data-balloon-pos="up"
               >
                 <font-awesome-icon
@@ -44,7 +44,7 @@
               </span>
               <span
                 v-else-if="!email.isVerified"
-                data-balloon="Unverified"
+                aria-label="Unverified"
                 data-balloon-pos="up"
               >
                 <font-awesome-icon
@@ -57,7 +57,7 @@
             <td class="text text--align-right">
               <button
                 v-if="!email.isPrimary && email.isVerified"
-                data-balloon="Make primary"
+                aria-label="Make primary"
                 data-balloon-pos="up"
                 class="button button--type-icon"
                 @click="makePrimary(email.id)"
@@ -71,7 +71,7 @@
               </button>
               <button
                 v-if="!email.isPrimary"
-                data-balloon="Delete"
+                aria-label="Delete"
                 data-balloon-pos="up"
                 class="button button--color-danger button--type-icon"
                 @click="showDelete = email"

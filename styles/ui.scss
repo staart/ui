@@ -309,10 +309,11 @@ code {
   background-color: #27ae60;
 }
 
-[data-balloon]::after {
+[data-balloon-pos]::after {
+  border-radius: 0.2rem;
   padding: 0.75rem 1rem;
-  font: inherit !important;
-  font-size: 90% !important;
+  font: inherit;
+  font-size: 90%;
 }
 
 .modal-front .button {

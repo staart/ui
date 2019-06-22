@@ -13,7 +13,7 @@
         <h1>Subscription</h1>
         <div class="text text--align-right">
           <button
-            data-balloon="Refresh"
+            aria-label="Refresh"
             data-balloon-pos="down"
             class="button button--type-icon"
             @click="load"
@@ -138,7 +138,7 @@
             :to="
               `/manage/${$route.params.team}/subscription/${subscriptions.data[0].id}`
             "
-            data-balloon="Edit"
+            aria-label="Edit"
             data-balloon-pos="up"
             class="button button--type-icon section section--mt-2"
           >
@@ -199,7 +199,7 @@
                   :to="
                     `/manage/${$route.params.team}/invoices/${subscription.latest_invoice}`
                   "
-                  data-balloon="Last invoice"
+                  aria-label="Last invoice"
                   data-balloon-pos="up"
                   class="button button--type-icon"
                 >
@@ -214,7 +214,7 @@
                   :to="
                     `/manage/${$route.params.team}/subscription/${subscription.id}`
                   "
-                  data-balloon="Edit"
+                  aria-label="Edit"
                   data-balloon-pos="up"
                   class="button button--type-icon"
                 >

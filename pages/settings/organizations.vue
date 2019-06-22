@@ -31,7 +31,7 @@
             <td>{{ membershipRoles[membership.role] || membership.role }}</td>
             <td class="text text--align-right">
               <nuxt-link
-                data-balloon="Dashboard"
+                aria-label="Dashboard"
                 data-balloon-pos="up"
                 class="button button--type-icon"
                 :to="
@@ -45,7 +45,7 @@
                 <font-awesome-icon title="Dashboard" icon="eye" fixed-width />
               </nuxt-link>
               <nuxt-link
-                data-balloon="Settings"
+                aria-label="Settings"
                 data-balloon-pos="up"
                 class="button button--type-icon"
                 :to="
@@ -59,7 +59,7 @@
                 <font-awesome-icon title="Settings" icon="cog" fixed-width />
               </nuxt-link>
               <button
-                data-balloon="Leave organization"
+                aria-label="Leave organization"
                 data-balloon-pos="up"
                 class="button button--color-danger button--type-icon"
                 @click="showDelete = membership"
