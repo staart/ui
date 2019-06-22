@@ -1,6 +1,23 @@
 <template>
   <main>
-    <h1>Team</h1>
+    <div class="row">
+      <h1>Team</h1>
+      <div class="text text--align-right">
+        <button
+          data-balloon="Refresh"
+          data-balloon-pos="down"
+          class="button button--type-icon"
+          @click="load"
+        >
+          <font-awesome-icon
+            title="Refresh"
+            class="icon"
+            icon="sync"
+            fixed-width
+          />
+        </button>
+      </div>
+    </div>
     <Loading v-if="loading" :message="loading" />
     <table v-else-if="memberships && memberships.data" class="table">
       <thead>
@@ -19,6 +36,7 @@
           <td>{{ membershipRoles[member.role] || member.role }}</td>
           <td class="text text--align-right">
             <router-link
+              v-if="user && member.userId !== user.id"
               :to="`/manage/${$route.params.team}/members/${member.id}`"
               data-balloon="Edit"
               data-balloon-pos="up"
@@ -32,6 +50,7 @@
               />
             </router-link>
             <button
+              v-if="user && member.userId !== user.id"
               data-balloon="Remove"
               data-balloon-pos="up"
               class="button button--color-danger button--type-icon"
@@ -94,6 +113,8 @@
       <Select
         :value="newUserRole"
         label="Role"
+        label-help="Learn more about roles"
+        label-help-to="/"
         :options="membershipRoles"
         required
         @input="val => (newUserRole = val)"
@@ -147,6 +168,7 @@ import {
   faSync
 } from "@fortawesome/free-solid-svg-icons";
 import { Members, emptyPagination } from "@/types/manage";
+import { User as UserType } from "@/types/auth";
 library.add(faTrash, faPencilAlt, faArrowDown, faSync);
 
 @Component({
@@ -160,10 +182,14 @@ library.add(faTrash, faPencilAlt, faArrowDown, faSync);
     FontAwesomeIcon,
     Confirm
   },
+  computed: mapGetters({
+    user: "auth/user"
+  }),
   middleware: "auth"
 })
 export default class ManageMembers extends Vue {
   memberships: Members = emptyPagination;
+  user!: UserType;
   loading = "";
   inviting = false;
   showDelete = null;
@@ -181,6 +207,10 @@ export default class ManageMembers extends Vue {
   }
 
   private mounted() {
+    this.load();
+  }
+
+  private load() {
     this.loading = "Loading members";
     this.$store
       .dispatch("manage/getMembers", { team: this.$route.params.team })

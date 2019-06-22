@@ -21,6 +21,7 @@
             placeholder="Enter a new password"
             autocomplete="new-password"
             required
+            autofocus
           />
           <button
             class="button button--width-full button--size-large"

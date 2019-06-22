@@ -15,7 +15,9 @@
     <div class="container">
       <div class="larger">
         <nuxt-link class="logo" to="/">Staart</nuxt-link>
-        <p>An O15Y company</p>
+        <p>
+          <a target="_blank" href="https://o15y.com">An O15Y startup</a>
+        </p>
       </div>
       <div>
         <h2>Product</h2>
@@ -133,6 +135,9 @@ nav {
     color: inherit;
     text-decoration: none;
     padding: 0.25rem 0;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   button {
     background: none;

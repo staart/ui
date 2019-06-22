@@ -18,6 +18,7 @@
             placeholder="Enter your work email"
             autocomplete="authname"
             required
+            autofocus
           />
           <button
             class="button button--width-full button--size-large"

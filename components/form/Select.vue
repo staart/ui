@@ -1,6 +1,18 @@
 <template>
   <div class="form-group">
-    <label :for="labelId">{{ label }}</label>
+    <label :for="labelId">
+      <span>{{ label }}</span>
+      <router-link
+        v-if="labelHelp && labelHelpTo"
+        :to="labelHelpTo"
+        :data-balloon="labelHelp"
+        :aria-label="labelHelp"
+        class="label-help"
+        data-balloon-pos="up"
+      >
+        <span aria-hidden="true">?</span>
+      </router-link>
+    </label>
     <select
       :id="labelId"
       :value="value"
@@ -37,6 +49,9 @@ export default class Input extends Vue {
   @Prop() help;
   @Prop() autocomplete;
   @Prop() options;
+  @Prop() labelHelp;
+  @Prop() labelHelpTo;
+  @Prop() labelHelpHref;
   labelId = Math.random()
     .toString(36)
     .substring(7);
@@ -68,6 +83,28 @@ export default class Input extends Vue {
       outline: none;
       box-shadow: 0 0 0 3px rgba(121, 82, 179, 0.25);
     }
+  }
+}
+.label-help {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  font-size: 85%;
+  color: #fff;
+  border-radius: 100%;
+  font-weight: bold;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  margin-top: -0.2rem;
+  margin-left: 0.25rem;
+  vertical-align: middle;
+  &::after {
+    font-weight: normal !important;
+    font-size: 100% !important;
+  }
+  &:hover {
+    text-decoration: none;
   }
 }
 </style>

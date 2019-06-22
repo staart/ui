@@ -25,6 +25,7 @@ export const mutations: MutationTree<RootState> = {
     state.loading = false;
     state.isAuthenticated = false;
     state.notifications = [];
+    delete state.activeOrganization;
     delete state.user;
   },
   startLoading(state: RootState) {

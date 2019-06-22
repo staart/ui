@@ -13,6 +13,7 @@
           label="One-time Password"
           placeholder="Enter your one-time password"
           required
+          autofocus
         />
         <button
           class="button button--width-full button--size-large"

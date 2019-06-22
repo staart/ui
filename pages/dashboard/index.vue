@@ -39,6 +39,8 @@ export default class Dashboard extends Vue {
                 `/dashboard/${memberships.data[0].organizationId}`
               );
             }
+          } else {
+            this.$router.replace("/onboarding/organization");
           }
         })
         .catch(() => {});

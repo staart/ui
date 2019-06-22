@@ -17,6 +17,7 @@
           placeholder="Enter your full name"
           autocomplete="name"
           required
+          autofocus
         />
         <Input
           v-model="email"

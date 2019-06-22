@@ -42,9 +42,9 @@ export default class User extends Vue {
 }
 .avatar {
   background-color: #aaa;
-  margin: -1.33rem 0.5rem -1rem 0;
-  width: 2rem;
-  height: 2rem;
+  margin: -1.2rem 0.5rem -1rem 0;
+  width: 2.5rem;
+  height: 2.5rem;
   vertical-align: middle;
   border-radius: 100%;
   background-position: center center;

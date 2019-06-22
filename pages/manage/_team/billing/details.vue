@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="row">
-      <h1>Billing</h1>
+      <h1>Customer details</h1>
       <div class="text text--align-right">
         <button
           data-balloon="Refresh"
@@ -50,7 +50,6 @@
             </tr>
           </tbody>
         </table>
-        <h2>Billing details</h2>
       </div>
       <form v-meta-ctrl-enter="save" @submit.prevent="save">
         <Input
