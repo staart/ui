@@ -24,14 +24,8 @@
           label="IP restrictions"
           :value="apiKey.ipRestrictions"
           placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
-          @input="
-            val => {
-              apiKey.ipRestrictions = val;
-              $forceUpdate();
-            }
-          "
+          @input="val => (apiKey.ipRestrictions = val)"
         />
-        {{ apiKey.ipRestrictions }}
         <CommaList
           label="Referrer restrictions"
           :value="apiKey.referrerRestrictions"
