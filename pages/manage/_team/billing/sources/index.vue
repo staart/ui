@@ -30,7 +30,8 @@
       <LargeMessage
         v-if="!loading && (!sources || !sources.data || !sources.data.length)"
         heading="No payment methods yet"
-        text="Add your credit card to for automatic payments."
+        img="undraw_credit_card_payment_yb88.svg"
+        text="Add your credit card below for automatic payments."
       />
       <div v-else-if="sources && sources.data && sources.data.length">
         <table class="table">

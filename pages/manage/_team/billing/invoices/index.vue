@@ -31,6 +31,7 @@
         v-if="
           !loading && (!invoices || !invoices.data || !invoices.data.length)
         "
+        img="undraw_printing_invoices_5r4r.svg"
         heading="No invoices yet"
         text="You don't have any invoices yet, you'll see them here as soon as you have some."
       />

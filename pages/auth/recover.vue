@@ -4,6 +4,7 @@
   >
     <LargeMessage
       v-if="isSent"
+      img="undraw_message_sent_1030.svg"
       heading="We're good to go"
       text="We've changed your password and you can login to your dashboard now"
       cta-text="Go to login"

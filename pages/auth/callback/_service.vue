@@ -4,6 +4,7 @@
   >
     <LargeMessage
       v-if="hasError"
+      img="undraw_cancel_u1it.svg"
       heading="That's not good"
       text="We couldn't verify your login. This happens if you revoked our access to your third-party account."
       cta-text="Try another login method"
@@ -11,6 +12,7 @@
     />
     <LargeMessage
       v-else
+      img="undraw_loading_frh4.svg"
       heading="Just a moment"
       text="We're verifying your account and you should be logged in any second now."
     />

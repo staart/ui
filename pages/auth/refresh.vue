@@ -3,6 +3,7 @@
     class="container container--size-small container--top-20height container--bottom-20height"
   >
     <LargeMessage
+      img="undraw_loading_frh4.svg"
       heading="Just a moment"
       text="It's been a while since you used Staart, so we're refreshing data for you"
     />

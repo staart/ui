@@ -5,6 +5,7 @@
     <LargeMessage
       v-if="completedRegistration"
       heading="Check your email"
+      img="undraw_message_sent_1030.svg"
       text="We've sent you a special link to complete your registration and activate your account."
     />
     <Card v-else>

@@ -5,6 +5,7 @@
       <h1>Invoice</h1>
       <LargeMessage
         v-if="!loading && !invoice"
+        img="undraw_printing_invoices_5r4r.svg"
         heading="Invoice not found"
         text="We couldn't find this invoice for you."
       />

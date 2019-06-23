@@ -9,6 +9,7 @@
       <div v-if="!memberships.data.length" class="card card--type-padded">
         <LargeMessage
           heading="No teams"
+          img="undraw_team_spirit_hrr4.svg"
           text="You're not a member of any teams yet, let's change that."
         />
       </div>

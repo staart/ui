@@ -35,6 +35,7 @@
               !subscriptions.data.length)
         "
         heading="No subscriptions yet"
+        img="undraw_product_tour_foyt.svg"
         text="You don't have any subscriptions yet, get started by creating one below."
       />
       <div
@@ -265,6 +266,7 @@
             !loadingPricingPlans &&
               (!pricingPlans || !pricingPlans.data || !pricingPlans.data.length)
           "
+          img="undraw_cancel_u1it.svg"
           heading="No plans here"
           text="Unfortunately, we don't have any subscription plans available for you right now."
         />

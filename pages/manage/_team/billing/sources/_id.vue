@@ -6,6 +6,7 @@
       <LargeMessage
         v-if="!loading && !source"
         heading="Source not found"
+        img="undraw_credit_card_payment_yb88.svg"
         text="We couldn't find this source for you."
       />
       <div v-else-if="source">

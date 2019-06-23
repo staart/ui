@@ -7,6 +7,7 @@
       heading="That's not good"
       text="We got an error in verifying this magic link. Please make sure this link isn't expired."
       cta-text="Go to login"
+      img="undraw_cancel_u1it.svg"
       cta-to="/auth/login"
     />
     <LargeMessage
@@ -15,9 +16,11 @@
       :text="successMessage().text"
       :cta-text="ctaText"
       :cta-to="ctaTo"
+      img="undraw_confirmation_2uy0.svg"
     />
     <LargeMessage
       v-else
+      img="undraw_message_sent_1030.svg"
       heading="Just a moment"
       text="We're verifying this magic link and you should be on your way in just another moment."
     />

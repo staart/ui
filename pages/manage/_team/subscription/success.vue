@@ -4,6 +4,7 @@
   >
     <div class="card card--type-padded">
       <LargeMessage
+        img="undraw_confirmation_2uy0.svg"
         heading="Working on it..."
         text="We're not sure what happened, but it doesn't look good. Perhaps you'll be more comfortable at home."
       />

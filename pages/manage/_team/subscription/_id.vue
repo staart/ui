@@ -5,6 +5,7 @@
       <h1>Subscription</h1>
       <LargeMessage
         v-if="!loading && !subscription"
+        img="undraw_product_tour_foyt.svg"
         heading="Subscription not found"
         text="We couldn't find this subscription for you."
       />

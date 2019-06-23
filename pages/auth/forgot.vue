@@ -4,6 +4,7 @@
   >
     <LargeMessage
       v-if="isSent"
+      img="undraw_message_sent_1030.svg"
       heading="Check your email"
       text="We've sent you a magic link which will help you recover access to your account."
     />

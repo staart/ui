@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img alt="" src="https://undraw.oswaldlabs.com/super-thank-you.svg" />
+    <img alt="" :src="`/images/${img}`" />
     <h1>{{ heading }}</h1>
     <p>{{ text }}</p>
     <nuxt-link
@@ -21,6 +21,7 @@ export default class LargeMessage extends Vue {
   @Prop() text;
   @Prop() ctaText;
   @Prop() ctaTo;
+  @Prop({ default: "undraw_scooter_aia8.svg" }) img;
 }
 </script>
 
@@ -35,7 +36,7 @@ h1 {
   font-weight: 300;
 }
 img {
-  max-width: 200px;
+  max-width: 300px;
   margin-bottom: 1rem;
 }
 </style>

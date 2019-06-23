@@ -18,6 +18,7 @@
       <LargeMessage
         v-if="!loading && (!apiKeys || !apiKeys.data || !apiKeys.data.length)"
         heading="No API keys yet"
+        img="undraw_software_engineer_lvl5.svg"
         text="Create an API key below"
       />
       <div v-else-if="apiKeys && apiKeys.data && apiKeys.data.length">
