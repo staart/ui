@@ -2,8 +2,9 @@
 
 [![Travis CI](https://img.shields.io/travis/o15y/staart-ui.svg)](https://travis-ci.org/o15y/staart-ui)
 ![Netlify status](https://img.shields.io/endpoint.svg?url=https://platform.oswaldlabs.com/netlify-status/579f5cb0-6a9b-4bfb-bc99-8093a946a200)
+[![Dependencies](https://img.shields.io/david/o15y/staart-ui.svg)](https://david-dm.org/o15y/staart-uia)
+[![Dev dependencies](https://img.shields.io/david/dev/o15y/staart-ui.svg)](https://david-dm.org/o15y/staart-uia)
 [![GitHub](https://img.shields.io/github/license/o15y/staart-ui.svg)](https://github.com/o15y/staart-ui/blob/master/LICENSE)
-![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/o15y/staart-ui.svg)
 ![Type definitions](https://img.shields.io/badge/types-TypeScript-blue.svg)
 
 Staart UI is a frontend starter for SaaS startups written in TypeScript and Vue using Nuxt.js. It has built-in landing pages, authentication, settings UIs, and more.
