@@ -5,6 +5,7 @@
         :checked="value"
         type="checkbox"
         :required="required"
+        :disabled="disabled"
         @change="$emit('input', $event.target.checked)"
       />
       <div
@@ -16,9 +17,17 @@
         <font-awesome-icon class="icon icon--type-check" icon="check" />
       </div>
       <span>{{ label }}</span>
+      <span
+        v-if="help && questionMark"
+        :aria-label="help"
+        class="label-help"
+        data-balloon-pos="up"
+      >
+        <span aria-hidden="true">?</span>
+      </span>
     </label>
     <div
-      v-if="help"
+      v-if="help && !questionMark"
       class="text text--size-small text--color-light text--lh-1 section section--mt-05"
     >
       {{ help }}
@@ -43,8 +52,10 @@ export default class Checkbox extends Vue {
   @Prop() value;
   @Prop() label;
   @Prop() required;
+  @Prop() disabled;
   @Prop() placeholder;
   @Prop() help;
+  @Prop({ default: false }) questionMark;
   @Prop() autocomplete;
   labelId = Math.random()
     .toString(36)
@@ -95,5 +106,8 @@ input:checked + .fake-checkbox {
   .icon--type-check {
     opacity: 1;
   }
+}
+input:disabled + .fake-checkbox {
+  opacity: 0.3;
 }
 </style>

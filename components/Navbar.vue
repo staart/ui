@@ -125,7 +125,15 @@
           </transition>
         </span>
         <nuxt-link class="item" to="/pricing">Pricing</nuxt-link>
-        <nuxt-link class="button" to="/auth/login">Login &rarr;</nuxt-link>
+        <nuxt-link
+          v-if="$route.path !== '/auth/login'"
+          class="button"
+          to="/auth/login"
+          >Login &rarr;</nuxt-link
+        >
+        <nuxt-link v-else class="button" to="/auth/register"
+          >Get started &rarr;</nuxt-link
+        >
       </nav>
     </div>
   </div>

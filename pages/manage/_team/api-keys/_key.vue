@@ -30,6 +30,12 @@
         v-meta-ctrl-enter="updateApiKey"
         @submit.prevent="updateApiKey"
       >
+        <CheckList
+          label="API restrictions"
+          :options="apiRestrictions"
+          :value="apiKey.apiRestrictions"
+          @input="val => (apiKey.apiRestrictions = val)"
+        />
         <CommaList
           label="IP restrictions"
           :value="apiKey.ipRestrictions"
@@ -42,22 +48,15 @@
           placeholder="Enter a referrer URL, e.g., http*://*.example.com"
           @input="val => (apiKey.referrerRestrictions = val)"
         />
-        <p><strong>Access</strong></p>
-        <div class="fake-radio-container">
-          <label>
-            <input v-model="apiKey.access" type="radio" :value="0" required />
-            <span class="fake-radio" role="radio" tabindex="0" />
-            <span class="name">Read-only access</span>
-          </label>
-        </div>
-        <div class="fake-radio-container">
-          <label>
-            <input v-model="apiKey.access" type="radio" :value="1" required />
-            <span class="fake-radio" role="radio" tabindex="0" />
-            <span class="name">Full access</span>
-          </label>
-        </div>
         <button class="button">Update API key</button>
+        <button
+          type="button"
+          class="button button--color-danger"
+          style="margin-left: 0.5rem"
+          @click.prevent="showDelete = apiKey"
+        >
+          Delete API key
+        </button>
       </form>
     </div>
     <transition name="modal">
@@ -88,6 +87,7 @@ import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
+import CheckList from "@/components/form/CheckList.vue";
 import CommaList from "@/components/form/CommaList.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import Select from "@/components/form/Select.vue";
@@ -105,6 +105,8 @@ import {
   faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiKeys, emptyPagination, ApiKey } from "@/types/manage";
+import translations from "@/locales/en";
+const apiRestrictions = translations.apiRestrictions;
 library.add(
   faPencilAlt,
   faArrowDown,
@@ -122,6 +124,7 @@ library.add(
     TimeAgo,
     CommaList,
     FontAwesomeIcon,
+    CheckList,
     Select,
     LargeMessage,
     Checkbox
@@ -133,6 +136,7 @@ export default class ManageSettings extends Vue {
   showDelete = false;
   loading = "";
   apiKey: ApiKey | null = null;
+  apiRestrictions = apiRestrictions;
 
   private created() {
     this.apiKeys = {
@@ -162,11 +166,21 @@ export default class ManageSettings extends Vue {
 
   private updateApiKey() {
     this.loading = "Creating your API key";
+    const key = this.apiKey;
+    if (key) {
+      [
+        "apiKey",
+        "secretKey",
+        "organizationId",
+        "createdAt",
+        "updatedAt"
+      ].forEach(k => delete key[k]);
+    }
     this.$store
       .dispatch("manage/updateApiKey", {
         team: this.$route.params.team,
         id: this.$route.params.key,
-        ...this.apiKey
+        ...key
       })
       .then(apiKeys => {
         this.apiKeys = { ...apiKeys };
@@ -189,6 +203,7 @@ export default class ManageSettings extends Vue {
       })
       .then(apiKeys => {
         this.apiKeys = { ...apiKeys };
+        this.$router.push(`/manage/${this.$route.params.team}/api-keys`);
       })
       .catch(error => {
         throw new Error(error);

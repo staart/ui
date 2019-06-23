@@ -45,7 +45,12 @@
                 >
                 <code v-else>{{ apiKey.secretKey }}</code>
               </td>
-              <td>{{ apiKey.access ? "Full access" : "Read-only access" }}</td>
+              <td v-if="apiKey.apiRestrictions">
+                {{ apiKey.apiRestrictions.split(",").length }} API{{
+                  apiKey.apiRestrictions.split(",").length === 1 ? "" : "s"
+                }}
+              </td>
+              <td v-else>All APIs</td>
               <td class="text text--align-right">
                 <button
                   v-if="!revealed.includes(apiKey.apiKey)"
@@ -123,20 +128,16 @@
         applications.
       </p>
       <form @submit.prevent="createApiKey">
-        <div class="fake-radio-container">
-          <label>
-            <input v-model="newApiKeyAccess" type="radio" :value="0" required />
-            <span class="fake-radio" role="radio" tabindex="0" />
-            <span class="name">Read-only access</span>
-          </label>
-        </div>
-        <div class="fake-radio-container">
-          <label>
-            <input v-model="newApiKeyAccess" type="radio" :value="1" required />
-            <span class="fake-radio" role="radio" tabindex="0" />
-            <span class="name">Full access</span>
-          </label>
-        </div>
+        <CheckList
+          label="API restrictions"
+          :options="apiRestrictions"
+          :value="newApiRestrictions"
+          placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
+          @input="val => (newApiRestrictions = val)"
+        />
+        <p class="text text--color-muted text--size-small">
+          You can add IP and referrer restrictions after creating the API key.
+        </p>
         <button class="button">Create API key</button>
       </form>
     </div>
@@ -191,6 +192,7 @@ import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
+import CheckList from "@/components/form/CheckList.vue";
 import Input from "@/components/form/Input.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import Select from "@/components/form/Select.vue";
@@ -207,12 +209,15 @@ import {
   faEyeSlash
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiKeys, emptyPagination, ApiKey } from "@/types/manage";
+import translations from "@/locales/en";
+const apiRestrictions = translations.apiRestrictions;
 library.add(faPencilAlt, faArrowDown, faSync, faTrash, faEye, faEyeSlash);
 
 @Component({
   components: {
     Loading,
     Confirm,
+    CheckList,
     TimeAgo,
     Input,
     FontAwesomeIcon,
@@ -229,7 +234,8 @@ export default class ManageSettings extends Vue {
   revealed: string[] = [];
   loadingMore = false;
   loading = "";
-  newApiKeyAccess = 0;
+  newApiRestrictions = "orgRead";
+  apiRestrictions = apiRestrictions;
 
   private created() {
     this.apiKeys = {
@@ -277,7 +283,7 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/createApiKey", {
         team: this.$route.params.team,
-        access: this.newApiKeyAccess
+        apiRestrictions: this.newApiRestrictions
       })
       .then(apiKeys => {
         this.apiKeys = { ...apiKeys };
@@ -287,7 +293,7 @@ export default class ManageSettings extends Vue {
       })
       .finally(() => {
         this.loading = "";
-        this.newApiKeyAccess = 0;
+        this.newApiRestrictions = "";
       });
   }
 

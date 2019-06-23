@@ -83,5 +83,16 @@ export default {
     3: "Manager",
     4: "Member",
     5: "Basic"
+  },
+  apiRestrictions: {
+    orgRead: {
+      text: "Read team details",
+      help: "Get information about your team, subscription, and settings",
+      alwaysChecked: true
+    },
+    orgUpdate: {
+      text: "Update team details",
+      help: "Update information about your team, billing, etc."
+    }
   }
 };
