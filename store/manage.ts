@@ -115,12 +115,6 @@ export const mutations: MutationTree<RootState> = {
   setRecentEvents(state: RootState, recentEvents: any): void {
     Vue.set(state, "recentEvents", recentEvents);
   },
-  startDownloading(state: RootState): void {
-    state.isDownloading = true;
-  },
-  stopDownloading(state: RootState): void {
-    state.isDownloading = false;
-  },
   clearAll(state: RootState): void {
     delete state.organizations;
     delete state.billing;
@@ -153,25 +147,19 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.patch(`/organizations/${context.team}`, update);
     return dispatch("getOrganization", context.team);
   },
-  async deleteOrganization({ commit, rootGetters }) {
-    const org = rootGetters["auth/activeOrganization"];
-    const organizationId = org.organizationId;
-    await this.$axios.delete(`/organizations/${organizationId}`);
+  async deleteOrganization({ commit, rootGetters }, { team }) {
+    await this.$axios.delete(`/organizations/${team}`);
     commit("clearAll");
   },
-  async getExport({ commit, rootGetters }) {
-    commit("startDownloading");
-    const org = rootGetters["auth/activeOrganization"];
-    const organizationId = org.organizationId;
+  async getExport({ commit, rootGetters }, { team }) {
     const data = (await this.$axios.get(
-      `/organizations/${organizationId}/data`
+      `/organizations/${team}/data`
     )).data;
     download(
       JSON.stringify(data, null, 2),
       `export-${new Date().getTime()}.json`,
       "application/json"
     );
-    commit("stopDownloading");
   },
   async getMembers({ commit }, { team, start = 0 }) {
     const members = (await this.$axios.get(

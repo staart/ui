@@ -1,6 +1,23 @@
 <template>
   <main>
-    <h1>Settings</h1>
+    <div class="row">
+      <h1>Settings</h1>
+      <div class="text text--align-right">
+        <button
+          aria-label="Refresh"
+          data-balloon-pos="down"
+          class="button button--type-icon"
+          @click="load"
+        >
+          <font-awesome-icon
+            title="Refresh"
+            class="icon"
+            icon="sync"
+            fixed-width
+          />
+        </button>
+      </div>
+    </div>
     <Loading v-if="loading" :message="loading" />
     <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
       <Input
@@ -40,17 +57,22 @@ import Select from "@/components/form/Select.vue";
 import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { User } from "@/types/auth";
 import {
   OrganizationsKV,
   Organization,
   emptyOrganization
-} from "../../../types/manage";
+} from "@/types/manage";
+library.add(faSync);
 
 @Component({
   components: {
     Loading,
     Input,
+    FontAwesomeIcon,
     Select,
     ImageInput,
     Checkbox
@@ -67,7 +89,7 @@ export default class ManageSettings extends Vue {
     };
   }
 
-  private mounted() {
+  private load() {
     this.loading = "Loading organization details";
     this.$store
       .dispatch("manage/getOrganization", this.$route.params.team)
@@ -78,12 +100,15 @@ export default class ManageSettings extends Vue {
       .finally(() => (this.loading = ""));
   }
 
+  private mounted() {
+    this.load();
+  }
+
   private save() {
     this.loading = "Saving";
     this.$store
       .dispatch("manage/updateOrganization", {
         team: this.$route.params.team,
-        name: this.organization.name,
         ...this.organization
       })
       .then(() => {

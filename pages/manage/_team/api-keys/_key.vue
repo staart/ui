@@ -93,7 +93,7 @@ import {
   faEye,
   faEyeSlash
 } from "@fortawesome/free-solid-svg-icons";
-import { ApiKeys, emptyPagination, ApiKey } from "../../../../types/manage";
+import { ApiKeys, emptyPagination, ApiKey } from "@/types/manage";
 library.add(faPencilAlt, faArrowDown, faSync, faTrash, faEye, faEyeSlash);
 
 @Component({

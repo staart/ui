@@ -140,7 +140,7 @@ import {
   faSync
 } from "@fortawesome/free-solid-svg-icons";
 import { subscriptions } from "stripe";
-import { Subscriptions, emptyPagination } from "../../../../types/manage";
+import { Subscriptions, emptyPagination } from "@/types/manage";
 library.add(faFileInvoiceDollar, faPencilAlt, faArrowDown, faSync);
 
 @Component({

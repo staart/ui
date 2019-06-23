@@ -323,7 +323,7 @@ import {
   faArrowDown,
   faSync
 } from "@fortawesome/free-solid-svg-icons";
-import { Subscriptions, emptyPagination } from "../../../../types/manage";
+import { Subscriptions, emptyPagination } from "@/types/manage";
 library.add(faFileInvoiceDollar, faPencilAlt, faArrowDown, faSync);
 
 @Component({
