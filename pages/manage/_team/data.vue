@@ -40,8 +40,7 @@
       You can download an export of your data in JSON format. This will help you
       keep track of what we have and transfer your settings to other apps.
     </p>
-    <Loading v-if="isDownloading" message="Generating your export" />
-    <form v-else v-meta-ctrl-enter="exportData" @submit.prevent="exportData">
+    <form @submit.prevent="exportData">
       <button class="button">
         Export all data
       </button>

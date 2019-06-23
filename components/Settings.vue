@@ -88,20 +88,22 @@ aside nav {
       opacity: 0.75;
     }
   }
-  &.nuxt-link-exact-active {
+  &.nuxt-link-active:not(.item--type-parent) {
     font-weight: bold;
-    padding-left: 1rem;
-    margin-left: -1rem;
-    color: #492257;
-    background-color: #fff;
-    border-radius: 0.2rem 0 0 0.2rem;
-    box-shadow: -7px 10px 10px rgba(60, 66, 87, 0.075), 2px 0 0 #fff;
-    &:hover {
-      opacity: 1;
-    }
-    .nav-icon {
-      opacity: 0.75;
-    }
+  }
+}
+.sub-nav {
+  margin-top: -0.5rem;
+  border-left: 0.1rem solid rgba(0, 0, 0, 0.1);
+  padding-left: 1.4rem;
+  margin-left: 0.5rem;
+}
+.sub-item {
+  display: block;
+  color: inherit;
+  margin: 0.5rem 0;
+  &.nuxt-link-active {
+    font-weight: bold;
   }
 }
 </style>

@@ -3,7 +3,17 @@
     <Loading v-if="loading" :message="loading" />
     <div v-else>
       <div class="row">
-        <h1>API keys</h1>
+        <div>
+          <nuxt-link
+            :to="`/manage/${$route.params.team}/api-keys`"
+            aria-label="Back"
+            data-balloon-pos="down"
+            class="button button--type-icon button--type-back"
+          >
+            <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+          </nuxt-link>
+          <h1>API keys</h1>
+        </div>
         <div class="text text--align-right">
           <button
             aria-label="Refresh"
@@ -91,10 +101,19 @@ import {
   faSync,
   faTrash,
   faEye,
-  faEyeSlash
+  faEyeSlash,
+  faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiKeys, emptyPagination, ApiKey } from "@/types/manage";
-library.add(faPencilAlt, faArrowDown, faSync, faTrash, faEye, faEyeSlash);
+library.add(
+  faPencilAlt,
+  faArrowDown,
+  faSync,
+  faTrash,
+  faEye,
+  faEyeSlash,
+  faArrowLeft
+);
 
 @Component({
   components: {

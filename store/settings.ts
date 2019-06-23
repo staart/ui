@@ -159,6 +159,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async postVerify2FA({ dispatch }, context) {
     await this.$axios.post("/users/me/2fa/verify", { code: context });
+    await dispatch("getBackupCodes");
     return dispatch("getUser");
   },
   async regenerateCodes({ dispatch }) {

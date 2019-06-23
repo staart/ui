@@ -1,6 +1,28 @@
 <template>
   <main>
-    <h1>Membership</h1>
+    <div class="row">
+      <div>
+        <nuxt-link
+          :to="`/manage/${$route.params.team}/members`"
+          aria-label="Back"
+          data-balloon-pos="down"
+          class="button button--type-icon button--type-back"
+        >
+          <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+        </nuxt-link>
+        <h1>Membership</h1>
+      </div>
+      <div class="text text--align-right">
+        <button
+          aria-label="Refresh"
+          data-balloon-pos="down"
+          class="button button--type-icon"
+          @click="load"
+        >
+          <font-awesome-icon class="icon" icon="sync" fixed-width />
+        </button>
+      </div>
+    </div>
     <div v-if="membership">
       <table class="table table--type-cols">
         <tbody>
@@ -56,9 +78,14 @@ import { getAllCountries } from "countries-and-timezones";
 import locale from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPencilAlt,
+  faSync,
+  faArrowLeft
+} from "@fortawesome/free-solid-svg-icons";
 import { Membership } from "@/types/manage";
-library.add(faTrash, faPencilAlt);
+library.add(faTrash, faPencilAlt, faSync, faArrowLeft);
 
 @Component({
   components: {
@@ -83,7 +110,7 @@ export default class ManageMembers extends Vue {
   membershipRoles = locale.membershipRoles;
   newUserRole = 3;
 
-  private mounted() {
+  private load() {
     this.inviting = "Loading member details";
     this.$store
       .dispatch("manage/getMembership", this.$route.params.id)
@@ -93,6 +120,10 @@ export default class ManageMembers extends Vue {
       })
       .catch(() => {})
       .finally(() => (this.inviting = ""));
+  }
+
+  private mounted() {
+    this.load();
   }
 
   private inviteMember() {

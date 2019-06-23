@@ -35,11 +35,11 @@
                 data-balloon-pos="up"
                 class="button button--type-icon"
                 :to="
-                  `/manage/${
+                  `/dashboard/${
                     membership.organization && membership.organization.username
                       ? membership.organization.username
                       : membership.organizationId
-                  }/dashboard`
+                  }`
                 "
               >
                 <font-awesome-icon title="Dashboard" icon="eye" fixed-width />

@@ -208,6 +208,14 @@ code {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
+.button--type-back {
+  display: inline-block;
+  + h1, + h2 {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 1rem;
+  }
+}
 
 .table {
   width: 100%;
