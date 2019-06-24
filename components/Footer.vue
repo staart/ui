@@ -13,11 +13,16 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container links">
       <div class="larger">
         <nuxt-link class="logo" to="/">Staart</nuxt-link>
         <p>
-          <a target="_blank" href="https://o15y.com">An O15Y startup</a>
+          <a target="_blank" href="https://o15y.com">An O15Y project</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://anandchowdhary.com"
+            >Made by Anand Chowdhary</a
+          >
         </p>
       </div>
       <div>
@@ -150,9 +155,11 @@ nav {
   text-align: center;
   background-color: #fff;
   padding: 1rem 0;
-  margin-bottom: 4rem;
 }
 .hero p {
   font-size: 110%;
+}
+.links {
+  padding-top: 4rem;
 }
 </style>

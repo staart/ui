@@ -30,7 +30,7 @@
             <div>
               <font-awesome-icon
                 class="icon icon--size-lg"
-                icon="user-lock"
+                icon="credit-card"
                 fixed-width
               />
               <h3>SaaS Billing</h3>
@@ -42,7 +42,7 @@
             <div>
               <font-awesome-icon
                 class="icon icon--size-lg"
-                icon="user-lock"
+                icon="users"
                 fixed-width
               />
               <h3>Teams</h3>
@@ -53,7 +53,7 @@
             <div>
               <font-awesome-icon
                 class="icon icon--size-lg"
-                icon="user-lock"
+                icon="code"
                 fixed-width
               />
               <h3>Platform</h3>
@@ -64,7 +64,7 @@
             <div>
               <font-awesome-icon
                 class="icon icon--size-lg"
-                icon="user-lock"
+                icon="laptop"
                 fixed-width
               />
               <h3>Full-stack</h3>
@@ -359,6 +359,61 @@
           </div>
         </div>
       </section>
+      <section class="section">
+        <div class="container">
+          <h2 class="text text--align-center">
+            Coming soon, powered by Staart
+          </h2>
+          <div class="row text text--align-center main-features">
+            <div>
+              <font-awesome-icon
+                class="icon icon--size-lg"
+                :icon="['fab', 'accessible-icon']"
+                fixed-width
+              />
+              <h3>A11Y.co</h3>
+              <p>
+                End-to-end web accessibility platform from Oswald Labs.
+              </p>
+            </div>
+            <div>
+              <font-awesome-icon
+                class="icon icon--size-lg"
+                icon="hands-helping"
+                fixed-width
+              />
+              <h3>Ara Assistant</h3>
+              <p>
+                AI-powered assistant for businesses and professionals from O15Y.
+              </p>
+            </div>
+            <div>
+              <font-awesome-icon
+                class="icon icon--size-lg"
+                icon="calendar"
+                fixed-width
+              />
+              <h3>Dai11y</h3>
+              <p>
+                Automated daily accessibility audits to find issues in your
+                sites.
+              </p>
+            </div>
+            <div>
+              <font-awesome-icon
+                class="icon icon--size-lg"
+                icon="image"
+                fixed-width
+              />
+              <h3>Glimage</h3>
+              <p>
+                Global CDN for delivering super-fast, optimized images to your
+                sites.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>
@@ -379,7 +434,13 @@ import {
   faFile,
   faLanguage,
   faRocket,
-  faMagic
+  faMagic,
+  faCreditCard,
+  faUsers,
+  faLaptop,
+  faHandsHelping,
+  faCalendar,
+  faImage
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faNodeJs,
@@ -390,8 +451,13 @@ library.add(
   faSync,
   faMagic,
   faUserLock,
+  faCalendar,
+  faImage,
+  faHandsHelping,
   faFingerprint,
   faCode,
+  faUsers,
+  faLaptop,
   faGlobeEurope,
   faShieldAlt,
   faNodeJs,
@@ -400,7 +466,8 @@ library.add(
   faFile,
   faLanguage,
   faAccessibleIcon,
-  faRocket
+  faRocket,
+  faCreditCard
 );
 
 @Component({
@@ -425,7 +492,7 @@ header {
 h2 {
   font-weight: 300;
   font-size: 200%;
-  margin-bottom: 2.5rem;
+  margin-bottom: 5rem;
 }
 .icon-circle {
   background-color: #fff;

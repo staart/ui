@@ -30,7 +30,7 @@
           Login to your account
         </button>
         <no-ssr>
-          <div class="row section section--mt-1">
+          <div class="row text text--mt-1">
             <button
               v-for="service in ['Salesforce', 'Github', 'Facebook']"
               :key="`login_${service}`"
@@ -61,7 +61,7 @@
         </no-ssr>
       </form>
     </Card>
-    <div class="row section section--mt-1">
+    <div class="row text text--mt-1">
       <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
       <nuxt-link to="/auth/register" style="text-align: right"
         >Create an account</nuxt-link

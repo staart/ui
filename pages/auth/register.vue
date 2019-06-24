@@ -44,7 +44,7 @@
         </button>
       </form>
     </Card>
-    <p v-if="!completedRegistration">
+    <p v-if="!completedRegistration" class="text text--mt-1">
       Already have an account?
       <nuxt-link to="/auth/login">Login to your account</nuxt-link>
     </p>
