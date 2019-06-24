@@ -40,7 +40,7 @@
             required
             @input="val => (deleteText = val)"
           />
-          <button class="button button--color-danger-cta">
+          <button class="button button--color-danger button--state-cta">
             Yes, delete my account
           </button>
           <button type="button" class="button" @click="showDelete = false">

@@ -86,7 +86,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-blue"
                         icon="magic"
                         fixed-width
                       />
@@ -104,7 +104,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-amber"
                         icon="user-lock"
                         fixed-width
                       />
@@ -122,7 +122,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-orange"
                         icon="fingerprint"
                         fixed-width
                       />
@@ -139,7 +139,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-teal"
                         icon="code"
                         fixed-width
                       />
@@ -157,7 +157,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-blue"
                         icon="globe-europe"
                         fixed-width
                       />
@@ -183,7 +183,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-brown"
                         icon="shield-alt"
                         fixed-width
                       />
@@ -201,7 +201,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-green"
                         :icon="['fab', 'node-js']"
                         fixed-width
                       />
@@ -231,7 +231,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-success"
+                        class="icon text text--color-green"
                         :icon="['fab', 'vuejs']"
                         fixed-width
                       />
@@ -248,7 +248,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-gray"
+                        class="icon text--color-purple"
                         icon="sync"
                         fixed-width
                       />
@@ -263,7 +263,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-cyan"
                         icon="toggle-on"
                         fixed-width
                       />
@@ -280,7 +280,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-gray"
                         icon="file"
                         fixed-width
                       />
@@ -298,7 +298,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-pink"
                         icon="language"
                         fixed-width
                       />
@@ -315,7 +315,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-blue"
                         :icon="['fab', 'accessible-icon']"
                         fixed-width
                       />
@@ -332,7 +332,7 @@
                   <div>
                     <div class="icon-circle">
                       <font-awesome-icon
-                        class="icon icon--color-danger"
+                        class="icon text text--color-blue-gray"
                         icon="rocket"
                         fixed-width
                       />
@@ -426,9 +426,6 @@ h2 {
   font-weight: 300;
   font-size: 200%;
   margin-bottom: 2.5rem;
-}
-section {
-  padding: 5rem 0;
 }
 .icon-circle {
   background-color: #fff;

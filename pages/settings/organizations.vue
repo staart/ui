@@ -129,7 +129,7 @@
           add you again if you change your mind.
         </p>
         <button
-          class="button button--color-danger-cta"
+          class="button button--color-danger button--state-cta"
           @click="deleteMembership(showDelete.id)"
         >
           Yes, leave {{ showDelete.organization.name }}

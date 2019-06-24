@@ -1,5 +1,47 @@
 @import "variables";
 
+.text--color-white { color: $color-white }
+.text--color-light-gray { color: $color-light-gray }
+.text--color-red { color: $color-red }
+.text--color-pink { color: $color-pink }
+.text--color-dull-purple { color: $color-dull-purple }
+.text--color-purple { color: $color-purple }
+.text--color-deep-purple { color: $color-deep-purple }
+.text--color-blue { color: $color-blue }
+.text--color-cyan { color: $color-cyan }
+.text--color-teal { color: $color-teal }
+.text--color-green { color: $color-green }
+.text--color-light-green { color: $color-light-green }
+.text--color-lime { color: $color-lime }
+.text--color-yellow { color: $color-yellow }
+.text--color-amber { color: $color-amber }
+.text--color-orange { color: $color-orange }
+.text--color-brown { color: $color-brown }
+.text--color-gray { color: $color-gray }
+.text--color-blue-gray { color: $color-blue-gray }
+.text--color-black { color: $color-black }
+
+.bg--color-white { background-color: $color-white }
+.bg--color-light-gray { background-color: $color-light-gray }
+.bg--color-red { background-color: $color-red }
+.bg--color-pink { background-color: $color-pink }
+.bg--color-dull-purple { background-color: $color-dull-purple }
+.bg--color-purple { background-color: $color-purple }
+.bg--color-deep-purple { background-color: $color-deep-purple }
+.bg--color-blue { background-color: $color-blue }
+.bg--color-cyan { background-color: $color-cyan }
+.bg--color-teal { background-color: $color-teal }
+.bg--color-green { background-color: $color-green }
+.bg--color-light-green { background-color: $color-light-green }
+.bg--color-lime { background-color: $color-lime }
+.bg--color-yellow { background-color: $color-yellow }
+.bg--color-amber { background-color: $color-amber }
+.bg--color-orange { background-color: $color-orange }
+.bg--color-brown { background-color: $color-brown }
+.bg--color-gray { background-color: $color-gray }
+.bg--color-blue-gray { background-color: $color-blue-gray }
+.bg--color-black { background-color: $color-black }
+
 .icon--mr-1 {
   margin-right: 0.25rem;
 }
@@ -48,6 +90,18 @@
   margin-top: 2rem;
 }
 .section--mt-4 {
+  margin-top: 4rem;
+}
+.text--mt-05 {
+  margin-top: 0.5rem;
+}
+.text--mt-1 {
+  margin-top: 1rem;
+}
+.text--mt-2 {
+  margin-top: 2rem;
+}
+.text--mt-4 {
   margin-top: 4rem;
 }
 

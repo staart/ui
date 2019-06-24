@@ -14,7 +14,7 @@
     />
     <div
       v-if="help"
-      class="text text--size-small text--color-light text--lh-1 section section--mt-05"
+      class="text text--size-small text--color-light text--lh-1 text text--mt-05"
     >
       {{ help }}
     </div>

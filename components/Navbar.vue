@@ -118,9 +118,7 @@
               ref="dropdown-resources"
               class="dropdown"
             >
-              <nuxt-link class="item" to="/">Blog</nuxt-link>
-              <nuxt-link class="item" to="/">Help Center</nuxt-link>
-              <nuxt-link class="item" to="/">Developer API</nuxt-link>
+              <nuxt-link class="item" to="/styleguide">Styleguide</nuxt-link>
             </div>
           </transition>
         </span>

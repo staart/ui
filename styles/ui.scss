@@ -55,9 +55,9 @@ a {
   &:focus, &:active {
     outline: 0;
     border-radius: 0.2rem;
-    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+    box-shadow: rgba($button-background-color, 0.46) 0px 0px 0px 1px,
+      rgba($color-black, 0.42) 0px 1px 1px 0px,
+      rgba($button-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($button-background-color, 0.25);
   }
 }
 
@@ -66,7 +66,7 @@ code {
   background-color: #fff;
   padding: 0.25rem 0.5rem;
   border-radius: 0.2rem;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.035);
+  box-shadow: 0 3px 6px 0 rgba($color-black, 0.035);
 }
 
 .section--bg-white {
@@ -80,16 +80,22 @@ code {
   border: none;
   background: $button-background-color;
   color: $button-text-color;
-  box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
-  &:hover {
-    box-shadow: rgba(42, 47, 69, 0.2) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba(42, 47, 69, 0.2) 0px 2px 5px 0px;
+  box-shadow: rgba($color-primary, 0.16) 0px 0px 0px 1px,
+    rgba($color-primary, 0.12) 0px 1px 1px 0px, rgba($color-primary, 0.12) 0px 2px 5px 0px;
+  &:hover, &.button--state-hover {
+    box-shadow: rgba($color-primary, 0.2) 0px 0px 0px 1px,
+      rgba($color-primary, 0.2) 0px 1px 1px 0px, rgba($color-primary, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active {
-    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  &:focus, &:active,
+  &.button--state-focus, &.button--state-active {
+    box-shadow: rgba($color-primary, 0.46) 0px 0px 0px 1px,
+      rgba($color-primary, 0.42) 0px 1px 1px 0px,
+      rgba($color-primary, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-primary, 0.25);
+  }
+  &.button--state-cta,
+  &.button--color-primary {
+    background: $color-primary !important;
+    color: $color-white !important;
   }
   line-height: 1;
   text-decoration: none;
@@ -134,76 +140,88 @@ code {
   width: 100%;
   box-sizing: border-box;
 }
-.button--color-primary {
-  background: $button-primary-background-color !important;
-  color: $button-primary-text-color !important;
-  box-shadow: rgba(73, 34, 87, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(73, 34, 87, 0.12) 0px 2px 5px 0px;
-  &:focus, &:active {
-    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+
+.button.button--color-danger {
+  background: rgba($color-red, 0.01) !important;
+  color: $color-red !important;
+  box-shadow: rgba($color-red, 0.16) 0px 0px 0px 1px,
+    rgba($color-red, 0.12) 0px 1px 1px 0px, rgba($color-red, 0.12) 0px 2px 5px 0px;
+  &:hover, &.button--state-hover {
+    box-shadow: rgba($color-red, 0.2) 0px 0px 0px 2px,
+      rgba($color-red, 0.2) 0px 2px 1px 0px, rgba($color-red, 0.2) 0px 2px 5px 0px;
+  }
+  &:focus, &:active,
+  &.button--state-focus, &.button--state-active {
+    box-shadow: rgba($color-red, 0.46) 0px 0px 0px 1px,
+      rgba($color-red, 0.42) 0px 1px 1px 0px,
+      rgba($color-red, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-red, 0.25);
+  }
+  &.button--state-cta {
+    background: $color-red !important;
+    color: $color-white !important;
   }
 }
-.button--color-blue {
-  color: $button-info-background-color;
-  background-color: $button-info-text-color;
-  box-shadow: rgba(66, 133, 244, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
-    rgba(66, 133, 244, 0.12) 0px 2px 5px 0px;
-  &:focus, &:active {
-    box-shadow: rgba(66, 133, 244, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(66, 133, 244, 0.42) 0px 2px 5px 0px,
-      0 0 0 3px rgba(121, 82, 179, 0.25);
+.button.button--color-success {
+  background: rgba($color-green, 0.01) !important;
+  color: $color-green !important;
+  box-shadow: rgba($color-green, 0.16) 0px 0px 0px 1px,
+    rgba($color-green, 0.12) 0px 1px 1px 0px, rgba($color-green, 0.12) 0px 2px 5px 0px;
+  &:hover, &.button--state-hover {
+    box-shadow: rgba($color-green, 0.2) 0px 0px 0px 2px,
+      rgba($color-green, 0.2) 0px 2px 1px 0px, rgba($color-green, 0.2) 0px 2px 5px 0px;
+  }
+  &:focus, &:active,
+  &.button--state-focus, &.button--state-active {
+    box-shadow: rgba($color-green, 0.46) 0px 0px 0px 1px,
+      rgba($color-green, 0.42) 0px 1px 1px 0px,
+      rgba($color-green, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-green, 0.25);
+  }
+  &.button--state-cta {
+    background: $color-green !important;
+    color: $color-white !important;
   }
 }
-.button--color-danger {
-  color: $button-danger-background-color;
-  background-color: $button-danger-text-color;
-  box-shadow: rgba($button-danger-background-color, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba($button-danger-background-color, 0.12) 0px 2px 5px 0px;
-  &:hover {
-    box-shadow: rgba($button-danger-background-color, 0.2) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba($button-danger-background-color, 0.2) 0px 2px 5px 0px;
+.button.button--color-info {
+  background: rgba($color-blue, 0.01) !important;
+  color: $color-blue !important;
+  box-shadow: rgba($color-blue, 0.16) 0px 0px 0px 1px,
+    rgba($color-blue, 0.12) 0px 1px 1px 0px, rgba($color-blue, 0.12) 0px 2px 5px 0px;
+  &:hover, &.button--state-hover {
+    box-shadow: rgba($color-blue, 0.2) 0px 0px 0px 2px,
+      rgba($color-blue, 0.2) 0px 2px 1px 0px, rgba($color-blue, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active {
-    box-shadow: rgba($button-danger-background-color, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba($button-danger-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  &:focus, &:active,
+  &.button--state-focus, &.button--state-active {
+    box-shadow: rgba($color-blue, 0.46) 0px 0px 0px 1px,
+      rgba($color-blue, 0.42) 0px 1px 1px 0px,
+      rgba($color-blue, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-blue, 0.25);
   }
-}
-.button--color-success {
-  color: $button-success-background-color;
-  background-color: $button-success-text-color;
-  box-shadow: rgba($button-success-background-color, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba($button-success-background-color, 0.12) 0px 2px 5px 0px;
-  &:hover {
-    box-shadow: rgba($button-success-background-color, 0.2) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba($button-success-background-color, 0.2) 0px 2px 5px 0px;
-  }
-  &:focus, &:active {
-    box-shadow: rgba($button-success-background-color, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba($button-success-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+  &.button--state-cta {
+    background: $color-blue !important;
+    color: $color-white !important;
   }
 }
-.button--color-danger-cta {
-  background: $button-danger-background-color !important;
-  color: #fff !important;
-  font-weight: bold;
-  box-shadow: rgba(175, 17, 1, 0.2) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 1px 0px, rgba(175, 17, 1, 0.3) 0px 2px 5px 0px;
-  &:hover {
-    box-shadow: rgba(175, 17, 1, 0.5) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.5) 0px 1px 1px 0px, rgba(175, 17, 1, 0.5) 0px 2px 5px 0px;
+.button.button--color-warning {
+  background: rgba($color-orange, 0.01) !important;
+  color: $color-orange !important;
+  box-shadow: rgba($color-orange, 0.16) 0px 0px 0px 1px,
+    rgba($color-orange, 0.12) 0px 1px 1px 0px, rgba($color-orange, 0.12) 0px 2px 5px 0px;
+  &:hover, &.button--state-hover {
+    box-shadow: rgba($color-orange, 0.2) 0px 0px 0px 2px,
+      rgba($color-orange, 0.2) 0px 2px 1px 0px, rgba($color-orange, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active {
-    box-shadow: rgba(175, 17, 1, 0.75) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.75) 0px 1px 1px 0px,
-      rgba(175, 17, 1, 0.75) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.5);
+  &:focus, &:active,
+  &.button--state-focus, &.button--state-active {
+    box-shadow: rgba($color-orange, 0.46) 0px 0px 0px 1px,
+      rgba($color-orange, 0.42) 0px 1px 1px 0px,
+      rgba($color-orange, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-orange, 0.25);
+  }
+  &.button--state-cta {
+    background: $color-orange !important;
+    color: $color-white !important;
   }
 }
+
 .button--type-icon {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -256,7 +274,7 @@ code {
   background-color: #fff;
   border-radius: 0.2rem;
   box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.075),
-    0 3px 6px 0 rgba(0, 0, 0, 0.035);
+    0 3px 6px 0 rgba($color-black, 0.035);
   &.card--type-padded {
     padding: 2rem;
   }
@@ -358,11 +376,11 @@ input[type="radio"] + .fake-radio {
   margin-right: 0.5rem;
   outline: none;
   box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
+    rgba($color-black, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
   &:focus, &:active {
-    box-shadow: rgba(73, 34, 87, 0.46) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.42) 0px 1px 1px 0px,
-      rgba(73, 34, 87, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba(121, 82, 179, 0.25);
+    box-shadow: rgba($button-background-color, 0.46) 0px 0px 0px 1px,
+      rgba($color-black, 0.42) 0px 1px 1px 0px,
+      rgba($button-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($button-background-color, 0.25);
   }
 }
 .fake-radio-container {
@@ -388,7 +406,7 @@ input[type="radio"]:checked + .fake-radio {
 }
 
 .label-help {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba($color-black, 0.5);
   display: inline-block;
   font-size: 85%;
   color: #fff;

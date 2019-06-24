@@ -233,7 +233,7 @@
             required
             @input="val => (disableText = val)"
           />
-          <button class="button button--color-danger-cta">
+          <button class="button button--color-danger button--state-cta">
             Yes, disable 2FA
           </button>
           <button type="button" class="button" @click="showDisable = false">
