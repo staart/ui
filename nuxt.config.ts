@@ -19,6 +19,11 @@ const config: NuxtConfiguration = {
         rel: "stylesheet",
         href:
           "https://cdnjs.cloudflare.com/ajax/libs/balloon-css/1.0.0/balloon.min.css"
+      },
+      {
+        rel: "stylesheet",
+        href:
+          "https://use.typekit.net/mov5itj.css"
       }
     ],
     script: [

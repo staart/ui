@@ -3,6 +3,7 @@
     <div v-if="!isAuthenticated" class="banner">
       <div class="hero hero--align-center">
         <h1>It's a no-brainer&mdash;get started now.</h1>
+        <p>Create an account in our fake startup to see Staart in action.</p>
         <div>
           <nuxt-link
             class="button button--size-large button--color-primary"
@@ -150,5 +151,8 @@ nav {
   background-color: #fff;
   padding: 1rem 0;
   margin-bottom: 4rem;
+}
+.hero p {
+  font-size: 110%;
 }
 </style>
