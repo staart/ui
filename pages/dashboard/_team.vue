@@ -1,8 +1,14 @@
 <template>
   <main>
-    <div class="container container--size-small">
-      <div class="card card--type-padded">
-        Hello, team!
+    <div
+      class="container container--size-medium container--top-20height container--bottom-20height"
+    >
+      <div class="card card--type-padded text text--align-center">
+        <h1>Dashboard</h1>
+        <p>
+          The main page for your SaaS comes here. Whatever is the most important
+          thing for your product should come here.
+        </p>
       </div>
     </div>
   </main>
