@@ -47,6 +47,15 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
+  setAuthTokens({ commit }, tokens: any) {
+    if (tokens.twoFactorToken) {
+      commit("set2FA", tokens.twoFactorToken);
+      return "2fa";
+    } else {
+      this.$axios.setToken(tokens.token, "Bearer");
+      commit("setAuthentication", tokens);
+    }
+  },
   async loginWithEmailPassword({ commit }, context) {
     commit("startLoading");
     try {

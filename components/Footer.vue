@@ -17,11 +17,11 @@
       <div class="larger">
         <nuxt-link class="logo" to="/">Staart</nuxt-link>
         <p>
-          <a target="_blank" href="https://o15y.com">An O15Y project</a>
-        </p>
-        <p>
+          An
+          <a target="_blank" href="https://o15y.com">O15Y</a>
+          project made by
           <a target="_blank" href="https://anandchowdhary.com"
-            >Made by Anand Chowdhary</a
+            >Anand Chowdhary</a
           >
         </p>
       </div>

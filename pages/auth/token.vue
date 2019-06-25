@@ -20,7 +20,7 @@
     />
     <LargeMessage
       v-else
-      img="undraw_message_sent_1030.svg"
+      img="undraw_loading_frh4.svg"
       heading="Just a moment"
       text="We're verifying this magic link and you should be on your way in just another moment."
     />
