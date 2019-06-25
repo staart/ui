@@ -15,11 +15,14 @@
     </div>
     <div class="container links">
       <div class="larger">
-        <nuxt-link class="logo" to="/">Staart</nuxt-link>
-        <p>
+        <nuxt-link class="item item--type-logo" to="/">
+          <img alt="" src="/android-chrome-72x72.png" />
+          <span>Staart</span>
+        </nuxt-link>
+        <p class="text text--mt-1">
           An
           <a target="_blank" href="https://o15y.com">O15Y</a>
-          project made by
+          project<br />Made by
           <a target="_blank" href="https://anandchowdhary.com"
             >Anand Chowdhary</a
           >
@@ -38,11 +41,11 @@
       <div>
         <h2>Use cases</h2>
         <nav>
-          <nuxt-link to="/">Set up appointments</nuxt-link>
-          <nuxt-link to="/">Automated emails</nuxt-link>
-          <nuxt-link to="/">Personal assistant</nuxt-link>
-          <nuxt-link to="/">Calendar automation</nuxt-link>
-          <nuxt-link to="/">AI for business</nuxt-link>
+          <nuxt-link to="/">Insert a user case</nuxt-link>
+          <nuxt-link to="/">These can be customers</nuxt-link>
+          <nuxt-link to="/">Different types</nuxt-link>
+          <nuxt-link to="/">Information here</nuxt-link>
+          <nuxt-link to="/">Starter template</nuxt-link>
         </nav>
       </div>
       <div>
@@ -174,5 +177,18 @@ nav {
 }
 .links {
   padding-top: 4rem;
+}
+.item--type-logo {
+  text-align: center;
+  font-size: 125%;
+  &.nuxt-link-exact-active {
+    font-weight: normal;
+  }
+  img {
+    height: 1.5rem;
+    margin-top: -0.2rem;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+  }
 }
 </style>
