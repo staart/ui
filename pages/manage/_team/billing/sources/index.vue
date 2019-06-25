@@ -212,7 +212,7 @@ export default class ManageSettings extends Vue {
   sources: Sources = emptyPagination;
   loadingMore = false;
   noBilling = false;
-  showDelete = false;
+  showDelete = null;
   loading = "";
   newCard = {
     object: "card",
