@@ -269,25 +269,25 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async createSource({ dispatch }, context) {
     const data = { ...context };
-    delete data.id;
-    await this.$axios.put(`/organizations/${context.id}/sources`, data);
-    return dispatch("getSources", context.id);
+    delete data.team;
+    await this.$axios.put(`/organizations/${context.team}/sources`, data);
+    return dispatch("getSources", { team:context.team });
   },
   async deleteSource({ dispatch }, context) {
     await this.$axios.delete(
-      `/organizations/${context.id}/sources/${context.sourceId}`
+      `/organizations/${context.team}/sources/${context.id}`
     );
-    return dispatch("getSources", context.id);
+    return dispatch("getSources", { team: context.team });
   },
   async updateSource({ dispatch }, context) {
     const data = { ...context };
+    delete data.team;
     delete data.id;
-    delete data.sourceId;
     await this.$axios.patch(
-      `/organizations/${context.id}/sources/${context.sourceId}`,
+      `/organizations/${context.team}/sources/${context.id}`,
       data
     );
-    return dispatch("getSource", context);
+    return dispatch("getSource", { team: context.team, id: context.id });
   },
   async getApiKeys({ commit }, { team, start = 0 }) {
     const apiKeys: any = (await this.$axios.get(

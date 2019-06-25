@@ -79,7 +79,7 @@
             </tr>
           </tbody>
         </table>
-        <div v-if="!subscription.cancel_at" class="section section--mt-2">
+        <div v-if="!subscription.cancel_at" class="text text--mt-2">
           <button
             class="button button--color-danger"
             @click="() => (showDelete = true)"
@@ -87,7 +87,7 @@
             Cancel subscription
           </button>
         </div>
-        <div v-else class="card card--type-padded section section--mt-2">
+        <div v-else class="card card--type-padded text text--mt-2">
           <h2>Scheduled for cancelation</h2>
           <p>
             This subscription will be cancelled at
@@ -107,7 +107,7 @@
           subscription will be permanently deleted.
         </p>
         <button
-          class="button button--color-danger-cta"
+          class="button button--color-danger button--state-cta"
           @click="cancelSubscription"
         >
           Yes, cancel

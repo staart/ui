@@ -37,7 +37,9 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Source #</th>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Card number</th>
               <th></th>
             </tr>
           </thead>
@@ -46,25 +48,34 @@
               v-for="(source, index) in sources.data"
               :key="`${source.id}_${index}`"
             >
+              <td>{{ source.name }}</td>
+              <td>{{ source.brand }}</td>
               <td>
-                <code>{{ source.id }}</code>
+                <code>···· ···· ···· {{ source.last4 }}</code>
               </td>
               <td class="text text--align-right">
                 <router-link
                   :to="
                     `/manage/${$route.params.team}/billing/sources/${source.id}`
                   "
-                  aria-label="Details"
+                  aria-label="Edit"
                   data-balloon-pos="up"
                   class="button button--type-icon"
                 >
                   <font-awesome-icon
-                    title="Details"
                     class="icon"
                     icon="pencil-alt"
                     fixed-width
                   />
                 </router-link>
+                <button
+                  aria-label="Delete"
+                  data-balloon-pos="up"
+                  class="button button--type-icon button--color-danger"
+                  @click="() => (showDelete = source)"
+                >
+                  <font-awesome-icon class="icon" icon="trash" fixed-width />
+                </button>
               </td>
             </tr>
           </tbody>
@@ -76,7 +87,7 @@
             :disabled="loadingMore"
             @click="loadMore"
           >
-            <span>Load more sources</span>
+            <span>Load more credit cards</span>
             <font-awesome-icon
               v-if="!loadingMore"
               class="icon"
@@ -92,13 +103,76 @@
         </div>
       </div>
       <h2>Add card</h2>
+      <p>You can use <code>42</code> 16 times as a test credit card.</p>
+      <form @submit.prevent="addCard">
+        <div class="row">
+          <Input
+            :value="newCard.name"
+            label="Name"
+            placeholder="Enter your name on card"
+            @input="val => (newCard.name = val)"
+          />
+          <Input
+            :value="newCard.number"
+            label="Number"
+            placeholder="Enter your credit card number"
+            required
+            @input="val => (newCard.number = val)"
+          />
+        </div>
+        <div class="row">
+          <Select
+            :value="newCard.exp_month"
+            label="Expiry month"
+            :options="months"
+            required
+            @input="val => (newCard.exp_month = val)"
+          />
+          <Select
+            :value="newCard.exp_year"
+            label="Expiry year"
+            :options="years"
+            required
+            @input="val => (newCard.exp_year = val)"
+          />
+          <Input
+            :value="newCard.cvc"
+            label="CVC/CVV"
+            type="number"
+            placeholder="Enter your verification code"
+            min="100"
+            max="9999"
+            @input="val => (newCard.cvc = val)"
+          />
+        </div>
+        <button class="button">Add credit card</button>
+      </form>
     </div>
+    <transition name="modal">
+      <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+        <h2>Are you sure you want to delete this credit card?</h2>
+        <p>
+          Deleting an credit card is not reversible, and if you don't add
+          another payment method, your subscription may be cancelled.
+        </p>
+        <button
+          class="button button--color-danger button--state-cta"
+          @click="deleteCard(showDelete.id)"
+        >
+          Yes, delete credit card
+        </button>
+        <button type="button" class="button" @click="showDelete = null">
+          No, don't delete
+        </button>
+      </Confirm>
+    </transition>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
+import Confirm from "@/components/Confirm.vue";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
@@ -113,16 +187,20 @@ import {
   faPencilAlt,
   faArrowDown,
   faSync,
-  faCloudDownloadAlt
+  faCloudDownloadAlt,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import { Sources, emptyPagination } from "@/types/manage";
-library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync);
+import en from "@/locales/en";
+library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync, faTrash);
+const months = en.months;
 
 @Component({
   components: {
     Loading,
     TimeAgo,
     Input,
+    Confirm,
     FontAwesomeIcon,
     Select,
     LargeMessage,
@@ -134,17 +212,29 @@ export default class ManageSettings extends Vue {
   sources: Sources = emptyPagination;
   loadingMore = false;
   noBilling = false;
+  showDelete = false;
   loading = "";
-  cardNumber = "";
+  newCard = {
+    object: "card",
+    number: "",
+    exp_month: 1,
+    exp_year: new Date().getUTCFullYear() + 5,
+    name: ""
+  };
+  months = months;
+  years: number[] = [];
 
   private created() {
     this.sources = {
       ...this.$store.getters["manage/sources"](this.$route.params.team)
     };
+    for (let i = 0; i < 20; i++) {
+      this.years.push(new Date().getUTCFullYear() + i);
+    }
   }
 
   private load() {
-    this.loading = "Loading your sources";
+    this.loading = "Loading your credit cards";
     this.$store
       .dispatch("manage/getSources", { team: this.$route.params.team })
       .then(sources => {
@@ -176,6 +266,50 @@ export default class ManageSettings extends Vue {
         if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => (this.loadingMore = false));
+  }
+
+  private addCard() {
+    this.loading = "Adding your credit card";
+    this.$store
+      .dispatch("manage/createSource", {
+        team: this.$route.params.team,
+        ...this.newCard
+      })
+      .then(sources => {
+        this.sources = { ...sources };
+      })
+      .catch(error => {
+        if (error.response.data.error === "no-customer") this.noBilling = true;
+      })
+      .finally(() => {
+        this.loading = "";
+        this.newCard = {
+          object: "card",
+          number: "",
+          exp_month: 1,
+          exp_year: new Date().getUTCFullYear() + 5,
+          name: ""
+        };
+      });
+  }
+
+  private deleteCard(id: string) {
+    this.showDelete = null;
+    this.loading = "Deleting your credit card";
+    this.$store
+      .dispatch("manage/deleteSource", {
+        team: this.$route.params.team,
+        id
+      })
+      .then(sources => {
+        this.sources = { ...sources };
+      })
+      .catch(error => {
+        if (error.response.data.error === "no-customer") this.noBilling = true;
+      })
+      .finally(() => {
+        this.loading = "";
+      });
   }
 }
 </script>

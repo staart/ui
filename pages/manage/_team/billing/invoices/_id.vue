@@ -69,7 +69,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="section section--mt-2">
+        <div class="text text--mt-2">
           <a target="_blank" :href="invoice.hosted_invoice_url" class="button">
             <font-awesome-icon
               class="icon icon--mr-1"

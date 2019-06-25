@@ -45,15 +45,15 @@
         Export all data
       </button>
     </form>
-    <h2>Delete organization</h2>
+    <h2>Delete team</h2>
     <p>
-      You can delete your organization. Note that this action is not reversible,
+      You can delete your team account. Note that this action is not reversible,
       and all your data will be permanently lost. If you ever change your mind,
       you'll have to create a new team and invite all members again.
     </p>
     <form @submit.prevent="showDelete = true">
       <button class="button button--color-danger">
-        Delete organization
+        Delete team
       </button>
     </form>
     <h2>Data Protection Officer</h2>
@@ -65,19 +65,18 @@
       <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
         <h2>Are you sure you want to delete {{ organization.name }}?</h2>
         <p>
-          Deleting an organization is not reversible, and all members will be
-          removed.
+          Deleting a team is not reversible, and all members will be removed.
         </p>
         <form @submit.prevent="deleteOrganization">
           <Input
             :value="deleteText"
-            label='To confirm, enter "delete organization" below'
+            label='To confirm, enter "delete team" below'
             placeholder="Write those exact words"
             required
             @input="val => (deleteText = val)"
           />
-          <button class="button button--color-danger-cta">
-            Yes, delete organization
+          <button class="button button--color-danger button--state-cta">
+            Yes, delete team
           </button>
           <button type="button" class="button" @click="showDelete = false">
             No, don't delete
@@ -172,9 +171,9 @@ export default class ManageSettings extends Vue {
   }
 
   private deleteOrganization() {
-    if (this.deleteText !== "delete organization") return;
+    if (this.deleteText !== "delete team") return;
     this.showDelete = false;
-    this.loading = "Deleting your organization";
+    this.loading = "Deleting your team";
     this.$store
       .dispatch("manage/deleteOrganization", { team: this.$route.params.team })
       .then(() => {

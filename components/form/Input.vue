@@ -8,6 +8,8 @@
       :placeholder="placeholder"
       :autocomplete="autocomplete"
       :required="required"
+      :min="min"
+      :max="max"
       v-bind="$attrs"
       @input="$emit('input', $event.target.value)"
     />
@@ -32,6 +34,8 @@ export default class Input extends Vue {
   @Prop() placeholder;
   @Prop() help;
   @Prop() autocomplete;
+  @Prop() min;
+  @Prop() max;
   labelId = "";
 
   private created() {

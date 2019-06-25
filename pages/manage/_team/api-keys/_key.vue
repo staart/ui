@@ -67,7 +67,7 @@
           apps using this key.
         </p>
         <button
-          class="button button--color-danger-cta"
+          class="button button--color-danger button--state-cta"
           @click="deleteApiKey(showDelete.apiKey)"
         >
           Yes, delete API key
