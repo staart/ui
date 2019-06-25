@@ -57,7 +57,9 @@ const config: NuxtConfiguration = {
     "~/plugins/filters",
     { src: "~/plugins/vuex-persist", ssr: false }
   ],
-  modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/markdownit", "@bazzite/nuxt-netlify"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/markdownit", "@bazzite/nuxt-netlify", ["@nuxtjs/google-analytics", {
+    id: "UA-79176349-16"
+  }]],
   axios: {
     host:
       process.env.NODE_ENV === "production"
