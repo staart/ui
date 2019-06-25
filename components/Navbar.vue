@@ -1,8 +1,9 @@
 <template>
   <div v-if="isVisible" class="navbar">
     <div class="container">
-      <nuxt-link class="item" to="/">
-        <span class="item--type-logo">Staart</span>
+      <nuxt-link class="item item--type-logo" to="/">
+        <img alt="" src="/android-chrome-72x72.png" />
+        <span>Staart</span>
       </nuxt-link>
       <nav v-if="isAuthenticated">
         <nuxt-link
@@ -119,6 +120,9 @@
               class="dropdown"
             >
               <nuxt-link class="item" to="/styleguide">Styleguide</nuxt-link>
+              <nuxt-link class="item" to="/policies/licenses"
+                >FOSS licenses</nuxt-link
+              >
             </div>
           </transition>
         </span>
@@ -219,6 +223,14 @@ export default class Card extends Vue {
   justify-content: space-between;
   align-items: center;
 }
+@media (max-width: 500px) {
+  .container {
+    nav {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+}
 
 .item {
   color: inherit;
@@ -235,9 +247,17 @@ export default class Card extends Vue {
   }
 }
 .item--type-logo {
-  font-weight: bold;
-  font-style: italic;
+  text-align: center;
   font-size: 125%;
+  &.nuxt-link-exact-active {
+    font-weight: normal;
+  }
+  img {
+    height: 1.5rem;
+    margin-top: -0.2rem;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+  }
 }
 
 nav span {

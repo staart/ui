@@ -2,24 +2,29 @@
   <div>
     <header class="section section--bg-white">
       <div class="container">
-        <h1>Staart is a SaaS starter for your next big idea.</h1>
-        <p style="max-width: 500px">
-          Written in TypeScript and Vue, Staart gives you a 6-month headstart in
-          building your SaaS product. Free and open-source.
-        </p>
-        <div v-if="isAuthenticated">
-          <nuxt-link
-            class="button button--size-large button--color-primary"
-            to="/dashboard"
-            >Go to your dashboard &rarr;</nuxt-link
-          >
-        </div>
-        <div v-else>
-          <nuxt-link
-            class="button button--size-large button--color-primary"
-            to="/auth/register"
-            >Get started for free &rarr;</nuxt-link
-          >
+        <div class="row">
+          <div>
+            <h1>Staart is a SaaS starter for your next big idea.</h1>
+            <p style="max-width: 500px">
+              Written in TypeScript and Vue, Staart gives you a 6-month
+              headstart in building your SaaS product. Free and open-source.
+            </p>
+            <div v-if="isAuthenticated">
+              <nuxt-link
+                class="button button--size-large button--color-primary"
+                to="/dashboard"
+                >Go to your dashboard &rarr;</nuxt-link
+              >
+            </div>
+            <div v-else>
+              <nuxt-link
+                class="button button--size-large button--color-primary"
+                to="/auth/register"
+                >Get started for free &rarr;</nuxt-link
+              >
+            </div>
+          </div>
+          <img class="b" alt="" src="/images/undraw_product_tour_foyt.svg" />
         </div>
       </div>
     </header>
@@ -534,10 +539,29 @@ dt {
 .label-help {
   line-height: 1;
 }
+@media (max-width: 500px) {
+  .label-help {
+    display: none;
+  }
+}
 .label-help::after {
   font-size: 90% !important;
   line-height: 1.5;
   width: 300px;
   white-space: normal;
+}
+.b {
+  height: 20rem;
+  margin-top: -4rem;
+  margin-bottom: -5rem;
+}
+@media (max-width: 500px) {
+  .b {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: auto;
+    width: 100%;
+    margin-bottom: -5rem;
+  }
 }
 </style>

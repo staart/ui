@@ -130,6 +130,19 @@ export default class Footer extends Vue {
     flex-grow: 1;
   }
 }
+@media (max-width: 900px) {
+  .container {
+    flex-wrap: wrap;
+    > div,
+    .larger {
+      width: 50%;
+      margin-bottom: 2rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
 h2 {
   font-size: 110%;
   margin-bottom: 0.5rem;
