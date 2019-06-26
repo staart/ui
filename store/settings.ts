@@ -15,7 +15,7 @@ export const state = (): RootState => ({
   memberships: { data: [], hasMore: false },
   securityEvents: { data: [], hasMore: false },
   isDownloading: false,
-  backupCodes: [],
+  backupCodes: []
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -31,7 +31,9 @@ export const mutations: MutationTree<RootState> = {
         if (user.prefersColorSchemeDark) {
           document.documentElement.classList.add("prefers-color-scheme-dark");
         } else {
-          document.documentElement.classList.remove("prefers-color-scheme-dark");
+          document.documentElement.classList.remove(
+            "prefers-color-scheme-dark"
+          );
         }
       }
     } catch (error) {}

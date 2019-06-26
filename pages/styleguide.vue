@@ -366,12 +366,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Confirm from "@/components/Confirm.vue";
-import Select from "@/components/form/Select.vue";
-import CommaList from "@/components/form/CommaList.vue";
-import CheckList from "@/components/form/CheckList.vue";
-import Checkbox from "@/components/form/Checkbox.vue";
-import Input from "@/components/form/Input.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -392,6 +386,12 @@ import {
   faVuejs,
   faAccessibleIcon
 } from "@fortawesome/free-brands-svg-icons";
+import Confirm from "@/components/Confirm.vue";
+import Select from "@/components/form/Select.vue";
+import CommaList from "@/components/form/CommaList.vue";
+import CheckList from "@/components/form/CheckList.vue";
+import Checkbox from "@/components/form/Checkbox.vue";
+import Input from "@/components/form/Input.vue";
 library.add(
   faSync,
   faMagic,

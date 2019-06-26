@@ -67,15 +67,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Loading from "@/components/Loading.vue";
-import Country from "@/components/Country.vue";
-import User from "@/components/User.vue";
-import TimeAgo from "@/components/TimeAgo.vue";
-import Input from "@/components/form/Input.vue";
-import Select from "@/components/form/Select.vue";
-import Checkbox from "@/components/form/Checkbox.vue";
 import { getAllCountries } from "countries-and-timezones";
-import locale from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -84,6 +76,14 @@ import {
   faSync,
   faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
+import Loading from "@/components/Loading.vue";
+import Country from "@/components/Country.vue";
+import User from "@/components/User.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
+import Input from "@/components/form/Input.vue";
+import Select from "@/components/form/Select.vue";
+import Checkbox from "@/components/form/Checkbox.vue";
+import locale from "@/locales/en";
 import { Membership } from "@/types/manage";
 library.add(faTrash, faPencilAlt, faSync, faArrowLeft);
 

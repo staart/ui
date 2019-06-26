@@ -145,12 +145,6 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Loading from "@/components/Loading.vue";
-import LargeMessage from "@/components/LargeMessage.vue";
-import Confirm from "@/components/Confirm.vue";
-import TimeAgo from "@/components/TimeAgo.vue";
-import Input from "@/components/form/Input.vue";
-import en from "@/locales/en";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -160,6 +154,12 @@ import {
   faSync,
   faArrowDown
 } from "@fortawesome/free-solid-svg-icons";
+import Loading from "@/components/Loading.vue";
+import LargeMessage from "@/components/LargeMessage.vue";
+import Confirm from "@/components/Confirm.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
+import Input from "@/components/form/Input.vue";
+import en from "@/locales/en";
 import { Email, Memberships } from "@/types/settings";
 library.add(faTrash, faEye, faCog, faSync, faArrowDown);
 

@@ -15,9 +15,23 @@ const config: NuxtConfiguration = {
     ],
     link: [
       { rel: "mask-icon", color: "#673ab7", href: "/safari-pinned-tab.svg" },
-      { rel: "apple-touch-icon", sizes: "76x76", href: "/apple-touch-icon.png" },
-      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
-      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+      {
+        rel: "apple-touch-icon",
+        sizes: "76x76",
+        href: "/apple-touch-icon.png"
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png"
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png"
+      },
       {
         rel: "stylesheet",
         href:
@@ -25,8 +39,7 @@ const config: NuxtConfiguration = {
       },
       {
         rel: "stylesheet",
-        href:
-          "https://use.typekit.net/mov5itj.css"
+        href: "https://use.typekit.net/mov5itj.css"
       }
     ],
     script: [
@@ -57,9 +70,18 @@ const config: NuxtConfiguration = {
     "~/plugins/filters",
     { src: "~/plugins/vuex-persist", ssr: false }
   ],
-  modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/markdownit", "@bazzite/nuxt-netlify", ["@nuxtjs/google-analytics", {
-    id: "UA-79176349-16"
-  }]],
+  modules: [
+    "@nuxtjs/axios",
+    "@nuxtjs/pwa",
+    "@nuxtjs/markdownit",
+    "@bazzite/nuxt-netlify",
+    [
+      "@nuxtjs/google-analytics",
+      {
+        id: "UA-79176349-16"
+      }
+    ]
+  ],
   axios: {
     host:
       process.env.NODE_ENV === "production"

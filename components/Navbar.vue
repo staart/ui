@@ -144,10 +144,10 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Notifications from "@/components/Notifications.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBell, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import Notifications from "@/components/Notifications.vue";
 library.add(faBell, faQuestionCircle);
 
 @Component({

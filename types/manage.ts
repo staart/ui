@@ -1,5 +1,5 @@
-import { IdRow, Row, Paginated } from "./root";
 import { subscriptions, invoices, sources } from "stripe";
+import { IdRow, Row, Paginated } from "./root";
 
 export interface Organization extends IdRow {
   invitationDomain?: string;
@@ -73,22 +73,22 @@ export interface ApiKeysKV {
 export interface SingleSubscriptionKV {
   [index: string]: {
     [index: string]: subscriptions.ISubscription;
-  }
+  };
 }
 export interface SingleInvoiceKV {
   [index: string]: {
     [index: string]: invoices.IInvoice;
-  }
+  };
 }
 export interface SingleSourceKV {
   [index: string]: {
     [index: string]: sources.ISource;
-  }
+  };
 }
 export interface SingleApiKeyKV {
   [index: string]: {
     [index: string]: ApiKey;
-  }
+  };
 }
 
 export interface RootState {
@@ -128,7 +128,7 @@ export const emptyAddress: Address = {
   line1: "",
   city: "",
   postal_code: ""
-}
+};
 export const emptyBilling: Billing = {
   email: "",
   address: emptyAddress

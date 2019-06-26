@@ -1,7 +1,7 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-import { RootState, Organization, emptyPagination } from "~/types/manage";
 import download from "downloadjs";
 import Vue from "vue";
+import { RootState, Organization, emptyPagination } from "~/types/manage";
 
 const stripeProductId = "prod_FGFAYQGEFTm2lu";
 export const state = (): RootState => ({
@@ -29,7 +29,10 @@ export const mutations: MutationTree<RootState> = {
     const currentMembers = state.memberships;
     currentMembers[team] = currentMembers[team] || emptyPagination;
     if (start) {
-      currentMembers[team].data = [...currentMembers[team].data, ...members.data];
+      currentMembers[team].data = [
+        ...currentMembers[team].data,
+        ...members.data
+      ];
     } else {
       currentMembers[team].data = members.data;
     }
@@ -41,11 +44,17 @@ export const mutations: MutationTree<RootState> = {
     currentBilling[team] = billing;
     Vue.set(state, "billing", currentBilling);
   },
-  setSubscriptions(state: RootState, { team, subscriptions, start, next }): void {
+  setSubscriptions(
+    state: RootState,
+    { team, subscriptions, start, next }
+  ): void {
     const currentSubscriptions = state.subscriptions;
     currentSubscriptions[team] = currentSubscriptions[team] || emptyPagination;
     if (start) {
-      currentSubscriptions[team].data = [...currentSubscriptions[team].data, ...subscriptions.data];
+      currentSubscriptions[team].data = [
+        ...currentSubscriptions[team].data,
+        ...subscriptions.data
+      ];
     } else {
       currentSubscriptions[team].data = subscriptions.data;
     }
@@ -62,7 +71,10 @@ export const mutations: MutationTree<RootState> = {
     const currentInvoices = state.invoices;
     currentInvoices[team] = currentInvoices[team] || emptyPagination;
     if (start) {
-      currentInvoices[team].data = [...currentInvoices[team].data, ...invoices.data];
+      currentInvoices[team].data = [
+        ...currentInvoices[team].data,
+        ...invoices.data
+      ];
     } else {
       currentInvoices[team].data = invoices.data;
     }
@@ -79,7 +91,10 @@ export const mutations: MutationTree<RootState> = {
     const currentSources = state.sources;
     currentSources[team] = currentSources[team] || emptyPagination;
     if (start) {
-      currentSources[team].data = [...currentSources[team].data, ...sources.data];
+      currentSources[team].data = [
+        ...currentSources[team].data,
+        ...sources.data
+      ];
     } else {
       currentSources[team].data = sources.data;
     }
@@ -96,7 +111,10 @@ export const mutations: MutationTree<RootState> = {
     const currentApiKeys = state.apiKeys;
     currentApiKeys[team] = currentApiKeys[team] || emptyPagination;
     if (start) {
-      currentApiKeys[team].data = [...currentApiKeys[team].data, ...apiKeys.data];
+      currentApiKeys[team].data = [
+        ...currentApiKeys[team].data,
+        ...apiKeys.data
+      ];
     } else {
       currentApiKeys[team].data = apiKeys.data;
     }
@@ -152,9 +170,7 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("clearAll");
   },
   async getExport({ commit, rootGetters }, { team }) {
-    const data = (await this.$axios.get(
-      `/organizations/${team}/data`
-    )).data;
+    const data = (await this.$axios.get(`/organizations/${team}/data`)).data;
     download(
       JSON.stringify(data, null, 2),
       `export-${new Date().getTime()}.json`,
@@ -221,7 +237,12 @@ export const actions: ActionTree<RootState, RootState> = {
     const subscriptions: any = (await this.$axios.get(
       `/organizations/${team}/subscriptions?start=${start}`
     )).data;
-    commit("setSubscriptions", { team, subscriptions, start, next: subscriptions.next });
+    commit("setSubscriptions", {
+      team,
+      subscriptions,
+      start,
+      next: subscriptions.next
+    });
     return subscriptions;
   },
   async getSubscription({ commit }, { team, id }) {
@@ -242,9 +263,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return dispatch("getSubscription", { team: context.team, id: context.id });
   },
   async createSubscription({ dispatch }, { team, plan }) {
-    await this.$axios.put(
-      `/organizations/${team}/subscriptions`, { plan }
-    );
+    await this.$axios.put(`/organizations/${team}/subscriptions`, { plan });
     return dispatch("getSubscriptions", { team });
   },
   async getPricingPlans({ commit }, context) {
@@ -271,7 +290,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const data = { ...context };
     delete data.team;
     await this.$axios.put(`/organizations/${context.team}/sources`, data);
-    return dispatch("getSources", { team:context.team });
+    return dispatch("getSources", { team: context.team });
   },
   async deleteSource({ dispatch }, context) {
     await this.$axios.delete(
@@ -343,12 +362,16 @@ export const getters: GetterTree<RootState, RootState> = {
   memberships: state => (team: string) => state.memberships[team],
   billing: state => (team: string) => state.billing[team],
   subscriptions: state => (team: string) => state.subscriptions[team],
-  subscription: state => (team: string, subscriptionId: string) => state.subscription[team] && state.subscription[team][subscriptionId],
+  subscription: state => (team: string, subscriptionId: string) =>
+    state.subscription[team] && state.subscription[team][subscriptionId],
   invoices: state => (team: string) => state.invoices[team],
-  invoice: state => (team: string, invoiceId: string) => state.invoice[team] && state.invoice[team][invoiceId],
+  invoice: state => (team: string, invoiceId: string) =>
+    state.invoice[team] && state.invoice[team][invoiceId],
   sources: state => (team: string) => state.sources[team],
-  source: state => (team: string, sourceId: string) => state.source[team] && state.source[team][sourceId],
+  source: state => (team: string, sourceId: string) =>
+    state.source[team] && state.source[team][sourceId],
   apiKeys: state => (team: string) => state.apiKeys[team],
-  apiKey: state => (team: string, apiKey: string) => state.apiKey[team] && state.apiKey[team][apiKey],
+  apiKey: state => (team: string, apiKey: string) =>
+    state.apiKey[team] && state.apiKey[team][apiKey],
   organization: state => (team: string) => state.organizations[team]
 };

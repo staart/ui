@@ -53,7 +53,7 @@ export default {
     "membership.deleted": "Updated membership"
   },
   messages: {
-    "success": "Your changes were saved successfully",
+    success: "Your changes were saved successfully",
     "admin-info-success": "Looking like everything is working",
     "auth-register-success": "Your account has been successfully created",
     "auth-recover-success": "Your password has been changed",
@@ -96,17 +96,17 @@ export default {
     }
   },
   months: {
-    1: 'January',
-    2: 'February',
-    3: 'March',
-    4: 'April',
-    5: 'May',
-    6: 'June',
-    7: 'July',
-    8: 'August',
-    9: 'September',
-    10: 'October',
-    11: 'November',
-    12: 'December'
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December"
   }
 };

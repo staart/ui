@@ -28,13 +28,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Card from "@/components/Card.vue";
-import Loading from "@/components/Loading.vue";
-import Input from "@/components/form/Input.vue";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Input from "@/components/form/Input.vue";
+import Loading from "@/components/Loading.vue";
+import Card from "@/components/Card.vue";
 library.add(faGoogle);
 
 @Component({

@@ -308,15 +308,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Loading from "@/components/Loading.vue";
-import TimeAgo from "@/components/TimeAgo.vue";
-import LargeMessage from "@/components/LargeMessage.vue";
-import Input from "@/components/form/Input.vue";
-import Checkbox from "@/components/form/Checkbox.vue";
-import Select from "@/components/form/Select.vue";
-
 import { getAllCountries } from "countries-and-timezones";
-import { User } from "@/types/auth";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -325,6 +317,14 @@ import {
   faArrowDown,
   faSync
 } from "@fortawesome/free-solid-svg-icons";
+import Loading from "@/components/Loading.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
+import LargeMessage from "@/components/LargeMessage.vue";
+import Input from "@/components/form/Input.vue";
+import Checkbox from "@/components/form/Checkbox.vue";
+import Select from "@/components/form/Select.vue";
+
+import { User } from "@/types/auth";
 import { Subscriptions, emptyPagination } from "@/types/manage";
 library.add(faFileInvoiceDollar, faPencilAlt, faArrowDown, faSync);
 

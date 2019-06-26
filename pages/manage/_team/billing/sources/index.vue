@@ -172,15 +172,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Confirm from "@/components/Confirm.vue";
-import Loading from "@/components/Loading.vue";
-import TimeAgo from "@/components/TimeAgo.vue";
-import LargeMessage from "@/components/LargeMessage.vue";
-import Input from "@/components/form/Input.vue";
-import Checkbox from "@/components/form/Checkbox.vue";
-import Select from "@/components/form/Select.vue";
 import { getAllCountries } from "countries-and-timezones";
-import { User } from "@/types/auth";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -190,6 +182,14 @@ import {
   faCloudDownloadAlt,
   faTrash
 } from "@fortawesome/free-solid-svg-icons";
+import Confirm from "@/components/Confirm.vue";
+import Loading from "@/components/Loading.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
+import LargeMessage from "@/components/LargeMessage.vue";
+import Input from "@/components/form/Input.vue";
+import Checkbox from "@/components/form/Checkbox.vue";
+import Select from "@/components/form/Select.vue";
+import { User } from "@/types/auth";
 import { Sources, emptyPagination } from "@/types/manage";
 import en from "@/locales/en";
 library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync, faTrash);

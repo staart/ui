@@ -83,16 +83,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Loading from "@/components/Loading.vue";
-import Confirm from "@/components/Confirm.vue";
-import TimeAgo from "@/components/TimeAgo.vue";
-import LargeMessage from "@/components/LargeMessage.vue";
-import CheckList from "@/components/form/CheckList.vue";
-import CommaList from "@/components/form/CommaList.vue";
-import Checkbox from "@/components/form/Checkbox.vue";
-import Select from "@/components/form/Select.vue";
 import { getAllCountries } from "countries-and-timezones";
-import { User } from "@/types/auth";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -104,6 +95,15 @@ import {
   faEyeSlash,
   faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
+import Loading from "@/components/Loading.vue";
+import Confirm from "@/components/Confirm.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
+import LargeMessage from "@/components/LargeMessage.vue";
+import CheckList from "@/components/form/CheckList.vue";
+import CommaList from "@/components/form/CommaList.vue";
+import Checkbox from "@/components/form/Checkbox.vue";
+import Select from "@/components/form/Select.vue";
+import { User } from "@/types/auth";
 import { ApiKeys, emptyPagination, ApiKey } from "@/types/manage";
 import translations from "@/locales/en";
 const apiRestrictions = translations.apiRestrictions;
