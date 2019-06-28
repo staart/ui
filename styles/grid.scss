@@ -20,6 +20,15 @@
   padding: 4rem 0 3rem 0;
 }
 
+@media (max-width: 500px) {
+  .container--top-20height {
+    margin-top: 10vh;
+  }
+  .container--bottom-20height {
+    margin-bottom: 10vh;
+  }
+}
+
 .row {
   display: flex;
   justify-content: space-between;
@@ -58,5 +67,16 @@
         margin-right: 0;
       }
     }
+  }
+}
+
+@media (max-width: 500px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+@media (min-width: 500px) {
+  .hide-desktop {
+    display: none !important;
   }
 }

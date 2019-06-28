@@ -13,8 +13,8 @@
       itemscope
       itemtype="https://schema.org/Offer"
     >
-      <div class="row row--padding-large">
-        <div>1</div>
+      <div class="row row--padding-large hide-mobile">
+        <div></div>
         <div>
           <div class="card card--type-padded text text--align-center">
             <h2 class="plan">Free</h2>
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="row row--padding-large">
-        <div>
+        <div class="hide-mobile">
           <div
             class="card card--type-padded card--type-invisible"
             style="padding-left: 0"
@@ -92,8 +92,10 @@
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
             </ul>
-            <div class="section section--mt-2">
-              <router-link to="/" class="button button--size-large"
+            <div class="text text--mt-2">
+              <router-link
+                to="/auth/register?plan=free"
+                class="button button--size-large"
                 >Get started</router-link
               >
             </div>
@@ -124,9 +126,9 @@
               </li>
               <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
             </ul>
-            <div class="section section--mt-2">
+            <div class="text text--mt-2">
               <router-link
-                to="/"
+                to="/auth/register?plan=pro"
                 class="button button--color-primary button--size-large"
               >
                 <span>Get started</span>
@@ -163,15 +165,17 @@
                 <span>Hide "Powered by"</span>
               </li>
             </ul>
-            <div class="section section--mt-2">
-              <router-link to="/" class="button button--size-large"
+            <div class="text text--mt-2">
+              <router-link
+                to="/auth/register?plan=contact"
+                class="button button--size-large"
                 >Contact us</router-link
               >
             </div>
           </div>
         </div>
       </div>
-      <div class="row row--padding-large section section--mt-4">
+      <div class="row row--padding-large text text--mt-4 hide-mobile">
         <div>
           <ul>
             <li>100+ integrations</li>
@@ -295,35 +299,37 @@
           </div>
         </div>
       </div>
-      <div class="text text--align-center section--mt-4">
-        <h2>More plans</h2>
-      </div>
-      <div class="addons more-plans">
-        <div class="card card--type-padded">
-          <h3>For open-source</h3>
-          <p>
-            Free or discounted Pro plan availabile for open-source projects
-            under permissive licenses.
-          </p>
-          <a href="#">Apply for FOSS &rarr;</a>
+      <section class="section">
+        <div class="text text--align-center">
+          <h2>More plans</h2>
         </div>
-        <div class="card card--type-padded">
-          <h3>For students</h3>
-          <p>
-            Free or discounted Startup plan for student developers with an
-            educational account
-          </p>
-          <a href="#">Create student account &rarr;</a>
+        <div class="addons more-plans">
+          <div class="card card--type-padded">
+            <h3>For open-source</h3>
+            <p>
+              Pro plan availabile for free for open-source projects under
+              permissive licenses.
+            </p>
+            <a href="#">Apply for FOSS &rarr;</a>
+          </div>
+          <div class="card card--type-padded">
+            <h3>For students</h3>
+            <p>
+              Free or discounted Startup plan for student developers with an
+              educational account
+            </p>
+            <a href="#">Create student account &rarr;</a>
+          </div>
+          <div class="card card--type-padded">
+            <h3>For non-profits</h3>
+            <p>
+              Up to 50% off on all plans and services for registered text
+              501(c)(3) non-profits
+            </p>
+            <a href="#">Contact us &rarr;</a>
+          </div>
         </div>
-        <div class="card card--type-padded">
-          <h3>For non-profits</h3>
-          <p>
-            Up to 50% off on all plans and services for registered section
-            501(c)(3) non-profits
-          </p>
-          <a href="#">Contact us &rarr;</a>
-        </div>
-      </div>
+      </section>
     </div>
   </main>
 </template>
@@ -381,23 +387,6 @@ svg {
 .i-y + span {
   margin-left: 0.5rem;
 }
-.card.card--type-padded.text.text--align-center {
-  border-radius: 0.75rem;
-}
-.row.row--padding-large:first-of-type {
-  .card {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    padding-bottom: 1rem;
-  }
-  + .row {
-    .card {
-      padding-top: 1rem;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-  }
-}
 .addons {
   margin-top: 3rem;
   display: flex;
@@ -417,6 +406,35 @@ svg {
   }
   p {
     font-size: 95%;
+  }
+}
+
+@media (max-width: 500px) {
+  .addons {
+    display: block;
+  }
+  &.more-plans > div {
+    margin-top: 1rem;
+    &:nth-child(2) {
+      margin: 1rem 0 0 0 !important;
+    }
+  }
+}
+
+@media (min-width: 500px) {
+  .row.row--padding-large:first-of-type {
+    .card {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding-bottom: 1rem;
+    }
+    + .row {
+      .card {
+        padding-top: 1rem;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
   }
 }
 </style>

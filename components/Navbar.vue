@@ -1,11 +1,15 @@
 <template>
-  <div v-if="isVisible" class="navbar">
+  <Trap v-if="isVisible" :disabled="!showNav" class="navbar">
     <div class="container">
       <nuxt-link class="item item--type-logo" to="/">
         <img alt="" src="/android-chrome-72x72.png" />
         <span>Staart</span>
       </nuxt-link>
-      <nav v-if="isAuthenticated">
+      <nav
+        v-if="isAuthenticated"
+        :class="{ 'nav--visible-true': showNav }"
+        @click="showNav = false"
+      >
         <nuxt-link
           v-if="activeOrganization && activeOrganization !== 'undefined'"
           class="item"
@@ -102,7 +106,11 @@
           </transition>
         </span>
       </nav>
-      <nav v-else>
+      <nav
+        v-else
+        :class="{ 'nav--visible-true': showNav }"
+        @click="showNav = false"
+      >
         <nuxt-link class="item" to="/">Solutions</nuxt-link>
         <span>
           <button
@@ -138,7 +146,23 @@
         >
       </nav>
     </div>
-  </div>
+    <button class="button button--type-nav" @click="showNav = !showNav">
+      <font-awesome-icon
+        v-if="showNav"
+        class="icon nav-icon icon--mr-1"
+        icon="times"
+        fixed-width
+      />
+      <font-awesome-icon
+        v-else
+        class="icon nav-icon icon--mr-1"
+        icon="bars"
+        fixed-width
+      />
+      <span v-if="showNav">Hide menu</span>
+      <span v-else>Menu</span>
+    </button>
+  </Trap>
 </template>
 
 <script lang="ts">
@@ -146,9 +170,15 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBell, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import Trap from "vue-focus-lock";
+import {
+  faBell,
+  faQuestionCircle,
+  faBars,
+  faTimes
+} from "@fortawesome/free-solid-svg-icons";
 import Notifications from "@/components/Notifications.vue";
-library.add(faBell, faQuestionCircle);
+library.add(faBell, faQuestionCircle, faBars, faTimes);
 
 @Component({
   computed: mapGetters({
@@ -157,13 +187,15 @@ library.add(faBell, faQuestionCircle);
   }),
   components: {
     FontAwesomeIcon,
-    Notifications
+    Notifications,
+    Trap
   }
 })
 export default class Card extends Vue {
   visible: string | null = null;
   isVisible = true;
   notificationCount = 0;
+  showNav = false;
   activeOrganization: string | null = null;
   @Watch("$route")
   private onRouteChanged() {
@@ -223,12 +255,59 @@ export default class Card extends Vue {
   justify-content: space-between;
   align-items: center;
 }
+
+.button--type-nav {
+  position: absolute;
+  top: 0.5rem;
+  right: 5vw;
+  z-index: 101;
+  span {
+    transform: translateY(-0.05rem);
+    display: inline-block;
+  }
+}
+
 @media (max-width: 500px) {
   .container {
+    padding-top: 1rem;
     nav {
-      overflow-x: auto;
-      white-space: nowrap;
+      display: none;
+      &.nav--visible-true {
+        display: flex !important;
+      }
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(0.25rem);
+      z-index: 100;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+      .item {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+      }
+      .button {
+        width: auto;
+        margin-top: 1rem;
+        text-align: center;
+      }
     }
+  }
+}
+
+@media (min-width: 500px) {
+  nav .button {
+    margin-left: 1.5rem;
+  }
+  .button--type-nav {
+    display: none;
   }
 }
 
@@ -273,9 +352,6 @@ nav .item {
     margin: -1rem 0.5rem -1rem 0;
     border-radius: 100%;
   }
-}
-nav .button {
-  margin-left: 1.5rem;
 }
 
 .dropdown {
