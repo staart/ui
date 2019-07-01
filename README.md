@@ -12,9 +12,34 @@ Staart UI is a frontend starter for SaaS startups written in TypeScript and Vue 
 
 It's built to work with [Staart](https://github.com/o15y/staart), the backend starter for SaaS startups.
 
-![Login screen](https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/1.png)
-![Settings screen](https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/2.png)
-![Privacy screen](https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/3.png)
+<table>
+  <tbody>
+    <tr>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/Screen Shot 2019-07-01 at 12.53.06.png">
+      </td>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/Screen Shot 2019-07-01 at 12.53.15.png">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/Screen Shot 2019-07-01 at 12.53.30.png">
+      </td>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/Screen Shot 2019-07-01 at 12.53.54.png">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/Screen Shot 2019-07-01 at 12.54.28.png">
+      </td>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/Screen Shot 2019-07-01 at 12.54.47.png">
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## 🛠 Usage
 
