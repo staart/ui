@@ -108,5 +108,12 @@ export default {
     10: "October",
     11: "November",
     12: "December"
+  },
+  pages: {
+    index: {
+      hero: {
+        title: "Staart is a SaaS starter for your next big idea."
+      }
+    }
   }
 };

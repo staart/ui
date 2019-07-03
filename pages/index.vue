@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div>
-            <h1>Staart is a SaaS starter for your next big idea.</h1>
+            <h1><Translate t="pages.index.hero.title" /></h1>
             <p style="max-width: 500px">
               Written in TypeScript and Vue, Staart gives you a 6-month
               headstart in building your SaaS product. Free and open-source.
@@ -452,6 +452,7 @@ import {
   faVuejs,
   faAccessibleIcon
 } from "@fortawesome/free-brands-svg-icons";
+import Translate from "@/components/Translate.vue";
 library.add(
   faSync,
   faMagic,
@@ -480,6 +481,7 @@ library.add(
     isAuthenticated: "auth/isAuthenticated"
   }),
   components: {
+    Translate,
     FontAwesomeIcon
   }
 })
