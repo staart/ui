@@ -86,12 +86,12 @@ export default {
   },
   apiRestrictions: {
     orgRead: {
-      text: "Read team details",
+      intro: "Read team details",
       help: "Get information about your team, subscription, and settings",
       alwaysChecked: true
     },
     orgUpdate: {
-      text: "Update team details",
+      intro: "Update team details",
       help: "Update information about your team, billing, etc."
     }
   },
@@ -108,5 +108,121 @@ export default {
     10: "October",
     11: "November",
     12: "December"
+  },
+  buttons: {
+    getStarted: "Get started for free →",
+    goToDashboard: "Go to your dashboard →"
+  },
+  pages: {
+    index: {
+      hero: {
+        title: "Staart is a SaaS starter for your next big idea.",
+        intro: "Written in TypeScript and Vue, Staart gives you a 6-month headstart in building your SaaS product. Free and open-source."
+      },
+      features: {
+        1: {
+          title: "SaaS Billing",
+          intro: "Subscriptions, credit cards, invoices, and more, powered by Stripe"
+        },
+        2: {
+          title: "Teams",
+          intro: "Users can invite their teams and manage roles and permissions"
+        },
+        3: {
+          title: "Platform",
+          intro: "Authentication, scoped API keys, and more ways to use your SaaS"
+        },
+        4: {
+          title: "Full-stack",
+          intro: "Node.js backend written in TypeScript with a beautiful Vue PWA."
+        }
+      },
+      lists: {
+        title: "More than a basic template",
+        1: {
+          title: "Node.js/TypeScript Backend",
+          link: "Staart on GitHub →",
+          1: {
+            title: "Controller-driven",
+            intro: "Auto route generation with redirects and static file support."
+          },
+          2: {
+            title: "OAuth2 client",
+            intro: "Users can login with email, Apple, Google, Salesforce, etc."
+          },
+          3: {
+            title: "Smart authentication",
+            intro: "Secure, location-aware logins with TOTP 2FA support."
+          },
+          4: {
+            title: "Developer API",
+            intro: "Developers can use your SaaS with API keys and access"
+          },
+          5: {
+            title: "GDPR compliance",
+            intro: "Teams and users can export and delete data transparently."
+          },
+          6: {
+            title: "Secure endpoints",
+            intro: "Rate limiting, brute force prevention, and IP/CIDR whitelisting."
+          },
+          7: {
+            title: "Modern toolkit",
+            intro: "Powerful middleware, error handling, async functions."
+          },
+        },
+        2: {
+          title: "Vue.js/Nuxt.js Frontend",
+          link: "Staart UI on GitHub →",
+          1: {
+            title: "Progressive Web App",
+            intro: "Service worker-cached PWA frontend with a modern toolkit."
+          },
+          2: {
+            title: "Lazy loaded routes",
+            intro: "Smart loading of routes for a fast initial load."
+          },
+          3: {
+            title: "Ready-to-use components",
+            intro: "Beautiful forms, cards, dropdowns, and more components."
+          },
+          4: {
+            title: "Static pages",
+            intro: "SEO-proof static templates for pricing, policies, and"
+          },
+          5: {
+            title: "Internationalization",
+            intro: "Localize your SaaS to as many languages as you like."
+          },
+          6: {
+            title: "Accessibility",
+            intro: "ARIA, accessible tooltips, dark theme, reduced motion."
+          },
+          7: {
+            title: "Deploy anywhere",
+            intro: "Works perfectly on Netlify, Firebase, Surge, and GitHub pages."
+          },
+        }
+      },
+      logos: {
+        title: "Coming soon, powered by Staart",
+        1: {
+          title: "A11Y.co",
+          intro: "End-to-end web accessibility platform from Oswald Labs"
+        },
+        2: {
+          title: "Ara Assistant",
+          intro: "AI-powered assistant for businesses and professionals from O15Y"
+        },
+        3: {
+          title: "Dai11y",
+          intro: "Automated daily accessibility audits to find issues in your sites"
+        },
+        4: {
+          title: "Glimage",
+          intro: "Global CDN for delivering super-fast, optimized images to your sites"
+        },
+      }
+    }
   }
 };

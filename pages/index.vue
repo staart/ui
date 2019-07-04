@@ -4,24 +4,25 @@
       <div class="container">
         <div class="row">
           <div>
-            <h1>Staart is a SaaS starter for your next big idea.</h1>
+            <h1><Translate t="pages.index.hero.title" /></h1>
             <p style="max-width: 500px">
-              Written in TypeScript and Vue, Staart gives you a 6-month
-              headstart in building your SaaS product. Free and open-source.
+              <Translate t="pages.index.hero.intro" />
             </p>
             <div v-if="isAuthenticated">
               <nuxt-link
                 class="button button--size-large button--color-primary"
                 to="/dashboard"
-                >Go to your dashboard &rarr;</nuxt-link
               >
+                <Translate t="buttons.goToDashboard" />
+              </nuxt-link>
             </div>
             <div v-else>
               <nuxt-link
                 class="button button--size-large button--color-primary"
                 to="/auth/register"
-                >Get started for free &rarr;</nuxt-link
               >
+                <Translate t="buttons.getStarted" />
+              </nuxt-link>
             </div>
           </div>
           <img class="b" alt="" src="/images/undraw_product_tour_foyt.svg" />
@@ -38,11 +39,8 @@
                 icon="credit-card"
                 fixed-width
               />
-              <h3>SaaS Billing</h3>
-              <p>
-                Subscriptions, credit cards, invoices, and more, powered by
-                Stripe.
-              </p>
+              <h3><Translate t="pages.index.features.1.title" /></h3>
+              <p><Translate t="pages.index.features.1.intro" /></p>
             </div>
             <div>
               <font-awesome-icon
@@ -50,10 +48,8 @@
                 icon="users"
                 fixed-width
               />
-              <h3>Teams</h3>
-              <p>
-                Users can invite their teams and manage roles and permissions.
-              </p>
+              <h3><Translate t="pages.index.features.2.title" /></h3>
+              <p><Translate t="pages.index.features.2.intro" /></p>
             </div>
             <div>
               <font-awesome-icon
@@ -61,10 +57,8 @@
                 icon="code"
                 fixed-width
               />
-              <h3>Platform</h3>
-              <p>
-                Authentication, scoped API keys, and more ways to use your SaaS.
-              </p>
+              <h3><Translate t="pages.index.features.3.title" /></h3>
+              <p><Translate t="pages.index.features.3.intro" /></p>
             </div>
             <div>
               <font-awesome-icon
@@ -72,20 +66,20 @@
                 icon="laptop"
                 fixed-width
               />
-              <h3>Full-stack</h3>
-              <p>
-                Node.js backend written in TypeScript with a beautiful Vue PWA.
-              </p>
+              <h3><Translate t="pages.index.features.4.title" /></h3>
+              <p><Translate t="pages.index.features.4.intro" /></p>
             </div>
           </div>
         </div>
       </section>
       <section class="section section--bg-white">
         <div class="container">
-          <h2 class="text text--align-center">More than a basic template</h2>
+          <h2 class="text text--align-center">
+            <Translate t="pages.index.lists.title" />
+          </h2>
           <div class="row">
             <div>
-              <h3>Node.js/TypeScript Backend</h3>
+              <h3><Translate t="pages.index.lists.1.title" /></h3>
               <dl>
                 <div class="rc">
                   <div>
@@ -98,11 +92,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Controller-driven</dt>
-                    <dd>
-                      Auto route generation with redirects and static file
-                      support.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.1.1.title" /></dt>
+                    <dd><Translate t="pages.index.lists.1.1.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -116,11 +107,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>OAuth2 client</dt>
-                    <dd>
-                      Users can login with email, Apple, Google, Salesforce,
-                      etc.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.1.2.title" /></dt>
+                    <dd><Translate t="pages.index.lists.1.2.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -134,10 +122,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Smart authentication</dt>
-                    <dd>
-                      Secure, location-aware logins with TOTP 2FA support.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.1.3.title" /></dt>
+                    <dd><Translate t="pages.index.lists.1.3.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -151,10 +137,9 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Developer API</dt>
+                    <dt><Translate t="pages.index.lists.1.4.title" /></dt>
                     <dd>
-                      Developers can use your SaaS with API keys and access
-                      tokens.
+                      <Translate t="pages.index.lists.1.4.intro" />tokens.
                     </dd>
                   </div>
                 </div>
@@ -170,7 +155,7 @@
                   </div>
                   <div>
                     <dt>
-                      <span>GDPR compliance</span>
+                      <Translate t="pages.index.lists.1.5.title" />
                       <span
                         aria-label="Data export not mean you are completely GDPR compliant, you need to take additional steps. Read more in our docs."
                         class="label-help"
@@ -179,9 +164,7 @@
                         <span aria-hidden="true">?</span>
                       </span>
                     </dt>
-                    <dd>
-                      Teams and users can export and delete data transparently.
-                    </dd>
+                    <dd><Translate t="pages.index.lists.1.5.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -195,11 +178,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Secure endpoints</dt>
-                    <dd>
-                      Rate limiting, brute force prevention, and IP/CIDR
-                      whitelisting.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.1.6.title" /></dt>
+                    <dd><Translate t="pages.index.lists.1.6.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -213,10 +193,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Modern toolkit</dt>
-                    <dd>
-                      Powerful middleware, error handling, async functions.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.1.7.title" /></dt>
+                    <dd><Translate t="pages.index.lists.1.7.intro" /></dd>
                   </div>
                 </div>
               </dl>
@@ -225,12 +203,13 @@
                   class="button"
                   target="_blank"
                   href="https://github.com/o15y/staart"
-                  >Staart on GitHub &rarr;</a
                 >
+                  <Translate t="pages.index.lists.1.link" />
+                </a>
               </div>
             </div>
             <div>
-              <h3>Vue.js/Nuxt.js Frontend</h3>
+              <h3><Translate t="pages.index.lists.2.title" /></h3>
               <dl>
                 <div class="rc">
                   <div>
@@ -243,10 +222,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Progressive Web App</dt>
-                    <dd>
-                      Service worker-cached PWA frontend with a modern toolkit.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.2.1.title" /></dt>
+                    <dd><Translate t="pages.index.lists.2.1.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -260,8 +237,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Lazy loaded routes</dt>
-                    <dd>Smart loading of routes for a fast initial load.</dd>
+                    <dt><Translate t="pages.index.lists.2.2.title" /></dt>
+                    <dd><Translate t="pages.index.lists.2.2.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -275,10 +252,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Ready-to-use components</dt>
-                    <dd>
-                      Beautiful forms, cards, dropdowns, and more components.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.2.3.title" /></dt>
+                    <dd><Translate t="pages.index.lists.2.3.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -292,11 +267,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Static pages</dt>
-                    <dd>
-                      SEO-proof static templates for pricing, policies, and
-                      more.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.2.4.title" /></dt>
+                    <dd><Translate t="pages.index.lists.2.4.intro" />more.</dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -310,10 +282,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Internationalization</dt>
-                    <dd>
-                      Localize your SaaS to as many languages as you like.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.2.5.title" /></dt>
+                    <dd><Translate t="pages.index.lists.2.5.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -327,10 +297,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Accessibility</dt>
-                    <dd>
-                      ARIA, accessible tooltips, dark theme, reduced motion.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.2.6.title" /></dt>
+                    <dd><Translate t="pages.index.lists.2.6.intro" /></dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -344,11 +312,8 @@
                     </div>
                   </div>
                   <div>
-                    <dt>Deploy anywhere</dt>
-                    <dd>
-                      Works perfectly on Netlify, Firebase, Surge, and GitHub
-                      pages.
-                    </dd>
+                    <dt><Translate t="pages.index.lists.2.7.title" /></dt>
+                    <dd><Translate t="pages.index.lists.2.7.intro" /></dd>
                   </div>
                 </div>
               </dl>
@@ -357,8 +322,9 @@
                   class="button"
                   target="_blank"
                   href="https://github.com/o15y/staart-ui"
-                  >Staart UI on GitHub &rarr;</a
                 >
+                  <Translate t="pages.index.lists.2.link" />
+                </a>
               </div>
             </div>
           </div>
@@ -367,7 +333,7 @@
       <section class="section">
         <div class="container">
           <h2 class="text text--align-center">
-            Coming soon, powered by Staart
+            <Translate t="pages.index.logos.title" />
           </h2>
           <div class="row text text--align-center main-features">
             <div>
@@ -376,10 +342,8 @@
                 :icon="['fab', 'accessible-icon']"
                 fixed-width
               />
-              <h3>A11Y.co</h3>
-              <p>
-                End-to-end web accessibility platform from Oswald Labs.
-              </p>
+              <h3><Translate t="pages.index.logos.1.title" /></h3>
+              <p><Translate t="pages.index.logos.1.intro" /></p>
             </div>
             <div>
               <font-awesome-icon
@@ -387,10 +351,8 @@
                 icon="hands-helping"
                 fixed-width
               />
-              <h3>Ara Assistant</h3>
-              <p>
-                AI-powered assistant for businesses and professionals from O15Y.
-              </p>
+              <h3><Translate t="pages.index.logos.2.title" /></h3>
+              <p><Translate t="pages.index.logos.2.intro" /></p>
             </div>
             <div>
               <font-awesome-icon
@@ -398,11 +360,8 @@
                 icon="calendar"
                 fixed-width
               />
-              <h3>Dai11y</h3>
-              <p>
-                Automated daily accessibility audits to find issues in your
-                sites.
-              </p>
+              <h3><Translate t="pages.index.logos.3.title" /></h3>
+              <p><Translate t="pages.index.logos.3.intro" /></p>
             </div>
             <div>
               <font-awesome-icon
@@ -410,11 +369,8 @@
                 icon="image"
                 fixed-width
               />
-              <h3>Glimage</h3>
-              <p>
-                Global CDN for delivering super-fast, optimized images to your
-                sites.
-              </p>
+              <h3><Translate t="pages.index.logos.4.title" /></h3>
+              <p><Translate t="pages.index.logos.4.intro" /></p>
             </div>
           </div>
         </div>
@@ -452,6 +408,7 @@ import {
   faVuejs,
   faAccessibleIcon
 } from "@fortawesome/free-brands-svg-icons";
+import Translate from "@/components/Translate.vue";
 library.add(
   faSync,
   faMagic,
@@ -480,6 +437,7 @@ library.add(
     isAuthenticated: "auth/isAuthenticated"
   }),
   components: {
+    Translate,
     FontAwesomeIcon
   }
 })
