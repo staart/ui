@@ -35,7 +35,7 @@
     "vue-notification": "^1.3.16",
     "vue-timeago": "^5.1.2",
     "vuex-persist": "^2.0.1",
-    "snyk": "^1.192.0"
+    "snyk": "^1.192.2"
   },
   "devDependencies": {
     "@bazzite/nuxt-netlify": "^0.1.1",
