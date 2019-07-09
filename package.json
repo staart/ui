@@ -65,7 +65,7 @@
     "prettier": "^1.18.2",
     "sass-loader": "^7.1.0",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "vue-property-decorator": "^8.2.1"
   },
   "snyk": true
