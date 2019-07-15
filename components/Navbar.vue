@@ -5,11 +5,7 @@
         <img alt="" src="/android-chrome-72x72.png" />
         <span>Staart</span>
       </nuxt-link>
-      <nav
-        v-if="isAuthenticated"
-        :class="{ 'nav--visible-true': showNav }"
-        @click="showNav = false"
-      >
+      <nav v-if="isAuthenticated" :class="{ 'nav--visible-true': showNav }">
         <nuxt-link
           v-if="activeOrganization && activeOrganization !== 'undefined'"
           class="item"
@@ -106,11 +102,7 @@
           </transition>
         </span>
       </nav>
-      <nav
-        v-else
-        :class="{ 'nav--visible-true': showNav }"
-        @click="showNav = false"
-      >
+      <nav v-else :class="{ 'nav--visible-true': showNav }">
         <nuxt-link class="item" to="/">Solutions</nuxt-link>
         <span>
           <button
@@ -202,6 +194,7 @@ export default class Card extends Vue {
     this.updateNavBar();
   }
   private updateNavBar() {
+    this.showNav = false;
     if (this.$route.path.startsWith("/onboarding")) {
       this.isVisible = false;
     } else {

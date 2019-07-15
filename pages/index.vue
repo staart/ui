@@ -477,7 +477,7 @@ dt {
 .rc {
   > div:first-child {
     float: left;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
     > div {
       box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
     }
