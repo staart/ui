@@ -56,17 +56,20 @@ export const actions: ActionTree<RootState, RootState> = {
       commit("setAuthentication", tokens);
     }
   },
-  async loginWithEmailPassword({ commit }, context) {
+  loginWithTokens({ commit }, tokens) {
+    if (tokens.twoFactorToken) {
+      commit("set2FA", tokens.twoFactorToken);
+      return "2fa";
+    } else {
+      this.$axios.setToken(tokens.token, "Bearer");
+      commit("setAuthentication", tokens);
+    }
+  },
+  async loginWithEmailPassword({ commit, dispatch }, context) {
     commit("startLoading");
     try {
       const tokens = (await this.$axios.post("/auth/login", context)).data;
-      if (tokens.twoFactorToken) {
-        commit("set2FA", tokens.twoFactorToken);
-        return "2fa";
-      } else {
-        this.$axios.setToken(tokens.token, "Bearer");
-        commit("setAuthentication", tokens);
-      }
+      this.dispatch("loginwithTokens", tokens);
     } catch (error) {
       commit("stopLoading");
       throw new Error(error);
