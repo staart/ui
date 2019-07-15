@@ -29,7 +29,7 @@
           </button>
         </form>
       </Card>
-      <p>
+      <p class="text text--mt-1">
         Remembered your password?
         <nuxt-link to="/auth/login">Login now</nuxt-link>
       </p>

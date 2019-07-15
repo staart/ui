@@ -45,27 +45,3 @@ export default class Input extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.form-group {
-  margin-bottom: 1rem;
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  input {
-    font: inherit;
-    padding: 0.75rem;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 0.2rem;
-    border: 1px solid rgba(121, 82, 179, 0.25);
-    background-color: #fff;
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(121, 82, 179, 0.25);
-    }
-  }
-}
-</style>

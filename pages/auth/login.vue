@@ -32,9 +32,11 @@
         <no-ssr>
           <div class="row text text--mt-1">
             <button
-              v-for="service in ['Salesforce', 'Github', 'Facebook']"
+              v-for="service in ['Google', 'Apple', 'Salesforce']"
               :key="`login_${service}`"
-              class="button button--width-full button--size-large button--color-blue"
+              :class="
+                `button button--width-full button--size-large button--color-info button--color-brand-${service.toLowerCase()}`
+              "
               type="button"
               :aria-label="`Login with ${service}`"
               data-balloon-pos="down"
@@ -48,7 +50,7 @@
               />
             </button>
             <button
-              class="button button--width-full button--size-large button--color-blue"
+              class="button button--width-full button--size-large button--color-info"
               style="width: 20%"
               type="button"
               aria-label="More services"
@@ -74,21 +76,21 @@
           You can securely login with these services. We never share your
           personal information with third-parties.
         </p>
-        <div class="row row--type-social">
+        <div class="social-buttons">
           <button
             v-for="service in [
-              //'Apple',
-              //'Google',
+              'Apple',
+              'Google',
               'Salesforce',
-              //'Microsoft',
+              'Microsoft',
               'Facebook',
-              //'Twitter',
+              'Twitter',
               'LinkedIn',
-              'GitHub'
-              //'Weixin'
+              'GitHub',
+              'Weixin'
             ]"
             :key="`option_${service}`"
-            class="button button--type-social"
+            class="button"
             type="button"
             @click="oauthLogin(service.toLowerCase())"
           >
@@ -187,11 +189,6 @@ export default class Login extends Vue {
     if (this.isAuthenticated)
       return this.$router.replace(this.redirect || "/dashboard");
   }
-  private async loginWithGoogle() {
-    this.$store.commit("auth/startLoading");
-    const link = (await this.$axios.get("/auth/google/link")).data.redirect;
-    location.replace(link);
-  }
   private async oauthLogin(service: string) {
     this.$store.commit("auth/startLoading");
     const link = (await this.$axios.get(`/auth/oauth/${service}`)).data
@@ -209,16 +206,7 @@ export default class Login extends Vue {
 .row--type-social {
   flex-wrap: wrap;
 }
-.button--type-social {
-  margin: 0 1rem;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  .icon {
-    font-size: 200%;
-    margin-bottom: 0.75rem;
-  }
-  span {
-    display: block;
-  }
+.social-buttons .button {
+  margin-bottom: 0.5rem;
 }
 </style>

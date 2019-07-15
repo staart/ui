@@ -26,6 +26,25 @@
         cta-to="/"
       />
       <LargeMessage
+        v-else-if="
+          $route.params.message === 'oauth' &&
+            $route.query.error === '404/user-not-found'
+        "
+        heading="Wait, who are you?"
+        text="We couldn't find an existing account with the email we found from this third-party service. Do you want to register instead?"
+        cta-text="Create an account"
+        img="undraw_cancel_u1it.svg"
+        cta-to="/auth/register"
+      />
+      <LargeMessage
+        v-else-if="$route.params.message === 'oauth'"
+        heading="We couldn't log you in"
+        text="We're not sure what happened, but we weren't able to log you with using a third-party service."
+        cta-text="Try logging in again"
+        img="undraw_cancel_u1it.svg"
+        cta-to="/auth/login"
+      />
+      <LargeMessage
         v-else
         heading="An error ocurred"
         text="We're not sure what happened, but it doesn't look good. Perhaps you'll be more comfortable at home."
