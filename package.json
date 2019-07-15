@@ -41,7 +41,7 @@
     "@bazzite/nuxt-netlify": "^0.1.1",
     "@nuxt/typescript": "^2.8.1",
     "@nuxtjs/eslint-config": "^1.0.1",
-    "@nuxtjs/markdownit": "^1.2.5",
+    "@nuxtjs/markdownit": "^1.2.6",
     "@types/downloadjs": "^1.4.1",
     "@types/hashids": "^1.0.30",
     "@types/stripe": "^6.31.3",
