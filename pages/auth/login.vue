@@ -84,8 +84,6 @@
               'Salesforce',
               'Microsoft',
               'Facebook',
-              'Twitter',
-              'LinkedIn',
               'GitHub',
               'Weixin'
             ]"
@@ -118,8 +116,6 @@ import {
   faSalesforce,
   faFacebook,
   faMicrosoft,
-  faTwitter,
-  faLinkedin,
   faApple,
   faWeixin,
   faGithub
@@ -137,10 +133,9 @@ library.add(
   faApple,
   faDotCircle,
   faEllipsisH,
-  faTwitter,
+
   faWeixin,
-  faGithub,
-  faLinkedin
+  faGithub
 );
 
 interface IWindow extends Window {
