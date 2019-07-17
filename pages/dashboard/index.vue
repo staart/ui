@@ -20,7 +20,7 @@ import Loading from "@/components/Loading.vue";
 export default class Dashboard extends Vue {
   private mounted() {
     const team = this.$store.getters["auth/activeOrganization"];
-    if (team) {
+    if (team && team !== "undefined") {
       this.$router.replace(`/dashboard/${team}`);
     } else {
       this.$store
