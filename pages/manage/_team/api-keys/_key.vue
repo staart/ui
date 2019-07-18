@@ -68,7 +68,7 @@
           <CommaList
             label="Referrer restrictions"
             :value="apiKey.referrerRestrictions"
-            placeholder="Enter a referrer URL, e.g., http*://*.example.com"
+            placeholder="Enter a host name without protocol, e.g., example.com"
             @input="val => (apiKey.referrerRestrictions = val)"
           />
           <button class="button">Update API key</button>
