@@ -28,9 +28,10 @@
       <div v-if="apiKey">
         <h2>Use API key</h2>
         <Input label="API key" :value="apiKey.jwtApiKey" disabled />
-        <button class="button">
+        <button class="button" @click="copy(apiKey.jwtApiKey)">
           <font-awesome-icon class="icon icon--mr-1" icon="copy" />
-          <span>Copy</span>
+          <span v-if="copied">Copied</span>
+          <span v-else>Copy</span>
         </button>
         <button
           type="button"
@@ -130,6 +131,7 @@ import {
   faArrowLeft,
   faCopy
 } from "@fortawesome/free-solid-svg-icons";
+import copy from "copy-to-clipboard";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -177,6 +179,7 @@ export default class ManageSettings extends Vue {
   loading = "";
   apiKey: ApiKey | null = null;
   scopes = scopes;
+  copied = false;
 
   private created() {
     this.apiKeys = {
@@ -207,7 +210,7 @@ export default class ManageSettings extends Vue {
   private updateApiKey() {
     this.showUpdate = false;
     this.loading = "Updating your API key";
-    const apiKey = removeNulls(this.apiKey);
+    const apiKey = { ...removeNulls(this.apiKey) };
     if (apiKey) {
       [
         "jwtApiKey",
@@ -223,8 +226,8 @@ export default class ManageSettings extends Vue {
         id: this.$route.params.key,
         ...apiKey
       })
-      .then(apiKeys => {
-        this.apiKeys = { ...apiKeys };
+      .then(apiKey => {
+        this.apiKey = { ...apiKey };
       })
       .catch(error => {
         throw new Error(error);
@@ -250,6 +253,14 @@ export default class ManageSettings extends Vue {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
+  }
+
+  private copy(text: string) {
+    copy(text);
+    this.copied = true;
+    setTimeout(() => {
+      this.copied = false;
+    }, 3000);
   }
 }
 </script>

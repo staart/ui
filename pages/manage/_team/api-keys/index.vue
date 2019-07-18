@@ -27,6 +27,8 @@
             <tr>
               <th>Name</th>
               <th>Access</th>
+              <th>Restrictions</th>
+              <th>Expiry</th>
               <th></th>
             </tr>
           </thead>
@@ -41,7 +43,22 @@
                   apiKey.scopes.split(",").length === 1 ? "" : "s"
                 }}
               </td>
-              <td v-else>All APIs</td>
+              <td v-else>No APIs</td>
+              <td v-if="apiKey.ipRestrictions || apiKey.referrerRestrictions">
+                {{
+                  (apiKey.ipRestrictions || "").split(",").length +
+                    (apiKey.referrerRestrictions || "").split(",").length
+                }}
+                restriction{{
+                  (apiKey.ipRestrictions || "").split(",").length +
+                    (apiKey.referrerRestrictions || "").split(",").length ===
+                  1
+                    ? ""
+                    : "s"
+                }}
+              </td>
+              <td v-else>No restrictions</td>
+              <td><TimeAgo :date="apiKey.expiresAt" /></td>
               <td class="text text--align-right">
                 <router-link
                   :to="`/manage/${$route.params.team}/api-keys/${apiKey.id}`"
@@ -219,7 +236,7 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/createApiKey", {
         team: this.$route.params.team,
-        scopes: this.newScopes
+        scopes: this.newScopes ? this.newScopes : undefined
       })
       .then(apiKeys => {
         this.apiKeys = { ...apiKeys };

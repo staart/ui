@@ -71,6 +71,7 @@ const config: NuxtConfiguration = {
     { src: "~/plugins/vuex-persist", ssr: false }
   ],
   modules: [
+    "@nuxtjs/dotenv",
     "@nuxtjs/axios",
     "@nuxtjs/pwa",
     "@nuxtjs/markdownit",
