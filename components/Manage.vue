@@ -50,7 +50,7 @@
         </nuxt-link>
         <nuxt-link class="item" :to="`/manage/${$route.params.team}/api-keys`">
           <font-awesome-icon class="nav-icon" icon="code" fixed-width />
-          <span>Developer APIs</span>
+          <span>Developer</span>
         </nuxt-link>
       </nav>
     </aside>

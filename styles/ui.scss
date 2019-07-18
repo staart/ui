@@ -447,5 +447,8 @@ input[type="radio"]:checked + .fake-radio {
       outline: none;
       box-shadow: 0 0 0.05rem 0.1rem rgba($color-primary, 0.2);
     }
+    &:disabled {
+      background-color: rgba($color-primary, 0.025);
+    }
   }
 }

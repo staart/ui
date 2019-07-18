@@ -48,6 +48,7 @@ export default class Modal extends Vue {
   top: 0;
   bottom: 0;
   overflow: auto;
+  z-index: 999;
   .close {
     position: fixed;
     right: 0;

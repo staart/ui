@@ -84,14 +84,13 @@ export default {
     4: "Member",
     5: "Basic"
   },
-  apiRestrictions: {
+  scopes: {
     orgRead: {
-      intro: "Read team details",
-      help: "Get information about your team, subscription, and settings",
-      alwaysChecked: true
+      text: "Read team details",
+      help: "Get information about your team, subscription, and settings"
     },
     orgUpdate: {
-      intro: "Update team details",
+      text: "Update team details",
       help: "Update information about your team, billing, etc."
     }
   },
