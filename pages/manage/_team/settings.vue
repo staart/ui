@@ -34,17 +34,11 @@
         help="Changing your username can have unintended side effects"
         @input="val => (organization.username = val)"
       />
-      <Input
-        :value="organization.invitationDomain"
-        label="Email domain"
-        placeholder="Enter your company's domain, eg. oswaldlabs.com"
-        help="We'll allow people with emails from this domain to join this organization automatically"
-        @input="val => (organization.invitationDomain = val)"
-      />
       <button class="button">
         Update settings
       </button>
     </form>
+    <Domains style="margin-top: 2rem" />
   </main>
 </template>
 
@@ -60,6 +54,7 @@ import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
+import Domains from "@/components/team/Domains.vue";
 import { User } from "@/types/auth";
 import {
   OrganizationsKV,
@@ -72,6 +67,7 @@ library.add(faSync);
   components: {
     Loading,
     Input,
+    Domains,
     FontAwesomeIcon,
     Select,
     ImageInput,

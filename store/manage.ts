@@ -16,7 +16,9 @@ export const state = (): RootState => ({
   sources: {},
   source: {},
   apiKeys: {},
-  apiKey: {}
+  apiKey: {},
+  domains: {},
+  domain: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -127,6 +129,26 @@ export const mutations: MutationTree<RootState> = {
     currentApiKeys[team][id] = { ...apiKey };
     Vue.set(state, "apiKey", currentApiKeys);
   },
+  setDomains(state: RootState, { team, domains, start, next }): void {
+    const currentDomains = state.domains;
+    currentDomains[team] = currentDomains[team] || emptyPagination;
+    if (start) {
+      currentDomains[team].data = [
+        ...currentDomains[team].data,
+        ...domains.data
+      ];
+    } else {
+      currentDomains[team].data = domains.data;
+    }
+    currentDomains[team].next = next;
+    Vue.set(state, "domains", currentDomains);
+  },
+  setDomain(state: RootState, { team, domain, id }): void {
+    const currentDomains = state.domain;
+    currentDomains[team] = currentDomains[team] || {};
+    currentDomains[team][id] = { ...domain };
+    Vue.set(state, "domain", currentDomains);
+  },
   setPricingPlans(state: RootState, pricingPlans: any): void {
     Vue.set(state, "pricingPlans", pricingPlans);
   },
@@ -148,6 +170,8 @@ export const mutations: MutationTree<RootState> = {
     delete state.pricingPlans;
     delete state.apiKeys;
     delete state.apiKey;
+    delete state.domains;
+    delete state.domain;
   }
 };
 
@@ -344,6 +368,52 @@ export const actions: ActionTree<RootState, RootState> = {
     );
     return dispatch("getApiKey", context);
   },
+  async getDomains({ commit }, { team, start = 0 }) {
+    const domains: any = (await this.$axios.get(
+      `/organizations/${team}/domains?start=${start}`
+    )).data;
+    commit("setDomains", { team, domains, start, next: domains.next });
+    return domains;
+  },
+  async getDomain({ commit }, { team, id }) {
+    const domain: any = (await this.$axios.get(
+      `/organizations/${team}/domains/${id}`
+    )).data;
+    commit("setDomain", { team, domain, id });
+    return domain;
+  },
+  async createDomain({ dispatch }, context) {
+    const data = { ...context };
+    delete data.team;
+    await this.$axios.put(`/organizations/${context.team}/domains`, data);
+    return dispatch("getDomains", { team: context.team });
+  },
+  async deleteDomain({ dispatch }, context) {
+    await this.$axios.delete(
+      `/organizations/${context.team}/domains/${context.id}`
+    );
+    return dispatch("getDomains", { team: context.team });
+  },
+  async updateDomain({ dispatch }, context) {
+    const data = { ...context };
+    delete data.team;
+    delete data.id;
+    await this.$axios.patch(
+      `/organizations/${context.team}/domains/${context.id}`,
+      data
+    );
+    return dispatch("getDomain", context);
+  },
+  async verifyDomain({ dispatch }, context) {
+    const data = { ...context };
+    delete data.team;
+    delete data.id;
+    await this.$axios.post(
+      `/organizations/${context.team}/domains/${context.id}/verify`,
+      data
+    );
+    return dispatch("getDomain", context);
+  },
   async getEvents({ commit, rootGetters }) {
     const org = rootGetters["auth/activeOrganization"];
     const organizationId = org.organizationId;
@@ -373,5 +443,8 @@ export const getters: GetterTree<RootState, RootState> = {
   apiKeys: state => (team: string) => state.apiKeys[team],
   apiKey: state => (team: string, apiKey: string) =>
     state.apiKey[team] && state.apiKey[team][apiKey],
+  domains: state => (team: string) => state.domains[team],
+  domain: state => (team: string, domain: string) =>
+    state.domain[team] && state.domain[team][domain],
   organization: state => (team: string) => state.organizations[team]
 };

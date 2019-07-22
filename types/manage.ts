@@ -2,7 +2,6 @@ import { subscriptions, invoices, sources } from "stripe";
 import { IdRow, Row, Paginated } from "./root";
 
 export interface Organization extends IdRow {
-  invitationDomain?: string;
   name?: string;
   stripeCustomerId?: string;
   username: string;
@@ -17,6 +16,11 @@ export interface ApiKey extends Row {
   organizationId: number;
   ipRestrictions?: string;
   referrerRestrictions?: string;
+}
+export interface Domain extends Row {
+  domain: string;
+  verificationCode: string;
+  isVerified: boolean;
 }
 
 export interface Members extends Paginated {
@@ -33,6 +37,9 @@ export interface Sources extends Paginated {
 }
 export interface ApiKeys extends Paginated {
   data: ApiKey[];
+}
+export interface Domains extends Paginated {
+  data: Domain[];
 }
 export interface Address {
   state: string;
@@ -70,6 +77,9 @@ export interface SourcesKV {
 export interface ApiKeysKV {
   [index: string]: ApiKeys;
 }
+export interface DomainsKV {
+  [index: string]: Domains;
+}
 export interface SingleSubscriptionKV {
   [index: string]: {
     [index: string]: subscriptions.ISubscription;
@@ -90,6 +100,11 @@ export interface SingleApiKeyKV {
     [index: string]: ApiKey;
   };
 }
+export interface SingleDomainKV {
+  [index: string]: {
+    [index: string]: Domain;
+  };
+}
 
 export interface RootState {
   membership?: Membership;
@@ -104,6 +119,8 @@ export interface RootState {
   source: SingleSourceKV;
   apiKeys: ApiKeysKV;
   apiKey: SingleApiKeyKV;
+  domains: DomainsKV;
+  domain: SingleDomainKV;
   pricingPlans?: any;
   recentEvents?: any;
   isDownloading: boolean;
@@ -115,7 +132,6 @@ export const emptyOrganization: Organization = {
   updatedAt: new Date().toString(),
   name: "",
   username: "",
-  invitationDomain: "",
   stripeCustomerId: ""
 };
 export const emptyPagination = {

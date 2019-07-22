@@ -5,6 +5,15 @@ html {
   color: $text-color;
 }
 
+ul, ol {
+  li:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+  ul, ol {
+    margin-top: 0.5rem;
+  }
+}
+
 h1 {
   margin: 0 0 2rem 0;
   font-size: 150%;
