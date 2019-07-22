@@ -5,6 +5,8 @@ export interface Organization extends IdRow {
   name?: string;
   stripeCustomerId?: string;
   username: string;
+  autoJoinDomain: boolean;
+  onlyAllowDomain: boolean;
 }
 
 export interface Membership extends IdRow {
@@ -132,7 +134,9 @@ export const emptyOrganization: Organization = {
   updatedAt: new Date().toString(),
   name: "",
   username: "",
-  stripeCustomerId: ""
+  stripeCustomerId: "",
+  autoJoinDomain: false,
+  onlyAllowDomain: false
 };
 export const emptyPagination = {
   data: [],

@@ -75,7 +75,12 @@ export default {
     "billing-subscription-updated": "Your subscription has been updated",
     "billing-source-created": "Your payment method has been created",
     "billing-source-updated": "Your payment method has been updated",
-    "billing-source-deleted": "Your payment method has been deleted"
+    "billing-source-deleted": "Your payment method has been deleted",
+    "domain-unable-to-verify": "We weren't able to verify your domain",
+    "domain-missing-file": "We couldn't find the verification file",
+    "domain-missing-dns": "We didn't find the DNS record",
+    "domain-already-verified": "This domain is already verified",
+    "cannot-invite-domain": "You cannot invite a member from this domain"
   },
   membershipRoles: {
     1: "Owner",

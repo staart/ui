@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Loading v-if="loading" />
+    <Loading v-if="loading" :message="loading" />
     <div v-else-if="domain">
       <div class="row">
         <div>
@@ -46,6 +46,13 @@
               <span class="fake-radio" role="radio" tabindex="0" />
               Add a DNS record to your domain
             </label>
+          </div>
+          <div v-if="hasError" style="margin-bottom: 2rem">
+            <p>
+              <strong>Error:</strong> We weren't able to verify your domain. If
+              you've just added a DNS record, it may take up to 24 hours to
+              propogate.
+            </p>
           </div>
           <div v-if="verifyOption === 'file'" class="card card--type-padded">
             <h3>Steps to verify your domain</h3>
@@ -117,6 +124,12 @@
           </div>
         </form>
       </div>
+      <LargeMessage
+        v-else
+        img="undraw_confirmation_2uy0.svg"
+        heading="Domain verified"
+        text="Nothing to do here, you've already verified your domain successfully"
+      />
     </div>
   </main>
 </template>
@@ -134,6 +147,7 @@ import {
   faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
 import download from "downloadjs";
+import LargeMessage from "@/components/LargeMessage.vue";
 import Loading from "@/components/Loading.vue";
 import Country from "@/components/Country.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -146,6 +160,7 @@ library.add(faTrash, faPencilAlt, faSync, faArrowLeft);
 @Component({
   components: {
     Country,
+    LargeMessage,
     TimeAgo,
     Loading,
     Input,

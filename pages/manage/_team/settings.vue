@@ -34,6 +34,20 @@
         help="Changing your username can have unintended side effects"
         @input="val => (organization.username = val)"
       />
+      <Checkbox
+        :value="organization.autoJoinDomain"
+        label="Allow users with verified domain emails to automatically join this team"
+        help="You can set up verified domains below to make it easy for your team to join"
+        :question-mark="true"
+        @input="val => (organization.autoJoinDomain = val)"
+      />
+      <Checkbox
+        :value="organization.onlyAllowDomain"
+        label="Only allow users with verified domain emails to join this team"
+        help="We won't let managers invite users with emails from other domains"
+        :question-mark="true"
+        @input="val => (organization.onlyAllowDomain = val)"
+      />
       <button class="button">
         Update settings
       </button>
