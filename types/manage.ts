@@ -12,9 +12,9 @@ export interface Organization extends IdRow {
 export interface Membership extends IdRow {
   organization: Organization;
 }
-export interface ApiKey extends Row {
-  apiKey: string;
-  secretKey: string;
+export interface ApiKey extends IdRow {
+  jwtApiKey: string;
+  scopes: string;
   organizationId: number;
   ipRestrictions?: string;
   referrerRestrictions?: string;

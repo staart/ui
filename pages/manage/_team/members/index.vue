@@ -132,7 +132,7 @@
           deleted.
         </p>
         <button
-          class="button button--color-danger-cta"
+          class="button button--color-danger button--state-cta"
           @click="deleteMembership(showDelete.id)"
         >
           Yes, remove {{ showDelete.user.nickname }}

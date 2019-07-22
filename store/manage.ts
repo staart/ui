@@ -187,7 +187,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const update = { ...context };
     delete update.team;
     await this.$axios.patch(`/organizations/${context.team}`, update);
-    return dispatch("getOrganization", context.team);
+    return dispatch("getOrganization", context.username || context.team);
   },
   async deleteOrganization({ commit, rootGetters }, { team }) {
     await this.$axios.delete(`/organizations/${team}`);

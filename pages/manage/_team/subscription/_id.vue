@@ -103,7 +103,7 @@
       <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
         <h2>Are you sure you want to cancel this subscription?</h2>
         <p>
-          Canceling a subscription is not reversable. Any data linked to this
+          Canceling a subscription is not reversible. Any data linked to this
           subscription will be permanently deleted.
         </p>
         <button

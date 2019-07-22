@@ -1,8 +1,11 @@
 import Vue from "vue";
+import { MutationTree, ActionTree, GetterTree } from "vuex";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import en from "@/locales/en";
 import { AxiosRequestConfig } from "axios";
 import { removeNulls, removeReadOnlyValues } from "~/helpers/crud";
+import decode from "jwt-decode";
+import { RootState } from "~/types/auth";
 const messages = en.messages;
 const errors = en.errors;
 
@@ -11,16 +14,37 @@ const ignoredErrors = ["no-customer"];
 
 export default function({
   $axios,
-  redirect
+  redirect,
+  store
 }: {
   $axios: NuxtAxiosInstance;
   redirect: any;
+  store: {
+    state: {
+      auth: RootState
+    },
+    dispatch: any
+  };
 }) {
-  $axios.interceptors.request.use((config: AxiosRequestConfig) => {
+  $axios.interceptors.request.use((config: AxiosRequestConfig) => new Promise((resolve, reject) => {
     config.data = removeNulls(removeReadOnlyValues(config.data));
-    console.log(config);
-    return config;
-  });
+    try {
+      const token = config.headers.common["Authorization"].replace("Bearer ", "");
+      if (decode(token).exp * 1000 < new Date().getTime()) {
+        $axios.setHeader("Authorization", undefined);
+        store.dispatch("auth/refresh")
+          .then((newToken: string) => {
+            config.headers = { ...config.headers, Authorization: `Bearer ${newToken}` }
+          })
+          .catch((error: any) => {})
+          .then(() => resolve(config));
+      } else {
+        resolve(config);
+      }
+    } catch (error) {
+      resolve(config);
+    }
+  }));
   $axios.onResponse(response => {
     if (response.data.success === true) {
       if (response.data.message) {

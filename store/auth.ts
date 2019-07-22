@@ -98,6 +98,7 @@ export const actions: ActionTree<RootState, RootState> = {
       })).data;
       this.$axios.setToken(tokens.token, "Bearer");
       commit("setAuthentication", tokens);
+      return tokens.token;
     } catch (error) {
       commit("stopLoading");
       throw new Error(error);
@@ -134,8 +135,10 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("removeAuthentication");
     commit("settings/clearAll", undefined, { root: true });
     commit("manage/clearAll", undefined, { root: true });
-    document.documentElement.classList.remove("prefers-reduced-motion");
-    document.documentElement.classList.remove("prefers-color-scheme-dark");
+    if (document) {
+      document.documentElement.classList.remove("prefers-reduced-motion");
+      document.documentElement.classList.remove("prefers-color-scheme-dark");
+    }
   },
   async getNotifications({ commit, state }) {
     const notifications = (await this.$axios.get(`/users/me/notifications`))

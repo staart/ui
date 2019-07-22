@@ -105,7 +105,7 @@
     <p>
       Use this form to add a domain your team owns.
     </p>
-    <Loading v-if="creating" message="Inviting domain" />
+    <Loading v-if="creating" message="Adding domain" />
     <form
       v-else
       v-meta-ctrl-enter="createDomain"
@@ -122,23 +122,19 @@
     </form>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
-        <h2>Are you sure you want to remove {{ showDelete }}?</h2>
+        <h2>Are you sure you want to delete {{ showDelete.domain }}?</h2>
         <p>
-          Removing someone from your organization is not reversible, and you'll
-          need to invite them again if you change your mind.
-        </p>
-        <p>
-          If they have any organization-specific data, that will also be
-          deleted.
+          Removing a domain is not reversible, and you'll have to verify your
+          domain again if you change your mind.
         </p>
         <button
-          class="button button--color-danger-cta"
+          class="button button--color-danger button--state-cta"
           @click="deleteDomain(showDelete.id)"
         >
-          Yes, remove {{ showDelete.user.nickname }}
+          Yes, delete {{ showDelete.domain }}
         </button>
         <button type="button" class="button" @click="showDelete = null">
-          No, don't remove
+          No, don't delete
         </button>
       </Confirm>
     </transition>

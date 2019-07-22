@@ -3,6 +3,9 @@
     <Settings v-if="activeRoute === 'user-settings'">
       <nuxt />
     </Settings>
+    <Settings v-else-if="activeRoute === 'users'">
+      <nuxt />
+    </Settings>
     <Manage v-else-if="activeRoute === 'organization-settings'">
       <nuxt />
     </Manage>
@@ -36,6 +39,8 @@ export default class Layout extends Vue {
       this.activeRoute = "user-settings";
     } else if (this.$route.path.startsWith("/manage")) {
       this.activeRoute = "organization-settings";
+    } else if (this.$route.path.startsWith("/users")) {
+      this.activeRoute = "users";
     } else if (this.$route.path.startsWith("/policies")) {
       this.activeRoute = "policies";
     } else {

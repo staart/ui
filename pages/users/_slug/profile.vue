@@ -21,38 +21,23 @@
     <Loading v-if="loading" :message="loading" />
     <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
       <Input
-        :value="organization.name"
+        :value="user.name"
         label="Name"
-        placeholder="Enter your organization's name"
+        placeholder="Enter your user's name"
         required
-        @input="val => (organization.name = val)"
+        @input="val => (user.name = val)"
       />
       <Input
-        :value="organization.username"
+        :value="user.username"
         label="Username"
         placeholder="Enter a unique username"
         help="Changing your username can have unintended side effects"
-        @input="val => (organization.username = val)"
-      />
-      <Checkbox
-        :value="organization.autoJoinDomain"
-        label="Allow users with verified domain emails to automatically join this team"
-        help="You can set up verified domains below to make it easy for your team to join"
-        :question-mark="true"
-        @input="val => (organization.autoJoinDomain = val)"
-      />
-      <Checkbox
-        :value="organization.onlyAllowDomain"
-        label="Only allow users with verified domain emails to join this team"
-        help="We won't let managers invite users with emails from other domains"
-        :question-mark="true"
-        @input="val => (organization.onlyAllowDomain = val)"
+        @input="val => (user.username = val)"
       />
       <button class="button">
-        Update settings
+        Update profile
       </button>
     </form>
-    <Domains style="margin-top: 2rem" />
   </main>
 </template>
 
@@ -68,20 +53,13 @@ import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
-import Domains from "@/components/team/Domains.vue";
-import { User } from "@/types/auth";
-import {
-  OrganizationsKV,
-  Organization,
-  emptyOrganization
-} from "@/types/manage";
+import { UsersKV, User, emptyUser } from "@/types/users";
 library.add(faSync);
 
 @Component({
   components: {
     Loading,
     Input,
-    Domains,
     FontAwesomeIcon,
     Select,
     ImageInput,
@@ -91,20 +69,20 @@ library.add(faSync);
 })
 export default class ManageSettings extends Vue {
   loading = "";
-  organization: Organization = emptyOrganization;
+  user: User = emptyUser;
 
   private created() {
-    this.organization = {
-      ...this.$store.getters["manage/organization"](this.$route.params.team)
+    this.user = {
+      ...this.$store.getters["users/user"](this.$route.params.slug)
     };
   }
 
   private load() {
-    this.loading = "Loading organization details";
+    this.loading = "Loading user details";
     this.$store
-      .dispatch("manage/getOrganization", this.$route.params.team)
-      .then(org => {
-        this.organization = { ...org };
+      .dispatch("users/getUser", this.$route.params.slug)
+      .then(user => {
+        this.user = { ...user };
       })
       .catch(() => {})
       .finally(() => (this.loading = ""));
@@ -116,14 +94,16 @@ export default class ManageSettings extends Vue {
 
   private save() {
     this.loading = "Saving";
+    const user = { ...this.user };
+    delete user.role;
     this.$store
-      .dispatch("manage/updateOrganization", {
-        team: this.$route.params.team,
-        ...this.organization
+      .dispatch("users/updateUser", {
+        slug: this.$route.params.slug,
+        ...user
       })
-      .then(org => {
-        this.organization = { ...org };
-        this.$router.replace(`/manage/${this.organization.username}/settings`);
+      .then(user => {
+        this.user = { ...user };
+        this.$router.replace(`/users/${this.user.username}/profile`);
       })
       .catch(() => {})
       .finally(() => (this.loading = ""));

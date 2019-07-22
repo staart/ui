@@ -1,6 +1,6 @@
 export default {
   errors: {
-    "user-not-found": "We couldn't find a user with this email",
+    "user-not-found": "We couldn't find this user",
     "missing-field": "Make sure you've entered all required fields",
     "unverified-email": "This email has not been verified yet",
     "invalid-login": "This is an incorrect email/password combination",

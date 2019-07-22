@@ -147,7 +147,7 @@
             You won't be able to log in with this email anymore.
           </p>
           <button
-            class="button button--color-danger-cta"
+            class="button button--color-danger button--state-cta"
             @click="deleteEmail(showDelete.id)"
           >
             Yes, delete this email
