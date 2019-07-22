@@ -34,8 +34,11 @@ export default function({
   $axios.onError(error => {
     if (!error.response) return;
     if (
-      (error.response.data.code || error.response.data.error) ===
-      "invalid-token"
+      [
+        "revoked-token",
+        "invalid-token",
+        "expired-token"
+      ].includes((error.response.data.code || error.response.data.error))
     ) {
       return redirect("/auth/refresh");
     }
