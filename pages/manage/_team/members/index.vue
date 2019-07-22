@@ -88,7 +88,7 @@
     <p>
       Use this form to invite another user from your team to this organization.
     </p>
-    <Loading v-if="inviting" />
+    <Loading v-if="inviting" message="Inviting member" />
     <form
       v-else
       v-meta-ctrl-enter="inviteMember"

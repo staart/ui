@@ -1,6 +1,8 @@
 import Vue from "vue";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import en from "@/locales/en";
+import { AxiosRequestConfig } from "axios";
+import { removeNulls, removeReadOnlyValues } from "~/helpers/crud";
 const messages = en.messages;
 const errors = en.errors;
 
@@ -14,6 +16,11 @@ export default function({
   $axios: NuxtAxiosInstance;
   redirect: any;
 }) {
+  $axios.interceptors.request.use((config: AxiosRequestConfig) => {
+    config.data = removeNulls(removeReadOnlyValues(config.data));
+    console.log(config);
+    return config;
+  });
   $axios.onResponse(response => {
     if (response.data.success === true) {
       if (response.data.message) {

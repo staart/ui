@@ -210,7 +210,7 @@ export default class ManageSettings extends Vue {
   private updateApiKey() {
     this.showUpdate = false;
     this.loading = "Updating your API key";
-    const apiKey = { ...removeNulls(this.apiKey) };
+    const apiKey = { ...this.apiKey };
     if (apiKey) {
       [
         "jwtApiKey",
