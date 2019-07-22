@@ -3,9 +3,9 @@
     <Settings v-if="activeRoute === 'user-settings'">
       <nuxt />
     </Settings>
-    <Settings v-else-if="activeRoute === 'users'">
+    <Users v-else-if="activeRoute === 'users'">
       <nuxt />
-    </Settings>
+    </Users>
     <Manage v-else-if="activeRoute === 'organization-settings'">
       <nuxt />
     </Manage>
@@ -18,12 +18,14 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import Users from "@/components/Users.vue";
 import Settings from "@/components/Settings.vue";
 import Manage from "@/components/Manage.vue";
 import Policies from "@/components/Policies.vue";
 
 @Component({
   components: {
+    Users,
     Settings,
     Policies,
     Manage

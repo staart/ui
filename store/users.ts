@@ -14,25 +14,25 @@ export const mutations: MutationTree<RootState> = {
     users[user.id] = user;
     Vue.set(state, "users", users);
   },
-  setApiKeys(state: RootState, { slug, accessTokens, start, next }): void {
-    const currentApiKeys = state.accessTokens;
-    currentApiKeys[slug] = currentApiKeys[slug] || emptyPagination;
+  setAccessTokens(state: RootState, { slug, accessTokens, start, next }): void {
+    const currentAccessTokens = state.accessTokens;
+    currentAccessTokens[slug] = currentAccessTokens[slug] || emptyPagination;
     if (start) {
-      currentApiKeys[slug].data = [
-        ...currentApiKeys[slug].data,
+      currentAccessTokens[slug].data = [
+        ...currentAccessTokens[slug].data,
         ...accessTokens.data
       ];
     } else {
-      currentApiKeys[slug].data = accessTokens.data;
+      currentAccessTokens[slug].data = accessTokens.data;
     }
-    currentApiKeys[slug].next = next;
-    Vue.set(state, "accessTokens", currentApiKeys);
+    currentAccessTokens[slug].next = next;
+    Vue.set(state, "accessTokens", currentAccessTokens);
   },
-  setApiKey(state: RootState, { slug, accessToken, id }): void {
-    const currentApiKeys = state.accessToken;
-    currentApiKeys[slug] = currentApiKeys[slug] || {};
-    currentApiKeys[slug][id] = { ...accessToken };
-    Vue.set(state, "accessToken", currentApiKeys);
+  setAccessToken(state: RootState, { slug, accessToken, id }): void {
+    const currentAccessTokens = state.accessToken;
+    currentAccessTokens[slug] = currentAccessTokens[slug] || {};
+    currentAccessTokens[slug][id] = { ...accessToken };
+    Vue.set(state, "accessToken", currentAccessTokens);
   },
   clearAll(state: RootState): void {
     delete state.accessTokens;
@@ -58,41 +58,41 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.delete(`/users/${slug}`);
     commit("clearAll");
   },
-  async getApiKeys({ commit }, { slug, start = 0 }) {
+  async getAccessTokens({ commit }, { slug, start = 0 }) {
     const accessTokens: any = (await this.$axios.get(
-      `/organizations/${slug}/api-keys?start=${start}`
+      `/users/${slug}/access-tokens?start=${start}`
     )).data;
-    commit("setApiKeys", { slug, accessTokens, start, next: accessTokens.next });
+    commit("setAccessTokens", { slug, accessTokens, start, next: accessTokens.next });
     return accessTokens;
   },
-  async getApiKey({ commit }, { slug, id }) {
+  async getAccessToken({ commit }, { slug, id }) {
     const accessToken: any = (await this.$axios.get(
-      `/organizations/${slug}/api-keys/${id}`
+      `/users/${slug}/access-tokens/${id}`
     )).data;
-    commit("setApiKey", { slug, accessToken, id });
+    commit("setAccessToken", { slug, accessToken, id });
     return accessToken;
   },
-  async createApiKey({ dispatch }, context) {
+  async createAccessToken({ dispatch }, context) {
     const data = { ...context };
     delete data.slug;
-    await this.$axios.put(`/organizations/${context.slug}/api-keys`, data);
-    return dispatch("getApiKeys", { slug: context.slug });
+    await this.$axios.put(`/users/${context.slug}/access-tokens`, data);
+    return dispatch("getAccessTokens", { slug: context.slug });
   },
-  async deleteApiKey({ dispatch }, context) {
+  async deleteAccessToken({ dispatch }, context) {
     await this.$axios.delete(
-      `/organizations/${context.slug}/api-keys/${context.id}`
+      `/users/${context.slug}/access-tokens/${context.id}`
     );
-    return dispatch("getApiKeys", { slug: context.slug });
+    return dispatch("getAccessTokens", { slug: context.slug });
   },
-  async updateApiKey({ dispatch }, context) {
+  async updateAccessToken({ dispatch }, context) {
     const data = { ...context };
     delete data.slug;
     delete data.id;
     await this.$axios.patch(
-      `/organizations/${context.slug}/api-keys/${context.id}`,
+      `/users/${context.slug}/access-tokens/${context.id}`,
       data
     );
-    return dispatch("getApiKey", context);
+    return dispatch("getAccessToken", context);
   }
 };
 
