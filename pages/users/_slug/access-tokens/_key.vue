@@ -58,7 +58,7 @@
             @input="val => (accessToken.name = val)"
           />
           <CheckList
-            label="API restrictions"
+            label="Permissions"
             :options="scopes"
             :value="accessToken.scopes"
             @input="val => (accessToken.scopes = val)"

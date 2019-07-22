@@ -1,15 +1,32 @@
 <template>
   <div class="form-group">
     <label :for="labelId">{{ label }}</label>
-    <div v-for="(item, index) in options" :key="`i_${index}`">
-      <Checkbox
-        :value="item.alwaysChecked ? true : list.indexOf(index) > -1"
-        :label="item.text"
-        :help="item.help"
-        :question-mark="true"
-        :disabled="item.alwaysChecked"
-        @input="val => input(index, val)"
-      />
+    <button type="button" class="button button--size-small" @click="select">
+      Select all
+    </button>
+    <button
+      type="button"
+      class="button button--size-small"
+      style="margin-left: 0.5rem"
+      @click="deselect"
+    >
+      Deselect all
+    </button>
+    <div class="checklist-items">
+      <div
+        v-for="(item, index) in options"
+        :key="`i_${index}`"
+        class="checklist-item"
+      >
+        <Checkbox
+          :value="item.alwaysChecked ? true : list.indexOf(index) > -1"
+          :label="item.text"
+          :help="item.help"
+          :question-mark="true"
+          :disabled="item.alwaysChecked"
+          @input="val => input(index, val)"
+        />
+      </div>
     </div>
     <div
       v-if="help"
@@ -78,10 +95,28 @@ export default class CommaList extends Vue {
     this.commaList = this.list.filter(item => !!item).join(",");
     this.$emit("input", this.commaList);
   }
+
+  private select() {
+    this.list = Object.keys(this.options);
+    this.update();
+  }
+
+  private deselect() {
+    this.list = [""];
+    this.update();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+.checklist-items {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  .checklist-item {
+    width: 300px;
+  }
+}
 .form-group {
   margin-bottom: 1rem;
   label {
