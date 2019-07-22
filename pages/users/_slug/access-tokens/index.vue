@@ -157,7 +157,7 @@ import Select from "@/components/form/Select.vue";
 import { User } from "@/types/auth";
 import { AccessTokens, emptyPagination, AccessToken } from "@/types/users";
 import translations from "@/locales/en";
-const scopes = translations.scopes;
+const scopes = translations.userScopes;
 library.add(faArrowDown, faSync, faTrash, faEye);
 
 @Component({
@@ -179,7 +179,7 @@ export default class ManageSettings extends Vue {
   showDelete: AccessToken | null = null;
   loadingMore = false;
   loading = "";
-  newScopes = "orgRead";
+  newScopes = "user:read";
   scopes = scopes;
 
   private created() {

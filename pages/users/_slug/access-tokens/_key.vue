@@ -139,7 +139,7 @@ import { User } from "@/types/auth";
 import { AccessTokens, emptyPagination, AccessToken } from "@/types/users";
 import translations from "@/locales/en";
 import { removeNulls } from "@/helpers/crud";
-const scopes = translations.scopes;
+const scopes = translations.userScopes;
 library.add(
   faPencilAlt,
   faArrowDown,

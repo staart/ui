@@ -99,6 +99,59 @@ export default {
       help: "Update information about your team, billing, etc."
     }
   },
+  userScopes: {
+    "user:read": {
+      text: "Read basic user profile"
+    },
+    "user:update": {
+      text: "Update user profile"
+    },
+    "user:emails:create": {
+      text: "Add an email address"
+    },
+    "user:emails:read": {
+      text: "Read email addresses"
+    },
+    "user:emails:delete": {
+      text: "Delete an email address"
+    },
+    "user:emails:resend-verification": {
+      text: "Resend email verification"
+    },
+    "user:change-password": {
+      text: "Change user password"
+    },
+    "user:delete": {
+      text: "Delete user account"
+    },
+    "user:memberships:read": {
+      text: "Read team memberships"
+    },
+    "user:2fa:enable": {
+      text: "Enable two-factor authentication"
+    },
+    "user:2fa:disable": {
+      text: "Disable two-factor authentication"
+    },
+    "user:backup-codes:read": {
+      text: "Read 2FA backup codes"
+    },
+    "user:backup-codes:regenerate": {
+      text: "Regenerate 2FA backup codes"
+    },
+    "user:access-tokens:create": {
+      text: "Create new access tokens"
+    },
+    "user:access-tokens:read": {
+      text: "Read access tokens"
+    },
+    "user:access-tokens:update": {
+      text: "Update access tokens"
+    },
+    "user:access-tokens:delete": {
+      text: "Delete access tokens"
+    }
+  },
   months: {
     1: "January",
     2: "February",
