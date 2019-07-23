@@ -7,9 +7,6 @@
         <code>_variables.scss</code> file, and all these color combinations will
         automatically change.
       </p>
-      <div class="card card--type-padded">
-        <Autocomplete :options="countries" placeholder="Select your country" />
-      </div>
       <h2 aria-hidden="true">Headings</h2>
       <h1 aria-hidden="true">Heading 1</h1>
       <h2 aria-hidden="true">Heading 2</h2>
@@ -334,6 +331,7 @@
         autocomplete="name"
       />
       <Checkbox type="text" label="Yes, I have a name and this is my name" />
+      <DatePicker label="Birthday" />
       <CheckList
         label="CheckList component has multiple selects"
         :options="{
@@ -345,6 +343,11 @@
       <CommaList
         label="CommaList component converts this to a comma-separated string"
         placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
+      />
+      <Autocomplete
+        label="Country"
+        :options="countries"
+        placeholder="Select your country"
       />
     </div>
     <transition name="modal">
@@ -390,12 +393,13 @@ import {
   faAccessibleIcon
 } from "@fortawesome/free-brands-svg-icons";
 import { getAllCountries } from "countries-and-timezones";
-import Autocomplete from "@/components/elements/Autocomplete.vue";
+import Autocomplete from "@/components/form/Autocomplete.vue";
 import Confirm from "@/components/Confirm.vue";
 import Select from "@/components/form/Select.vue";
 import CommaList from "@/components/form/CommaList.vue";
 import CheckList from "@/components/form/CheckList.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
+import DatePicker from "@/components/form/DatePicker.vue";
 import Input from "@/components/form/Input.vue";
 library.add(
   faSync,
@@ -437,7 +441,8 @@ for (const country in allCountries) {
     Checkbox,
     CheckList,
     Select,
-    Autocomplete
+    Autocomplete,
+    DatePicker
   }
 })
 export default class StyleGuide extends Vue {

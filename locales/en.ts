@@ -153,18 +153,18 @@ export default {
     }
   },
   months: {
-    1: "January",
-    2: "February",
-    3: "March",
-    4: "April",
-    5: "May",
-    6: "June",
-    7: "July",
-    8: "August",
-    9: "September",
-    10: "October",
-    11: "November",
-    12: "December"
+    1: "January (01)",
+    2: "February (02)",
+    3: "March (03)",
+    4: "April (04)",
+    5: "May (05)",
+    6: "June (06)",
+    7: "July (07)",
+    8: "August (08)",
+    9: "September (09)",
+    10: "October (10)",
+    11: "November (11)",
+    12: "December (12)"
   },
   buttons: {
     getStarted: "Get started for free →",

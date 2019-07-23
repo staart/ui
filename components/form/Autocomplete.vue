@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="field-label" :for="id">Destination {{ val }}</label>
+    <label v-if="label" class="field-label" :for="id">{{ label }}</label>
     <div class="autocomplete">
       <input
         :id="id"
@@ -61,6 +61,7 @@ export default class Autocomplete extends Vue {
   val: string | null = null;
   optionsVisible = false;
   @Prop({ default: {}, required: true }) options;
+  @Prop() label;
   @Prop() placeholder;
   items = {};
   filteredItems = {};
@@ -85,7 +86,9 @@ export default class Autocomplete extends Vue {
     const items = {};
     if (Array.isArray(this.options)) {
       for (let i = 0; i < this.options.length; i++) {
-        items[`v${i}`] = this.options[i];
+        items[`v${i}`] = {
+          value: String(this.options[i])
+        };
       }
     } else {
       Object.keys(this.options).forEach(key => {
@@ -126,6 +129,7 @@ export default class Autocomplete extends Vue {
     this.filteredItems = this.items;
     this.val = index;
     this.optionsVisible = false;
+    this.$emit("input", this.val);
   }
   tryOption(event: KeyboardEvent, index: string) {
     if (event.keyCode === 13) {
@@ -139,6 +143,7 @@ export default class Autocomplete extends Vue {
     }
   }
   checkAndHide() {
+    if (!this.val) this.search = "";
     setTimeout(() => {
       console.log(document.activeElement);
       if (document.activeElement && document.activeElement.nodeName === "LI") {
@@ -151,6 +156,14 @@ export default class Autocomplete extends Vue {
 <style lang="scss">
 .autocomplete {
   position: relative;
+  input {
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    border: 1px solid rgba(121, 82, 179, 0.25);
+    background-color: #fff;
+  }
   .option-image {
     width: 2rem;
     background-size: cover;
@@ -175,6 +188,7 @@ export default class Autocomplete extends Vue {
       display: flex;
       width: 100%;
       align-items: stretch;
+      font-weight: normal;
       &:hover,
       &:focus {
         background-color: #eee;
