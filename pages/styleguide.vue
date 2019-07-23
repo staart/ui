@@ -7,6 +7,9 @@
         <code>_variables.scss</code> file, and all these color combinations will
         automatically change.
       </p>
+      <div class="card card--type-padded">
+        <Autocomplete :options="countries" />
+      </div>
       <h2 aria-hidden="true">Headings</h2>
       <h1 aria-hidden="true">Heading 1</h1>
       <h2 aria-hidden="true">Heading 2</h2>
@@ -386,6 +389,8 @@ import {
   faVuejs,
   faAccessibleIcon
 } from "@fortawesome/free-brands-svg-icons";
+import { getAllCountries } from "countries-and-timezones";
+import Autocomplete from "@/components/elements/Autocomplete.vue";
 import Confirm from "@/components/Confirm.vue";
 import Select from "@/components/form/Select.vue";
 import CommaList from "@/components/form/CommaList.vue";
@@ -408,6 +413,13 @@ library.add(
   faAccessibleIcon,
   faRocket
 );
+const countries = {};
+const allCountries = getAllCountries();
+for (const country in allCountries) {
+  if (allCountries.hasOwnProperty(country)) {
+    countries[country.toLowerCase()] = allCountries[country].name;
+  }
+}
 
 @Component({
   computed: mapGetters({
@@ -420,12 +432,14 @@ library.add(
     CommaList,
     Checkbox,
     CheckList,
-    Select
+    Select,
+    Autocomplete
   }
 })
 export default class StyleGuide extends Vue {
   showConfirm = false;
   name = "Anand Chowdhary";
+  countries = countries;
 }
 </script>
 
