@@ -135,7 +135,7 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("removeAuthentication");
     commit("settings/clearAll", undefined, { root: true });
     commit("manage/clearAll", undefined, { root: true });
-    if (document) {
+    if (process.client) {
       document.documentElement.classList.remove("prefers-reduced-motion");
       document.documentElement.classList.remove("prefers-color-scheme-dark");
     }

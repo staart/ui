@@ -8,6 +8,13 @@
         </nuxt-link>
         <nuxt-link
           class="item"
+          :to="`/users/${$route.params.slug}/memberships`"
+        >
+          <font-awesome-icon class="nav-icon" icon="building" fixed-width />
+          <span>Your teams</span>
+        </nuxt-link>
+        <nuxt-link
+          class="item"
           :to="`/users/${$route.params.slug}/access-tokens`"
         >
           <font-awesome-icon class="nav-icon" icon="code" fixed-width />

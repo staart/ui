@@ -1,4 +1,5 @@
 import { IdRow, Row, Paginated } from "./root";
+import { Organization } from "./manage";
 
 export interface User extends IdRow {
   name: string;
@@ -22,9 +23,18 @@ export interface AccessToken extends IdRow {
   jwtApiKey: string;
   scopes: string;
 }
+export interface Membership extends IdRow {
+  userId: number;
+  organizationId: number;
+  organization: Organization;
+  role: "1" | "2" | "3";
+}
 
 export interface AccessTokens extends Paginated {
   data: AccessToken[];
+}
+export interface Memberships extends Paginated {
+  data: Membership[];
 }
 
 export interface UsersKV {
@@ -33,10 +43,18 @@ export interface UsersKV {
 export interface AccessTokensKV {
   [index: string]: AccessTokens;
 }
+export interface MembershipsKV {
+  [index: string]: Memberships;
+}
 
 export interface SingleAccessTokenKV {
   [index: string]: {
     [index: string]: AccessToken;
+  };
+}
+export interface SingleMembershipKV {
+  [index: string]: {
+    [index: string]: Membership;
   };
 }
 
@@ -44,6 +62,8 @@ export interface RootState {
   users: UsersKV;
   accessTokens: AccessTokensKV;
   accessToken: SingleAccessTokenKV;
+  memberships: MembershipsKV;
+  membership: SingleMembershipKV;
 }
 
 export const emptyUser: User = {

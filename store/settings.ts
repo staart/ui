@@ -22,7 +22,7 @@ export const mutations: MutationTree<RootState> = {
   setUser(state: RootState, user: User): void {
     Vue.set(state, "user", user);
     try {
-      if (document) {
+      if (process.client) {
         if (user.prefersReducedMotion) {
           document.documentElement.classList.add("prefers-reduced-motion");
         } else {

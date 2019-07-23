@@ -5,7 +5,9 @@ import { RootState, User, emptyPagination } from "~/types/users";
 export const state = (): RootState => ({
   users: {},
   accessTokens: {},
-  accessToken: {}
+  accessToken: {},
+  memberships: {},
+  membership: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -34,9 +36,32 @@ export const mutations: MutationTree<RootState> = {
     currentAccessTokens[slug][id] = { ...accessToken };
     Vue.set(state, "accessToken", currentAccessTokens);
   },
+
+  setMemberships(state: RootState, { slug, memberships, start, next }): void {
+    const currentMemberships = state.memberships;
+    currentMemberships[slug] = currentMemberships[slug] || emptyPagination;
+    if (start) {
+      currentMemberships[slug].data = [
+        ...currentMemberships[slug].data,
+        ...memberships.data
+      ];
+    } else {
+      currentMemberships[slug].data = memberships.data;
+    }
+    currentMemberships[slug].next = next;
+    Vue.set(state, "memberships", currentMemberships);
+  },
+  setMembership(state: RootState, { slug, membership, id }): void {
+    const currentMemberships = state.membership;
+    currentMemberships[slug] = currentMemberships[slug] || {};
+    currentMemberships[slug][id] = { ...membership };
+    Vue.set(state, "membership", currentMemberships);
+  },
   clearAll(state: RootState): void {
     delete state.accessTokens;
     delete state.accessToken;
+    delete state.memberships;
+    delete state.membership;
   }
 };
 
@@ -93,7 +118,27 @@ export const actions: ActionTree<RootState, RootState> = {
       data
     );
     return dispatch("getAccessToken", context);
-  }
+  },
+  async getMemberships({ commit }, { slug, start = 0 }) {
+    const memberships: any = (await this.$axios.get(
+      `/users/${slug}/memberships?start=${start}`
+    )).data;
+    commit("setMemberships", { slug, memberships, start, next: memberships.next });
+    return memberships;
+  },
+  async getMembership({ commit }, { slug, id }) {
+    const membership: any = (await this.$axios.get(
+      `/users/${slug}/memberships/${id}`
+    )).data;
+    commit("setMembership", { slug, membership, id });
+    return membership;
+  },
+  async deleteMembership({ dispatch }, context) {
+    await this.$axios.delete(
+      `/users/${context.slug}/memberships/${context.id}`
+    );
+    return dispatch("getMemberships", { slug: context.slug });
+  },
 };
 
 export const getters: GetterTree<RootState, RootState> = {
@@ -101,4 +146,7 @@ export const getters: GetterTree<RootState, RootState> = {
   accessTokens: state => (slug: string) => state.accessTokens[slug],
   accessToken: state => (slug: string, accessToken: string) =>
     state.accessToken[slug] && state.accessToken[slug][accessToken],
+  memberships: state => (slug: string) => state.memberships[slug],
+  membership: state => (slug: string, membership: string) =>
+    state.membership[slug] && state.membership[slug][membership],
 };
