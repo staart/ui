@@ -447,21 +447,23 @@ input[type="radio"]:checked + .fake-radio {
     display: block;
     margin-bottom: 0.5rem;
   }
-  input {
-    font: inherit;
-    padding: 0.75rem;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 0.2rem;
-    border: 1px solid rgba($color-primary, 0.15);
-    background-color: #fff;
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0.05rem 0.1rem rgba($color-primary, 0.2);
-    }
-    &:disabled {
-      background-color: rgba($color-primary, 0.025);
-    }
+
+}
+
+.form-group input, .input {
+  font: inherit;
+  padding: 0.75rem;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 0.2rem;
+  border: 1px solid rgba($color-primary, 0.15);
+  background-color: #fff;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0.05rem 0.1rem rgba($color-primary, 0.2);
+  }
+  &:disabled {
+    background-color: rgba($color-primary, 0.025);
   }
 }

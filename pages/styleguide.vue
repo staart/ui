@@ -8,7 +8,7 @@
         automatically change.
       </p>
       <div class="card card--type-padded">
-        <Autocomplete :options="countries" />
+        <Autocomplete :options="countries" placeholder="Select your country" />
       </div>
       <h2 aria-hidden="true">Headings</h2>
       <h1 aria-hidden="true">Heading 1</h1>
@@ -417,7 +417,11 @@ const countries = {};
 const allCountries = getAllCountries();
 for (const country in allCountries) {
   if (allCountries.hasOwnProperty(country)) {
-    countries[country.toLowerCase()] = allCountries[country].name;
+    const cc = country.toLowerCase();
+    countries[cc] = {
+      value: allCountries[country].name
+      // img: `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/flags/1x1/${cc}.svg`
+    };
   }
 }
 

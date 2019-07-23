@@ -4,23 +4,48 @@
     <div class="autocomplete">
       <input
         :id="id"
+        ref="input"
         v-model="search"
-        autocapitalize="none"
+        :placeholder="placeholder"
         type="text"
+        role="combobox"
+        class="input"
+        autocapitalize="none"
         autocomplete="off"
         :aria-owns="`autocomplete-options--${id}`"
         aria-autocomplete="list"
-        role="combobox"
         aria-expanded="false"
         @keyup="filter"
+        @focus="optionsVisible = true"
+        @blur="checkAndHide"
       />
-      <ul :id="`autocomplete-options--${id}`" role="listbox" class="hidden">
-        <li v-for="(item, index) in filteredItems" :key="`li${id}${index}`">
-          <button @click="selectOption(index)">{{ item.value }}</button>
+      <ul
+        v-show="optionsVisible"
+        v-if="Object.keys(filteredItems).length"
+        :id="`autocomplete-options--${id}`"
+        role="listbox"
+        tabindex="-1"
+        class="autocomplete-options"
+      >
+        <li
+          v-for="(item, index) in filteredItems"
+          :key="`li${id}${index}`"
+          role="option"
+          tabindex="0"
+          @click="selectOption(index)"
+          @keyup="event => tryOption(event, index)"
+        >
+          <span
+            v-if="item.img"
+            class="option-image"
+            aria-hidden="true"
+            :style="`background-image: url('${item.img}')`"
+          />
+          <span>{{ item.value }}</span>
         </li>
       </ul>
-      <div aria-live="polite" role="status" class="visually-hidden">
-        {{ filteredItems.length }} results available.
+      <div aria-live="polite" role="status" class="sr-only">
+        {{ Object.keys(filteredItems).length }} results available.
       </div>
     </div>
   </div>
@@ -34,7 +59,9 @@ export default class Autocomplete extends Vue {
   id = "";
   search = "";
   val: string | null = null;
+  optionsVisible = false;
   @Prop({ default: {}, required: true }) options;
+  @Prop() placeholder;
   items = {};
   filteredItems = {};
   listener = () => {};
@@ -75,6 +102,7 @@ export default class Autocomplete extends Vue {
   }
 
   filter() {
+    this.optionsVisible = true;
     if (!this.search) {
       this.val = null;
       this.filteredItems = this.items;
@@ -97,6 +125,25 @@ export default class Autocomplete extends Vue {
     this.search = this.filteredItems[index].value;
     this.filteredItems = this.items;
     this.val = index;
+    this.optionsVisible = false;
+  }
+  tryOption(event: KeyboardEvent, index: string) {
+    if (event.keyCode === 13) {
+      this.selectOption(index);
+    } else if (event.keyCode > 64 && event.keyCode < 100) {
+      (this.$refs.input as HTMLInputElement).focus();
+      this.search +=
+        event.shiftKey || event.getModifierState("CapsLock")
+          ? String.fromCharCode(event.keyCode)
+          : String.fromCharCode(event.keyCode).toLowerCase();
+    }
+  }
+  checkAndHide() {
+    setTimeout(() => {
+      console.log(document.activeElement);
+      if (document.activeElement && document.activeElement.nodeName === "LI") {
+      } else this.optionsVisible = false;
+    }, 250);
   }
 }
 </script>
@@ -104,5 +151,39 @@ export default class Autocomplete extends Vue {
 <style lang="scss">
 .autocomplete {
   position: relative;
+  .option-image {
+    width: 2rem;
+    background-size: cover;
+    display: inline-block;
+  }
+  .autocomplete-options {
+    margin: 0;
+    padding: 0.5rem 0;
+    list-style: none;
+    position: absolute;
+    max-height: 10rem;
+    overflow-y: auto;
+    left: 0;
+    right: 0;
+    top: 110%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.2rem;
+    li {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      width: 100%;
+      align-items: stretch;
+      &:hover,
+      &:focus {
+        background-color: #eee;
+      }
+      span:last-child {
+        display: inline-block;
+        padding: 0.75rem 1rem;
+      }
+    }
+  }
 }
 </style>
