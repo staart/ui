@@ -62,10 +62,7 @@ export const mutations: MutationTree<RootState> = {
     const currentEmails = state.emails;
     currentEmails[slug] = currentEmails[slug] || emptyPagination;
     if (start) {
-      currentEmails[slug].data = [
-        ...currentEmails[slug].data,
-        ...emails.data
-      ];
+      currentEmails[slug].data = [...currentEmails[slug].data, ...emails.data];
     } else {
       currentEmails[slug].data = emails.data;
     }
@@ -90,9 +87,7 @@ export const mutations: MutationTree<RootState> = {
 
 export const actions: ActionTree<RootState, RootState> = {
   async getUser({ commit }, context) {
-    const user: User = (await this.$axios.get(
-      `/users/${context}`
-    )).data;
+    const user: User = (await this.$axios.get(`/users/${context}`)).data;
     commit("setUser", user);
     return user;
   },
@@ -110,7 +105,12 @@ export const actions: ActionTree<RootState, RootState> = {
     const accessTokens: any = (await this.$axios.get(
       `/users/${slug}/access-tokens?start=${start}`
     )).data;
-    commit("setAccessTokens", { slug, accessTokens, start, next: accessTokens.next });
+    commit("setAccessTokens", {
+      slug,
+      accessTokens,
+      start,
+      next: accessTokens.next
+    });
     return accessTokens;
   },
   async getAccessToken({ commit }, { slug, id }) {
@@ -146,7 +146,12 @@ export const actions: ActionTree<RootState, RootState> = {
     const memberships: any = (await this.$axios.get(
       `/users/${slug}/memberships?start=${start}`
     )).data;
-    commit("setMemberships", { slug, memberships, start, next: memberships.next });
+    commit("setMemberships", {
+      slug,
+      memberships,
+      start,
+      next: memberships.next
+    });
     return memberships;
   },
   async getMembership({ commit }, { slug, id }) {
@@ -157,9 +162,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return membership;
   },
   async deleteMembership({ dispatch }, context) {
-    await this.$axios.delete(
-      `/${context.slug}/memberships/${context.id}`
-    );
+    await this.$axios.delete(`/${context.slug}/memberships/${context.id}`);
     return dispatch("getMemberships", { slug: context.slug });
   },
   async getEmails({ commit }, { slug, start = 0 }) {
@@ -170,9 +173,8 @@ export const actions: ActionTree<RootState, RootState> = {
     return emails;
   },
   async getEmail({ commit }, { slug, id }) {
-    const email: any = (await this.$axios.get(
-      `/users/${slug}/emails/${id}`
-    )).data;
+    const email: any = (await this.$axios.get(`/users/${slug}/emails/${id}`))
+      .data;
     commit("setEmail", { slug, email, id });
     return email;
   },
@@ -183,15 +185,14 @@ export const actions: ActionTree<RootState, RootState> = {
     return dispatch("getEmails", { slug: context.slug });
   },
   async deleteEmail({ dispatch }, context) {
-    await this.$axios.delete(
-      `/users/${context.slug}/emails/${context.id}`
-    );
+    await this.$axios.delete(`/users/${context.slug}/emails/${context.id}`);
     return dispatch("getEmails", { slug: context.slug });
   },
-  async resendEmail({}, context) {
-    return await this.$axios.post(
+  async resendEmail(action, context) {
+    const result = await this.$axios.post(
       `/users/${context.slug}/emails/${context.id}/resend`
     );
+    return result;
   },
   async createOrganization({ dispatch }, context) {
     const slug = context.slug;
@@ -211,5 +212,5 @@ export const getters: GetterTree<RootState, RootState> = {
     state.membership[slug] && state.membership[slug][membership],
   emails: state => (slug: string) => state.emails[slug],
   email: state => (slug: string, email: string) =>
-    state.email[slug] && state.email[slug][email],
+    state.email[slug] && state.email[slug][email]
 };

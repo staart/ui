@@ -201,12 +201,14 @@ export default {
     index: {
       hero: {
         title: "Staart is a SaaS starter for your next big idea.",
-        intro: "Written in TypeScript and Vue, Staart gives you a 6-month headstart in building your SaaS product. Free and open-source."
+        intro:
+          "Written in TypeScript and Vue, Staart gives you a 6-month headstart in building your SaaS product. Free and open-source."
       },
       features: {
         1: {
           title: "SaaS Billing",
-          intro: "Subscriptions, credit cards, invoices, and more, powered by Stripe"
+          intro:
+            "Subscriptions, credit cards, invoices, and more, powered by Stripe"
         },
         2: {
           title: "Teams",
@@ -214,11 +216,13 @@ export default {
         },
         3: {
           title: "Platform",
-          intro: "Authentication, scoped API keys, and more ways to use your SaaS"
+          intro:
+            "Authentication, scoped API keys, and more ways to use your SaaS"
         },
         4: {
           title: "Full-stack",
-          intro: "Node.js backend written in TypeScript with a beautiful Vue PWA."
+          intro:
+            "Node.js backend written in TypeScript with a beautiful Vue PWA."
         }
       },
       lists: {
@@ -228,7 +232,8 @@ export default {
           link: "Staart on GitHub →",
           1: {
             title: "Controller-driven",
-            intro: "Auto route generation with redirects and static file support."
+            intro:
+              "Auto route generation with redirects and static file support."
           },
           2: {
             title: "OAuth2 client",
@@ -248,12 +253,13 @@ export default {
           },
           6: {
             title: "Secure endpoints",
-            intro: "Rate limiting, brute force prevention, and IP/CIDR whitelisting."
+            intro:
+              "Rate limiting, brute force prevention, and IP/CIDR whitelisting."
           },
           7: {
             title: "Modern toolkit",
             intro: "Powerful middleware, error handling, async functions."
-          },
+          }
         },
         2: {
           title: "Vue.js/Nuxt.js Frontend",
@@ -284,8 +290,9 @@ export default {
           },
           7: {
             title: "Deploy anywhere",
-            intro: "Works perfectly on Netlify, Firebase, Surge, and GitHub pages."
-          },
+            intro:
+              "Works perfectly on Netlify, Firebase, Surge, and GitHub pages."
+          }
         }
       },
       logos: {
@@ -296,16 +303,19 @@ export default {
         },
         2: {
           title: "Ara Assistant",
-          intro: "AI-powered assistant for businesses and professionals from O15Y"
+          intro:
+            "AI-powered assistant for businesses and professionals from O15Y"
         },
         3: {
           title: "Dai11y",
-          intro: "Automated daily accessibility audits to find issues in your sites"
+          intro:
+            "Automated daily accessibility audits to find issues in your sites"
         },
         4: {
           title: "Glimage",
-          intro: "Global CDN for delivering super-fast, optimized images to your sites"
-        },
+          intro:
+            "Global CDN for delivering super-fast, optimized images to your sites"
+        }
       }
     }
   }

@@ -1,10 +1,10 @@
 import Vue from "vue";
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
-import en from "@/locales/en";
 import { AxiosRequestConfig } from "axios";
-import { removeNulls, removeReadOnlyValues } from "~/helpers/crud";
 import decode from "jwt-decode";
+import en from "@/locales/en";
+import { removeNulls, removeReadOnlyValues } from "~/helpers/crud";
 import { RootState } from "~/types/auth";
 const messages = en.messages;
 const errors = en.errors;
@@ -21,30 +21,42 @@ export default function({
   redirect: any;
   store: {
     state: {
-      auth: RootState
-    },
-    dispatch: any
+      auth: RootState;
+    };
+    dispatch: any;
   };
 }) {
-  $axios.interceptors.request.use((config: AxiosRequestConfig) => new Promise((resolve, reject) => {
-    config.data = removeNulls(removeReadOnlyValues(config.data));
-    try {
-      const token = config.headers.common["Authorization"].replace("Bearer ", "");
-      if (decode(token).exp * 1000 < new Date().getTime()) {
-        $axios.setHeader("Authorization", undefined);
-        store.dispatch("auth/refresh")
-          .then((newToken: string) => {
-            config.headers = { ...config.headers, Authorization: `Bearer ${newToken}` }
-          })
-          .catch((error: any) => {})
-          .then(() => resolve(config));
-      } else {
-        resolve(config);
-      }
-    } catch (error) {
-      resolve(config);
-    }
-  }));
+  $axios.interceptors.request.use(
+    (config: AxiosRequestConfig) =>
+      new Promise((resolve, reject) => {
+        config.data = removeNulls(removeReadOnlyValues(config.data));
+        try {
+          const token = config.headers.common.Authorization.replace(
+            "Bearer ",
+            ""
+          );
+          if (decode(token).exp * 1000 < new Date().getTime()) {
+            $axios.setHeader("Authorization", undefined);
+            store
+              .dispatch("auth/refresh")
+              .then((newToken: string) => {
+                config.headers = {
+                  ...config.headers,
+                  Authorization: `Bearer ${newToken}`
+                };
+              })
+              .catch((error: any) => {
+                throw new Error(error);
+              })
+              .then(() => resolve(config));
+          } else {
+            resolve(config);
+          }
+        } catch (error) {
+          resolve(config);
+        }
+      })
+  );
   $axios.onResponse(response => {
     if (response.data.success === true) {
       if (response.data.message) {
@@ -65,11 +77,9 @@ export default function({
   $axios.onError(error => {
     if (!error.response) return;
     if (
-      [
-        "revoked-token",
-        "invalid-token",
-        "expired-token"
-      ].includes((error.response.data.code || error.response.data.error))
+      ["revoked-token", "invalid-token", "expired-token"].includes(
+        error.response.data.code || error.response.data.error
+      )
     ) {
       return redirect("/auth/refresh");
     }

@@ -437,7 +437,8 @@ export const actions: ActionTree<RootState, RootState> = {
       data
     );
     return dispatch("getDomain", context);
-  },async getWebhooks({ commit }, { team, start = 0 }) {
+  },
+  async getWebhooks({ commit }, { team, start = 0 }) {
     const webhooks: any = (await this.$axios.get(
       `/organizations/${team}/webhooks?start=${start}`
     )).data;

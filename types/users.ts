@@ -101,7 +101,7 @@ export const emptyUser: User = {
   profilePicture: "",
   role: 1,
   gender: "x"
-}
+};
 export const emptyPagination = {
   data: [],
   hasMore: false
