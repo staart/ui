@@ -99,6 +99,10 @@ export default {
       help: "Update information about your team, billing, etc."
     }
   },
+  webhooks: {
+    "*": "All events (*)",
+    deleteOrg: "Delete organization"
+  },
   userScopes: {
     "user:read": {
       text: "Read basic user profile"

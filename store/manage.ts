@@ -505,5 +505,8 @@ export const getters: GetterTree<RootState, RootState> = {
   domains: state => (team: string) => state.domains[team],
   domain: state => (team: string, domain: string) =>
     state.domain[team] && state.domain[team][domain],
+  webhooks: state => (team: string) => state.webhooks[team],
+  webhook: state => (team: string, webhook: string) =>
+    state.webhook[team] && state.webhook[team][webhook],
   organization: state => (team: string) => state.organizations[team]
 };
