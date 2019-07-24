@@ -6,6 +6,10 @@
           <font-awesome-icon class="nav-icon" icon="user" fixed-width />
           <span>Account</span>
         </nuxt-link>
+        <nuxt-link class="item" :to="`/users/${$route.params.slug}/emails`">
+          <font-awesome-icon class="nav-icon" icon="envelope" fixed-width />
+          <span>Emails</span>
+        </nuxt-link>
         <nuxt-link
           class="item"
           :to="`/users/${$route.params.slug}/memberships`"

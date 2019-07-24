@@ -29,12 +29,19 @@ export interface Membership extends IdRow {
   organization: Organization;
   role: "1" | "2" | "3";
 }
+export interface Email extends IdRow {
+  email: string;
+  isVerified: boolean;
+}
 
 export interface AccessTokens extends Paginated {
   data: AccessToken[];
 }
 export interface Memberships extends Paginated {
   data: Membership[];
+}
+export interface Emails extends Paginated {
+  data: Email[];
 }
 
 export interface UsersKV {
@@ -45,6 +52,9 @@ export interface AccessTokensKV {
 }
 export interface MembershipsKV {
   [index: string]: Memberships;
+}
+export interface EmailsKV {
+  [index: string]: Emails;
 }
 
 export interface SingleAccessTokenKV {
@@ -57,6 +67,11 @@ export interface SingleMembershipKV {
     [index: string]: Membership;
   };
 }
+export interface SingleEmailKV {
+  [index: string]: {
+    [index: string]: Email;
+  };
+}
 
 export interface RootState {
   users: UsersKV;
@@ -64,6 +79,8 @@ export interface RootState {
   accessToken: SingleAccessTokenKV;
   memberships: MembershipsKV;
   membership: SingleMembershipKV;
+  emails: EmailsKV;
+  email: SingleEmailKV;
 }
 
 export const emptyUser: User = {
