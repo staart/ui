@@ -38,7 +38,7 @@
               ref="dropdown-help"
               class="dropdown"
             >
-              <nuxt-link class="item" to="/settings">Feedback</nuxt-link>
+              <button class="item" @click="feedback">Feedback</button>
               <nuxt-link class="item" to="/settings/account"
                 >Help Center</nuxt-link
               >
@@ -163,6 +163,7 @@ import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Trap from "vue-focus-lock";
+import Feeedback from "feeedback";
 import {
   faBell,
   faQuestionCircle,
@@ -171,6 +172,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Notifications from "@/components/Notifications.vue";
 library.add(faBell, faQuestionCircle, faBars, faTimes);
+const feedback = new Feeedback({
+  onSubmit: result =>
+    new Promise((resolve, reject) => {
+      if (window.agastya && typeof window.agastya.secureTrack === "function")
+        window.agastya.secureTrack({ feedback: result });
+      resolve();
+    })
+});
 
 @Component({
   computed: mapGetters({
@@ -238,6 +247,9 @@ export default class Card extends Vue {
           }
         });
       });
+  }
+  private feedback() {
+    feedback.open();
   }
 }
 </script>
