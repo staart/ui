@@ -62,6 +62,7 @@ export default class Autocomplete extends Vue {
   optionsVisible = false;
   @Prop({ default: {}, required: true }) options;
   @Prop() label;
+  @Prop() value;
   @Prop() placeholder;
   items = {};
   filteredItems = {};
@@ -102,6 +103,8 @@ export default class Autocomplete extends Vue {
       });
     }
     this.items = items;
+    this.val = this.value;
+    if (this.value) this.search = this.items[this.value].value;
   }
 
   filter() {
@@ -174,6 +177,7 @@ export default class Autocomplete extends Vue {
     padding: 0.5rem 0;
     list-style: none;
     position: absolute;
+    z-index: 10;
     max-height: 10rem;
     overflow-y: auto;
     left: 0;
@@ -182,6 +186,7 @@ export default class Autocomplete extends Vue {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 0.2rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
     li {
       margin: 0;
       padding: 0;

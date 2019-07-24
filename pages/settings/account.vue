@@ -93,7 +93,10 @@ const countries = {};
 const allCountries = getAllCountries();
 for (const country in allCountries) {
   if (allCountries.hasOwnProperty(country)) {
-    countries[country.toLowerCase()] = allCountries[country].name;
+    const cc = country.toLowerCase();
+    countries[cc] = {
+      value: allCountries[country].name
+    };
   }
 }
 

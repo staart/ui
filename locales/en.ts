@@ -166,6 +166,12 @@ export default {
     11: "November (11)",
     12: "December (12)"
   },
+  genders: {
+    m: "Male (he/him)",
+    f: "Female (she/her)",
+    n: "Non-binary (them/their)",
+    x: "Prefer not to say (them/their)"
+  },
   buttons: {
     getStarted: "Get started for free →",
     goToDashboard: "Go to your dashboard →"

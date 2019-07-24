@@ -139,6 +139,12 @@ export const actions: ActionTree<RootState, RootState> = {
     );
     return dispatch("getMemberships", { slug: context.slug });
   },
+  async createOrganization({ dispatch }, context) {
+    const slug = context.slug;
+    delete context.slug;
+    await this.$axios.put("/organizations", context);
+    return dispatch("getMemberships", { slug });
+  }
 };
 
 export const getters: GetterTree<RootState, RootState> = {

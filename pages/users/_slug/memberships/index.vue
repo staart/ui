@@ -22,7 +22,7 @@
         "
         heading="No memberships yet"
         img="undraw_software_engineer_lvl5.svg"
-        text="Create an membership below"
+        text="Create a team below"
       />
       <div
         v-else-if="memberships && memberships.data && memberships.data.length"
@@ -31,6 +31,7 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Role</th>
               <th>Joined</th>
               <th></th>
             </tr>
@@ -223,11 +224,11 @@ export default class ManageSettings extends Vue {
   }
 
   private createNewTeam() {
-    this.loading = "Creating your membership";
+    this.loading = "Creating your team";
     this.$store
-      .dispatch("users/createNewTeam", {
-        slug: this.$route.params.slug,
-        scopes: this.newName ? this.newName : undefined
+      .dispatch("users/createOrganization", {
+        name: this.newName,
+        slug: this.$route.params.slug
       })
       .then(memberships => {
         this.memberships = { ...memberships };

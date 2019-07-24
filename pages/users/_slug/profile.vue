@@ -32,7 +32,34 @@
         label="Username"
         placeholder="Enter a unique username"
         help="Changing your username can have unintended side effects"
+        required
         @input="val => (user.username = val)"
+      />
+      <Select
+        :value="user.gender"
+        label="Gender"
+        placeholder="Select the gender you most identify with"
+        :options="genders"
+        required
+        @input="val => (user.gender = val)"
+      />
+      <Select
+        :value="user.countryCode"
+        label="Country"
+        placeholder="Select your country"
+        :options="countries"
+        required
+        @input="val => (user.countryCode = val)"
+      />
+      <Checkbox
+        :value="user.prefersReducedMotion"
+        label="I prefer reduced motion (minimize animations and movement)"
+        @input="val => (user.prefersReducedMotion = val)"
+      />
+      <Checkbox
+        :value="user.prefersColorSchemeDark"
+        label="I prefer a dark color scheme"
+        @input="val => (user.prefersColorSchemeDark = val)"
       />
       <button class="button">
         Update profile
@@ -50,16 +77,28 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
+import Autocomplete from "@/components/form/Autocomplete.vue";
 import Select from "@/components/form/Select.vue";
 import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { UsersKV, User, emptyUser } from "@/types/users";
+import en from "@/locales/en";
+const genders = en.genders;
 library.add(faSync);
+const countries = {};
+const allCountries = getAllCountries();
+for (const country in allCountries) {
+  if (allCountries.hasOwnProperty(country)) {
+    const cc = country.toLowerCase();
+    countries[cc] = allCountries[country].name;
+  }
+}
 
 @Component({
   components: {
     Loading,
     Input,
+    Autocomplete,
     FontAwesomeIcon,
     Select,
     ImageInput,
@@ -70,6 +109,8 @@ library.add(faSync);
 export default class ManageSettings extends Vue {
   loading = "";
   user: User = emptyUser;
+  genders = genders;
+  countries = countries;
 
   private created() {
     this.user = {
