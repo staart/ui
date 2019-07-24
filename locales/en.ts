@@ -28,7 +28,11 @@ export default {
       "You don't have the permission to perform this action",
     "user-is-member-already": "This user is already a member",
     "invalid-2fa-token": "This 2FA verification code is incorrect",
-    "oauth-no-email": "We couldn't find an account with that email"
+    "oauth-no-email": "We couldn't find an account with that email",
+    "domain-missing-file": "We couldn't find the verification file",
+    "domain-missing-dns": "We didn't find the DNS record",
+    "domain-already-verified": "This domain is already verified",
+    "cannot-invite-domain": "You cannot invite a member from this domain"
   },
   securityEvents: {
     "user.created": "Created account",
@@ -76,11 +80,7 @@ export default {
     "billing-source-created": "Your payment method has been created",
     "billing-source-updated": "Your payment method has been updated",
     "billing-source-deleted": "Your payment method has been deleted",
-    "domain-unable-to-verify": "We weren't able to verify your domain",
-    "domain-missing-file": "We couldn't find the verification file",
-    "domain-missing-dns": "We didn't find the DNS record",
-    "domain-already-verified": "This domain is already verified",
-    "cannot-invite-domain": "You cannot invite a member from this domain"
+    "domain-unable-to-verify": "We weren't able to verify your domain"
   },
   membershipRoles: {
     1: "Owner",

@@ -48,10 +48,27 @@
           <font-awesome-icon class="nav-icon" icon="database" fixed-width />
           <span>Data &amp; security</span>
         </nuxt-link>
-        <nuxt-link class="item" :to="`/manage/${$route.params.team}/api-keys`">
+        <nuxt-link
+          class="item item--type-parent"
+          :to="`/manage/${$route.params.team}/developer/api-keys`"
+        >
           <font-awesome-icon class="nav-icon" icon="code" fixed-width />
           <span>Developer</span>
         </nuxt-link>
+        <nav v-if="$route.path.includes('/developer/')" class="sub-nav">
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/developer/api-keys`"
+          >
+            <span>API keys</span>
+          </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/developer/webhooks`"
+          >
+            <span>Webhooks</span>
+          </nuxt-link>
+        </nav>
       </nav>
     </aside>
     <div class="card">

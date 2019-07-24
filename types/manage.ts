@@ -15,7 +15,6 @@ export interface Membership extends IdRow {
 export interface ApiKey extends IdRow {
   jwtApiKey: string;
   scopes: string;
-  organizationId: number;
   ipRestrictions?: string;
   referrerRestrictions?: string;
 }
@@ -23,6 +22,13 @@ export interface Domain extends Row {
   domain: string;
   verificationCode: string;
   isVerified: boolean;
+}
+export interface Webhook extends Row {
+  url: string;
+  event: string;
+  secret: string;
+  contentType: string;
+  isActive: boolean;
 }
 
 export interface Members extends Paginated {
@@ -42,6 +48,9 @@ export interface ApiKeys extends Paginated {
 }
 export interface Domains extends Paginated {
   data: Domain[];
+}
+export interface Webhooks extends Paginated {
+  data: Webhook[];
 }
 export interface Address {
   state: string;
@@ -82,6 +91,10 @@ export interface ApiKeysKV {
 export interface DomainsKV {
   [index: string]: Domains;
 }
+export interface WebhooksKV {
+  [index: string]: Webhooks;
+}
+
 export interface SingleSubscriptionKV {
   [index: string]: {
     [index: string]: subscriptions.ISubscription;
@@ -107,6 +120,11 @@ export interface SingleDomainKV {
     [index: string]: Domain;
   };
 }
+export interface SingleWebhookKV {
+  [index: string]: {
+    [index: string]: Webhook;
+  };
+}
 
 export interface RootState {
   membership?: Membership;
@@ -123,6 +141,8 @@ export interface RootState {
   apiKey: SingleApiKeyKV;
   domains: DomainsKV;
   domain: SingleDomainKV;
+  webhooks: WebhooksKV;
+  webhook: SingleWebhookKV;
   pricingPlans?: any;
   recentEvents?: any;
   isDownloading: boolean;

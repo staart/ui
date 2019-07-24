@@ -163,7 +163,7 @@ import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Trap from "vue-focus-lock";
-import Feeedback from "feeedback";
+// import Feeedback from "feeedback";
 import {
   faBell,
   faQuestionCircle,
@@ -172,14 +172,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Notifications from "@/components/Notifications.vue";
 library.add(faBell, faQuestionCircle, faBars, faTimes);
-const feedback = new Feeedback({
-  onSubmit: result =>
-    new Promise((resolve, reject) => {
-      if (window.agastya && typeof window.agastya.secureTrack === "function")
-        window.agastya.secureTrack({ feedback: result });
-      resolve();
-    })
-});
+// const feedback = new Feeedback({
+//   onSubmit: result =>
+//     new Promise((resolve, reject) => {
+//       if (window.agastya && typeof window.agastya.secureTrack === "function")
+//         window.agastya.secureTrack({ feedback: result });
+//       resolve();
+//     })
+// });
 
 @Component({
   computed: mapGetters({
@@ -249,7 +249,7 @@ export default class Card extends Vue {
       });
   }
   private feedback() {
-    feedback.open();
+    // feedback.open();
   }
 }
 </script>

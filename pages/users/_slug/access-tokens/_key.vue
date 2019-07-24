@@ -28,7 +28,7 @@
       <div v-if="accessToken">
         <h2>Use access token</h2>
         <Input
-          label="access token"
+          label="Access token"
           :value="accessToken.jwtAccessToken"
           disabled
         />

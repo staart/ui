@@ -18,7 +18,9 @@ export const state = (): RootState => ({
   apiKeys: {},
   apiKey: {},
   domains: {},
-  domain: {}
+  domain: {},
+  webhooks: {},
+  webhook: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -149,6 +151,26 @@ export const mutations: MutationTree<RootState> = {
     currentDomains[team][id] = { ...domain };
     Vue.set(state, "domain", currentDomains);
   },
+  setWebhooks(state: RootState, { team, webhooks, start, next }): void {
+    const currentWebhooks = state.webhooks;
+    currentWebhooks[team] = currentWebhooks[team] || emptyPagination;
+    if (start) {
+      currentWebhooks[team].data = [
+        ...currentWebhooks[team].data,
+        ...webhooks.data
+      ];
+    } else {
+      currentWebhooks[team].data = webhooks.data;
+    }
+    currentWebhooks[team].next = next;
+    Vue.set(state, "webhooks", currentWebhooks);
+  },
+  setWebhook(state: RootState, { team, webhook, id }): void {
+    const currentWebhooks = state.webhook;
+    currentWebhooks[team] = currentWebhooks[team] || {};
+    currentWebhooks[team][id] = { ...webhook };
+    Vue.set(state, "webhook", currentWebhooks);
+  },
   setPricingPlans(state: RootState, pricingPlans: any): void {
     Vue.set(state, "pricingPlans", pricingPlans);
   },
@@ -172,6 +194,8 @@ export const mutations: MutationTree<RootState> = {
     delete state.apiKey;
     delete state.domains;
     delete state.domain;
+    delete state.webhooks;
+    delete state.webhook;
   }
 };
 
@@ -413,6 +437,41 @@ export const actions: ActionTree<RootState, RootState> = {
       data
     );
     return dispatch("getDomain", context);
+  },async getWebhooks({ commit }, { team, start = 0 }) {
+    const webhooks: any = (await this.$axios.get(
+      `/organizations/${team}/webhooks?start=${start}`
+    )).data;
+    commit("setWebhooks", { team, webhooks, start, next: webhooks.next });
+    return webhooks;
+  },
+  async getWebhook({ commit }, { team, id }) {
+    const webhook: any = (await this.$axios.get(
+      `/organizations/${team}/webhooks/${id}`
+    )).data;
+    commit("setWebhook", { team, webhook, id });
+    return webhook;
+  },
+  async createWebhook({ dispatch }, context) {
+    const data = { ...context };
+    delete data.team;
+    await this.$axios.put(`/organizations/${context.team}/webhooks`, data);
+    return dispatch("getWebhooks", { team: context.team });
+  },
+  async deleteWebhook({ dispatch }, context) {
+    await this.$axios.delete(
+      `/organizations/${context.team}/webhooks/${context.id}`
+    );
+    return dispatch("getWebhooks", { team: context.team });
+  },
+  async updateWebhook({ dispatch }, context) {
+    const data = { ...context };
+    delete data.team;
+    delete data.id;
+    await this.$axios.patch(
+      `/organizations/${context.team}/webhooks/${context.id}`,
+      data
+    );
+    return dispatch("getWebhook", context);
   },
   async getEvents({ commit, rootGetters }) {
     const org = rootGetters["auth/activeOrganization"];
