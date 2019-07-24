@@ -100,8 +100,25 @@ export default {
     }
   },
   webhooks: {
-    "*": "All events (*)",
-    deleteOrg: "Delete organization"
+    "*": "All events",
+    "update-organization": "Update team settings",
+    "delete-organization": "Delete team",
+    "update-organization-billing": "Update billing details",
+    "update-organization-subscription": "Update subscription",
+    "create-organization-subscription": "Create a subscription",
+    "delete-organization-source": "Delete a payment method",
+    "update-organization-source": "Update a payment method",
+    "create-organization-source": "Create a payment method",
+    "update-api-key": "Update an API key",
+    "create-api-key": "Create an API key",
+    "delete-api-key": "Delete an API key",
+    "update-domain": "Update a domain",
+    "create-domain": "Create a domain",
+    "delete-domain": "Delete a domain",
+    "verify-domain": "Verify a domain",
+    "update-webhook": "Update a webhook",
+    "create-webhook": "Create a webhook",
+    "delete-webhook": "Delete a webhook"
   },
   userScopes: {
     "user:read": {
