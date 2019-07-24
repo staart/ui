@@ -131,6 +131,41 @@ aside nav {
   position: sticky;
   top: 1rem;
 }
+@media (max-width: 900px) {
+  .container {
+    display: block;
+    padding: 0;
+    .card {
+      border-radius: 0;
+    }
+  }
+  aside {
+    margin-top: 1rem;
+    width: 100%;
+    overflow-x: auto;
+  }
+  aside nav {
+    position: static;
+    display: flex;
+    .item,
+    .sub-item {
+      padding: 1rem;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .sub-nav {
+      background-color: #fff;
+      border-top-left-radius: 0.2rem;
+      border-top-right-radius: 0.2rem;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    svg {
+      display: none;
+    }
+  }
+}
 .card {
   flex-grow: 1;
   padding: 2rem;

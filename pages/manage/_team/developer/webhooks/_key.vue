@@ -59,6 +59,15 @@
             @input="val => (webhook.isActive = val)"
           />
           <button class="button">Update webhook</button>
+          <button
+            class="button button--color-danger"
+            type="button"
+            style="margin-left: 0.5rem"
+            @click="() => (showDelete = true)"
+          >
+            <font-awesome-icon class="icon icon--mr-1" icon="trash" />
+            <span>Delete webhook</span>
+          </button>
         </form>
       </div>
     </div>
@@ -188,7 +197,9 @@ export default class ManageSettings extends Vue {
       })
       .then(webhooks => {
         this.webhooks = { ...webhooks };
-        this.$router.push(`/manage/${this.$route.params.team}/webhooks`);
+        this.$router.push(
+          `/manage/${this.$route.params.team}/developer/webhooks`
+        );
       })
       .catch(error => {
         throw new Error(error);

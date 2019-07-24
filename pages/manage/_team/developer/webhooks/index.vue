@@ -55,7 +55,7 @@
               <td v-if="webhook.lastFiredAt">
                 <TimeAgo :date="webhook.lastFiredAt" />
               </td>
-              <td>Never</td>
+              <td v-else>Never</td>
               <td class="text text--align-right">
                 <router-link
                   :to="
