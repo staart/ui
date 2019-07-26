@@ -4,12 +4,29 @@
       <nav>
         <nuxt-link class="item" :to="`/users/${$route.params.slug}/profile`">
           <font-awesome-icon class="nav-icon" icon="user" fixed-width />
-          <span>Account</span>
+          <span>Profile</span>
         </nuxt-link>
-        <nuxt-link class="item" :to="`/users/${$route.params.slug}/emails`">
-          <font-awesome-icon class="nav-icon" icon="envelope" fixed-width />
-          <span>Emails</span>
+        <nuxt-link
+          class="item item--type-parent"
+          :to="`/users/${$route.params.slug}/login/emails`"
+        >
+          <font-awesome-icon class="nav-icon" icon="key" fixed-width />
+          <span>Login</span>
         </nuxt-link>
+        <nav v-if="$route.path.includes('/login/')" class="sub-nav">
+          <nuxt-link
+            class="sub-item"
+            :to="`/users/${$route.params.slug}/login/emails`"
+          >
+            <span>Emails</span>
+          </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/users/${$route.params.slug}/login/passwords`"
+          >
+            <span>Passwords &amp; 2FA</span>
+          </nuxt-link>
+        </nav>
         <nuxt-link
           class="item"
           :to="`/users/${$route.params.slug}/memberships`"
@@ -23,6 +40,10 @@
         >
           <font-awesome-icon class="nav-icon" icon="code" fixed-width />
           <span>Access tokens</span>
+        </nuxt-link>
+        <nuxt-link class="item" :to="`/users/${$route.params.slug}/data`">
+          <font-awesome-icon class="nav-icon" icon="database" fixed-width />
+          <span>Data &amp; privacy</span>
         </nuxt-link>
       </nav>
     </aside>
@@ -38,14 +59,13 @@ import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faEnvelope,
   faKey,
   faDatabase,
   faBuilding,
   faUser,
   faCode
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faEnvelope, faKey, faDatabase, faBuilding, faUser, faCode);
+library.add(faKey, faDatabase, faBuilding, faUser, faCode);
 
 @Component({
   components: {
@@ -62,7 +82,7 @@ export default class Settings extends Vue {}
 aside {
   width: 300px;
 }
-aside nav {
+aside > nav {
   position: sticky;
   top: 1rem;
 }

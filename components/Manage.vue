@@ -127,7 +127,7 @@ export default class Manage extends Vue {
 aside {
   width: 300px;
 }
-aside nav {
+aside > nav {
   position: sticky;
   top: 1rem;
 }
@@ -144,7 +144,7 @@ aside nav {
     width: 100%;
     overflow-x: auto;
   }
-  aside nav {
+  aside > nav {
     position: static;
     display: flex;
     .item,

@@ -1,6 +1,7 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import Vue from "vue";
 import { RootState, User, emptyPagination } from "~/types/users";
+import download from "downloadjs";
 
 export const state = (): RootState => ({
   users: {},
@@ -199,6 +200,49 @@ export const actions: ActionTree<RootState, RootState> = {
     delete context.slug;
     await this.$axios.put("/organizations", context);
     return dispatch("getMemberships", { slug });
+  },
+  async deleteAccount(action, context) {
+    const result = await this.$axios.delete(
+      `/users/${context.slug}`
+    );
+    return result;
+  },
+  async getExport(action, context) {
+    const data = (await this.$axios.get(`/users/${context.slug}/data`)).data;
+    download(
+      JSON.stringify(data, null, 2),
+      `export-${context.slug}-${new Date().getTime()}.json`,
+      "application/json"
+    );
+  },
+  async updatePassword({ dispatch }, context) {
+    const slug = context.slug;
+    delete context.slug;
+    await this.$axios.put(`/users/${slug}/password`, context);
+    return dispatch("getUser", slug);
+  },
+  async enable2FA(action, context) {
+    const slug = context.slug;
+    delete context.slug;
+    return (await this.$axios.get(`/users/${slug}/2fa/enable`)).data;
+  },
+  async disable2FA({ dispatch }, context) {
+    const slug = context.slug;
+    delete context.slug;
+    await this.$axios.delete(`/users/${slug}/2fa`);
+    return dispatch("getUser", slug);
+  },
+  async verify2FA({ dispatch }, context) {
+    const slug = context.slug;
+    delete context.slug;
+    await this.$axios.post(`/users/${slug}/2fa/verify`, context);
+    return await dispatch("getBackupCodes");
+  },
+  async regenerateCodes({ dispatch }, context) {
+    const slug = context.slug;
+    delete context.slug;
+    await this.$axios.get(`/users/${slug}/backup-codes/regenerate`);
+    return dispatch("getBackupCodes");
   }
 };
 

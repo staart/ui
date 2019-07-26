@@ -59,7 +59,7 @@ export default class Settings extends Vue {}
 aside {
   width: 300px;
 }
-aside nav {
+aside > nav {
   position: sticky;
   top: 1rem;
 }

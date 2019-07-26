@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="row">
-      <h1>Settings</h1>
+      <h1>Account settings</h1>
       <div class="text text--align-right">
         <button
           aria-label="Refresh"
