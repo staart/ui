@@ -13,7 +13,10 @@
           >Dashboard</nuxt-link
         >
         <nuxt-link v-else class="item" to="/dashboard">Dashboard</nuxt-link>
-        <nuxt-link class="item" :to="`/manage/${activeOrganization}/settings`"
+        <nuxt-link
+          v-if="activeOrganization && activeOrganization !== 'undefined'"
+          class="item"
+          :to="`/manage/${activeOrganization}/settings`"
           >Settings</nuxt-link
         >
         <span>
@@ -77,7 +80,6 @@
         <span>
           <button
             class="item item--type-user"
-            to="/settings/account"
             aria-controls="account"
             :aria-expanded="(visible === 'account').toString()"
           >
@@ -91,10 +93,14 @@
               ref="dropdown-account"
               class="dropdown"
             >
-              <nuxt-link class="item" to="/settings/account"
+              <nuxt-link
+                class="item"
+                :to="`/users/${user.username || user.id}/profile`"
                 >Settings</nuxt-link
               >
-              <nuxt-link class="item" to="/settings/organizations"
+              <nuxt-link
+                class="item"
+                :to="`/users/${user.username || user.id}/memberships`"
                 >Your teams</nuxt-link
               >
               <button class="item" @click="logout">Logout</button>

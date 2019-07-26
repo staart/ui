@@ -474,3 +474,92 @@ input[type="radio"]:checked + .fake-radio {
     background-color: rgba($color-primary, 0.025);
   }
 }
+
+.container--type-settings {
+  display: flex;
+  aside {
+    width: 300px;
+  }
+  aside > nav {
+    position: sticky;
+    top: 1rem;
+  }
+  @media (max-width: 900px) {
+    .container {
+      display: block;
+      padding: 0;
+      .card {
+        border-radius: 0;
+      }
+    }
+    aside {
+      margin-top: 1rem;
+      width: 100%;
+      overflow-x: auto;
+    }
+    aside > nav {
+      position: static;
+      display: flex;
+      .item,
+      .sub-item {
+        padding: 1rem;
+        margin: 0;
+        white-space: nowrap;
+      }
+      .sub-nav {
+        background-color: #fff;
+        border-top-left-radius: 0.2rem;
+        border-top-right-radius: 0.2rem;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      svg {
+        display: none;
+      }
+    }
+  }
+  .card {
+    flex-grow: 1;
+    padding: 2rem;
+  }
+  .nav-heading {
+    font-weight: bold;
+    margin: 1rem 0;
+    font-size: 110%;
+  }
+  .nav-icon {
+    margin-right: 0.5rem;
+    opacity: 0.3;
+    transition: 0.3s;
+  }
+  .item {
+    transition: 0.3s;
+    display: block;
+    text-decoration: none;
+    padding: 0.7rem 0;
+    color: inherit;
+    &:hover {
+      .nav-icon {
+        opacity: 0.75;
+      }
+    }
+    &.nuxt-link-active:not(.item--type-parent) {
+      font-weight: bold;
+    }
+  }
+  .sub-nav {
+    margin-top: -0.5rem;
+    border-left: 0.1rem solid rgba(0, 0, 0, 0.1);
+    padding-left: 1.4rem;
+    margin-left: 0.5rem;
+  }
+  .sub-item {
+    display: block;
+    color: inherit;
+    margin: 0.5rem 0;
+    &.nuxt-link-active {
+      font-weight: bold;
+    }
+  }
+}
