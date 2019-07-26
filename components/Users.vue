@@ -29,6 +29,12 @@
           >
             <span>Passwords &amp; 2FA</span>
           </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/users/${$route.params.slug}/login/sessions`"
+          >
+            <span>Sessions</span>
+          </nuxt-link>
         </nav>
         <nuxt-link
           class="item"

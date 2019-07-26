@@ -33,6 +33,11 @@ export interface Email extends IdRow {
   email: string;
   isVerified: boolean;
 }
+export interface Session extends IdRow {
+  jwtToken: string;
+  ipAddress: string;
+  userAgent: string;
+}
 
 export interface AccessTokens extends Paginated {
   data: AccessToken[];
@@ -42,6 +47,9 @@ export interface Memberships extends Paginated {
 }
 export interface Emails extends Paginated {
   data: Email[];
+}
+export interface Sessions extends Paginated {
+  data: Session[];
 }
 
 export interface UsersKV {
@@ -55,6 +63,9 @@ export interface MembershipsKV {
 }
 export interface EmailsKV {
   [index: string]: Emails;
+}
+export interface SessionsKV {
+  [index: string]: Sessions;
 }
 
 export interface SingleAccessTokenKV {
@@ -72,6 +83,11 @@ export interface SingleEmailKV {
     [index: string]: Email;
   };
 }
+export interface SingleSessionKV {
+  [index: string]: {
+    [index: string]: Session;
+  };
+}
 
 export interface RootState {
   users: UsersKV;
@@ -81,6 +97,8 @@ export interface RootState {
   membership: SingleMembershipKV;
   emails: EmailsKV;
   email: SingleEmailKV;
+  sessions: SessionsKV;
+  session: SingleSessionKV;
 }
 
 export const emptyUser: User = {

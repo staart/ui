@@ -10,7 +10,9 @@ export const state = (): RootState => ({
   memberships: {},
   membership: {},
   emails: {},
-  email: {}
+  email: {},
+  sessions: {},
+  session: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -76,6 +78,23 @@ export const mutations: MutationTree<RootState> = {
     currentEmails[slug][id] = { ...email };
     Vue.set(state, "email", currentEmails);
   },
+  setSessions(state: RootState, { slug, sessions, start, next }): void {
+    const currentSessions = state.sessions;
+    currentSessions[slug] = currentSessions[slug] || emptyPagination;
+    if (start) {
+      currentSessions[slug].data = [...currentSessions[slug].data, ...sessions.data];
+    } else {
+      currentSessions[slug].data = sessions.data;
+    }
+    currentSessions[slug].next = next;
+    Vue.set(state, "sessions", currentSessions);
+  },
+  setSession(state: RootState, { slug, session, id }): void {
+    const currentSessions = state.session;
+    currentSessions[slug] = currentSessions[slug] || {};
+    currentSessions[slug][id] = { ...session };
+    Vue.set(state, "session", currentSessions);
+  },
   clearAll(state: RootState): void {
     delete state.accessTokens;
     delete state.accessToken;
@@ -83,6 +102,8 @@ export const mutations: MutationTree<RootState> = {
     delete state.membership;
     delete state.emails;
     delete state.email;
+    delete state.sessions;
+    delete state.session;
   }
 };
 
@@ -249,6 +270,38 @@ export const actions: ActionTree<RootState, RootState> = {
     delete context.slug;
     await this.$axios.get(`/users/${slug}/backup-codes/regenerate`);
     return dispatch("getBackupCodes", slug);
+  },
+
+  async getSessions({ commit }, { slug, start = 0 }) {
+    const sessions: any = (await this.$axios.get(
+      `/users/${slug}/sessions?start=${start}`
+    )).data;
+    commit("setSessions", {
+      slug,
+      sessions,
+      start,
+      next: sessions.next
+    });
+    return sessions;
+  },
+  async getSession({ commit }, { slug, id }) {
+    const session: any = (await this.$axios.get(
+      `/users/${slug}/sessions/${id}`
+    )).data;
+    commit("setSession", { slug, session, id });
+    return session;
+  },
+  async createSession({ dispatch }, context) {
+    const data = { ...context };
+    delete data.slug;
+    await this.$axios.put(`/users/${context.slug}/sessions`, data);
+    return dispatch("getSessions", { slug: context.slug });
+  },
+  async deleteSession({ dispatch }, context) {
+    await this.$axios.delete(
+      `/users/${context.slug}/sessions/${context.id}`
+    );
+    return dispatch("getSessions", { slug: context.slug });
   }
 };
 
@@ -262,5 +315,8 @@ export const getters: GetterTree<RootState, RootState> = {
     state.membership[slug] && state.membership[slug][membership],
   emails: state => (slug: string) => state.emails[slug],
   email: state => (slug: string, email: string) =>
-    state.email[slug] && state.email[slug][email]
+    state.email[slug] && state.email[slug][email],
+  sessions: state => (slug: string) => state.sessions[slug],
+  session: state => (slug: string, session: string) =>
+    state.session[slug] && state.session[slug][session]
 };
