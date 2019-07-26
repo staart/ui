@@ -12,10 +12,10 @@
       <span
         v-if="help && questionMark"
         :aria-label="help"
-        class="label-help"
+        class="help-icon"
         data-balloon-pos="up"
       >
-        <span aria-hidden="true">?</span>
+        <font-awesome-icon icon="question-circle" />
       </span>
     </label>
     <div
@@ -31,8 +31,8 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-library.add(faCheck);
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+library.add(faQuestionCircle);
 
 @Component({
   components: {

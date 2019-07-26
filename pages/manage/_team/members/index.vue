@@ -38,16 +38,11 @@
             <router-link
               v-if="user && member.userId !== user.id"
               :to="`/manage/${$route.params.team}/members/${member.id}`"
-              aria-label="Edit"
+              aria-label="Edit membership"
               data-balloon-pos="up"
               class="button button--type-icon"
             >
-              <font-awesome-icon
-                title="Edit"
-                class="icon"
-                icon="pencil-alt"
-                fixed-width
-              />
+              <font-awesome-icon class="icon" icon="pencil-alt" fixed-width />
             </router-link>
             <button
               v-if="user && member.userId !== user.id"

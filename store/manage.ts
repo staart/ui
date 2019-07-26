@@ -489,25 +489,25 @@ export const getters: GetterTree<RootState, RootState> = {
   pricingPlans: state => state.pricingPlans,
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
-  memberships: state => (team: string) => state.memberships[team],
-  billing: state => (team: string) => state.billing[team],
-  subscriptions: state => (team: string) => state.subscriptions[team],
+  memberships: state => (team: string) => (state.memberships)[team],
+  billing: state => (team: string) => (state.billing)[team],
+  subscriptions: state => (team: string) => (state.subscriptions)[team],
   subscription: state => (team: string, subscriptionId: string) =>
     state.subscription[team] && state.subscription[team][subscriptionId],
-  invoices: state => (team: string) => state.invoices[team],
+  invoices: state => (team: string) => (state.invoices)[team],
   invoice: state => (team: string, invoiceId: string) =>
     state.invoice[team] && state.invoice[team][invoiceId],
-  sources: state => (team: string) => state.sources[team],
+  sources: state => (team: string) => (state.sources)[team],
   source: state => (team: string, sourceId: string) =>
     state.source[team] && state.source[team][sourceId],
-  apiKeys: state => (team: string) => state.apiKeys[team],
+  apiKeys: state => (team: string) => (state.apiKeys)[team],
   apiKey: state => (team: string, apiKey: string) =>
     state.apiKey[team] && state.apiKey[team][apiKey],
-  domains: state => (team: string) => state.domains[team],
+  domains: state => (team: string) => (state.domains)[team],
   domain: state => (team: string, domain: string) =>
     state.domain[team] && state.domain[team][domain],
-  webhooks: state => (team: string) => state.webhooks[team],
+  webhooks: state => (team: string) => (state.webhooks)[team],
   webhook: state => (team: string, webhook: string) =>
     state.webhook[team] && state.webhook[team][webhook],
-  organization: state => (team: string) => state.organizations[team]
+  organization: state => (team: string) => (state.organizations)[team]
 };

@@ -22,14 +22,14 @@
     <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
       <Input
         :value="organization.name"
-        label="Name"
+        label="Team name"
         placeholder="Enter your organization's name"
         required
         @input="val => (organization.name = val)"
       />
       <Input
         :value="organization.username"
-        label="Username"
+        label="Team username"
         placeholder="Enter a unique username"
         help="Changing your username can have unintended side effects"
         @input="val => (organization.username = val)"

@@ -34,7 +34,10 @@
         <div class="card card--type-padded">
           <div class="emoji">👩‍🚀</div>
           <h2>No, I'm flying solo</h2>
-          <p>Don't worry, you can always create a team later.</p>
+          <p>
+            We'll set up a one person team account for you for now. You can
+            invite others as you grow.
+          </p>
           <div>
             <button class="button button--color-secondary">
               <span>Setup individual account &rarr;</span>

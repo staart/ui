@@ -119,15 +119,19 @@
 .label--color-uncollectible {
   color: #fff !important;
 }
-.label--color-incomplete { background-color: $button-warning-background-color !important; }
-.label--color-incomplete_expired { background-color: $button-danger-background-color !important; }
-.label--color-trialing { background-color: $button-warning-background-color !important; }
-.label--color-success { background-color: $button-success-background-color !important; }
-.label--color-active { background-color: $button-success-background-color !important; }
-.label--color-past_due { background-color: $button-danger-background-color !important; }
-.label--color-danger { background-color: $button-danger-background-color !important; }
-.label--color-canceled { background-color: $button-danger-background-color !important; }
-.label--color-unpaid { background-color: $button-danger-background-color !important; }
-.label--color-open { background-color: $button-danger-background-color !important; }
-.label--color-paid { background-color: $button-success-background-color !important; }
-.label--color-uncollectible { background-color: $button-warning-background-color !important; }
+.label.label--color-incomplete { background-color: $button-warning-background-color !important; }
+.label.label--color-incomplete_expired { background-color: $button-danger-background-color !important; }
+.label.label--color-trialing { background-color: $button-warning-background-color !important; }
+.label.label--color-success { background-color: $button-success-background-color !important; }
+.label.label--color-active { background-color: $button-success-background-color !important; }
+.label.label--color-past_due { background-color: $button-danger-background-color !important; }
+.label.label--color-danger { background-color: $button-danger-background-color !important; }
+.label.label--color-canceled { background-color: $button-danger-background-color !important; }
+.label.label--color-unpaid { background-color: $button-danger-background-color !important; }
+.label.label--color-open { background-color: $button-danger-background-color !important; }
+.label.label--color-paid { background-color: $button-success-background-color !important; }
+.label.label--color-uncollectible { background-color: $button-warning-background-color !important; }
+.label.label--color-danger { background-color: $color-red; color: #fff }
+.label.label--color-success { background-color: $color-green; color: #fff }
+.label.label--color-info { background-color: $color-blue; color: #fff }
+.label.label--color-warning { background-color: $color-orange; color: #fff }

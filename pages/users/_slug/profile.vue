@@ -20,18 +20,26 @@
     </div>
     <Loading v-if="loading" :message="loading" />
     <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
-      <Input
-        :value="user.name"
-        label="Name"
-        placeholder="Enter your user's name"
-        required
-        @input="val => (user.name = val)"
-      />
+      <div class="row">
+        <Input
+          :value="user.name"
+          label="Full name"
+          placeholder="Enter your full name"
+          required
+          @input="val => (user.name = val)"
+        />
+        <Input
+          :value="user.nickname"
+          label="Nickname"
+          placeholder="Enter a nickname we should call you"
+          required
+          @input="val => (user.name = val)"
+        />
+      </div>
       <Input
         :value="user.username"
         label="Username"
         placeholder="Enter a unique username"
-        help="Changing your username can have unintended side effects"
         required
         @input="val => (user.username = val)"
       />

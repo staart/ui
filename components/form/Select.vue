@@ -6,10 +6,10 @@
         v-if="labelHelp && labelHelpTo"
         :to="labelHelpTo"
         :aria-label="labelHelp"
-        class="label-help"
+        class="help-icon"
         data-balloon-pos="up"
       >
-        <span aria-hidden="true">?</span>
+        <font-awesome-icon icon="question-circle" />
       </router-link>
     </label>
     <select
@@ -38,8 +38,16 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+library.add(faQuestionCircle);
 
-@Component({})
+@Component({
+  components: {
+    FontAwesomeIcon
+  }
+})
 export default class Input extends Vue {
   @Prop() value;
   @Prop() label;

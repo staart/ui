@@ -5,10 +5,10 @@
       <span
         v-if="help && questionMark"
         :aria-label="help"
-        class="label-help"
+        class="help-icon"
         data-balloon-pos="up"
       >
-        <span aria-hidden="true">?</span>
+        <font-awesome-icon icon="question-circle" />
       </span>
     </label>
     <div class="row">
@@ -44,11 +44,11 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import Autocomplete from "@/components/form/Autocomplete.vue";
 import en from "@/locales/en";
 const months = en.months;
-library.add(faCheck);
+library.add(faQuestionCircle);
 
 @Component({
   components: {

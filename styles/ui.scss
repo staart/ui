@@ -425,7 +425,7 @@ input[type="radio"]:checked + .fake-radio {
   color: #fff;
   border-radius: 100%;
   font-weight: bold;
-  width: 1rem;
+  width: 1rem !important;
   height: 1rem;
   line-height: 1rem;
   text-align: center;
@@ -439,6 +439,12 @@ input[type="radio"]:checked + .fake-radio {
   &:hover {
     text-decoration: none;
   }
+}
+
+.help-icon {
+  color: rgba($color-black, 0.5);
+  transform: scale(0.9);
+  margin-left: 0.1rem;
 }
 
 .form-group {

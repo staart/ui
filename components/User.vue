@@ -6,10 +6,12 @@
     />
     <div>
       <span>{{ user.name }}</span>
-      <span
-        v-if="self.id === user.id"
-        class="text text--color-light text--type-you"
-        >You</span
+      <span v-if="self.id === user.id" class="label">You</span>
+      <router-link
+        v-if="self.role === 3"
+        :to="`/users/${user.username}/profile`"
+        class="label label--color-info"
+        >Profile</router-link
       >
     </div>
   </div>

@@ -32,7 +32,9 @@ export default {
     "domain-missing-file": "We couldn't find the verification file",
     "domain-missing-dns": "We didn't find the DNS record",
     "domain-already-verified": "This domain is already verified",
-    "cannot-invite-domain": "You cannot invite a member from this domain"
+    "cannot-invite-domain": "You cannot invite a member from this domain",
+    "username-exists": "This username is already claimed",
+    "cannot-delete-email": "This email cannot be deleted"
   },
   securityEvents: {
     "user.created": "Created account",
