@@ -236,13 +236,19 @@ export const actions: ActionTree<RootState, RootState> = {
     const slug = context.slug;
     delete context.slug;
     await this.$axios.post(`/users/${slug}/2fa/verify`, context);
-    return await dispatch("getBackupCodes");
+    return await dispatch("getBackupCodes", slug);
+  },
+  async getBackupCodes({ commit }, slug) {
+    const backupCodes = (await this.$axios.get(
+      `/users/${slug}/backup-codes`
+    )).data;
+    return backupCodes;
   },
   async regenerateCodes({ dispatch }, context) {
     const slug = context.slug;
     delete context.slug;
     await this.$axios.get(`/users/${slug}/backup-codes/regenerate`);
-    return dispatch("getBackupCodes");
+    return dispatch("getBackupCodes", slug);
   }
 };
 

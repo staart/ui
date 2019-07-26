@@ -38,7 +38,25 @@
           <span>Enable 2FA</span>
           <font-awesome-icon
             v-if="enabling"
-            class="icon icon--ml-2 icon--color-light"
+            class="icon icon--ml-2"
+            icon="sync"
+            spin
+          />
+        </button>
+      </form>
+      <form
+        v-else
+        v-meta-ctrl-enter="() => (showDisable = true)"
+        @submit.prevent="() => (showDisable = true)"
+      >
+        <button
+          class="button button--type-loading button--color-danger"
+          :disabled="enabling"
+        >
+          <span>Disable 2FA</span>
+          <font-awesome-icon
+            v-if="enabling"
+            class="icon icon--ml-2"
             icon="sync"
             spin
           />
@@ -66,6 +84,26 @@
             <span>Enable 2FA</span>
           </button>
         </form>
+      </Modal>
+    </transition>
+    <transition name="modal">
+      <Modal
+        v-if="showBackupCodes"
+        :on-close="() => (showBackupCodes = false)"
+        :disable-background-close="true"
+        close-text="I've copied these backup codes somewhere safe"
+      >
+        <h2>Backup codes</h2>
+        <p>
+          You can use these backup codes in case you don't have access to your
+          authenticator device or app. You can only use each code ones. Make
+          sure you keep them safe.
+        </p>
+        <ul v-if="backupCodes" class="codes">
+          <li v-for="(code, i) in backupCodes" :key="`k${code.code}${i}`">
+            <code>{{ code.code }}</code>
+          </li>
+        </ul>
       </Modal>
     </transition>
     <transition name="modal">
@@ -155,7 +193,8 @@ export default class ManageSettings extends Vue {
   showOTP = false;
   enabling = false;
   showDisable = false;
-  backupCodes: any;
+  showBackupCodes = false;
+  backupCodes: any = [];
 
   private created() {
     this.user = {
@@ -169,6 +208,17 @@ export default class ManageSettings extends Vue {
       .dispatch("users/getUser", this.$route.params.slug)
       .then(user => {
         this.user = { ...user };
+        if (this.user.twoFactorEnabled) {
+          return this.$store.dispatch(
+            "users/getBackupCodes",
+            this.$route.params.slug
+          );
+        }
+      })
+      .then(backupCodes => {
+        if (backupCodes) {
+          this.backupCodes = { ...backupCodes };
+        }
       })
       .catch(() => {})
       .finally(() => (this.loading = ""));
@@ -221,6 +271,8 @@ export default class ManageSettings extends Vue {
       })
       .then(backupCodes => {
         this.backupCodes = { ...backupCodes };
+        this.showBackupCodes = true;
+        this.user.twoFactorEnabled = true;
       })
       .then(() => this.$store.dispatch("auth/refresh"))
       .catch(() => {})
@@ -259,4 +311,18 @@ export default class ManageSettings extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.codes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  li {
+    width: 20%;
+    margin: 0 0 1rem 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+</style>
