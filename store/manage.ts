@@ -178,24 +178,24 @@ export const mutations: MutationTree<RootState> = {
     Vue.set(state, "recentEvents", recentEvents);
   },
   clearAll(state: RootState): void {
-    delete state.organizations;
-    delete state.billing;
-    delete state.memberships;
+    state.organizations = {};
+    state.billing = {};
+    state.memberships = {};
     delete state.membership;
-    delete state.subscriptions;
-    delete state.subscription;
-    delete state.invoices;
-    delete state.invoice;
-    delete state.sources;
-    delete state.source;
-    delete state.recentEvents;
-    delete state.pricingPlans;
-    delete state.apiKeys;
-    delete state.apiKey;
-    delete state.domains;
-    delete state.domain;
-    delete state.webhooks;
-    delete state.webhook;
+    state.subscriptions = {};
+    state.subscription = {};
+    state.invoices = {};
+    state.invoice = {};
+    state.sources = {};
+    state.source = {};
+    state.recentEvents = {};
+    state.pricingPlans = {};
+    state.apiKeys = {};
+    state.apiKey = {};
+    state.domains = {};
+    state.domain = {};
+    state.webhooks = {};
+    state.webhook = {};
   }
 };
 

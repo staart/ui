@@ -96,14 +96,14 @@ export const mutations: MutationTree<RootState> = {
     Vue.set(state, "session", currentSessions);
   },
   clearAll(state: RootState): void {
-    delete state.accessTokens;
-    delete state.accessToken;
-    delete state.memberships;
-    delete state.membership;
-    delete state.emails;
-    delete state.email;
-    delete state.sessions;
-    delete state.session;
+    state.accessTokens = {};
+    state.accessToken = {};
+    state.memberships = {};
+    state.membership = {};
+    state.emails = {};
+    state.email = {};
+    state.sessions = {};
+    state.session = {};
   }
 };
 
