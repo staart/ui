@@ -52,7 +52,7 @@
         Update settings
       </button>
     </form>
-    <Domains style="margin-top: 2rem" />
+    <Domains v-if="loggedInMembership !== 4" style="margin-top: 2rem" />
   </main>
 </template>
 
@@ -92,11 +92,15 @@ library.add(faSync);
 export default class ManageSettings extends Vue {
   loading = "";
   organization: Organization = emptyOrganization;
+  loggedInMembership = 3;
 
   private created() {
     this.organization = {
       ...this.$store.getters["manage/organization"](this.$route.params.team)
     };
+    this.loggedInMembership = parseInt(
+      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
+    );
   }
 
   private load() {
