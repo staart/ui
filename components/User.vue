@@ -28,7 +28,12 @@ import { mapGetters } from "vuex";
 })
 export default class User extends Vue {
   self!: any;
-  @Prop({ default: {} }) user;
+  @Prop({
+    default: () => {
+      return {};
+    }
+  })
+  user;
 }
 </script>
 

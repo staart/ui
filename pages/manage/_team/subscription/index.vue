@@ -108,7 +108,7 @@
                     subscriptions.data[0].plan.interval
                 "
               >
-                <td>Billing interval</td>
+                <td>Price</td>
                 <td>
                   <span>{{
                     subscriptions.data[0].plan.currency.toUpperCase()
@@ -258,7 +258,7 @@
         <h2>New subscription</h2>
         <p>
           Create a new subscription for your organization. Your default payment
-          method will be charged automatically
+          method will be charged automatically.
         </p>
         <Loading v-if="loadingPricingPlans" :message="loadingPricingPlans" />
         <LargeMessage

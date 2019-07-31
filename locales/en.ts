@@ -79,7 +79,7 @@ export default {
     "billing-customer-updated": "Your customer has been updated ",
     "billing-subscription-created": "Your subscription has been created",
     "billing-subscription-updated": "Your subscription has been updated",
-    "billing-source-created": "Your payment method has been created",
+    "billing-source-created": "Your payment method has been added",
     "billing-source-updated": "Your payment method has been updated",
     "billing-source-deleted": "Your payment method has been deleted",
     "domain-unable-to-verify": "We weren't able to verify your domain"

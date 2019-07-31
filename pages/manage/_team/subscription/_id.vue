@@ -2,7 +2,29 @@
   <main>
     <Loading v-if="loading" :message="loading" />
     <div v-else>
-      <h1>Subscription</h1>
+      <div class="row">
+        <div>
+          <nuxt-link
+            :to="`/manage/${$route.params.team}/subscription`"
+            aria-label="Back"
+            data-balloon-pos="down"
+            class="button button--type-icon button--type-back"
+          >
+            <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+          </nuxt-link>
+          <h1>Subscription</h1>
+        </div>
+        <div class="text text--align-right">
+          <button
+            aria-label="Refresh"
+            data-balloon-pos="down"
+            class="button button--type-icon"
+            @click="load"
+          >
+            <font-awesome-icon class="icon" icon="sync" fixed-width />
+          </button>
+        </div>
+      </div>
       <LargeMessage
         v-if="!loading && !subscription"
         img="undraw_product_tour_foyt.svg"
@@ -103,8 +125,8 @@
       <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
         <h2>Are you sure you want to cancel this subscription?</h2>
         <p>
-          Canceling a subscription is not reversible. Any data linked to this
-          subscription will be permanently deleted.
+          Any data linked to this subscription will be permanently deleted and
+          your any paid features will stop working immediately.
         </p>
         <button
           class="button button--color-danger button--state-cta"
@@ -181,6 +203,10 @@ export default class ManageSettings extends Vue {
   }
 
   private mounted() {
+    this.load();
+  }
+
+  private load() {
     this.loading = "Loading your subscription";
     this.$store
       .dispatch("manage/getSubscription", {

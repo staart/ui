@@ -125,9 +125,13 @@ export interface SingleWebhookKV {
     [index: string]: Webhook;
   };
 }
+export interface LoggedInMembershipsKV {
+  [index: string]: number;
+}
 
 export interface RootState {
   membership?: Membership;
+  loggedInMembership: LoggedInMembershipsKV;
   organizations: OrganizationsKV;
   memberships: MembershipsKV;
   subscriptions: SubscriptionsKV;

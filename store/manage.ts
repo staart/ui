@@ -9,6 +9,7 @@ export const state = (): RootState => ({
   isDownloading: false,
   organizations: {},
   billing: {},
+  loggedInMembership: {},
   subscriptions: {},
   subscription: {},
   invoices: {},
@@ -28,6 +29,11 @@ export const mutations: MutationTree<RootState> = {
     const organizations = state.organizations;
     organizations[organization.id] = organization;
     Vue.set(state, "organizations", organizations);
+  },
+  setLoggedInMembership(state: RootState, { team, role }) {
+    const loggedInMembership = state.loggedInMembership;
+    loggedInMembership[team] = role;
+    Vue.set(state, "loggedInMembership", loggedInMembership);
   },
   setMembers(state: RootState, { team, members, start, next }): void {
     const currentMembers = state.memberships;
@@ -242,17 +248,18 @@ export const actions: ActionTree<RootState, RootState> = {
     return dispatch("getMembers", { team: context.team });
   },
   async deleteMembership({ dispatch }, { id, team }) {
-    await this.$axios.delete(`/memberships/${id}`);
+    await this.$axios.delete(`/organizations/${team}/memberships/${id}`);
     return dispatch("getMembers", { team });
   },
-  async getMembership(actions, context) {
-    return (await this.$axios.get(`/memberships/${context}`)).data;
+  async getMembership(actions, { id, team }) {
+    return (await this.$axios.get(`/organizations/${team}/memberships/${id}`)).data;
   },
   async updateMembership({ dispatch }, context) {
     const data = { ...context };
     delete data.id;
-    await this.$axios.patch(`/memberships/${context.id}`, data);
-    return dispatch("getMembership", context.id);
+    delete data.team;
+    await this.$axios.patch(`/organizations/${context.team}/memberships/${context.id}`, data);
+    return dispatch("getMembership", { team: context.team, id: context.id });
   },
   async getBilling({ commit }, team) {
     const billing: any = (await this.$axios.get(
@@ -490,6 +497,7 @@ export const getters: GetterTree<RootState, RootState> = {
   securityEvents: state => state.recentEvents,
   isDownloading: state => state.isDownloading,
   memberships: state => (team: string) => (state.memberships)[team],
+  loggedInMembership: state => (team: string) => (state.loggedInMembership)[team] || 4,
   billing: state => (team: string) => (state.billing)[team],
   subscriptions: state => (team: string) => (state.subscriptions)[team],
   subscription: state => (team: string, subscriptionId: string) =>
