@@ -35,29 +35,37 @@
           <td><TimeAgo :date="member.createdAt" /></td>
           <td>{{ membershipRoles[member.role] || member.role }}</td>
           <td class="text text--align-right">
-            <router-link
-              v-if="user && member.userId !== user.id"
-              :to="`/manage/${$route.params.team}/members/${member.id}`"
-              aria-label="Edit membership"
-              data-balloon-pos="up"
-              class="button button--type-icon"
+            <div
+              v-if="
+                user &&
+                  member.userId !== user.id &&
+                  loggedInMembership !== 4 &&
+                  (loggedInMembership === 3 ? member.role > 2 : true)
+              "
             >
-              <font-awesome-icon class="icon" icon="pencil-alt" fixed-width />
-            </router-link>
-            <button
-              v-if="user && member.userId !== user.id"
-              aria-label="Remove"
-              data-balloon-pos="up"
-              class="button button--color-danger button--type-icon"
-              @click="showDelete = member"
-            >
-              <font-awesome-icon
-                title="Remove"
-                class="icon icon--color-danger"
-                icon="trash"
-                fixed-width
-              />
-            </button>
+              <router-link
+                v-if="user && member.userId !== user.id"
+                :to="`/manage/${$route.params.team}/members/${member.id}`"
+                aria-label="Edit membership"
+                data-balloon-pos="up"
+                class="button button--type-icon"
+              >
+                <font-awesome-icon class="icon" icon="pencil-alt" fixed-width />
+              </router-link>
+              <button
+                aria-label="Remove"
+                data-balloon-pos="up"
+                class="button button--color-danger button--type-icon"
+                @click="showDelete = member"
+              >
+                <font-awesome-icon
+                  title="Remove"
+                  class="icon icon--color-danger"
+                  icon="trash"
+                  fixed-width
+                />
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -189,6 +197,7 @@ export default class ManageMembers extends Vue {
   showDelete = null;
   loadingMore = false;
   membershipRoles = locale.membershipRoles;
+  loggedInMembership = 3;
 
   newUserName = "";
   newUserEmail = "";
@@ -198,6 +207,9 @@ export default class ManageMembers extends Vue {
     this.memberships = {
       ...this.$store.getters["manage/memberships"](this.$route.params.team)
     };
+    this.loggedInMembership = parseInt(
+      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
+    );
   }
 
   private mounted() {

@@ -105,32 +105,35 @@
           </button>
         </div>
       </div>
-      <h2>Create webhook</h2>
-      <p>
-        You can use webhooks to get access to events in your developer
-        applications.
-      </p>
-      <form v-meta-ctrl-enter="createWebhook" @submit.prevent="createWebhook">
-        <Select
-          :value="newHookEvent"
-          label="Event"
-          :options="events"
-          required
-          @input="val => (newHookEvent = val)"
-        />
-        <Input
-          :value="newHookUrl"
-          label="URL"
-          type="url"
-          placeholder="Enter the complete URL to your hook"
-          required
-          @input="val => (newHookUrl = val)"
-        />
-        <p class="text text--color-muted text--size-small">
-          You can add a secret key and content type after creating the webhook.
+      <div v-if="loggedInMembership !== 3 && loggedInMembership !== 4">
+        <h2>Create webhook</h2>
+        <p>
+          You can use webhooks to get access to events in your developer
+          applications.
         </p>
-        <button class="button">Add webhook</button>
-      </form>
+        <form v-meta-ctrl-enter="createWebhook" @submit.prevent="createWebhook">
+          <Select
+            :value="newHookEvent"
+            label="Event"
+            :options="events"
+            required
+            @input="val => (newHookEvent = val)"
+          />
+          <Input
+            :value="newHookUrl"
+            label="URL"
+            type="url"
+            placeholder="Enter the complete URL to your hook"
+            required
+            @input="val => (newHookUrl = val)"
+          />
+          <p class="text text--color-muted text--size-small">
+            You can add a secret key and content type after creating the
+            webhook.
+          </p>
+          <button class="button">Add webhook</button>
+        </form>
+      </div>
     </div>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
@@ -198,8 +201,12 @@ export default class ManageSettings extends Vue {
   newHookUrl = "";
   newHookEvent = "*";
   events = events;
+  loggedInMembership = 3;
 
   private created() {
+    this.loggedInMembership = parseInt(
+      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
+    );
     this.webhooks = {
       ...this.$store.getters["manage/webhooks"](this.$route.params.team)
     };

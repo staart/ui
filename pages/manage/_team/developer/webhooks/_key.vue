@@ -32,12 +32,14 @@
             label="Event"
             :options="events"
             required
+            :disabled="readOnly"
             @input="val => (webhook.event = val)"
           />
           <Input
             label="URL"
             placeholder="Enter a URL for this webhook"
             :value="webhook.url"
+            :disabled="readOnly"
             @input="val => (webhook.url = val)"
           />
           <Select
@@ -45,29 +47,34 @@
             label="Content type"
             :options="['application/json', 'application/x-www-form-urlencoded']"
             required
+            :disabled="readOnly"
             @input="val => (webhook.contentType = val)"
           />
           <Input
             label="Secret"
             placeholder="Enter a secret key for this webhook"
             :value="webhook.secret"
+            :disabled="readOnly"
             @input="val => (webhook.secret = val)"
           />
           <Checkbox
             :value="webhook.isActive"
             label="Activate this webhook"
+            :disabled="readOnly"
             @input="val => (webhook.isActive = val)"
           />
-          <button class="button">Update webhook</button>
-          <button
-            class="button button--color-danger"
-            type="button"
-            style="margin-left: 0.5rem"
-            @click="() => (showDelete = true)"
-          >
-            <font-awesome-icon class="icon icon--mr-1" icon="trash" />
-            <span>Delete webhook</span>
-          </button>
+          <div v-if="readOnly">
+            <button class="button">Update webhook</button>
+            <button
+              class="button button--color-danger"
+              type="button"
+              style="margin-left: 0.5rem"
+              @click="() => (showDelete = true)"
+            >
+              <font-awesome-icon class="icon icon--mr-1" icon="trash" />
+              <span>Delete webhook</span>
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -140,11 +147,19 @@ export default class ManageSettings extends Vue {
   webhook: Webhook | null = null;
   events = events;
   copied = false;
+  loggedInMembership = 3;
 
   private created() {
     this.webhooks = {
       ...this.$store.getters["manage/webhooks"](this.$route.params.team)
     };
+    this.loggedInMembership = parseInt(
+      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
+    );
+  }
+
+  get readOnly() {
+    return this.loggedInMembership === 3 || this.loggedInMembership === 4;
   }
 
   private load() {

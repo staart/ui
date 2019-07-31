@@ -34,6 +34,7 @@
           <span v-else>Copy</span>
         </button>
         <button
+          v-if="!readOnly"
           type="button"
           class="button button--color-danger"
           style="margin-left: 0.5rem"
@@ -42,37 +43,43 @@
           <font-awesome-icon class="icon icon--mr-1" icon="trash" />
           <span>Delete</span>
         </button>
-        <h2>Edit API key</h2>
-        <form
-          v-meta-ctrl-enter="() => (showUpdate = true)"
-          @submit.prevent="() => (showUpdate = true)"
-        >
-          <Input
-            label="Name"
-            placeholder="Enter a name for this API key"
-            :value="apiKey.name"
-            @input="val => (apiKey.name = val)"
-          />
-          <CheckList
-            label="API restrictions"
-            :options="scopes"
-            :value="apiKey.scopes"
-            @input="val => (apiKey.scopes = val)"
-          />
-          <CommaList
-            label="IP restrictions"
-            :value="apiKey.ipRestrictions"
-            placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
-            @input="val => (apiKey.ipRestrictions = val)"
-          />
-          <CommaList
-            label="Referrer restrictions"
-            :value="apiKey.referrerRestrictions"
-            placeholder="Enter a host name without protocol, e.g., example.com"
-            @input="val => (apiKey.referrerRestrictions = val)"
-          />
-          <button class="button">Update API key</button>
-        </form>
+        <div class="text text--mt-2">
+          <h2>Edit API key</h2>
+          <form
+            v-meta-ctrl-enter="() => (showUpdate = true)"
+            @submit.prevent="() => (showUpdate = true)"
+          >
+            <Input
+              label="Name"
+              placeholder="Enter a name for this API key"
+              :value="apiKey.name"
+              :disabled="readOnly"
+              @input="val => (apiKey.name = val)"
+            />
+            <CheckList
+              label="API restrictions"
+              :options="scopes"
+              :value="apiKey.scopes"
+              :disabled="readOnly"
+              @input="val => (apiKey.scopes = val)"
+            />
+            <CommaList
+              label="IP restrictions"
+              :value="apiKey.ipRestrictions"
+              placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
+              :disabled="readOnly"
+              @input="val => (apiKey.ipRestrictions = val)"
+            />
+            <CommaList
+              label="Referrer restrictions"
+              :value="apiKey.referrerRestrictions"
+              placeholder="Enter a host name without protocol, e.g., example.com"
+              :disabled="readOnly"
+              @input="val => (apiKey.referrerRestrictions = val)"
+            />
+            <button v-if="!readOnly" class="button">Update API key</button>
+          </form>
+        </div>
       </div>
     </div>
     <transition name="modal">
@@ -180,11 +187,19 @@ export default class ManageSettings extends Vue {
   apiKey: ApiKey | null = null;
   scopes = scopes;
   copied = false;
+  loggedInMembership = 3;
 
   private created() {
     this.apiKeys = {
       ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
     };
+    this.loggedInMembership = parseInt(
+      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
+    );
+  }
+
+  get readOnly() {
+    return this.loggedInMembership === 3 || this.loggedInMembership === 4;
   }
 
   private load() {

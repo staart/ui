@@ -5,17 +5,18 @@
       <tbody>
         <tr v-for="(item, index) in list" :key="`p_${index}`">
           <td>
-            <input
+            <Input
               :id="labelId"
               :value="item"
               :placeholder="placeholder"
               :autocomplete="autocomplete"
               :required="required"
               v-bind="$attrs"
+              :disabled="disabled"
               @input="val => input(index, val)"
             />
           </td>
-          <td class="text text--align-right">
+          <td v-if="!disabled" class="text text--align-right">
             <button
               aria-label="Remove"
               data-balloon-pos="up"
@@ -33,7 +34,12 @@
         </tr>
       </tbody>
     </table>
-    <button class="button button--type-icon" type="button" @click.prevent="add">
+    <button
+      v-if="!disabled"
+      class="button button--type-icon"
+      type="button"
+      @click.prevent="add"
+    >
       <font-awesome-icon class="icon icon--mr-1" icon="plus" fixed-width />
       <span>Add another</span>
     </button>
@@ -51,11 +57,13 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTimes, faPlus } from "@fortawesome/free-solid-svg-icons";
+import Input from "@/components/form/Input.vue";
 library.add(faTimes, faPlus);
 
 @Component({
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    Input
   }
 })
 export default class CommaList extends Vue {
@@ -65,6 +73,7 @@ export default class CommaList extends Vue {
   @Prop() placeholder;
   @Prop() help;
   @Prop() autocomplete;
+  @Prop({ default: false }) disabled;
   labelId = "";
   list = [""];
   commaList = "";
@@ -106,7 +115,7 @@ export default class CommaList extends Vue {
   margin-bottom: 1rem;
   label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: -0.5rem;
   }
   table {
     margin-bottom: 1rem;
