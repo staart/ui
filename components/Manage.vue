@@ -117,6 +117,7 @@ library.add(
 })
 export default class Manage extends Vue {
   loggedInMembership = 3;
+  doneOnce = false;
   private created() {
     this.loggedInMembership = parseInt(
       this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
@@ -149,6 +150,12 @@ export default class Manage extends Vue {
               team: org,
               role
             });
+          } else if (!this.doneOnce) {
+            this.$store
+              .dispatch("users/getMemberships", { slug: user.username })
+              .then(() => this.getUserMembership())
+              .catch(() => {})
+              .then(() => (this.doneOnce = true));
           }
         } else {
           this.$store
