@@ -134,7 +134,9 @@ export default class Manage extends Vue {
     if (user) {
       const org = this.$store.state.auth.activeOrganization;
       if (org) {
-        const memberships = this.$store.state.settings.memberships;
+        const memberships = this.$store.state.users.memberships[
+          user.username || user.id
+        ];
         if (memberships) {
           const yourMembership = memberships.data.filter(
             membership =>
