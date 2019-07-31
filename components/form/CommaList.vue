@@ -99,7 +99,7 @@ export default class CommaList extends Vue {
   }
 
   private input(index, val) {
-    this.list[index] = val.target.value;
+    this.list[index] = val;
     this.update();
   }
 
