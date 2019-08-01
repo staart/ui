@@ -10600,10 +10600,10 @@ vue-eslint-parser@^5.0.0:
     esquery "^1.0.1"
     lodash "^4.17.11"
 
-vue-focus-lock@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/vue-focus-lock/-/vue-focus-lock-1.3.1.tgz#53f322e97aab938e7e28db1262b2fcb8d1d04936"
-  integrity sha512-nMR54BKd/ImYBQvSJibrGW9agkX+IAa1jancczro0lVTE9zyVkiujka/8AkiXJO1Mi8xutAVnaZBXPZomWDhQA==
+vue-focus-lock@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/vue-focus-lock/-/vue-focus-lock-1.3.2.tgz#2b950cd35d0edfefb50a24f2cf871405119e313c"
+  integrity sha512-i0aOBK/uMELCYCLlHUVDekXrvm5E1WRr0yovCnBJ0SMiykj2/6DC9kx4eMsQJLtRpqMKdSn+Rq5Eo70TENXs9g==
   dependencies:
     focus-lock "^0.5.4"
 
