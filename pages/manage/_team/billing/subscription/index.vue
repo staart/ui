@@ -3,7 +3,7 @@
     <largeMessage
       v-if="noBilling"
       heading="No billing account"
-      text="You need to setup a billing account before you can create a subscription."
+      text="You need to setup a billing account before you can create a subscription. You only need a billing account if you want to switch to a paid subscription, you can continue to use your free account."
       cta-text="Setup billing"
       :cta-to="`/manage/${$route.params.team}/billing/details`"
     />
@@ -137,7 +137,7 @@
           </table>
           <router-link
             :to="
-              `/manage/${$route.params.team}/subscription/${subscriptions.data[0].id}`
+              `/manage/${$route.params.team}/billing/subscription/${subscriptions.data[0].id}`
             "
             aria-label="Edit"
             data-balloon-pos="up"
@@ -213,7 +213,7 @@
                 </router-link>
                 <router-link
                   :to="
-                    `/manage/${$route.params.team}/subscription/${subscription.id}`
+                    `/manage/${$route.params.team}/billing/subscription/${subscription.id}`
                   "
                   aria-label="Edit"
                   data-balloon-pos="up"

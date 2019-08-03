@@ -19,18 +19,14 @@
         </nuxt-link>
         <nuxt-link
           v-if="loggedInMembership !== 3 && loggedInMembership !== 4"
-          class="item"
-          :to="`/manage/${$route.params.team}/subscription`"
-        >
-          <font-awesome-icon class="nav-icon" icon="box-open" fixed-width />
-          <span>Subscription</span>
-        </nuxt-link>
-        <nuxt-link
-          v-if="loggedInMembership !== 3 && loggedInMembership !== 4"
           class="item item--type-parent"
           :to="`/manage/${$route.params.team}/billing/details`"
         >
-          <font-awesome-icon class="nav-icon" icon="address-card" fixed-width />
+          <font-awesome-icon
+            class="nav-icon"
+            icon="money-bill-wave"
+            fixed-width
+          />
           <span>Billing</span>
         </nuxt-link>
         <nav v-if="$route.path.includes('/billing/')" class="sub-nav">
@@ -38,7 +34,13 @@
             class="sub-item"
             :to="`/manage/${$route.params.team}/billing/details`"
           >
-            <span>Customer info</span>
+            <span>Details</span>
+          </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/billing/subscription`"
+          >
+            <span>Subscription</span>
           </nuxt-link>
           <nuxt-link
             class="sub-item"
@@ -97,7 +99,7 @@ import {
   faCog,
   faBoxOpen,
   faUser,
-  faAddressCard,
+  faMoneyBillWave,
   faCode
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
@@ -107,7 +109,7 @@ library.add(
   faBoxOpen,
   faUser,
   faCode,
-  faAddressCard
+  faMoneyBillWave
 );
 
 @Component({

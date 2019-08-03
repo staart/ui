@@ -3,7 +3,7 @@
     <largeMessage
       v-if="noBilling"
       heading="No billing account"
-      text="You need to setup a billing account before you view your invoices."
+      text="You need to setup a billing account before you view your invoices. You only need a billing account if you want to switch to a paid subscription, you can continue to use your free account."
       cta-text="Setup billing"
       :cta-to="`/manage/${$route.params.team}/billing/details`"
     />

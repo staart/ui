@@ -3,7 +3,6 @@ import download from "downloadjs";
 import Vue from "vue";
 import { RootState, Organization, emptyPagination } from "~/types/manage";
 
-const stripeProductId = "prod_FGFAYQGEFTm2lu";
 export const state = (): RootState => ({
   memberships: {},
   isDownloading: false,
@@ -323,7 +322,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async getPricingPlans({ commit }, context) {
     const subscriptions: any = (await this.$axios.get(
-      `/organizations/${context}/pricing/${stripeProductId}`
+      `/organizations/${context}/pricing`
     )).data;
     commit("setPricingPlans", subscriptions);
   },
