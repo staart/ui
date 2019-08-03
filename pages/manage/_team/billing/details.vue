@@ -55,7 +55,11 @@
           </tbody>
         </table>
       </div>
-      <form v-meta-ctrl-enter="save" @submit.prevent="save">
+      <form
+        v-meta-ctrl-enter="save"
+        class="text text--mt-2"
+        @submit.prevent="save"
+      >
         <Input
           :value="billing.name"
           label="Name"

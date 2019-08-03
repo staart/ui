@@ -3,7 +3,7 @@
     <div class="row">
       <div>
         <nuxt-link
-          :to="`/manage/${$route.params.team}/members`"
+          :to="`/manage/${$route.params.team}/team/members`"
           aria-label="Back"
           data-balloon-pos="down"
           class="button button--type-icon button--type-back"

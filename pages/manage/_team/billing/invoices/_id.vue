@@ -20,7 +20,7 @@
             </tr>
             <tr>
               <td>Date</td>
-              <td>{{ new Date(invoice.date * 1000).toLocaleString() }}</td>
+              <td>{{ new Date(invoice.created * 1000).toLocaleString() }}</td>
             </tr>
             <tr>
               <td>Status</td>

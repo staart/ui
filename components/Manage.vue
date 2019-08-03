@@ -11,12 +11,26 @@
         </nuxt-link>
         <nuxt-link
           v-if="loggedInMembership !== 4"
-          class="item"
-          :to="`/manage/${$route.params.team}/members`"
+          class="item item--type-parent"
+          :to="`/manage/${$route.params.team}/team/members`"
         >
           <font-awesome-icon class="nav-icon" icon="users" fixed-width />
           <span>Team</span>
         </nuxt-link>
+        <nav v-if="$route.path.includes('/team/')" class="sub-nav">
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/team/members`"
+          >
+            <span>Members</span>
+          </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/team/settings`"
+          >
+            <span>Settings</span>
+          </nuxt-link>
+        </nav>
         <nuxt-link
           v-if="loggedInMembership !== 3 && loggedInMembership !== 4"
           class="item item--type-parent"

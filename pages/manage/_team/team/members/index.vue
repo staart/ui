@@ -45,7 +45,7 @@
             >
               <router-link
                 v-if="user && member.userId !== user.id"
-                :to="`/manage/${$route.params.team}/members/${member.id}`"
+                :to="`/manage/${$route.params.team}/team/${member.id}`"
                 aria-label="Edit membership"
                 data-balloon-pos="up"
                 class="button button--type-icon"

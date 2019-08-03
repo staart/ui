@@ -64,7 +64,7 @@
                 </span>
               </td>
               <td>
-                <TimeAgo :date="invoice.date * 1000" />
+                <TimeAgo :date="invoice.created * 1000" />
               </td>
               <td class="text text--align-right">
                 <a
