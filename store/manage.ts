@@ -137,10 +137,18 @@ export const mutations: MutationTree<RootState> = {
     currentApiKeys[team][id] = { ...apiKey };
     Vue.set(state, "apiKey", currentApiKeys);
   },
-  setApiKeyLogs(state: RootState, { team, apiKeyLogs, id }): void {
+  setApiKeyLogs(state: RootState, { team, apiKeyLogs, id, from }): void {
     const currentApiKeyLogs = state.apiKeyLogs;
     currentApiKeyLogs[team] = currentApiKeyLogs[team] || {};
-    currentApiKeyLogs[team][id] = { ...apiKeyLogs };
+    currentApiKeyLogs[team][id] = currentApiKeyLogs[team][id] || emptyPagination;
+    if (from) {
+      currentApiKeyLogs[team][id].data = [
+        ...currentApiKeyLogs[team][id].data,
+        ...apiKeyLogs.data
+      ];
+    } else {
+      currentApiKeyLogs[team][id] = { ...apiKeyLogs };
+    }
     Vue.set(state, "apiKeyLogs", currentApiKeyLogs);
   },
   setDomains(state: RootState, { team, domains, start, next }): void {
@@ -383,11 +391,11 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("setApiKey", { team, apiKey, id });
     return apiKey;
   },
-  async getApiKeyLogs({ commit }, { team, id }) {
+  async getApiKeyLogs({ commit }, { team, id, range, from }) {
     const apiKeyLogs: any = (await this.$axios.get(
-      `/organizations/${team}/api-keys/${id}/logs`
+      `/organizations/${team}/api-keys/${id}/logs?range=${range}&from=${from}`
     )).data;
-    commit("setApiKeyLogs", { team, apiKeyLogs, id });
+    commit("setApiKeyLogs", { team, apiKeyLogs, range, id, from });
     return apiKeyLogs;
   },
   async createApiKey({ dispatch }, context) {
@@ -530,5 +538,7 @@ export const getters: GetterTree<RootState, RootState> = {
   webhooks: state => (team: string) => (state.webhooks)[team],
   webhook: state => (team: string, webhook: string) =>
     state.webhook[team] && state.webhook[team][webhook],
+  apiKeyLogs: state => (team: string, apiKeyLogs: string) =>
+    state.apiKeyLogs[team] && state.apiKeyLogs[team][apiKeyLogs],
   organization: state => (team: string) => (state.organizations)[team]
 };

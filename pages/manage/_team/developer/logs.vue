@@ -63,7 +63,7 @@
         </div>
         <div>
           <LargeMessage
-            v-if="!loading && (!data || !data.hits || !data.hits.total)"
+            v-if="!loading && (!data || !data.data || !data.data.length)"
             heading="No API logs yet"
             img="undraw_software_engineer_lvl5.svg"
             text="We couldn't find any API logs for this API key yet, go ahead and make some requests first"
@@ -81,14 +81,26 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(log, i) in data.hits.hits" :key="`l${log._id}${i}`">
-                  <td><TimeAgo :date="log._source.date" /></td>
-                  <td>{{ log._source.method }}</td>
+                <tr v-for="(log, i) in data.data" :key="`l${log._id}${i}`">
+                  <td v-if="log._source && log._source.date">
+                    <TimeAgo :date="log._source.date" />
+                  </td>
+                  <td v-if="log._source && log._source.method">
+                    {{ log._source.method }}
+                  </td>
                   <td>
                     <code>{{ log._source.url.split("?")[0] }}</code>
                   </td>
-                  <td><HTTPStatus :status="log._source.statusCode" /></td>
-                  <td>
+                  <td v-if="log._source && log._source.statusCode">
+                    <HTTPStatus :status="log._source.statusCode" />
+                  </td>
+                  <td
+                    v-if="
+                      log._source &&
+                        log._source.completedDate &&
+                        log._source.date
+                    "
+                  >
                     {{
                       new Date(log._source.completedDate).getTime() -
                         new Date(log._source.date).getTime()
@@ -112,6 +124,27 @@
                 </tr>
               </tbody>
             </table>
+            <div class="pagination text text--align-center">
+              <button
+                v-if="data && data.hasMore"
+                class="button"
+                :disabled="loadingMore"
+                @click="loadMore"
+              >
+                <span>Load more logs</span>
+                <font-awesome-icon
+                  v-if="!loadingMore"
+                  class="icon"
+                  icon="arrow-down"
+                />
+                <font-awesome-icon
+                  v-else
+                  class="icon icon--ml-2 icon--color-light"
+                  icon="sync"
+                  spin
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -169,11 +202,12 @@ export default class ManageSettings extends Vue {
   loading = "";
   newScopes = "orgRead";
   scopes = scopes;
-  loggedInMembership = 3;
   activeApiKey = 0;
   apiKeyOptions: any = {};
   timeFilter = "24h";
+  from = 0;
   timeOptions = {
+    "10s": "Last 10 seconds",
     "60s": "Last 60 seconds",
     "10m": "Last 10 minutes",
     "24h": "Last 24 hours",
@@ -185,9 +219,12 @@ export default class ManageSettings extends Vue {
     this.apiKeys = {
       ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
     };
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
+    this.data = {
+      ...this.$store.getters["manage/apiKeyLogs"](
+        this.$route.params.team,
+        this.activeApiKey
+      )
+    };
   }
 
   private load() {
@@ -219,12 +256,15 @@ export default class ManageSettings extends Vue {
   }
 
   private loadData() {
+    this.from = 0;
     if (!this.activeApiKey) return;
     this.loading = "Loading your API logs";
     this.$store
       .dispatch("manage/getApiKeyLogs", {
         team: this.$route.params.team,
-        id: this.activeApiKey
+        id: this.activeApiKey,
+        range: this.timeFilter,
+        from: this.from
       })
       .then(data => {
         this.data = data;
@@ -236,15 +276,24 @@ export default class ManageSettings extends Vue {
   }
 
   private loadMore() {
+    const data = { ...this.data };
+    if (data && data.data) {
+      this.from = data.data.length;
+    }
     this.loadingMore = true;
     this.$store
-      .dispatch("manage/getApiKeys", {
+      .dispatch("manage/getApiKeyLogs", {
         team: this.$route.params.team,
-        start: this.$store.state.manage.apiKeys[this.$route.params.team].next
+        id: this.activeApiKey,
+        range: this.timeFilter,
+        from: this.from
       })
       .then(() => {
-        this.apiKeys = {
-          ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
+        this.data = {
+          ...this.$store.getters["manage/apiKeyLogs"](
+            this.$route.params.team,
+            this.activeApiKey
+          )
         };
       })
       .catch(error => {
