@@ -92,14 +92,38 @@ export default {
     5: "Basic"
   },
   scopes: {
-    orgRead: {
-      text: "Read team details",
-      help: "Get information about your team, subscription, and settings"
-    },
-    orgUpdate: {
-      text: "Update team details",
-      help: "Update information about your team, billing, etc."
-    }
+    "org:read": { text: "Read team details" },
+    "org:update": { text: "Update team details" },
+    "org:delete": { text: "Delete this team" },
+    "org:billing:read": { text: "Read billing info" },
+    "org:billing:update": { text: "Update billing info" },
+    "org:invoices:read": { text: "Read invoices" },
+    "org:sources:read": { text: "Read payment methods" },
+    "org:sources:create": { text: "Create payment methods" },
+    "org:sources:update": { text: "Update payment methods" },
+    "org:sources:delete": { text: "Delete payment methods" },
+    "org:subscriptions:read": { text: "Read paid subscriptions" },
+    "org:subscriptions:update": { text: "Update paid subscriptions" },
+    "org:subscriptions:create": { text: "Create paid subscriptions" },
+    "org:plans:read": { text: "Read pricing plans" },
+    "org:api-key:read": { text: "Read API keys" },
+    "org:api-key:update": { text: "Update API keys" },
+    "org:api-key:delete": { text: "Delete API keys" },
+    "org:api-key:create": { text: "Create API keys" },
+    "org:api-key-logs:read": { text: "Read API logs" },
+    "org:domain:read": { text: "Read domains" },
+    "org:domain:update": { text: "Update domains" },
+    "org:domain:delete": { text: "Delete domains" },
+    "org:domain:create": { text: "Create domains" },
+    "org:domain:verify": { text: "Verify a domain" },
+    "org:webhook:read": { text: "Read webhooks" },
+    "org:webhook:update": { text: "Update webhooks" },
+    "org:webhook:delete": { text: "Delete webhooks" },
+    "org:webhook:create": { text: "Create webhooks" },
+    "org:membership:read": { text: "Read memberships" },
+    "org:membership:update": { text: "Update memberships" },
+    "org:membership:delete": { text: "Delete memberships" },
+    "org:membership:create": { text: "Create memberships" }
   },
   webhooks: {
     "*": "All events",
