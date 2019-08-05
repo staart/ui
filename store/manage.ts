@@ -20,7 +20,8 @@ export const state = (): RootState => ({
   domains: {},
   domain: {},
   webhooks: {},
-  webhook: {}
+  webhook: {},
+  apiKeyLogs: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -135,6 +136,12 @@ export const mutations: MutationTree<RootState> = {
     currentApiKeys[team] = currentApiKeys[team] || {};
     currentApiKeys[team][id] = { ...apiKey };
     Vue.set(state, "apiKey", currentApiKeys);
+  },
+  setApiKeyLogs(state: RootState, { team, apiKeyLogs, id }): void {
+    const currentApiKeyLogs = state.apiKeyLogs;
+    currentApiKeyLogs[team] = currentApiKeyLogs[team] || {};
+    currentApiKeyLogs[team][id] = { ...apiKeyLogs };
+    Vue.set(state, "apiKeyLogs", currentApiKeyLogs);
   },
   setDomains(state: RootState, { team, domains, start, next }): void {
     const currentDomains = state.domains;
@@ -375,6 +382,13 @@ export const actions: ActionTree<RootState, RootState> = {
     )).data;
     commit("setApiKey", { team, apiKey, id });
     return apiKey;
+  },
+  async getApiKeyLogs({ commit }, { team, id }) {
+    const apiKeyLogs: any = (await this.$axios.get(
+      `/organizations/${team}/api-keys/${id}/logs`
+    )).data;
+    commit("setApiKeyLogs", { team, apiKeyLogs, id });
+    return apiKeyLogs;
   },
   async createApiKey({ dispatch }, context) {
     const data = { ...context };

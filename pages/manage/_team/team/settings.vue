@@ -127,7 +127,9 @@ export default class ManageSettings extends Vue {
       })
       .then(org => {
         this.organization = { ...org };
-        this.$router.replace(`/manage/${this.organization.username}/settings`);
+        this.$router.replace(
+          `/manage/${this.organization.username}/team/settings`
+        );
       })
       .catch(() => {})
       .finally(() => (this.loading = ""));

@@ -93,6 +93,12 @@
           >
             <span>Webhooks</span>
           </nuxt-link>
+          <nuxt-link
+            class="sub-item"
+            :to="`/manage/${$route.params.team}/developer/logs`"
+          >
+            <span>API logs</span>
+          </nuxt-link>
         </nav>
       </nav>
     </aside>
