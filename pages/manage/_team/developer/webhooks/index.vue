@@ -1,7 +1,6 @@
 <template>
   <main>
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
+    <div>
       <div class="row">
         <h1>Webhooks</h1>
         <div class="text text--align-right">
@@ -11,7 +10,12 @@
             class="button button--type-icon"
             @click="load"
           >
-            <font-awesome-icon class="icon" icon="sync" fixed-width />
+            <font-awesome-icon
+              class="icon"
+              icon="sync"
+              :spin="!!loading"
+              fixed-width
+            />
           </button>
         </div>
       </div>
@@ -105,6 +109,7 @@
           </button>
         </div>
       </div>
+      <Loading v-else :message="loading" />
       <div v-if="loggedInMembership !== 3 && loggedInMembership !== 4">
         <h2>Create webhook</h2>
         <p>

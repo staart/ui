@@ -112,7 +112,6 @@ export default class CommaList extends Vue {
 
 <style lang="scss" scoped>
 .form-group {
-  margin-bottom: 1rem;
   label {
     display: block;
     margin-bottom: -0.5rem;

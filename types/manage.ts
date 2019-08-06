@@ -13,6 +13,7 @@ export interface Membership extends IdRow {
   organization: Organization;
 }
 export interface ApiKey extends IdRow {
+  name?: string;
   jwtApiKey: string;
   scopes: string;
   ipRestrictions?: string;

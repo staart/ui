@@ -1,7 +1,6 @@
 <template>
   <main>
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
+    <div>
       <div class="row">
         <h1>API logs</h1>
         <div class="text text--align-right">
@@ -11,7 +10,12 @@
             class="button button--type-icon"
             @click="load"
           >
-            <font-awesome-icon class="icon" icon="sync" fixed-width />
+            <font-awesome-icon
+              class="icon"
+              icon="sync"
+              :spin="!!loading"
+              fixed-width
+            />
           </button>
         </div>
       </div>
@@ -153,6 +157,7 @@
           </div>
         </div>
       </div>
+      <Loading v-else :message="loading" />
     </div>
   </main>
 </template>
@@ -224,6 +229,14 @@ export default class ManageSettings extends Vue {
     this.apiKeys = {
       ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
     };
+    const apiKeyOptions = {};
+    if (this.apiKeys && this.apiKeys.data) {
+      this.apiKeys.data.forEach(apiKey => {
+        apiKeyOptions[apiKey.id] = apiKey.name || apiKey.id;
+      });
+      this.apiKeyOptions = apiKeyOptions;
+      if (this.apiKeys.data.length) this.activeApiKey = this.apiKeys.data[0].id;
+    }
     const tryNum = parseInt(this.$route.query.key as string);
     if (!isNaN(tryNum)) this.activeApiKey = tryNum;
     this.data = {

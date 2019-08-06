@@ -183,13 +183,13 @@ export const mutations: MutationTree<RootState> = {
       currentWebhooks[team].data = webhooks.data;
     }
     currentWebhooks[team].next = next;
-    Vue.set(state, "webhooks", currentWebhooks);
+    Vue.set(state, "devWebhooks", currentWebhooks);
   },
   setWebhook(state: RootState, { team, webhook, id }): void {
     const currentWebhooks = { ...state.devWebhook };
     currentWebhooks[team] = currentWebhooks[team] || {};
     currentWebhooks[team][id] = { ...webhook };
-    Vue.set(state, "webhook", currentWebhooks);
+    Vue.set(state, "devWebhook", currentWebhooks);
   },
   setPricingPlans(state: RootState, pricingPlans: any): void {
     Vue.set(state, "pricingPlans", pricingPlans);

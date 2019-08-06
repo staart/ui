@@ -1,7 +1,6 @@
 <template>
   <main>
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
+    <div>
       <div class="row">
         <div>
           <nuxt-link
@@ -21,11 +20,16 @@
             class="button button--type-icon"
             @click="load"
           >
-            <font-awesome-icon class="icon" icon="sync" fixed-width />
+            <font-awesome-icon
+              class="icon"
+              icon="sync"
+              :spin="!!loading"
+              fixed-width
+            />
           </button>
         </div>
       </div>
-      <div v-if="webhook">
+      <div v-if="webhook && webhook.url">
         <form v-meta-ctrl-enter="updateWebhook" @submit.prevent="updateWebhook">
           <Select
             :value="webhook.event"
@@ -63,7 +67,7 @@
             :disabled="readOnly"
             @input="val => (webhook.isActive = val)"
           />
-          <div v-if="readOnly">
+          <div v-if="!readOnly">
             <button class="button">Update webhook</button>
             <button
               class="button button--color-danger"
@@ -77,6 +81,7 @@
           </div>
         </form>
       </div>
+      <Loading v-else :message="loading" />
     </div>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
@@ -87,7 +92,7 @@
         </p>
         <button
           class="button button--color-danger button--state-cta"
-          @click="deleteWebhook(showDelete.id)"
+          @click="deleteWebhook()"
         >
           Yes, delete webhook
         </button>
@@ -150,8 +155,11 @@ export default class ManageSettings extends Vue {
   loggedInMembership = 3;
 
   private created() {
-    this.webhooks = {
-      ...this.$store.getters["manage/webhooks"](this.$route.params.team)
+    this.webhook = {
+      ...this.$store.getters["manage/webhook"](
+        this.$route.params.team,
+        this.$route.params.key
+      )
     };
     this.loggedInMembership = parseInt(
       this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
@@ -208,7 +216,7 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/deleteWebhook", {
         team: this.$route.params.team,
-        id: key
+        id: this.$route.params.key
       })
       .then(webhooks => {
         this.webhooks = { ...webhooks };

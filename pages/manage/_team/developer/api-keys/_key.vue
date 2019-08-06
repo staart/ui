@@ -1,7 +1,6 @@
 <template>
   <main>
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
+    <div>
       <div class="row">
         <div>
           <nuxt-link
@@ -21,11 +20,16 @@
             class="button button--type-icon"
             @click="load"
           >
-            <font-awesome-icon class="icon" icon="sync" fixed-width />
+            <font-awesome-icon
+              class="icon"
+              icon="sync"
+              :spin="!!loading"
+              fixed-width
+            />
           </button>
         </div>
       </div>
-      <div v-if="apiKey">
+      <div v-if="apiKey && apiKey.jwtApiKey">
         <h2>Use API key</h2>
         <Input label="API key" :value="apiKey.jwtApiKey" disabled />
         <button class="button" @click="copy(apiKey.jwtApiKey)">
@@ -81,6 +85,7 @@
           </form>
         </div>
       </div>
+      <Loading v-else-if="loading" :message="loading" />
     </div>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
@@ -184,14 +189,17 @@ export default class ManageSettings extends Vue {
   showDelete = false;
   showUpdate = false;
   loading = "";
-  apiKey: ApiKey | null = null;
+  apiKey: ApiKey | undefined = undefined;
   scopes = scopes;
   copied = false;
   loggedInMembership = 3;
 
   private created() {
-    this.apiKeys = {
-      ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
+    this.apiKey = {
+      ...this.$store.getters["manage/apiKey"](
+        this.$route.params.team,
+        this.$route.params.key
+      )
     };
     this.loggedInMembership = parseInt(
       this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
