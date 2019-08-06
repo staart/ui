@@ -6,21 +6,11 @@
         <span>Staart</span>
       </nuxt-link>
       <nav v-if="isAuthenticated" :class="{ 'nav--visible-true': showNav }">
-        <nuxt-link
-          v-if="activeOrganization && activeOrganization !== 'undefined'"
-          class="item"
-          :to="`/dashboard/${activeOrganization}`"
+        <nuxt-link class="item" :to="`/dashboard/${activeOrganization}`"
           >Dashboard</nuxt-link
         >
-        <nuxt-link v-else class="item" to="/dashboard">Dashboard</nuxt-link>
-        <nuxt-link
-          v-if="
-            activeOrganization &&
-              activeOrganization !== 'undefined' &&
-              loggedInMembership !== 4
-          "
-          class="item"
-          :to="`/manage/${activeOrganization}/settings`"
+        <nuxt-link class="item" to="/dashboard">Dashboard</nuxt-link>
+        <nuxt-link class="item" :to="`/manage/${activeOrganization}/settings`"
           >Settings</nuxt-link
         >
         <span>

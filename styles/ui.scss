@@ -299,8 +299,6 @@ code {
 
 .hero {
   max-width: 550px;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   &.hero--align-center {
     margin-left: auto;
     margin-right: auto;
@@ -374,47 +372,11 @@ code {
   border-radius: 1rem;
 }
 
-input[type="radio"] {
-  display: none;
-}
-input[type="radio"] + .fake-radio {
-  background-color: #fff;
-  border-radius: 100%;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -0.2rem;
-  width: 1.25rem;
-  position: relative;
-  height: 1.25rem;
-  margin-right: 0.5rem;
-  outline: none;
-  box-shadow: rgba(42, 47, 69, 0.16) 0px 0px 0px 1px,
-    rgba($color-black, 0.12) 0px 1px 1px 0px, rgba(42, 47, 69, 0.12) 0px 2px 5px 0px;
-  &:focus, &:active {
-    box-shadow: rgba($button-background-color, 0.46) 0px 0px 0px 1px,
-      rgba($color-black, 0.42) 0px 1px 1px 0px,
-      rgba($button-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($button-background-color, 0.25);
-  }
-}
 .fake-radio-container {
   display: block;
   margin-bottom: 2rem;
   + .fake-radio-container {
     margin-top: -1rem;
-  }
-}
-input[type="radio"]:checked + .fake-radio {
-  background-color: $link-color;
-  &::after {
-    content: "";
-    width: 0.75rem;
-    height: 0.75rem;
-    background-color: #fff;
-    position: absolute;
-    transform: scale(0.5);
-    left: 0.25rem;
-    top: 0.25rem;
-    border-radius: 100%;
   }
 }
 

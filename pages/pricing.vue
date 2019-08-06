@@ -1,25 +1,37 @@
 <template>
   <main itemscope itemtype="https://schema.org/Product">
-    <div class="hero hero--align-center">
-      <h1>Simple, transparent pricing.</h1>
-      <p>
-        This is an example pricing page for a SaaS startup. You can add your own
-        plans, extra addons, and more.
-      </p>
-    </div>
     <div
       class="container"
       itemprop="offers"
       itemscope
       itemtype="https://schema.org/Offer"
     >
+      <h1 class="hero hero--align-center">Simple, transparent pricing.</h1>
       <div class="row row--padding-large hide-mobile">
-        <div></div>
+        <div>
+          <label>
+            <span aria-label="Payment term">Pay</span>
+            <select v-model="selectedTerm">
+              <option>monthly</option>
+              <option>annually</option>
+            </select>
+          </label>
+          <label>
+            <span aria-label="Currency">in</span>
+            <select v-model="selectedCurrency">
+              <option value="usd">USD</option>
+              <option value="eur">EUR</option>
+              <option value="inr">INR</option>
+            </select>
+          </label>
+        </div>
         <div>
           <div class="card card--type-padded text text--align-center">
             <h2 class="plan">Free</h2>
             <div class="price">
-              <span itemprop="priceCurrency" content="USD">$</span
+              <span itemprop="priceCurrency" content="USD">{{
+                currencySymbol
+              }}</span
               ><span itemprop="price" content="0.00">0</span>
               <link itemprop="availability" href="https://schema.org/InStock" />
             </div>
@@ -31,13 +43,19 @@
           <div class="card card--type-padded text text--align-center">
             <h2 class="plan">Pro</h2>
             <div class="price">
-              <span itemprop="priceCurrency" content="USD">$</span
-              ><span itemprop="price" content="49.00">49</span>
+              <span itemprop="priceCurrency" :content="selectedCurrency">{{
+                currencySymbol
+              }}</span
+              ><span itemprop="price" :content="calculatedPrice">{{
+                calculatedPrice | currency
+              }}</span>
               <link itemprop="availability" href="https://schema.org/InStock" />
             </div>
-            <div class="text text--size-small text--color-light">per month</div>
             <div class="text text--size-small text--color-light">
-              billed monthly
+              per {{ selectedTerm === "annually" ? "year" : "month" }}
+            </div>
+            <div class="text text--size-small text--color-light">
+              billed {{ selectedTerm }}
             </div>
           </div>
         </div>
@@ -52,7 +70,7 @@
               unlimited users
             </div>
             <div class="text text--size-small text--color-light">
-              billed annually
+              starts at {{ currencySymbol }}500/m
             </div>
           </div>
         </div>
@@ -66,7 +84,7 @@
             <ul>
               <li>Pageviews</li>
               <li>Apps &amp; modes</li>
-              <li>Usage metrics</li>
+              <li>Event tracking</li>
               <li>White labeling</li>
               <li>Support</li>
               <li>Branding</li>
@@ -75,46 +93,68 @@
         </div>
         <div>
           <div class="card card--type-padded text text--align-center">
+            <h2 class="hide-desktop">Free</h2>
             <ul>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>Unlimited</span>
+                <span class="hide-desktop">pageviews</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>20+ included</span>
+                <span class="hide-desktop">apps &amp; modes</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Usage analytics</span>
+                <span>10k events/month</span>
+                <span class="hide-desktop">event tracking</span>
               </li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
             </ul>
             <div class="text text--mt-2">
               <router-link
                 to="/auth/register?plan=free"
                 class="button button--size-large"
-                >Get started</router-link
+                >Start for free</router-link
               >
             </div>
           </div>
         </div>
         <div>
           <div class="card card--type-padded text text--align-center">
+            <h2 class="hide-desktop">
+              Pro for
+              <span itemprop="priceCurrency" :content="selectedCurrency">{{
+                currencySymbol
+              }}</span
+              ><span itemprop="price" :content="calculatedPrice">{{
+                calculatedPrice | currency
+              }}</span>
+              <link itemprop="availability" href="https://schema.org/InStock" />
+            </h2>
             <ul>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>Unlimited</span>
+                <span class="hide-desktop">pageviews</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>20+ included</span>
+                <span class="hide-desktop">apps &amp; modes</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Usage analytics</span>
+                <span>100k events/month</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
@@ -122,9 +162,11 @@
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Chat support</span>
+                <span>Email support</span>
               </li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
             </ul>
             <div class="text text--mt-2">
               <router-link
@@ -139,18 +181,22 @@
         </div>
         <div>
           <div class="card card--type-padded text text--align-center">
+            <h2 class="hide-desktop">Custom</h2>
             <ul>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>Unlimited</span>
+                <span class="hide-desktop">pageviews</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
                 <span>20+ included</span>
+                <span class="hide-desktop">apps &amp; modes</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Usage analytics</span>
+                <span>Unlimited</span>
+                <span class="hide-desktop">event tracking</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
@@ -213,12 +259,24 @@
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
               </li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
             </ul>
           </div>
         </div>
@@ -249,10 +307,18 @@
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
               </li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
-              <li><font-awesome-icon class="i-n" icon="times" title="No" /></li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
+              <li class="hide-mobile">
+                <font-awesome-icon class="i-n" icon="times" title="No" />
+              </li>
             </ul>
           </div>
         </div>
@@ -303,20 +369,28 @@
         <div class="text text--align-center">
           <h2>More plans</h2>
         </div>
-        <div class="addons more-plans">
+        <div class="addons row more-plans">
+          <div class="card card--type-padded">
+            <h3>For tracking &amp; analytics</h3>
+            <p>
+              Track as many events as you like after your fixed quota for $0.001
+              per event.
+            </p>
+            <a href="#">Purchase Analytics pack &rarr;</a>
+          </div>
           <div class="card card--type-padded">
             <h3>For open-source</h3>
             <p>
-              Pro plan availabile for free for open-source projects under
-              permissive licenses.
+              $1,000 in credits for open-source projects under permissive
+              licenses.
             </p>
             <a href="#">Apply for FOSS &rarr;</a>
           </div>
           <div class="card card--type-padded">
             <h3>For students</h3>
             <p>
-              Free or discounted Startup plan for student developers with an
-              educational account
+              $1,000 in credits for student developers with a verified
+              university email account.
             </p>
             <a href="#">Create student account &rarr;</a>
           </div>
@@ -354,7 +428,36 @@ library.add(faCheck, faTimes, faArrowRight);
     isAuthenticated: "auth/isAuthenticated"
   })
 })
-export default class Pricing extends Vue {}
+export default class Pricing extends Vue {
+  selectedCurrency = "usd";
+  selectedTerm = "monthly";
+  proPrices = {
+    monthly: {
+      usd: 15000,
+      eur: 13000,
+      inr: 1200000
+    },
+    annually: {
+      usd: 150000,
+      eur: 130000,
+      inr: 12000000
+    }
+  };
+  currencySymbols = {
+    usd: "$",
+    eur: "€",
+    inr: "₹"
+  };
+  private changeCurrency(currency: string) {
+    this.selectedCurrency = currency;
+  }
+  get calculatedPrice() {
+    return this.proPrices[this.selectedTerm][this.selectedCurrency];
+  }
+  get currencySymbol() {
+    return this.currencySymbols[this.selectedCurrency];
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -371,7 +474,7 @@ ul {
   padding: 0;
   list-style: none;
   li {
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
     &:first-child a {
       font-weight: bold;
       text-decoration: underline;
@@ -389,19 +492,7 @@ svg {
 }
 .addons {
   margin-top: 3rem;
-  display: flex;
-  justify-content: space-between;
-  > div {
-    width: 23%;
-  }
-  &.more-plans > div {
-    width: 100%;
-    &:nth-child(2) {
-      margin: 0 2rem;
-    }
-  }
   h3 {
-    margin: 0;
     font-size: 100%;
   }
   p {
