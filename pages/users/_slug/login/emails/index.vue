@@ -48,6 +48,13 @@
                     icon="check-circle"
                   />
                 </span>
+                <span v-else aria-label="Unverified" data-balloon-pos="up">
+                  <font-awesome-icon
+                    title="Unverified"
+                    class="icon icon--ml-2 icon--color-danger"
+                    icon="exclamation-circle"
+                  />
+                </span>
                 <span
                   v-if="email.isPrimary"
                   aria-label="Primary"
