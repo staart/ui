@@ -152,8 +152,8 @@ export interface RootState {
   apiKeyLogs: SingleApiKeyLogsKV;
   domains: DomainsKV;
   domain: SingleDomainKV;
-  webhooks: WebhooksKV;
-  webhook: SingleWebhookKV;
+  devWebhooks: WebhooksKV;
+  devWebhook: SingleWebhookKV;
   pricingPlans?: any;
   recentEvents?: any;
   isDownloading: boolean;
