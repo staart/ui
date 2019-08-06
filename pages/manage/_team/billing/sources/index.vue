@@ -7,7 +7,6 @@
       cta-text="Setup billing"
       :cta-to="`/manage/${$route.params.team}/billing/details`"
     />
-    <Loading v-else-if="loading" :message="loading" />
     <div v-else>
       <div class="row">
         <h1>Payment methods</h1>
@@ -22,6 +21,7 @@
               title="Refresh"
               class="icon"
               icon="sync"
+              :spin="!!loading"
               fixed-width
             />
           </button>
@@ -102,6 +102,7 @@
           </button>
         </div>
       </div>
+      <Loading v-else-if="loading" :message="loading" />
       <h2>Add card</h2>
       <p>You can use <code>42</code> 16 times as a test credit card.</p>
       <form @submit.prevent="addCard">

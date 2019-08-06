@@ -92,7 +92,7 @@
                   <td v-if="log._source && log._source.method">
                     {{ log._source.method }}
                   </td>
-                  <td>
+                  <td class="less-pad">
                     <input
                       v-if="log._source && log._source.url"
                       class="input input--font-monospace input--padding-condensed"
@@ -332,4 +332,9 @@ export default class ManageSettings extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+td.less-pad {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>

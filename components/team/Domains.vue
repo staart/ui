@@ -13,16 +13,13 @@
             title="Refresh"
             class="icon"
             icon="sync"
+            :spin="!!loading"
             fixed-width
           />
         </button>
       </div>
     </div>
-    <Loading v-if="loading" :message="loading" />
-    <table
-      v-else-if="domains && domains.data && domains.data.length"
-      class="table"
-    >
+    <table v-if="domains && domains.data && domains.data.length" class="table">
       <thead>
         <th>Domain</th>
         <th></th>
@@ -84,6 +81,7 @@
         </tr>
       </tbody>
     </table>
+    <Loading v-else-if="loading" :message="loading" />
     <div class="pagination text text--align-center">
       <button
         v-if="domains && domains.hasMore"

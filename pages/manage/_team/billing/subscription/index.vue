@@ -7,7 +7,6 @@
       cta-text="Setup billing"
       :cta-to="`/manage/${$route.params.team}/billing/details`"
     />
-    <Loading v-else-if="loading" :message="loading" />
     <div v-else>
       <div class="row">
         <h1>Subscription</h1>
@@ -22,6 +21,7 @@
               title="Refresh"
               class="icon"
               icon="sync"
+              :spin="!!loading"
               fixed-width
             />
           </button>
@@ -252,6 +252,7 @@
           </button>
         </div>
       </div>
+      <Loading v-else-if="loading" :message="loading" />
       <div
         v-if="subscriptions && subscriptions.data && !subscriptions.data.length"
       >

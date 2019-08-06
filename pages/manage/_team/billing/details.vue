@@ -13,6 +13,7 @@
             title="Refresh"
             class="icon"
             icon="sync"
+            :spin="!!loading"
             fixed-width
           />
         </button>
@@ -26,8 +27,7 @@
       Manage your billing account details. This information will be used for
       invoicing.
     </p>
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
+    <div>
       <div v-if="billing">
         <table v-if="billing.id" class="table table--type-cols">
           <tbody>
@@ -56,6 +56,7 @@
         </table>
       </div>
       <form
+        v-if="billing"
         v-meta-ctrl-enter="save"
         class="text text--mt-2"
         @submit.prevent="save"
@@ -131,6 +132,7 @@
           Update settings
         </button>
       </form>
+      <Loading v-else-if="loading" :message="loading" />
     </div>
   </main>
 </template>

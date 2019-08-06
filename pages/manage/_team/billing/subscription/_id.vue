@@ -152,6 +152,7 @@ import {
   faFileInvoiceDollar,
   faPencilAlt,
   faArrowDown,
+  faArrowLeft,
   faSync
 } from "@fortawesome/free-solid-svg-icons";
 import { subscriptions } from "stripe";
@@ -164,7 +165,7 @@ import Checkbox from "@/components/form/Checkbox.vue";
 import Select from "@/components/form/Select.vue";
 import { User } from "@/types/auth";
 import { Subscriptions, emptyPagination } from "@/types/manage";
-library.add(faFileInvoiceDollar, faPencilAlt, faArrowDown, faSync);
+library.add(faFileInvoiceDollar, faPencilAlt, faArrowLeft, faArrowDown, faSync);
 
 @Component({
   components: {

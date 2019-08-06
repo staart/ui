@@ -13,13 +13,13 @@
             title="Refresh"
             class="icon"
             icon="sync"
+            :spin="!!loading"
             fixed-width
           />
         </button>
       </div>
     </div>
-    <Loading v-if="loading" :message="loading" />
-    <table v-else-if="memberships && memberships.data" class="table">
+    <table v-if="memberships && memberships.data" class="table">
       <thead>
         <th>Name</th>
         <th>Joined</th>
@@ -70,6 +70,7 @@
         </tr>
       </tbody>
     </table>
+    <Loading v-else-if="loading" :message="loading" />
     <div class="pagination text text--align-center">
       <button
         v-if="memberships && memberships.hasMore"
