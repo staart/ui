@@ -89,7 +89,12 @@
                     {{ log._source.method }}
                   </td>
                   <td>
-                    <code>{{ log._source.url.split("?")[0] }}</code>
+                    <input
+                      v-if="log._source && log._source.url"
+                      class="input input--font-monospace input--padding-condensed"
+                      :value="log._source.url"
+                      disabled
+                    />
                   </td>
                   <td v-if="log._source && log._source.statusCode">
                     <HTTPStatus :status="log._source.statusCode" />
@@ -219,6 +224,8 @@ export default class ManageSettings extends Vue {
     this.apiKeys = {
       ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
     };
+    const tryNum = parseInt(this.$route.query.key as string);
+    if (!isNaN(tryNum)) this.activeApiKey = tryNum;
     this.data = {
       ...this.$store.getters["manage/apiKeyLogs"](
         this.$route.params.team,
@@ -243,7 +250,7 @@ export default class ManageSettings extends Vue {
         this.loading = "";
       })
       .then(apiKeyId => {
-        if (apiKeyId) this.activeApiKey = apiKeyId;
+        if (apiKeyId && !this.activeApiKey) this.activeApiKey = apiKeyId;
         return this.loadData();
       })
       .catch(error => {

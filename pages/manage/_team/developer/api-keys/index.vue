@@ -70,6 +70,20 @@
                 >
                   <font-awesome-icon class="icon" icon="eye" fixed-width />
                 </router-link>
+                <router-link
+                  :to="
+                    `/manage/${$route.params.team}/developer/logs?key=${apiKey.id}`
+                  "
+                  aria-label="Logs"
+                  data-balloon-pos="up"
+                  class="button button--type-icon"
+                >
+                  <font-awesome-icon
+                    class="icon"
+                    icon="chart-line"
+                    fixed-width
+                  />
+                </router-link>
                 <button
                   aria-label="Delete"
                   data-balloon-pos="up"
@@ -156,7 +170,8 @@ import {
   faArrowDown,
   faSync,
   faTrash,
-  faEye
+  faEye,
+  faChartLine
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -170,7 +185,7 @@ import { User } from "@/types/auth";
 import { ApiKeys, emptyPagination, ApiKey } from "@/types/manage";
 import translations from "@/locales/en";
 const scopes = translations.scopes;
-library.add(faArrowDown, faSync, faTrash, faEye);
+library.add(faArrowDown, faSync, faTrash, faEye, faChartLine);
 
 @Component({
   components: {

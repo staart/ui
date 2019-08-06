@@ -435,6 +435,14 @@ code {
   &:disabled {
     background-color: rgba($color-primary, 0.025);
   }
+  &.input--font-monospace {
+    font-family: "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace;
+    font-size: 90%;
+  }
+  &.input--padding-condensed {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
 }
 
 .container--type-settings {
