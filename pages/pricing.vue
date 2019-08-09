@@ -6,7 +6,12 @@
       itemscope
       itemtype="https://schema.org/Offer"
     >
-      <h1 class="hero hero--align-center">Simple, transparent pricing.</h1>
+      <h1
+        style="font-size: 300%; max-width: none"
+        class="hero hero--align-center"
+      >
+        Simple, transparent pricing.
+      </h1>
       <div class="row row--padding-large hide-mobile">
         <div>
           <label>
@@ -84,8 +89,7 @@
             <ul>
               <li>Pageviews</li>
               <li>Apps &amp; modes</li>
-              <li>Event tracking</li>
-              <li>White labeling</li>
+              <li>Customization</li>
               <li>Support</li>
               <li>Branding</li>
             </ul>
@@ -102,13 +106,8 @@
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>20+ included</span>
+                <span>All 20+ features</span>
                 <span class="hide-desktop">apps &amp; modes</span>
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>10k events/month</span>
-                <span class="hide-desktop">event tracking</span>
               </li>
               <li class="hide-mobile">
                 <font-awesome-icon class="i-n" icon="times" title="No" />
@@ -149,12 +148,8 @@
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>20+ included</span>
+                <span>All 20+ features</span>
                 <span class="hide-desktop">apps &amp; modes</span>
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>100k events/month</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
@@ -190,13 +185,8 @@
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>20+ included</span>
+                <span>All 20+ features</span>
                 <span class="hide-desktop">apps &amp; modes</span>
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-                <span>Unlimited</span>
-                <span class="hide-desktop">event tracking</span>
               </li>
               <li>
                 <font-awesome-icon class="i-y" icon="check" title="Yes" />
@@ -223,143 +213,45 @@
       </div>
       <div class="row row--padding-large text text--mt-4 hide-mobile">
         <div>
-          <ul>
-            <li>100+ integrations</li>
-            <li>Team members</li>
-            <li>Developer API</li>
-            <li>Bank-grade security</li>
-            <li>Hosted in Europe</li>
-            <li>Data export &amp; delete</li>
-            <li>99.99% uptime SLA</li>
-            <li>Increased rate limit</li>
-            <li>Single-sign on</li>
-            <li>IP whitelisting</li>
-            <li>Self-hosted service</li>
-            <li>Reseller accounts</li>
-          </ul>
-        </div>
-        <div>
-          <div class="text text--align-center">
+          <div
+            v-for="(feature, i) in moreFeatures"
+            :key="`f${i}`"
+            style="margin: 2rem 0"
+          >
+            <div>
+              <h3>{{ i }}</h3>
+            </div>
             <ul>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
+              <li v-for="(feature1, j) in feature" :key="`g${j}`">
+                {{ j }}
               </li>
             </ul>
           </div>
         </div>
-        <div>
-          <div class="text text--align-center">
+        <div
+          v-for="k in [0, 1, 2]"
+          :key="`k${k}`"
+          class="text text--align-center"
+        >
+          <div
+            v-for="(feature, i) in moreFeatures"
+            :key="`f${i}`"
+            style="margin: 2rem 0"
+          >
+            <div class="hide" aria-hidden="true">
+              <h3>{{ i }}</h3>
+            </div>
             <ul>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-              <li class="hide-mobile">
-                <font-awesome-icon class="i-n" icon="times" title="No" />
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div>
-          <div class="text text--align-center">
-            <ul>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
-              </li>
-              <li>
-                <font-awesome-icon class="i-y" icon="check" title="Yes" />
+              <li v-for="(feature1, j) in feature" :key="`g${j}`">
+                <span v-if="!feature1[k]">
+                  <font-awesome-icon class="i-n" icon="times" title="No" />
+                </span>
+                <span v-else>
+                  <font-awesome-icon class="i-y" icon="check" title="Yes" />
+                  <span v-if="typeof feature1[k] === 'string'">
+                    {{ feature1[k] }}
+                  </span>
+                </span>
               </li>
             </ul>
           </div>
@@ -397,7 +289,7 @@
           <div class="card card--type-padded">
             <h3>For non-profits</h3>
             <p>
-              Up to 50% off on all plans and services for registered text
+              Up to 50% off on all plans and services for registered section
               501(c)(3) non-profits
             </p>
             <a href="#">Contact us &rarr;</a>
@@ -448,6 +340,43 @@ export default class Pricing extends Vue {
     eur: "€",
     inr: "₹"
   };
+  moreFeatures = {
+    Team: {
+      "Team members": [
+        "3 users included",
+        "5 users included",
+        "Unlimited users"
+      ],
+      "IP whitelisting": [
+        "Whitelist IP/CIDRs",
+        "Whitelist IP/CIDRs",
+        "Whitelist IP/CIDRs"
+      ],
+      "Single-sign on": [false, false, "SAML-based SSO"]
+    },
+    Security: {
+      "Bank-grade security": [
+        "256-bit TLS/SSL",
+        "256-bit TLS/SSL",
+        "Custom certificate"
+      ],
+      "Compliant hosting": [
+        "Hosted in Europe",
+        "Hosted in Europe",
+        "Hosted in EU/US/IN"
+      ],
+      "Two-factor authentication": [true, true, true],
+      "Data export & delete": [true, true, true]
+    },
+    Developers: {
+      "Developer API": [true, true, true],
+      "IFTTT integrations": [true, true, true],
+      "99.99% uptime SLA": [false, true, true],
+      "Increased rate limit": [false, false, true],
+      "Self-hosted service": [false, false, true],
+      "Reseller accounts": [false, false, true]
+    }
+  };
   private changeCurrency(currency: string) {
     this.selectedCurrency = currency;
   }
@@ -464,6 +393,10 @@ export default class Pricing extends Vue {
 .plan {
   font-weight: inherit;
   margin-bottom: 0;
+}
+select {
+  font: inherit;
+  font-size: 95%;
 }
 .price {
   font-size: 200%;
@@ -527,5 +460,9 @@ svg {
       }
     }
   }
+}
+.hide {
+  visibility: hidden;
+  opacity: 0;
 }
 </style>
