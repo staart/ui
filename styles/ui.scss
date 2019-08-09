@@ -454,41 +454,6 @@ code {
     position: sticky;
     top: 1rem;
   }
-  @media (max-width: 900px) {
-    .container {
-      display: block;
-      padding: 0;
-      .card {
-        border-radius: 0;
-      }
-    }
-    aside {
-      margin-top: 1rem;
-      width: 100%;
-      overflow-x: auto;
-    }
-    aside > nav {
-      position: static;
-      display: flex;
-      .item,
-      .sub-item {
-        padding: 1rem;
-        margin: 0;
-        white-space: nowrap;
-      }
-      .sub-nav {
-        background-color: #fff;
-        border-top-left-radius: 0.2rem;
-        border-top-right-radius: 0.2rem;
-        margin: 0;
-        padding: 0;
-        border: 0;
-      }
-      svg {
-        display: none;
-      }
-    }
-  }
   .card {
     flex-grow: 1;
     padding: 2rem;
@@ -530,6 +495,47 @@ code {
     margin: 0.5rem 0;
     &.nuxt-link-active {
       font-weight: bold;
+    }
+  }
+}
+@media (max-width: 900px) {
+  .container {
+    display: block !important;
+    .card {
+      border-radius: 0;
+    }
+  }
+  .container--type-settings {
+    padding: 0;
+    .card {
+      padding: 1.5rem;
+    }
+    aside {
+      margin-top: 1rem;
+      width: 100%;
+      overflow-x: auto;
+    }
+    aside > nav {
+      position: static;
+      display: flex;
+      .item,
+      .sub-item {
+        padding: 1rem;
+        margin: 0;
+        white-space: nowrap;
+      }
+      .sub-nav {
+        display: flex;
+        background-color: #fff;
+        border-top-left-radius: 0.2rem;
+        border-top-right-radius: 0.2rem;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      svg {
+        display: none;
+      }
     }
   }
 }

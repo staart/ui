@@ -30,10 +30,11 @@
             :aria-expanded="(visible === 'help').toString()"
           >
             <font-awesome-icon
-              class="nav-icon"
+              class="nav-icon hide-mobile"
               icon="question-circle"
               fixed-width
             />
+            <span class="hide-desktop">Help</span>
           </button>
           <transition name="dropdown-fade">
             <div
@@ -52,7 +53,7 @@
             </div>
           </transition>
         </span>
-        <span>
+        <span class="hide-mobile">
           <button
             class="item item--type-less item--type-last"
             to="/settings/notifications"
@@ -89,7 +90,7 @@
           </button>
           <transition name="dropdown-fade">
             <div
-              v-show="visible === 'account'"
+              v-show="visible === 'account' && user"
               id="account"
               ref="dropdown-account"
               class="dropdown"
@@ -97,31 +98,38 @@
               <nuxt-link
                 class="item"
                 :to="`/users/${user.username || user.id}/profile`"
-                >Settings</nuxt-link
+                >Profile</nuxt-link
               >
-              <span
+              <div
                 v-if="
                   memberships && memberships.data && memberships.data.length
                 "
               >
-                <nuxt-link
+                <div class="subheading">Your teams</div>
+                <span
                   v-for="(membership, i) in memberships.data"
                   :key="`m${membership.id}${i}`"
-                  class="item"
-                  :to="
-                    `/manage/${membership.organization.username ||
-                      membership.organization.id}/settings`
-                  "
-                  >{{ (membership.organization || {}).name }}</nuxt-link
                 >
-              </span>
+                  <nuxt-link
+                    v-if="membership && membership.organization"
+                    class="item"
+                    :to="
+                      `/manage/${membership.organization.username ||
+                        membership.organization.id}/settings`
+                    "
+                    >{{ (membership.organization || {}).name }}</nuxt-link
+                  >
+                </span>
+              </div>
               <nuxt-link
                 v-else
                 class="item"
                 :to="`/users/${user.username || user.id}/memberships`"
                 >Your teams</nuxt-link
               >
-              <button class="item" @click="logout">Logout</button>
+              <button style="margin-top: 1rem" class="item" @click="logout">
+                Logout
+              </button>
             </div>
           </transition>
         </span>
@@ -252,7 +260,7 @@ export default class Card extends Vue {
       this.activeOrganization = this.$store.getters["auth/activeOrganization"];
     }
     const user = this.$store.getters["auth/user"];
-    if (user.username)
+    if (user && user.username)
       this.memberships = {
         ...this.$store.getters["users/memberships"](user.username)
       };
@@ -299,6 +307,7 @@ export default class Card extends Vue {
   private load() {
     const user = this.$store.getters["auth/user"];
     if (
+      user &&
       user.username &&
       (!this.memberships ||
         !this.memberships.data ||
@@ -498,5 +507,13 @@ nav .item.item--type-less:hover {
   border-radius: 100%;
   position: absolute;
   transform: translateX(0.75rem) translateY(-0.75rem) scale(0.8);
+}
+.subheading {
+  display: block;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 85%;
 }
 </style>

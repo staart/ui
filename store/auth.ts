@@ -92,6 +92,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return (await this.$axios.post("/auth/register", context)).data;
   },
   async refresh({ state, commit }) {
+    if (!state.tokens.refresh) throw new Error();
     commit("startLoading");
     try {
       const tokens: Tokens = (await this.$axios.post("/auth/refresh", {
