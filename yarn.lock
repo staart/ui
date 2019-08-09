@@ -707,7 +707,7 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@fortawesome/fontawesome-common-types@^0.2.20", "@fortawesome/fontawesome-common-types@^0.2.21":
+"@fortawesome/fontawesome-common-types@^0.2.21":
   version "0.2.21"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.21.tgz#f1c26ae24761cca583de7cafd1273ab4c70a4d87"
   integrity sha512-iJtcrU2BtF9Wyr0zm3tHEJy3HqA6sADExhCqCv3SKaJJKKp4ORJ40t4nyHvcWXSVFtd7r1gcdqcRsAfoREGTFA==
@@ -1590,10 +1590,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@types/stripe@^6.31.13":
-  version "6.31.13"
-  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-6.31.13.tgz#e0907e9cabb92f33d484b3af4cb5e28eca6688c6"
-  integrity sha512-SxztgUkPWuN0Xf+E3DXJ3cOY1Wwpg0gYdRs5riBDNzQKYbm14M2ytet4jWwrseuvIVdtHkAfFqDIrClbjW5i6A==
+"@types/stripe@^6.31.14":
+  version "6.31.14"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-6.31.14.tgz#8e3d650076d3609545362a8ba1f1d8bb0a5c5125"
+  integrity sha512-hJbK/8g0Y6ykJ6QYANbxJLNFZb9wx/Qr9MCU1mf9kJeEuizAI/yp4rqCTQbX4LkYFoyCtQKDm02e70TJTrTX1Q==
   dependencies:
     "@types/node" "*"
 
