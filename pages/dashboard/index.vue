@@ -23,27 +23,34 @@ export default class Dashboard extends Vue {
     if (team && team !== "undefined") {
       this.$router.replace(`/dashboard/${team}`);
     } else {
+      const user = this.$store.getters["auth/user"];
+      if (user.username)
+        return this.$store
+          .dispatch("users/getMemberships", { slug: user.username })
+          .then(memberships => this.continue(memberships))
+          .catch(() => {});
       this.$store
         .dispatch("settings/getMemberships")
-        .then(memberships => {
-          if (memberships.data && memberships.data.length) {
-            if (
-              memberships.data[0].organization &&
-              memberships.data[0].organization.username
-            ) {
-              this.$router.replace(
-                `/dashboard/${memberships.data[0].organization.username}`
-              );
-            } else {
-              this.$router.replace(
-                `/dashboard/${memberships.data[0].organizationId}`
-              );
-            }
-          } else {
-            this.$router.replace("/onboarding/organization");
-          }
-        })
+        .then(memberships => this.continue(memberships))
         .catch(() => {});
+    }
+  }
+  private continue(memberships) {
+    if (memberships.data && memberships.data.length) {
+      if (
+        memberships.data[0].organization &&
+        memberships.data[0].organization.username
+      ) {
+        this.$router.replace(
+          `/dashboard/${memberships.data[0].organization.username}`
+        );
+      } else {
+        this.$router.replace(
+          `/dashboard/${memberships.data[0].organizationId}`
+        );
+      }
+    } else {
+      this.$router.replace("/onboarding/organization");
     }
   }
 }

@@ -99,7 +99,24 @@
                 :to="`/users/${user.username || user.id}/profile`"
                 >Settings</nuxt-link
               >
+              <span
+                v-if="
+                  memberships && memberships.data && memberships.data.length
+                "
+              >
+                <nuxt-link
+                  v-for="(membership, i) in memberships.data"
+                  :key="`m${membership.id}${i}`"
+                  class="item"
+                  :to="
+                    `/manage/${membership.organization.username ||
+                      membership.organization.id}/settings`
+                  "
+                  >{{ (membership.organization || {}).name }}</nuxt-link
+                >
+              </span>
               <nuxt-link
+                v-else
                 class="item"
                 :to="`/users/${user.username || user.id}/memberships`"
                 >Your teams</nuxt-link
@@ -177,6 +194,8 @@ import {
   faBars,
   faTimes
 } from "@fortawesome/free-solid-svg-icons";
+import { Memberships } from "../types/settings";
+import { emptyPagination } from "../types/manage";
 import Notifications from "@/components/Notifications.vue";
 library.add(faBell, faQuestionCircle, faBars, faTimes);
 // const feedback = new Feeedback({
@@ -201,6 +220,7 @@ library.add(faBell, faQuestionCircle, faBars, faTimes);
 })
 export default class Card extends Vue {
   visible: string | null = null;
+  memberships: Memberships = emptyPagination;
   isVisible = true;
   notificationCount = 0;
   showNav = false;
@@ -209,6 +229,12 @@ export default class Card extends Vue {
   @Watch("$route")
   private onRouteChanged() {
     this.updateNavBar();
+  }
+  @Watch("visible")
+  private changedVisible() {
+    if (this.visible === "account") {
+      this.load();
+    }
   }
   private updateNavBar() {
     this.showNav = false;
@@ -225,6 +251,11 @@ export default class Card extends Vue {
     } else {
       this.activeOrganization = this.$store.getters["auth/activeOrganization"];
     }
+    const user = this.$store.getters["auth/user"];
+    if (user.username)
+      this.memberships = {
+        ...this.$store.getters["users/memberships"](user.username)
+      };
   }
   private updateNotificationCount(count: number) {
     this.notificationCount = count;
@@ -264,6 +295,23 @@ export default class Card extends Vue {
   }
   private feedback() {
     // feedback.open();
+  }
+  private load() {
+    const user = this.$store.getters["auth/user"];
+    if (
+      user.username &&
+      (!this.memberships ||
+        !this.memberships.data ||
+        !this.memberships.data.length)
+    )
+      this.$store
+        .dispatch("users/getMemberships", { slug: user.username })
+        .then(memberships => {
+          this.memberships = { ...memberships };
+        })
+        .catch(error => {
+          throw new Error(error);
+        });
   }
 }
 </script>
