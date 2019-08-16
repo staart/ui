@@ -6,6 +6,9 @@
         <span>Staart</span>
       </nuxt-link>
       <nav v-if="isAuthenticated" :class="{ 'nav--visible-true': showNav }">
+        <nuxt-link v-if="user.role === 3" class="item" :to="`/admin/users`"
+          >Admin</nuxt-link
+        >
         <nuxt-link
           v-if="activeOrganization"
           class="item"

@@ -206,7 +206,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return membership;
   },
   async deleteMembership({ dispatch }, context) {
-    await this.$axios.delete(`/${context.slug}/memberships/${context.id}`);
+    await this.$axios.delete(`/users/${context.slug}/memberships/${context.id}`);
     return dispatch("getMemberships", { slug: context.slug });
   },
   async getEmails({ commit }, { slug, start = 0 }) {

@@ -108,6 +108,7 @@
           label="Name"
           placeholder="Enter your team's name"
           :value="newName"
+          required
           @input="val => (newName = val)"
         />
         <button class="button">Set up your team</button>
