@@ -1,4 +1,4 @@
-import { IdRow, Row, Paginated } from "./root";
+import { IdRow, Paginated } from "./root";
 import { Organization } from "./manage";
 
 export interface User extends IdRow {

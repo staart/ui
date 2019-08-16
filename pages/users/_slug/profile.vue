@@ -21,21 +21,29 @@
     <Loading v-if="loading" :message="loading" />
     <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
       <div class="row">
-        <Input
-          :value="user.name"
-          label="Full name"
-          placeholder="Enter your full name"
-          required
-          @input="val => (user.name = val)"
-        />
-        <Input
-          :value="user.nickname"
-          label="Nickname"
-          placeholder="Enter a nickname we should call you"
-          required
-          @input="val => (user.name = val)"
-        />
+        <div
+          class="profile-picture column column--type-shrink text text--align-center text--mr-2 text--mb-1"
+        >
+          <img alt="" :src="user.profilePicture" />
+          <a href="https://gravatar.com" target="_blank">Gravatar</a>
+        </div>
+        <div>
+          <Input
+            :value="user.name"
+            label="Full name"
+            placeholder="Enter your full name"
+            required
+            @input="val => (user.name = val)"
+          />
+        </div>
       </div>
+      <Input
+        :value="user.nickname"
+        label="Nickname"
+        placeholder="Enter a nickname we should call you"
+        required
+        @input="val => (user.name = val)"
+      />
       <Input
         :value="user.username"
         label="Username"
@@ -51,13 +59,33 @@
         required
         @input="val => (user.gender = val)"
       />
+      <div class="row">
+        <Select
+          :value="user.countryCode"
+          label="Country"
+          placeholder="Select your country"
+          :options="countries"
+          required
+          @input="val => (user.countryCode = val)"
+        />
+        <Select
+          :value="user.timezone"
+          label="Timezone"
+          placeholder="Select your timezone"
+          :options="listTimeZones"
+          required
+          @input="val => (user.timezone = val)"
+        />
+      </div>
       <Select
-        :value="user.countryCode"
-        label="Country"
-        placeholder="Select your country"
-        :options="countries"
+        :value="user.preferredLanguage"
+        label="Language"
+        placeholder="Select your preferred language"
+        :options="{
+          'en-us': 'English (US)'
+        }"
         required
-        @input="val => (user.countryCode = val)"
+        @input="val => (user.preferredLanguage = val)"
       />
       <Checkbox
         :value="user.prefersReducedMotion"
@@ -79,7 +107,10 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import { getAllCountries } from "countries-and-timezones";
+import {
+  getAllCountries,
+  getTimezonesForCountry
+} from "countries-and-timezones";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
@@ -157,7 +188,22 @@ export default class ManageSettings extends Vue {
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }
+
+  get listTimeZones() {
+    try {
+      return getAllCountries()[(this.user.countryCode || "US").toUpperCase()]
+        .timezones;
+    } catch (error) {
+      return [];
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.profile-picture img {
+  border-radius: 100%;
+  width: 4rem;
+  height: 4rem;
+}
+</style>
