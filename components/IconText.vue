@@ -1,10 +1,9 @@
 <template>
-  <div class="country">
+  <div class="icon-text">
     <div
+      v-if="image"
       class="flag"
-      :style="
-        `background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/flags/1x1/${code.toLowerCase()}.svg')`
-      "
+      :style="`background-image: url('${image}')`"
       :aria-label="showText ? undefined : name"
       data-balloon-pos="up"
     ></div>
@@ -14,33 +13,36 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { getAllCountries } from "countries-and-timezones";
-const countries = getAllCountries();
+import analyticsIcons from "analytics-icons";
 
 @Component({})
 export default class Country extends Vue {
-  @Prop({ default: "" }) code;
+  @Prop({ default: "" }) text;
+  @Prop({ default: "brand" }) type;
   @Prop({ default: true }) showText;
 
+  get image() {
+    if (this.text === "" || this.text === "unknown") return;
+    if (this.type === "domain") return `https://unavatar.now.sh/${this.text}`;
+    return analyticsIcons(this.text);
+  }
+
   get name() {
-    return (
-      (countries[this.code.toUpperCase()]
-        ? countries[this.code.toUpperCase()].name
-        : this.code) || this.code
-    );
+    return this.text || "Name";
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.country {
+.icon-text {
   display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   > * {
     display: inline-block;
   }
 }
 .flag {
-  background-color: #aaa;
   margin: -1.33rem 0.5rem -1rem 0;
   width: 2rem;
   height: 2rem;

@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="row">
-      <h1>Users</h1>
+      <h1>Organizations</h1>
       <div class="text text--align-right">
         <button
           aria-label="Refresh"
@@ -18,27 +18,40 @@
         </button>
       </div>
     </div>
-    <div v-if="users && users.data">
+    <div v-if="organizations && organizations.data">
       <table class="table">
         <thead>
           <tr>
             <th>Name</th>
-            <th>Joined</th>
+            <th>Created</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in users.data" :key="`${user.id}_${index}`">
-            <td><User :user="user" /></td>
-            <td><TimeAgo :date="user.createdAt" /></td>
+          <tr
+            v-for="(organization, index) in organizations.data"
+            :key="`${organization.id}_${index}`"
+          >
+            <td>{{ organization.name }}</td>
+            <td><TimeAgo :date="organization.createdAt" /></td>
             <td class="text text--align-right">
               <router-link
-                :to="`/users/${user.username || user.id}/profile`"
+                :to="`/dashboard/${organization.username || organization.id}`"
                 aria-label="View"
                 data-balloon-pos="up"
                 class="button button--type-icon"
               >
                 <font-awesome-icon class="icon" icon="eye" fixed-width />
+              </router-link>
+              <router-link
+                :to="
+                  `/manage/${organization.username || organization.id}/settings`
+                "
+                aria-label="Edit"
+                data-balloon-pos="up"
+                class="button button--type-icon"
+              >
+                <font-awesome-icon class="icon" icon="pencil-alt" fixed-width />
               </router-link>
             </td>
           </tr>
@@ -46,12 +59,12 @@
       </table>
       <div class="pagination text text--align-center">
         <button
-          v-if="users && users.hasMore"
+          v-if="organizations && organizations.hasMore"
           class="button"
           :disabled="loadingMore"
           @click="loadMore"
         >
-          <span>Load more users</span>
+          <span>Load more organizations</span>
           <font-awesome-icon
             v-if="!loadingMore"
             class="icon"
@@ -73,28 +86,31 @@
 import { Component, Vue } from "vue-property-decorator";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faArrowDown, faSync, faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faSync,
+  faEye,
+  faPencilAlt
+} from "@fortawesome/free-solid-svg-icons";
 import { emptyPagination } from "../../types/admin";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
-import User from "@/components/User.vue";
-library.add(faArrowDown, faSync, faEye);
+library.add(faArrowDown, faSync, faEye, faPencilAlt);
 
 @Component({
   components: {
     Loading,
     TimeAgo,
-    User,
     FontAwesomeIcon
   }
 })
-export default class AdminUsers extends Vue {
-  users = emptyPagination;
+export default class AdminOrganizations extends Vue {
+  organizations = emptyPagination;
   loading = "";
   loadingMore = false;
 
   private created() {
-    this.users = { ...this.$store.getters["admin/users"]() };
+    this.organizations = { ...this.$store.getters["admin/organizations"]() };
   }
 
   private mounted() {
@@ -102,11 +118,11 @@ export default class AdminUsers extends Vue {
   }
 
   private load() {
-    this.loading = "Loading your users";
+    this.loading = "Loading your organizations";
     this.$store
-      .dispatch("admin/getUsers", {})
-      .then(users => {
-        this.users = { ...users };
+      .dispatch("admin/getOrganizations", {})
+      .then(organizations => {
+        this.organizations = { ...organizations };
       })
       .catch(error => {
         throw new Error(error);
@@ -117,12 +133,12 @@ export default class AdminUsers extends Vue {
   private loadMore() {
     this.loadingMore = true;
     this.$store
-      .dispatch("admin/getUsers", {
-        start: this.$store.state.admin.users.next
+      .dispatch("admin/getOrganizations", {
+        start: this.$store.state.admin.organizations.next
       })
       .then(() => {
-        this.users = {
-          ...this.$store.getters["admin/users"]()
+        this.organizations = {
+          ...this.$store.getters["admin/organizations"]()
         };
       })
       .catch(error => {

@@ -2,15 +2,15 @@
   <div class="container container--type-settings">
     <aside>
       <nav>
-        <nuxt-link class="item" :to="`/admin/profile`">
+        <nuxt-link class="item" :to="`/admin/users`">
           <font-awesome-icon class="nav-icon" icon="users" fixed-width />
           <span>Users</span>
         </nuxt-link>
-        <nuxt-link class="item" :to="`/admin/profile`">
+        <nuxt-link class="item" :to="`/admin/teams`">
           <font-awesome-icon class="nav-icon" icon="building" fixed-width />
           <span>Teams</span>
         </nuxt-link>
-        <nuxt-link class="item" :to="`/admin/profile`">
+        <nuxt-link class="item" :to="`/admin/server-logs`">
           <font-awesome-icon class="nav-icon" icon="code" fixed-width />
           <span>Server logs</span>
         </nuxt-link>

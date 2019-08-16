@@ -2082,6 +2082,11 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
+analytics-icons@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/analytics-icons/-/analytics-icons-5.3.0.tgz#6d14e9853e682eeebdb4b27ae80b17f5637d8fab"
+  integrity sha512-4m3yoU63db1Gjnz0wmGAgO/eogHgeZvKYGa7U7nPfIwuUV/OKBC4JUjrwpzEIXnD3sXx0ccz6G3qurb7ybfudg==
+
 ansi-align@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-2.0.0.tgz#c36aeccba563b89ceb556f3690f0b1d9e3547f7f"
@@ -11067,6 +11072,11 @@ webpackbar@^3.2.0:
     std-env "^2.2.1"
     text-table "^0.2.0"
     wrap-ansi "^5.1.0"
+
+which-browser@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/which-browser/-/which-browser-0.4.2.tgz#fe88f454a05d5ca58a9cfcc89806319768add00a"
+  integrity sha512-os8eAoe2CFMxkZUY7vKpRiwi9hWoWvWobI/VoKIw8YWwmfP+pomjnZyXFGVP+/p8Zm85/xRO6tbmZXJ1hLnjfw==
 
 which-module@^1.0.0:
   version "1.0.0"
