@@ -23,6 +23,7 @@
           >Settings</nuxt-link
         >
         <nuxt-link v-else class="item" to="/settings">Settings</nuxt-link>
+        <nuxt-link class="item" to="/docs">Docs</nuxt-link>
         <span>
           <button
             class="item item--type-less"
@@ -162,6 +163,7 @@
           </transition>
         </span>
         <nuxt-link class="item" to="/pricing">Pricing</nuxt-link>
+        <nuxt-link class="item" to="/docs">Docs</nuxt-link>
         <nuxt-link
           v-if="$route.path !== '/auth/login'"
           class="button"
@@ -277,6 +279,8 @@ export default class Card extends Vue {
   }
   private logout() {
     this.$store.dispatch("auth/logout");
+    this.isAuthenticated = false;
+    this.user = emptyUser;
     this.$router.push("/");
   }
   private mounted() {
