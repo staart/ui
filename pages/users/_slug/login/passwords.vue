@@ -4,11 +4,19 @@
     <div v-else>
       <h2>Change password</h2>
       <form @submit.prevent="changePassword">
+        <input
+          type="text"
+          autocomplete="username"
+          :value="user.username"
+          hidden
+          disabled
+        />
         <Input
           label="Current password"
           type="password"
           placeholder="Enter your current password"
           :value="oldPassword"
+          autocomplete="currency-password"
           @input="val => (oldPassword = val)"
         />
         <Input
@@ -16,6 +24,7 @@
           type="password"
           placeholder="Enter a new password"
           :value="newPassword"
+          autocomplete="new-password"
           @input="val => (newPassword = val)"
         />
         <button class="button">Change password</button>

@@ -179,7 +179,7 @@
                   >Scheduled to cancel</span
                 >
               </td>
-              <td>
+              <td v-if="subscription.plan && subscription.plan.currency">
                 <span>{{ subscription.plan.currency.toUpperCase() }}</span>
                 <span>{{ subscription.plan.amount | currency }}</span>
                 <span>{{

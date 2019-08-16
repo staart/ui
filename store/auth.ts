@@ -70,7 +70,7 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("startLoading");
     try {
       const tokens = (await this.$axios.post("/auth/login", context)).data;
-      dispatch("loginWithTokens", tokens);
+      return dispatch("loginWithTokens", tokens);
     } catch (error) {
       commit("stopLoading");
       throw new Error(error);
