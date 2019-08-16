@@ -91,6 +91,13 @@ export const actions: ActionTree<RootState, RootState> = {
   async register({ commit }, context) {
     return (await this.$axios.post("/auth/register", context)).data;
   },
+  async safeRefresh({ state, dispatch }) {
+    const token = state.tokens.token;
+    if (!token) return;
+    if (decode(token).exp * 1000 < new Date().getTime()) {
+      return dispatch("refresh");
+    }
+  },
   async refresh({ state, commit }) {
     if (!state.tokens.refresh) throw new Error();
     commit("startLoading");

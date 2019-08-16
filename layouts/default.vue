@@ -40,6 +40,10 @@ export default class Default extends Vue {
         if (this.$store.state.auth.user.prefersColorSchemeDark)
           if (document && document.body)
             document.documentElement.classList.add("prefers-color-scheme-dark");
+        this.$store
+          .dispatch("auth/safeRefresh")
+          .then(() => {})
+          .catch(() => {});
       }
     } catch (error) {
       console.log(error);
