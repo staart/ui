@@ -33,6 +33,15 @@ export default class Modal extends Vue {
   @Prop() onClose;
   @Prop({ default: false }) disableBackgroundClose;
   @Prop({ default: "Close" }) closeText;
+  private handleClose(event: KeyboardEvent) {
+    if (event.key === "Escape") this.close();
+  }
+  private mounted() {
+    document.addEventListener("keyup", this.handleClose);
+  }
+  private beforeDestroy() {
+    document.removeEventListener("keyup", this.handleClose);
+  }
   private close() {
     if (!this.disableBackgroundClose) this.onClose();
   }

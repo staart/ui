@@ -16,10 +16,28 @@ export const state = (): RootState => ({
 });
 
 export const mutations: MutationTree<RootState> = {
-  setUser(state: RootState, user: User): void {
+  setUser(state: RootState, { user, loggedInUser }: { user: User, loggedInUser: number }): void {
     const users = state.users;
     users[user.id] = user;
     Vue.set(state, "users", users);
+    if (user.id === loggedInUser) {
+      try {
+        if (process.client) {
+          if (user.prefersReducedMotion) {
+            document.documentElement.classList.add("prefers-reduced-motion");
+          } else {
+            document.documentElement.classList.remove("prefers-reduced-motion");
+          }
+          if (user.prefersColorSchemeDark) {
+            document.documentElement.classList.add("prefers-color-scheme-dark");
+          } else {
+            document.documentElement.classList.remove(
+              "prefers-color-scheme-dark"
+            );
+          }
+        }
+      } catch (error) {}
+    }
   },
   setAccessTokens(state: RootState, { slug, accessTokens, start, next }): void {
     const currentAccessTokens = state.accessTokens;
@@ -108,9 +126,13 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  async getUser({ commit }, context) {
+  async getUser({ commit, rootGetters }, context) {
     const user: User = (await this.$axios.get(`/users/${context}`)).data;
-    commit("setUser", user);
+    let loggedInUser = 0;
+    const loggedInUserObject = rootGetters["auth/user"];
+    if (loggedInUserObject && loggedInUserObject.id)
+      loggedInUser = loggedInUserObject.id;
+    commit("setUser", { user, loggedInUser });
     return user;
   },
   async updateUser({ dispatch }, context) {
