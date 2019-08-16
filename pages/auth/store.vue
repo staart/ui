@@ -48,8 +48,11 @@ export default class Token extends Vue {
     this.$store
       .dispatch("auth/setAuthTokens", this.$route.query)
       .then(response => {
-        if (response === "2fa") return this.$router.push("/auth/2fa");
-        this.$router.push(this.redirect || "/dashboard");
+        if (response === "2fa") {
+          this.$router.push("/auth/2fa");
+        } else {
+          this.$router.push(this.redirect || "/dashboard");
+        }
       })
       .catch(error => {
         this.hasError = false;

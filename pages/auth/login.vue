@@ -168,8 +168,11 @@ export default class Login extends Vue {
         password: this.password
       })
       .then(response => {
-        if (response === "2fa") return this.$router.push("/auth/2fa");
-        this.$router.push(this.redirect || "/dashboard");
+        if (response === "2fa") {
+          this.$router.push("/auth/2fa");
+        } else {
+          this.$router.push(this.redirect || "/dashboard");
+        }
       })
       .catch(error => {
         throw new Error(error);

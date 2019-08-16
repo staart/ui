@@ -85,17 +85,19 @@ export default class Token extends Vue {
         if (
           subject === "approve-location" &&
           this.$store.state.auth.isAuthenticated
-        )
-          return this.$router.replace("/dashboard");
-        if (subject === "password-reset") {
+        ) {
+          this.$router.replace("/dashboard");
+        } else if (subject === "password-reset") {
           this.$router.replace(`/auth/recover?token=${token}`);
-        }
-        if (subject === "auth") {
+        } else if (subject === "auth") {
           this.$store
             .dispatch("auth/loginWithTokens", this.$route.query)
             .then(response => {
-              if (response === "2fa") return this.$router.push("/auth/2fa");
-              this.$router.push("/dashboard");
+              if (response === "2fa") {
+                this.$router.push("/auth/2fa");
+              } else {
+                this.$router.push("/dashboard");
+              }
             });
         }
       })
