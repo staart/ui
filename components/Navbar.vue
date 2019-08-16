@@ -191,7 +191,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Trap from "vue-focus-lock";
@@ -204,6 +203,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Memberships } from "../types/settings";
 import { emptyPagination } from "../types/manage";
+import { emptyUser } from "../types/users";
 import Notifications from "@/components/Notifications.vue";
 library.add(faBell, faQuestionCircle, faBars, faTimes);
 // const feedback = new Feeedback({
@@ -216,10 +216,6 @@ library.add(faBell, faQuestionCircle, faBars, faTimes);
 // });
 
 @Component({
-  computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user"
-  }),
   components: {
     FontAwesomeIcon,
     Notifications,
@@ -234,6 +230,8 @@ export default class Card extends Vue {
   showNav = false;
   activeOrganization: string | null = null;
   loggedInMembership = 3;
+  isAuthenticated = false;
+  user = emptyUser;
   @Watch("$route")
   private onRouteChanged() {
     this.updateNavBar();
@@ -245,6 +243,12 @@ export default class Card extends Vue {
     }
   }
   private updateNavBar() {
+    try {
+      this.isAuthenticated = this.$store.state.auth.isAuthenticated;
+      if (this.isAuthenticated) {
+        this.user = this.$store.state.auth.user;
+      }
+    } catch (error) {}
     this.showNav = false;
     this.loggedInMembership = parseInt(
       this.$store.getters["manage/loggedInMembership"](this.$route.params.team)

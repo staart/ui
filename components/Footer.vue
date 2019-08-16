@@ -85,19 +85,18 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 
-@Component({
-  computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user"
-  })
-})
+@Component
 export default class Footer extends Vue {
   isVisible = true;
+  isAuthenticated = false;
   @Watch("$route")
   private onRouteChanged() {
     this.updateNavBar();
   }
   private updateNavBar() {
+    try {
+      this.isAuthenticated = !!this.$store.state.auth.isAuthenticated;
+    } catch (error) {}
     if (this.$route.path.startsWith("/onboarding")) {
       this.isVisible = false;
     } else {
