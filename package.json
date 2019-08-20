@@ -50,7 +50,7 @@
     "@nuxtjs/sitemap": "^1.2.0",
     "@types/downloadjs": "^1.4.1",
     "@types/hashids": "^1.0.30",
-    "@types/stripe": "^6.31.16",
+    "@types/stripe": "^6.31.18",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "babel-eslint": "^10.0.2",
     "cross-env": "^5.2.0",
