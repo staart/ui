@@ -2,7 +2,6 @@
 
 [![Travis CI](https://img.shields.io/travis/o15y/staart-ui.svg)](https://travis-ci.org/o15y/staart-ui)
 ![Netlify status](https://img.shields.io/endpoint.svg?url=https://platform.oswaldlabs.com/netlify-status/579f5cb0-6a9b-4bfb-bc99-8093a946a200)
-![Accessibility score](https://api.dai11y.com/api/audit-badge/accessibility/o15y/31)
 [![Dependencies](https://img.shields.io/david/o15y/staart-ui.svg)](https://david-dm.org/o15y/staart-ui)
 [![Dev dependencies](https://img.shields.io/david/dev/o15y/staart-ui.svg)](https://david-dm.org/o15y/staart-ui)
 [![GitHub](https://img.shields.io/github/license/o15y/staart-ui.svg)](https://github.com/o15y/staart-ui/blob/master/LICENSE)
