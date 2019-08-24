@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueTimeago from "vue-timeago";
-import { distanceInWordsStrict } from "date-fns";
+import { formatDistanceStrict, Locale } from "date-fns";
 
 Vue.use(VueTimeago, {
-  converter(date, locale, { includeSeconds, addSuffix = true }) {
-    return distanceInWordsStrict(Date.now(), date, {
+  converter(date: Date | number, locale: Locale, { addSuffix = true }) {
+    return formatDistanceStrict(Date.now(), date, {
       locale,
       addSuffix
     });

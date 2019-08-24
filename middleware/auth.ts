@@ -1,4 +1,4 @@
-import { Context } from "@nuxt/vue-app";
+import { Context } from "@nuxt/types";
 
 export default function({ redirect, store, route }: Context) {
   if (!store.state.auth.isAuthenticated) {
