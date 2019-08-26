@@ -32,7 +32,7 @@
             v-for="(organization, index) in organizations.data"
             :key="`${organization.id}_${index}`"
           >
-            <td>{{ organization.name }}</td>
+            <td><Team :team="organization" /></td>
             <td><TimeAgo :date="organization.createdAt" /></td>
             <td class="text text--align-right">
               <router-link
@@ -51,7 +51,7 @@
                 data-balloon-pos="up"
                 class="button button--type-icon"
               >
-                <font-awesome-icon class="icon" icon="pencil-alt" fixed-width />
+                <font-awesome-icon class="icon" icon="cog" fixed-width />
               </router-link>
             </td>
           </tr>
@@ -90,17 +90,19 @@ import {
   faArrowDown,
   faSync,
   faEye,
-  faPencilAlt
+  faCog
 } from "@fortawesome/free-solid-svg-icons";
 import { emptyPagination } from "../../types/admin";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
-library.add(faArrowDown, faSync, faEye, faPencilAlt);
+import Team from "@/components/Team.vue";
+library.add(faArrowDown, faSync, faEye, faCog);
 
 @Component({
   components: {
     Loading,
     TimeAgo,
+    Team,
     FontAwesomeIcon
   }
 })

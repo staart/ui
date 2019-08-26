@@ -41,7 +41,7 @@
               v-for="(membership, index) in memberships.data"
               :key="`${membership.id}_${index}`"
             >
-              <td>{{ membership.organization.name }}</td>
+              <td><Team :team="membership.organization" /></td>
               <td>{{ membershipRoles[membership.role] || membership.role }}</td>
               <td><TimeAgo :date="membership.createdAt" /></td>
               <td class="text text--align-right">
@@ -150,6 +150,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
+import Team from "@/components/Team.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
@@ -165,6 +166,7 @@ library.add(faArrowDown, faSync, faSignOutAlt, faEye, faCog);
   components: {
     Loading,
     Confirm,
+    Team,
     TimeAgo,
     Input,
     FontAwesomeIcon,
