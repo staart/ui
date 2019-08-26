@@ -11149,10 +11149,10 @@ webpackbar@^4.0.0:
     text-table "^0.2.0"
     wrap-ansi "^6.0.0"
 
-which-browser@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/which-browser/-/which-browser-0.4.2.tgz#fe88f454a05d5ca58a9cfcc89806319768add00a"
-  integrity sha512-os8eAoe2CFMxkZUY7vKpRiwi9hWoWvWobI/VoKIw8YWwmfP+pomjnZyXFGVP+/p8Zm85/xRO6tbmZXJ1hLnjfw==
+which-browser@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/which-browser/-/which-browser-0.5.0.tgz#204ddf1e4e3f08598a6f15c2429a6278e77c8b99"
+  integrity sha512-ge43qIdmM7pF7YxUurx0pI3G+z2+adX8zbD00fpQbOv9Kt+Q0EIjaSBaMItWTVpfASoZacGnjz+5hgt1dStJwQ==
 
 which-module@^1.0.0:
   version "1.0.0"
