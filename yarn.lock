@@ -2131,10 +2131,10 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-analytics-icons@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/analytics-icons/-/analytics-icons-5.3.0.tgz#6d14e9853e682eeebdb4b27ae80b17f5637d8fab"
-  integrity sha512-4m3yoU63db1Gjnz0wmGAgO/eogHgeZvKYGa7U7nPfIwuUV/OKBC4JUjrwpzEIXnD3sXx0ccz6G3qurb7ybfudg==
+analytics-icons@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/analytics-icons/-/analytics-icons-5.4.0.tgz#90889bc4b00c5d68c365b898cf94e340090835a3"
+  integrity sha512-MOIJyHZXrTWdpJBB+ypo8Ik4XRYD1OhMn13X7j6ccHteg/D019vd6Cs57JmJqy41vBCvqOJK4vwfh0WS3KxMOA==
 
 ansi-align@^2.0.0:
   version "2.0.0"
