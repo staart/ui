@@ -1,12 +1,14 @@
 <template>
-  <span v-if="never">Never</span>
-  <timeago
-    v-else
-    :title="safeValue"
-    class="time-ago"
-    :datetime="date"
-    :auto-update="true"
-  />
+  <no-ssr>
+    <span v-if="never">Never</span>
+    <timeago
+      v-else
+      :title="safeValue"
+      class="time-ago"
+      :datetime="date"
+      :auto-update="true"
+    />
+  </no-ssr>
 </template>
 
 <script lang="ts">

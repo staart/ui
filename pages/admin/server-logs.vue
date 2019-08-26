@@ -64,7 +64,7 @@
                   <tr>
                     <th>Date</th>
                     <th>URL</th>
-                    <th>UA</th>
+                    <th>User info</th>
                     <th>Time</th>
                     <th></th>
                   </tr>
@@ -83,20 +83,9 @@
                       />
                     </td>
                     <td v-if="log._source">
-                      <Country
-                        v-if="log._source.ipCountry"
-                        :code="log._source.ipCountry"
-                        :show-text="false"
-                      />
-                      <IconText
-                        v-if="log._source.userAgent"
-                        :text="getBrowserName(log._source.userAgent)"
-                        :show-text="false"
-                      />
-                      <IconText
-                        v-if="log._source.userAgent"
-                        :text="getManufactererName(log._source.userAgent)"
-                        :show-text="false"
+                      <AnalyticsIconSet
+                        :user-agent="log._source.userAgent"
+                        :country-code="log._source.ipCountry"
                       />
                     </td>
                     <td v-else><em>No UA</em></td>
@@ -176,11 +165,11 @@ import WhichBrowser from "which-browser";
 import { emptyPagination, ServerLogs } from "@/types/admin";
 import Select from "@/components/form/Select.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
-import Country from "@/components/Country.vue";
 import IconText from "@/components/IconText.vue";
 import HTTPStatus from "@/components/HTTPStatus.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Loading from "@/components/Loading.vue";
+import AnalyticsIconSet from "@/components/AnalyticsIconSet.vue";
 library.add(faEye, faArrowDown, faSync, faCloudDownloadAlt);
 
 @Component({
@@ -191,8 +180,8 @@ library.add(faEye, faArrowDown, faSync, faCloudDownloadAlt);
     Select,
     TimeAgo,
     HTTPStatus,
-    Country,
     IconText,
+    AnalyticsIconSet,
     FontAwesomeIcon
   }
 })
@@ -268,15 +257,6 @@ export default class Dashboard extends Vue {
       `log-${log._id}.json`,
       "application/json"
     );
-  }
-
-  getBrowserName(userAgent) {
-    const result = new WhichBrowser(userAgent);
-    return result.browser.name;
-  }
-  getManufactererName(userAgent) {
-    const result = new WhichBrowser(userAgent);
-    return result.device.manufacturer;
   }
 }
 </script>
