@@ -74,7 +74,7 @@
     "sass-loader": "^7.3.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
-    "vue-property-decorator": "^8.2.1"
+    "vue-property-decorator": "^8.2.2"
   },
   "snyk": true
 }
