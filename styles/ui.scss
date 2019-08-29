@@ -5,6 +5,10 @@ html {
   color: $text-color;
 }
 
+::selection {
+  background-color: rgba($color-primary, 0.15);
+}
+
 ul, ol {
   li:not(:last-child) {
     margin-bottom: 0.5rem;
