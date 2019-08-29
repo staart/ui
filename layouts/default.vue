@@ -4,14 +4,14 @@
     <Navbar />
     <Layout />
     <Footer />
-    <no-ssr>
+    <client-only>
       <notifications
         aria-live="alert"
         width="100%"
         group="auth"
         position="top center"
       />
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 

@@ -29,7 +29,7 @@
         >
           Login to your account
         </button>
-        <no-ssr>
+        <client-only>
           <div class="row text text--mt-1">
             <button
               v-for="service in ['Google', 'Apple', 'Salesforce']"
@@ -60,7 +60,7 @@
               <font-awesome-icon class="icon" icon="ellipsis-h" fixed-width />
             </button>
           </div>
-        </no-ssr>
+        </client-only>
       </form>
     </Card>
     <div class="row text text--mt-1">

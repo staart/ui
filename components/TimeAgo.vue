@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+  <client-only>
     <span v-if="never">Never</span>
     <timeago
       v-else
@@ -8,7 +8,7 @@
       :datetime="date"
       :auto-update="true"
     />
-  </no-ssr>
+  </client-only>
 </template>
 
 <script lang="ts">
