@@ -29,7 +29,7 @@
     "downloadjs": "^1.4.7",
     "feeedback": "^1.0.2",
     "flat": "^4.1.0",
-    "hashids": "^1.2.2",
+    "hashids": "^2.0.0",
     "jwt-decode": "^2.2.0",
     "meta-ctrl-enter": "^1.0.2",
     "nuxt": "^2.9.2",
