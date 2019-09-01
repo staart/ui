@@ -1186,13 +1186,13 @@
     ts-loader "^6.0.4"
     typescript "^3.5.3"
 
-"@nuxt/typescript-runtime@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@nuxt/typescript-runtime/-/typescript-runtime-0.1.3.tgz#e4e8c65ca7058fe6a5d7455d20fc1c367e1eb772"
-  integrity sha512-fgzGLFU3/MV8veL/fFVQG+9t6LMnnBf42MivfK8CHUcAueppKe24le7DUWPJGi+31rMUMaSm4E1HziOqiMWYkw==
+"@nuxt/typescript-runtime@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@nuxt/typescript-runtime/-/typescript-runtime-0.1.4.tgz#bee45e5907ebed7714b486016cfe5c218d7c4d5d"
+  integrity sha512-JswaB2nthOGSzMoVJbGddQuHnIro6A31LIwo3DzBRxAy9ozlpN6PA2BTUmCMECeLzux7S38lowE+Azy+Y0Ziuw==
   dependencies:
     ts-node "^8.3.0"
-    typescript "^3.5.3"
+    typescript "^3.6.2"
 
 "@nuxt/utils@2.9.2":
   version "2.9.2"
