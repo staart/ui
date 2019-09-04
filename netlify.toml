@@ -1,9 +1,9 @@
 [build]
 	command = "yarn generate"
-	publish = "dist"
+	publish = "public"
 
 [[redirects]]
   from = "/*"
   to = "/200.html"
   status = 200
-  
+
