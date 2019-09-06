@@ -38,7 +38,6 @@
             <div
               v-if="
                 user &&
-                  member.userId !== user.id &&
                   loggedInMembership !== 4 &&
                   (loggedInMembership === 3 ? member.role > 2 : true)
               "
@@ -266,7 +265,13 @@ export default class ManageMembers extends Vue {
         id,
         team: this.$route.params.team
       })
-      .then(memberships => (this.memberships = { ...memberships }))
+      .then(memberships => {
+        this.memberships = { ...memberships };
+        if (this.user && this.user.id && this.user.id === id) {
+          // You just left the team
+          this.$router.push(`/users/${this.user.username || this.user.id}/memberships`);
+        }
+      })
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }

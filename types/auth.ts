@@ -12,6 +12,7 @@ export interface User {
   preferredLanguage: string;
   prefersReducedMotion: boolean;
   role: number;
+  username: string;
   timezone: string;
   twoFactorEnabled: boolean;
   email: string;
