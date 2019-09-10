@@ -270,7 +270,7 @@ export default class ManageSettings extends Vue {
       })
       .then(apiKeys => {
         this.apiKeys = { ...apiKeys };
-        this.$router.push(`/manage/${this.$route.params.team}/api-keys`);
+        this.$router.push(`/manage/${this.$route.params.team}/developer/api-keys`);
       })
       .catch(error => {
         throw new Error(error);
