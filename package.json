@@ -54,7 +54,7 @@
     "@types/hashids": "^1.0.30",
     "@types/stripe": "^6.32.0",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
-    "@typescript-eslint/parser": "^2.1.0",
+    "@typescript-eslint/parser": "^2.2.0",
     "babel-eslint": "^10.0.3",
     "cross-env": "^5.2.1",
     "eslint": "^6.3.0",
