@@ -31,6 +31,9 @@ export default function({
       new Promise((resolve, reject) => {
         config.data = removeNulls(removeReadOnlyValues(config.data));
         $axios.setHeader("X-Requested-With", "XMLHttpRequest");
+
+        // This is the Staart public API key
+        $axios.setHeader("X-Api-Key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwib3JnYW5pemF0aW9uSWQiOjEsInJlZmVycmVyUmVzdHJpY3Rpb25zIjoic3RhYXJ0LWRlbW8ubzE1eS5jb20sbG9jYWxob3N0LG9zd2FsZGxhYnMuY29tLHN0YWFydC11aS5vMTV5Lm5vdy5zaCIsImlhdCI6MTU2ODM2MjM5MiwiZXhwIjo4ODQ2ODkxNzcwMTMyLCJpc3MiOiJzdGFhcnQiLCJzdWIiOiJhcGkta2V5IiwianRpIjoiZjE2MGRmMDg3NTkyIn0.pGv-H2a87RX5z_6U5ad07Rk7G4rr3W0hvX4BbC3Jg14");
         try {
           const token = config.headers.common.Authorization.replace(
             "Bearer ",
