@@ -1293,13 +1293,13 @@
     axios-retry "^3.1.2"
     consola "^2.10.1"
 
-"@nuxtjs/dotenv@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.4.0.tgz#900dae02dd6f89800374dcf4f1a559ee5dbfe911"
-  integrity sha512-uD0jLbNJcgmifByVwT6nhTwFWPPPe4DjXC3AvHAOQtR6msT9g1n9ckBZaBY+pJZsQLcYtwoA6EDJNP1a6Ja42g==
+"@nuxtjs/dotenv@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.4.1.tgz#dd5abb98e22cc7ae27139d3aa606151034293128"
+  integrity sha512-DpdObsvRwC8d89I9mzz6pBg6e/PEXHazDM57DOI1mmML2ZjHfQ/DvkjlSzUL7T+TnW3b/a4Ks5wQx08DqFBmeQ==
   dependencies:
-    consola "^2.9.0"
-    dotenv "^8.0.0"
+    consola "^2.10.1"
+    dotenv "^8.1.0"
 
 "@nuxtjs/eslint-config@^1.1.2":
   version "1.1.2"
@@ -3967,7 +3967,7 @@ dot-prop@^4.1.0, dot-prop@^4.1.1:
   dependencies:
     is-obj "^1.0.0"
 
-dotenv@^8.0.0:
+dotenv@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.1.0.tgz#d811e178652bfb8a1e593c6dd704ec7e90d85ea2"
   integrity sha512-GUE3gqcDCaMltj2++g6bRQ5rBJWtkWTmqmD0fo1RnnMuUqHNCt2oTPeDnS9n6fKYvlhn7AeBkb38lymBtWBQdA==
