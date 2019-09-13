@@ -59,13 +59,18 @@ Generate static pages for deployment:
 yarn generate
 ```
 
-## 💻 Staart
+## 🏁 Staart Ecosystem
 
-Staart UI works with Staart, which provides the API endpoints, helpers and CRUD methods for users, organizations, billing, and more for building your SaaS.
+The Staart ecosystem consists of open-source projects to build your SaaS startup, written in TypeScript.
 
-**[View Staart on GitHub →](https://github.com/o15y/staart)**
+|  |  |  |
+| - | - | - |
+| [🛠️ Staart](https://github.com/o15y/staart) | Node.js backend with RESTful APIs | [![Travis CI](https://img.shields.io/travis/o15y/staart)](https://travis-ci.org/o15y/staart) [![GitHub](https://img.shields.io/github/license/o15y/staart.svg)](https://github.com/o15y/staart/blob/master/LICENSE) |
+| [🌐 Staart UI](https://github.com/o15y/staart-ui) | Frontend Vue.js Progressive Web App | [![Travis CI](https://img.shields.io/travis/o15y/staart-ui)](https://travis-ci.org/o15y/staart-ui) [![GitHub](https://img.shields.io/github/license/o15y/staart-ui.svg)](https://github.com/o15y/staart-ui/blob/master/LICENSE) |
+| [📱 Staart Native](https://github.com/o15y/staart-native) | React Native app for Android and iOS | [![Travis CI](https://img.shields.io/travis/o15y/staart-native)](https://travis-ci.org/o15y/staart-native) [![GitHub](https://img.shields.io/github/license/o15y/staart-native.svg)](https://github.com/o15y/staart-native/blob/master/LICENSE) |
+| [🎨 Staart.css](https://github.com/o15y/staart.css) | Sass/CSS framework and utilities | [![Travis CI](https://img.shields.io/travis/o15y/staart.css)](https://travis-ci.org/o15y/staart.css) [![GitHub](https://img.shields.io/github/license/o15y/staart.css.svg)](https://github.com/o15y/staart.css/blob/master/LICENSE) |
 
 ## 📄 License
 
-- Code: [MIT](https://github.com/o15y/staart-ui/blob/master/LICENSE)
+- Code: [MIT](https://github.com/o15y/staart-native/blob/master/LICENSE)
 - Logo and assets: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
