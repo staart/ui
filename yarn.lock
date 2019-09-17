@@ -1186,13 +1186,13 @@
     ts-loader "^6.1.0"
     typescript "~3.6"
 
-"@nuxt/typescript-runtime@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@nuxt/typescript-runtime/-/typescript-runtime-0.1.5.tgz#c1eec862b26e6308fcb8d87037caf1a854a0c386"
-  integrity sha512-bb2jkGfN09PwZ7RxuqRT1Q2u+kOfnHz/9Gvm0JmnpykkEn/12iPXw69ZBgHaWMK3p75Zklfeor5r5ENDYDR+GQ==
+"@nuxt/typescript-runtime@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@nuxt/typescript-runtime/-/typescript-runtime-0.1.6.tgz#fcc57ed49d359d58b2d99de9876367241ff298ca"
+  integrity sha512-hKjWDmhXgyEnRKJYS5sDxoXgSvBNxJ/9PPcWTOOghIfeh0heb/dn+Lpm9MCdfYtZGu4HnFqDb5MV5qfqVnVG3g==
   dependencies:
-    ts-node "^8.3.0"
-    typescript "~3.5"
+    ts-node "^8.4.1"
+    typescript "~3.6"
 
 "@nuxt/utils@2.9.2":
   version "2.9.2"
@@ -10426,7 +10426,7 @@ ts-loader@^6.1.0:
     micromatch "^4.0.0"
     semver "^6.0.0"
 
-ts-node@^8.3.0, ts-node@^8.4.1:
+ts-node@^8.4.1:
   version "8.4.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.4.1.tgz#270b0dba16e8723c9fa4f9b4775d3810fd994b4f"
   integrity sha512-5LpRN+mTiCs7lI5EtbXmF/HfMeCjzt7DH9CZwtkr6SywStrNQC723wG+aOWFiLNn7zT3kD/RnFqi3ZUfr4l5Qw==
@@ -10500,11 +10500,6 @@ typescript@^3.6.3, typescript@~3.6:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.3.tgz#fea942fabb20f7e1ca7164ff626f1a9f3f70b4da"
   integrity sha512-N7bceJL1CtRQ2RiG0AQME13ksR7DiuQh/QehubYcghzv20tnh+MQnQIuJddTmsbqYj+dztchykemz0zFzlvdQw==
-
-typescript@~3.5:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
-  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
 
 ua-parser-js@^0.7.20:
   version "0.7.20"
