@@ -1378,10 +1378,10 @@
     "@nuxtjs/meta" "^2.6.0"
     "@nuxtjs/workbox" "^2.6.0"
 
-"@nuxtjs/sitemap@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/sitemap/-/sitemap-1.3.0.tgz#4c83a6c845fea3d57953a7df1f1d451b5b42527b"
-  integrity sha512-k+d2n0LS3ANwffj+niyaxBKJEd3EHcTo1dtGEde2PHhWFL7XJqJrvAZsxRXtKAWsRKBkceMWbGnnAlX0gr9Lfw==
+"@nuxtjs/sitemap@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/sitemap/-/sitemap-1.3.1.tgz#b41df16763f560854c0c40772c0ca870b5737dda"
+  integrity sha512-anLgftAcW5bnn/BparGuF+6xwgOO27ezEubSkkSGs80xVj7MxLqzIBBRVF5cK6pWtPKNIMSiVl5h9sD71REzfw==
   dependencies:
     async-cache "^1.1.0"
     consola "^2.10.1"
