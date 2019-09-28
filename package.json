@@ -25,7 +25,7 @@
     "@nuxtjs/pwa": "^2.6.0",
     "analytics-icons": "^5.5.0",
     "copy-to-clipboard": "^3.2.0",
-    "countries-and-timezones": "^1.0.1",
+    "countries-and-timezones": "^1.0.2",
     "date-fns": "^2.4.0",
     "downloadjs": "^1.4.7",
     "feeedback": "^1.0.2",
