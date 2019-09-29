@@ -3388,10 +3388,10 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-countries-and-timezones@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/countries-and-timezones/-/countries-and-timezones-1.0.1.tgz#478ea7051d0020e13a60cbe18154f69fcae91079"
-  integrity sha512-rQ++m2tbeSxdmG/F4TqxqZuiZuVIFhFzs0Frp6M15GVAH0FyyJZtAmNNa7sooDtkQWv7mRVYZUc2yY+gADhXsA==
+countries-and-timezones@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/countries-and-timezones/-/countries-and-timezones-1.0.2.tgz#13593ef2d36f3b1e32df36028497bc4f9649b1b9"
+  integrity sha512-yas5kG+RIDMjW5re4q+hx6N0Jap8h1/J9rAffrLwm/ADFvuXcfhmAN79FdxrTTT/ucm3IJCDG2dDhG8dho1nOw==
 
 create-ecdh@^4.0.0:
   version "4.0.3"
