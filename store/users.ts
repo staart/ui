@@ -39,7 +39,7 @@ export const mutations: MutationTree<RootState> = {
       } catch (error) {}
     }
   },
-  setAccessTokens(state: RootState, { slug, accessTokens, start, next }): void {
+  setAccessTokens(state: RootState, { slug, accessTokens, start, next, hasMore }): void {
     const currentAccessTokens = state.accessTokens;
     currentAccessTokens[slug] = currentAccessTokens[slug] || emptyPagination;
     if (start) {
@@ -51,6 +51,7 @@ export const mutations: MutationTree<RootState> = {
       currentAccessTokens[slug].data = accessTokens.data;
     }
     currentAccessTokens[slug].next = next;
+    currentAccessTokens[slug].hasMore = hasMore;
     Vue.set(state, "accessTokens", currentAccessTokens);
   },
   setAccessToken(state: RootState, { slug, accessToken, id }): void {
@@ -59,7 +60,7 @@ export const mutations: MutationTree<RootState> = {
     currentAccessTokens[slug][id] = { ...accessToken };
     Vue.set(state, "accessToken", currentAccessTokens);
   },
-  setMemberships(state: RootState, { slug, memberships, start, next }): void {
+  setMemberships(state: RootState, { slug, memberships, start, next, hasMore }): void {
     const currentMemberships = state.memberships;
     currentMemberships[slug] = currentMemberships[slug] || emptyPagination;
     if (start) {
@@ -71,6 +72,7 @@ export const mutations: MutationTree<RootState> = {
       currentMemberships[slug].data = memberships.data;
     }
     currentMemberships[slug].next = next;
+    currentMemberships[slug].hasMore = hasMore;
     Vue.set(state, "memberships", currentMemberships);
   },
   setMembership(state: RootState, { slug, membership, id }): void {
@@ -79,7 +81,7 @@ export const mutations: MutationTree<RootState> = {
     currentMemberships[slug][id] = { ...membership };
     Vue.set(state, "membership", currentMemberships);
   },
-  setEmails(state: RootState, { slug, emails, start, next }): void {
+  setEmails(state: RootState, { slug, emails, start, next, hasMore }): void {
     const currentEmails = state.emails;
     currentEmails[slug] = currentEmails[slug] || emptyPagination;
     if (start) {
@@ -88,6 +90,7 @@ export const mutations: MutationTree<RootState> = {
       currentEmails[slug].data = emails.data;
     }
     currentEmails[slug].next = next;
+    currentEmails[slug].hasMore = hasMore;
     Vue.set(state, "emails", currentEmails);
   },
   setEmail(state: RootState, { slug, email, id }): void {
@@ -96,7 +99,7 @@ export const mutations: MutationTree<RootState> = {
     currentEmails[slug][id] = { ...email };
     Vue.set(state, "email", currentEmails);
   },
-  setSessions(state: RootState, { slug, sessions, start, next }): void {
+  setSessions(state: RootState, { slug, sessions, start, next, hasMore }): void {
     const currentSessions = state.sessions;
     currentSessions[slug] = currentSessions[slug] || emptyPagination;
     if (start) {
@@ -105,6 +108,7 @@ export const mutations: MutationTree<RootState> = {
       currentSessions[slug].data = sessions.data;
     }
     currentSessions[slug].next = next;
+    currentSessions[slug].hasMore = hasMore;
     Vue.set(state, "sessions", currentSessions);
   },
   setSession(state: RootState, { slug, session, id }): void {

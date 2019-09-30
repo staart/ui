@@ -35,7 +35,7 @@ export const mutations: MutationTree<RootState> = {
     loggedInMembership[team] = role;
     Vue.set(state, "loggedInMembership", loggedInMembership);
   },
-  setMembers(state: RootState, { team, members, start, next }): void {
+  setMembers(state: RootState, { team, members, start, next, hasMore }): void {
     const currentMembers = { ...state.memberships };
     currentMembers[team] = currentMembers[team] || emptyPagination;
     if (start) {
@@ -47,6 +47,7 @@ export const mutations: MutationTree<RootState> = {
       currentMembers[team].data = members.data;
     }
     currentMembers[team].next = next;
+    currentMembers[team].hasMore = hasMore;
     Vue.set(state, "memberships", currentMembers);
   },
   setBilling(state: RootState, { billing, team }): void {
@@ -56,7 +57,7 @@ export const mutations: MutationTree<RootState> = {
   },
   setSubscriptions(
     state: RootState,
-    { team, subscriptions, start, next }
+    { team, subscriptions, start, next, hasMore }
   ): void {
     const currentSubscriptions = { ...state.subscriptions };
     currentSubscriptions[team] = currentSubscriptions[team] || emptyPagination;
@@ -69,6 +70,7 @@ export const mutations: MutationTree<RootState> = {
       currentSubscriptions[team].data = subscriptions.data;
     }
     currentSubscriptions[team].next = next;
+    currentSubscriptions[team].hasMore = hasMore;
     Vue.set(state, "subscriptions", currentSubscriptions);
   },
   setSubscription(state: RootState, { team, subscription, id }): void {
@@ -77,7 +79,7 @@ export const mutations: MutationTree<RootState> = {
     currentSubscriptions[team][id] = { ...subscription };
     Vue.set(state, "subscription", currentSubscriptions);
   },
-  setInvoices(state: RootState, { team, invoices, start, next }): void {
+  setInvoices(state: RootState, { team, invoices, start, next, hasMore }): void {
     const currentInvoices = { ...state.invoices };
     currentInvoices[team] = currentInvoices[team] || emptyPagination;
     if (start) {
@@ -89,6 +91,7 @@ export const mutations: MutationTree<RootState> = {
       currentInvoices[team].data = invoices.data;
     }
     currentInvoices[team].next = next;
+    currentInvoices[team].hasMore = hasMore;
     Vue.set(state, "invoices", currentInvoices);
   },
   setInvoice(state: RootState, { team, invoice, id }): void {
@@ -97,7 +100,7 @@ export const mutations: MutationTree<RootState> = {
     currentInvoices[team][id] = { ...invoice };
     Vue.set(state, "invoice", currentInvoices);
   },
-  setSources(state: RootState, { team, sources, start, next }): void {
+  setSources(state: RootState, { team, sources, start, next, hasMore }): void {
     const currentSources = { ...state.sources };
     currentSources[team] = currentSources[team] || emptyPagination;
     if (start) {
@@ -109,6 +112,7 @@ export const mutations: MutationTree<RootState> = {
       currentSources[team].data = sources.data;
     }
     currentSources[team].next = next;
+    currentSources[team].hasMore = hasMore;
     Vue.set(state, "sources", currentSources);
   },
   setSource(state: RootState, { team, source, id }): void {
@@ -117,7 +121,7 @@ export const mutations: MutationTree<RootState> = {
     currentSources[team][id] = { ...source };
     Vue.set(state, "source", currentSources);
   },
-  setApiKeys(state: RootState, { team, apiKeys, start, next }): void {
+  setApiKeys(state: RootState, { team, apiKeys, start, next, hasMore }): void {
     const currentApiKeys = { ...state.apiKeys };
     currentApiKeys[team] = currentApiKeys[team] || emptyPagination;
     if (start) {
@@ -129,6 +133,7 @@ export const mutations: MutationTree<RootState> = {
       currentApiKeys[team].data = apiKeys.data;
     }
     currentApiKeys[team].next = next;
+    currentApiKeys[team].hasMore = hasMore;
     Vue.set(state, "apiKeys", currentApiKeys);
   },
   setApiKey(state: RootState, { team, apiKey, id }): void {
@@ -151,7 +156,7 @@ export const mutations: MutationTree<RootState> = {
     }
     Vue.set(state, "apiKeyLogs", currentApiKeyLogs);
   },
-  setDomains(state: RootState, { team, domains, start, next }): void {
+  setDomains(state: RootState, { team, domains, start, next, hasMore }): void {
     const currentDomains = { ...state.domains };
     currentDomains[team] = currentDomains[team] || emptyPagination;
     if (start) {
@@ -163,6 +168,7 @@ export const mutations: MutationTree<RootState> = {
       currentDomains[team].data = domains.data;
     }
     currentDomains[team].next = next;
+    currentDomains[team].hasMore = hasMore;
     Vue.set(state, "domains", currentDomains);
   },
   setDomain(state: RootState, { team, domain, id }): void {
@@ -171,7 +177,7 @@ export const mutations: MutationTree<RootState> = {
     currentDomains[team][id] = { ...domain };
     Vue.set(state, "domain", currentDomains);
   },
-  setWebhooks(state: RootState, { team, webhooks, start, next }): void {
+  setWebhooks(state: RootState, { team, webhooks, start, next, hasMore }): void {
     const currentWebhooks = { ...state.devWebhooks };
     currentWebhooks[team] = currentWebhooks[team] || emptyPagination;
     if (start) {
@@ -183,6 +189,7 @@ export const mutations: MutationTree<RootState> = {
       currentWebhooks[team].data = webhooks.data;
     }
     currentWebhooks[team].next = next;
+    currentWebhooks[team].hasMore = hasMore;
     Vue.set(state, "devWebhooks", currentWebhooks);
   },
   setWebhook(state: RootState, { team, webhook, id }): void {
