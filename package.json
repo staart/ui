@@ -12,8 +12,7 @@
     "generate": "nuxt-ts generate",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore . --fix",
     "precommit": "npm run lint",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
