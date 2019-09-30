@@ -269,7 +269,9 @@ export default class ManageMembers extends Vue {
         this.memberships = { ...memberships };
         if (this.user && this.user.id && this.user.id === id) {
           // You just left the team
-          this.$router.push(`/users/${this.user.username || this.user.id}/memberships`);
+          this.$router.push(
+            `/users/${this.user.username || this.user.id}/memberships`
+          );
         }
       })
       .catch(() => {})

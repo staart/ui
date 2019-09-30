@@ -9,7 +9,7 @@ export const state = (): RootState => ({
 });
 
 export const mutations: MutationTree<RootState> = {
-  setUsers(state: RootState, { users, start, next }): void {
+  setUsers(state: RootState, { users, start, next, hasMore }): void {
     const currentUsers = { ...state.users } || emptyPagination;
     if (start) {
       currentUsers.data = [
@@ -19,10 +19,11 @@ export const mutations: MutationTree<RootState> = {
     } else {
       currentUsers.data = users.data;
     }
+    currentUsers.hasMore = hasMore;
     currentUsers.next = next;
     Vue.set(state, "users", currentUsers);
   },
-  setOrganizations(state: RootState, { organizations, start, next }): void {
+  setOrganizations(state: RootState, { organizations, start, next, hasMore }): void {
     const currentOrganizations = { ...state.organizations } || emptyPagination;
     if (start) {
       currentOrganizations.data = [
@@ -32,6 +33,7 @@ export const mutations: MutationTree<RootState> = {
     } else {
       currentOrganizations.data = organizations.data;
     }
+    currentOrganizations.hasMore = hasMore;
     currentOrganizations.next = next;
     Vue.set(state, "organizations", currentOrganizations);
   },
@@ -57,7 +59,8 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("setUsers", {
       users,
       start,
-      next: users.next
+      next: users.next,
+      hasMore: users.hasMore
     });
     return users;
   },
@@ -68,7 +71,8 @@ export const actions: ActionTree<RootState, RootState> = {
     commit("setOrganizations", {
       organizations,
       start,
-      next: organizations.next
+      next: organizations.next,
+      hasMore: organizations.hasMore
     });
     return organizations;
   },
