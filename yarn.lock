@@ -1654,12 +1654,7 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
 
-"@types/node@*", "@types/node@^12.7.5":
-  version "12.7.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.5.tgz#e19436e7f8e9b4601005d73673b6dc4784ffcc2f"
-  integrity sha512-9fq4jZVhPNW8r+UYKnxF1e2HkDWOWKM5bC2/7c9wPV835I0aOrVbS/Hw/pWPk2uKrNXQqg9Z959Kz+IYDd5p3w==
-
-"@types/node@^12.0.2":
+"@types/node@*", "@types/node@^12.0.2", "@types/node@^12.7.5":
   version "12.7.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.8.tgz#cb1bf6800238898bc2ff6ffa5702c3cadd350708"
   integrity sha512-FMdVn84tJJdV+xe+53sYiZS4R5yn1mAIxfj+DVoNiQjTYz1+OYmjwEZr1ev9nU0axXwda0QDbYl06QHanRVH3A==
@@ -1730,9 +1725,9 @@
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
 
 "@types/stripe@^6.32.5":
-  version "6.32.5"
-  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-6.32.5.tgz#523776d418ac948a566271ea253f98b9c50c4a16"
-  integrity sha512-dD5M1vFqCLT4K9ZIlexIYUpCP/Ws4bwV2pDotxUfEQkWN6sUwP//8sc9QHaLTFMcr3KZW7jJk4bNefJlvg1+Bw==
+  version "6.32.6"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-6.32.6.tgz#1389d81ef60eed6cc695426a50624c967ebac10f"
+  integrity sha512-OsxvoISkbeZ2Zr3kt7iq6mkgjGkmEoQoZ+7F9ceAt1e+w0LkK12BjuRa5hMCx3HvmcFGF4XJ5uZ7Za0l+SKaHQ==
   dependencies:
     "@types/node" "*"
 
