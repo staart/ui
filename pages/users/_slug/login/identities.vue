@@ -1,0 +1,226 @@
+<template>
+  <main>
+    <Loading v-if="loading" :message="loading" />
+    <div v-else>
+      <div class="row">
+        <h1>Active identities</h1>
+        <div class="text text--align-right">
+          <button
+            aria-label="Refresh"
+            data-balloon-pos="down"
+            class="button button--type-icon"
+            @click="load"
+          >
+            <font-awesome-icon class="icon" icon="sync" fixed-width />
+          </button>
+        </div>
+      </div>
+      <LargeMessage
+        v-if="
+          !loading &&
+            (!identities || !identities.data || !identities.data.length)
+        "
+        heading="No identities yet"
+        img="undraw_software_engineer_lvl5.svg"
+        text="We couldn't find connected identities"
+      />
+      <div v-else-if="identities && identities.data && identities.data.length">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th>Last used</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(identity, index) in identities.data"
+              :key="`${identity.id}_${index}`"
+            >
+              <td>{{ identity }}</td>
+              <td>
+                <TimeAgo :date="identity.updatedAt || identity.createdAt" />
+              </td>
+              <td class="text text--align-right">
+                <button
+                  aria-label="Log out"
+                  data-balloon-pos="up"
+                  class="button button--type-icon button--color-danger"
+                  @click="() => (showDelete = identity)"
+                >
+                  <font-awesome-icon class="icon" icon="trash" fixed-width />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination text text--align-center">
+          <button
+            v-if="identities && identities.hasMore"
+            class="button"
+            :disabled="loadingMore"
+            @click="loadMore"
+          >
+            <span>Load more identities</span>
+            <font-awesome-icon
+              v-if="!loadingMore"
+              class="icon"
+              icon="arrow-down"
+            />
+            <font-awesome-icon
+              v-else
+              class="icon icon--ml-2 icon--color-light"
+              icon="sync"
+              spin
+            />
+          </button>
+        </div>
+      </div>
+      <h2>Connect an identity</h2>
+      <p>
+        You can add all your third-party accounts here.
+      </p>
+      <form>
+        <button class="button">Google</button>
+        <button class="button">Apple</button>
+        <button class="button">Facebook</button>
+        <button class="button">Twitter</button>
+      </form>
+    </div>
+    <transition name="modal">
+      <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+        <h2>Are you sure you want log out of this identity?</h2>
+        <p>
+          We'll automatically log you out of this identity in the next few
+          minutes. You'll have to log in on that device again.
+        </p>
+        <button
+          class="button button--color-danger button--state-cta"
+          @click="deleteIdentity(showDelete.id)"
+        >
+          Yes, log me out
+        </button>
+        <button type="button" class="button" @click="showDelete = null">
+          No, don't leave
+        </button>
+      </Confirm>
+    </transition>
+  </main>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { mapGetters } from "vuex";
+import { getAllCountries } from "countries-and-timezones";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faArrowDown,
+  faSync,
+  faTrash,
+  faCheckCircle,
+  faExclamationCircle,
+  faStar,
+  faEnvelopeOpen
+} from "@fortawesome/free-solid-svg-icons";
+import Loading from "@/components/Loading.vue";
+import Confirm from "@/components/Confirm.vue";
+import TimeAgo from "@/components/TimeAgo.vue";
+import LargeMessage from "@/components/LargeMessage.vue";
+import Input from "@/components/form/Input.vue";
+import Checkbox from "@/components/form/Checkbox.vue";
+import Select from "@/components/form/Select.vue";
+import { User } from "@/types/auth";
+import { Identities, emptyPagination, Identity } from "@/types/users";
+library.add(
+  faArrowDown,
+  faSync,
+  faTrash,
+  faCheckCircle,
+  faExclamationCircle,
+  faStar,
+  faEnvelopeOpen
+);
+
+@Component({
+  components: {
+    Loading,
+    Confirm,
+    TimeAgo,
+    Input,
+    FontAwesomeIcon,
+    Select,
+    LargeMessage,
+    Checkbox
+  },
+  middleware: "auth"
+})
+export default class ManageSettings extends Vue {
+  identities: Identities = emptyPagination;
+  showDelete: Identity | null = null;
+  loadingMore = false;
+  loading = "";
+  newIdentity = "";
+
+  private created() {
+    this.identities = {
+      ...this.$store.getters["users/identities"](this.$route.params.slug)
+    };
+  }
+
+  private load() {
+    this.loading = "Loading your identities";
+    this.$store
+      .dispatch("users/getIdentities", { slug: this.$route.params.slug })
+      .then(identities => {
+        this.identities = { ...identities };
+      })
+      .catch(error => {
+        throw new Error(error);
+      })
+      .finally(() => (this.loading = ""));
+  }
+
+  private mounted() {
+    this.load();
+  }
+
+  private loadMore() {
+    this.loadingMore = true;
+    this.$store
+      .dispatch("users/getIdentities", {
+        slug: this.$route.params.slug,
+        start: this.$store.state.users.identities[this.$route.params.slug].next
+      })
+      .then(() => {
+        this.identities = {
+          ...this.$store.getters["users/identities"](this.$route.params.slug)
+        };
+      })
+      .catch(error => {
+        throw new Error(error);
+      })
+      .finally(() => (this.loadingMore = false));
+  }
+
+  private deleteIdentity(key: number) {
+    this.showDelete = null;
+    this.loading = "Deleting this identity";
+    this.$store
+      .dispatch("users/deleteIdentity", {
+        slug: this.$route.params.slug,
+        id: key
+      })
+      .then(identities => {
+        this.identities = { ...identities };
+      })
+      .catch(error => {
+        throw new Error(error);
+      })
+      .finally(() => (this.loading = ""));
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

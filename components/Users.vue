@@ -31,6 +31,12 @@
           </nuxt-link>
           <nuxt-link
             class="sub-item"
+            :to="`/users/${$route.params.slug}/login/identities`"
+          >
+            <span>Identities</span>
+          </nuxt-link>
+          <nuxt-link
+            class="sub-item"
             :to="`/users/${$route.params.slug}/login/sessions`"
           >
             <span>Sessions</span>
