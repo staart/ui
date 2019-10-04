@@ -38,6 +38,11 @@ export interface Session extends IdRow {
   ipAddress: string;
   userAgent: string;
 }
+export interface Identity extends IdRow {
+  userId: string;
+  type: string;
+  identityId: string;
+}
 
 export interface AccessTokens extends Paginated {
   data: AccessToken[];
@@ -50,6 +55,9 @@ export interface Emails extends Paginated {
 }
 export interface Sessions extends Paginated {
   data: Session[];
+}
+export interface Identities extends Paginated {
+  data: Identity[];
 }
 
 export interface UsersKV {
@@ -66,6 +74,9 @@ export interface EmailsKV {
 }
 export interface SessionsKV {
   [index: string]: Sessions;
+}
+export interface IdentitiesKV {
+  [index: string]: Identities;
 }
 
 export interface SingleAccessTokenKV {
@@ -88,6 +99,11 @@ export interface SingleSessionKV {
     [index: string]: Session;
   };
 }
+export interface SingleIdentityKV {
+  [index: string]: {
+    [index: string]: Identity;
+  };
+}
 
 export interface RootState {
   users: UsersKV;
@@ -99,6 +115,8 @@ export interface RootState {
   email: SingleEmailKV;
   sessions: SessionsKV;
   session: SingleSessionKV;
+  identities: IdentitiesKV;
+  identity: SingleIdentityKV;
 }
 
 export const emptyUser: User = {

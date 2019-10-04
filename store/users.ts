@@ -12,7 +12,9 @@ export const state = (): RootState => ({
   emails: {},
   email: {},
   sessions: {},
-  session: {}
+  session: {},
+  identities: {},
+  identity: {}
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -117,6 +119,24 @@ export const mutations: MutationTree<RootState> = {
     currentSessions[slug][id] = { ...session };
     Vue.set(state, "session", currentSessions);
   },
+  setIdentities(state: RootState, { slug, identities, start, next, hasMore }): void {
+    const currentIdentities = state.identities;
+    currentIdentities[slug] = currentIdentities[slug] || emptyPagination;
+    if (start) {
+      currentIdentities[slug].data = [...currentIdentities[slug].data, ...identities.data];
+    } else {
+      currentIdentities[slug].data = identities.data;
+    }
+    currentIdentities[slug].next = next;
+    currentIdentities[slug].hasMore = hasMore;
+    Vue.set(state, "identities", currentIdentities);
+  },
+  setIdentity(state: RootState, { slug, identity, id }): void {
+    const currentIdentities = state.identity;
+    currentIdentities[slug] = currentIdentities[slug] || {};
+    currentIdentities[slug][id] = { ...identity };
+    Vue.set(state, "identity", currentIdentities);
+  },
   clearAll(state: RootState): void {
     state.accessTokens = {};
     state.accessToken = {};
@@ -126,6 +146,8 @@ export const mutations: MutationTree<RootState> = {
     state.email = {};
     state.sessions = {};
     state.session = {};
+    state.identities = {};
+    state.identity = {};
   }
 };
 
@@ -328,6 +350,37 @@ export const actions: ActionTree<RootState, RootState> = {
       `/users/${context.slug}/sessions/${context.id}`
     );
     return dispatch("getSessions", { slug: context.slug });
+  },
+  async getIdentities({ commit }, { slug, start = 0 }) {
+    const identities: any = (await this.$axios.get(
+      `/users/${slug}/identities?start=${start}`
+    )).data;
+    commit("setIdentities", {
+      slug,
+      identities,
+      start,
+      next: identities.next
+    });
+    return identities;
+  },
+  async getIdentity({ commit }, { slug, id }) {
+    const identity: any = (await this.$axios.get(
+      `/users/${slug}/identities/${id}`
+    )).data;
+    commit("setIdentity", { slug, identity, id });
+    return identity;
+  },
+  async createIdentity({ dispatch }, context) {
+    const data = { ...context };
+    delete data.slug;
+    await this.$axios.put(`/users/${context.slug}/identities`, data);
+    return dispatch("getIdentities", { slug: context.slug });
+  },
+  async deleteIdentity({ dispatch }, context) {
+    await this.$axios.delete(
+      `/users/${context.slug}/identities/${context.id}`
+    );
+    return dispatch("getIdentities", { slug: context.slug });
   }
 };
 
@@ -344,5 +397,8 @@ export const getters: GetterTree<RootState, RootState> = {
     state.email[slug] && state.email[slug][email],
   sessions: state => (slug: string) => state.sessions[slug],
   session: state => (slug: string, session: string) =>
-    state.session[slug] && state.session[slug][session]
+    state.session[slug] && state.session[slug][session],
+  identities: state => (slug: string) => state.identities[slug],
+  identity: state => (slug: string, identity: string) =>
+    state.identity[slug] && state.identity[slug][identity]
 };
