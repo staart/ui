@@ -1,6 +1,6 @@
 {
   "name": "staart-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Frontend admin UI for Staart",
   "author": "Anand Chowdhary",
   "license": "MIT",
@@ -11,8 +11,14 @@
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore . --fix",
+    "increment-package": "node setup/increment.js",
     "precommit": "npm run lint",
     "snyk-protect": "snyk protect"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn increment-package && git add ."
+    }
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -68,6 +74,7 @@
     "eslint-plugin-promise": ">=4.2.1",
     "eslint-plugin-standard": ">=4.0.1",
     "eslint-plugin-vue": "^5.2.3",
+    "husky": "^3.0.8",
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.3",
     "prettier": "^1.18.2",
