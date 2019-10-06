@@ -136,13 +136,8 @@ library.add(
   }
 })
 export default class Manage extends Vue {
-  loggedInMembership = 3;
   doneOnce = false;
-  private created() {
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
-  }
+  private created() {}
   private mounted() {
     this.update();
   }

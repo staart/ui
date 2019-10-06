@@ -123,10 +123,7 @@
         </div>
       </div>
       <Loading v-else :message="loading" />
-      <div
-        v-if="loggedInMembership !== 3 && loggedInMembership !== 4"
-        class="text text--mt-2"
-      >
+      <div class="text text--mt-2">
         <h2>Create API key</h2>
         <p>
           You can use API keys to programmatically access Staart in your
@@ -216,15 +213,11 @@ export default class ManageSettings extends Vue {
   loading = "";
   newScopes = "orgRead";
   scopes = scopes;
-  loggedInMembership = 3;
 
   private created() {
     this.apiKeys = {
       ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
     };
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
   }
 
   private load() {

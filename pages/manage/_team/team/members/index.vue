@@ -35,13 +35,7 @@
           <td><TimeAgo :date="member.createdAt" /></td>
           <td>{{ membershipRoles[member.role] || member.role }}</td>
           <td class="text text--align-right">
-            <div
-              v-if="
-                user &&
-                  loggedInMembership !== 4 &&
-                  (loggedInMembership === 3 ? member.role > 2 : true)
-              "
-            >
+            <div v-if="user">
               <router-link
                 v-if="user && member.userId !== user.id"
                 :to="`/manage/${$route.params.team}/team/${member.id}`"
@@ -197,7 +191,6 @@ export default class ManageMembers extends Vue {
   showDelete = null;
   loadingMore = false;
   membershipRoles = locale.membershipRoles;
-  loggedInMembership = 3;
 
   newUserName = "";
   newUserEmail = "";
@@ -207,9 +200,6 @@ export default class ManageMembers extends Vue {
     this.memberships = {
       ...this.$store.getters["manage/memberships"](this.$route.params.team)
     };
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
   }
 
   private mounted() {

@@ -38,7 +38,6 @@
           <span v-else>Copy</span>
         </button>
         <button
-          v-if="!readOnly"
           type="button"
           class="button button--color-danger"
           style="margin-left: 0.5rem"
@@ -57,31 +56,27 @@
               label="Name"
               placeholder="Enter a name for this API key"
               :value="apiKey.name"
-              :disabled="readOnly"
               @input="val => (apiKey.name = val)"
             />
             <CheckList
               label="API restrictions"
               :options="scopes"
               :value="apiKey.scopes"
-              :disabled="readOnly"
               @input="val => (apiKey.scopes = val)"
             />
             <CommaList
               label="IP restrictions"
               :value="apiKey.ipRestrictions"
               placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
-              :disabled="readOnly"
               @input="val => (apiKey.ipRestrictions = val)"
             />
             <CommaList
               label="Referrer restrictions"
               :value="apiKey.referrerRestrictions"
               placeholder="Enter a host name without protocol, e.g., example.com"
-              :disabled="readOnly"
               @input="val => (apiKey.referrerRestrictions = val)"
             />
-            <button v-if="!readOnly" class="button">Update API key</button>
+            <button class="button">Update API key</button>
           </form>
         </div>
       </div>
@@ -192,7 +187,6 @@ export default class ManageSettings extends Vue {
   apiKey: ApiKey | undefined = undefined;
   scopes = scopes;
   copied = false;
-  loggedInMembership = 3;
 
   private created() {
     this.apiKey = {
@@ -201,13 +195,6 @@ export default class ManageSettings extends Vue {
         this.$route.params.key
       )
     };
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
-  }
-
-  get readOnly() {
-    return this.loggedInMembership === 3 || this.loggedInMembership === 4;
   }
 
   private load() {

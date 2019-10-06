@@ -36,14 +36,12 @@
             label="Event"
             :options="events"
             required
-            :disabled="readOnly"
             @input="val => (webhook.event = val)"
           />
           <Input
             label="URL"
             placeholder="Enter a URL for this webhook"
             :value="webhook.url"
-            :disabled="readOnly"
             @input="val => (webhook.url = val)"
           />
           <Select
@@ -51,23 +49,20 @@
             label="Content type"
             :options="['application/json', 'application/x-www-form-urlencoded']"
             required
-            :disabled="readOnly"
             @input="val => (webhook.contentType = val)"
           />
           <Input
             label="Secret"
             placeholder="Enter a secret key for this webhook"
             :value="webhook.secret"
-            :disabled="readOnly"
             @input="val => (webhook.secret = val)"
           />
           <Checkbox
             :value="webhook.isActive"
             label="Activate this webhook"
-            :disabled="readOnly"
             @input="val => (webhook.isActive = val)"
           />
-          <div v-if="!readOnly">
+          <div>
             <button class="button">Update webhook</button>
             <button
               class="button button--color-danger"
@@ -152,7 +147,6 @@ export default class ManageSettings extends Vue {
   webhook: Webhook | null = null;
   events = events;
   copied = false;
-  loggedInMembership = 3;
 
   private created() {
     this.webhook = {
@@ -161,13 +155,6 @@ export default class ManageSettings extends Vue {
         this.$route.params.key
       )
     };
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
-  }
-
-  get readOnly() {
-    return this.loggedInMembership === 3 || this.loggedInMembership === 4;
   }
 
   private load() {

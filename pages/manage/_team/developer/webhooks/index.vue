@@ -110,7 +110,7 @@
         </div>
       </div>
       <Loading v-else :message="loading" />
-      <div v-if="loggedInMembership !== 3 && loggedInMembership !== 4">
+      <div>
         <h2>Create webhook</h2>
         <p>
           You can use webhooks to get access to events in your developer
@@ -206,12 +206,8 @@ export default class ManageSettings extends Vue {
   newHookUrl = "";
   newHookEvent = "*";
   events = events;
-  loggedInMembership = 3;
 
   private created() {
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
     this.webhooks = {
       ...this.$store.getters["manage/webhooks"](this.$route.params.team)
     };

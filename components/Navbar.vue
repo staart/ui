@@ -234,7 +234,6 @@ export default class Card extends Vue {
   notificationCount = 0;
   showNav = false;
   activeOrganization: string | null = null;
-  loggedInMembership = 3;
   isAuthenticated = false;
   user = emptyUser;
   @Watch("$route")
@@ -255,9 +254,6 @@ export default class Card extends Vue {
       }
     } catch (error) {}
     this.showNav = false;
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
     if (this.$route.path.startsWith("/onboarding")) {
       this.isVisible = false;
     } else {
@@ -287,9 +283,6 @@ export default class Card extends Vue {
     this.updateNavBar();
   }
   private created() {
-    this.loggedInMembership = parseInt(
-      this.$store.getters["manage/loggedInMembership"](this.$route.params.team)
-    );
     if (typeof document !== "undefined" && document.body)
       document.body.addEventListener("click", event => {
         const path = event.composedPath();
