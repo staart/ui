@@ -40,6 +40,9 @@ export default {
     "username-exists": "This username is already claimed",
     "cannot-delete-email": "This email cannot be deleted"
   },
+  serviceIdentities: {
+    github: "GitHub"
+  },
   securityEvents: {
     "user.created": "Created account",
     "user.updated": "Updated settings",

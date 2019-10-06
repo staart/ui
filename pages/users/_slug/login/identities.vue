@@ -39,7 +39,7 @@
               v-for="(identity, index) in identities.data"
               :key="`${identity.id}_${index}`"
             >
-              <td>{{ identity.type }}</td>
+              <td>{{ serviceIdentities[identity.type] || identity.type }}</td>
               <td>{{ identity.loginName }}</td>
               <td>
                 <TimeAgo :date="identity.createdAt" />
@@ -84,8 +84,19 @@
         You can add all your third-party accounts here.
       </p>
       <form>
-        <button class="button" @click.prevent="getOAuthLink('github')">
-          GitHub
+        <button
+          class="button button--type-identity"
+          @click.prevent="getOAuthLink('github')"
+        >
+          <font-awesome-icon class="icon" :icon="['fab', 'github']" />
+          <span>GitHub</span>
+        </button>
+        <button
+          class="button button--type-identity"
+          @click.prevent="getOAuthLink('microsoft')"
+        >
+          <font-awesome-icon class="icon" :icon="['fab', 'microsoft']" />
+          <span>Microsoft</span>
         </button>
       </form>
     </div>
@@ -125,6 +136,7 @@ import {
   faStar,
   faEnvelopeOpen
 } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -134,6 +146,8 @@ import Checkbox from "@/components/form/Checkbox.vue";
 import Select from "@/components/form/Select.vue";
 import { User } from "@/types/auth";
 import { Identities, emptyPagination, Identity } from "@/types/users";
+import en from "@/locales/en";
+const serviceIdentities = en.serviceIdentities;
 library.add(
   faArrowDown,
   faSync,
@@ -141,7 +155,9 @@ library.add(
   faCheckCircle,
   faExclamationCircle,
   faStar,
-  faEnvelopeOpen
+  faEnvelopeOpen,
+  faGithub,
+  faMicrosoft
 );
 
 @Component({
@@ -160,6 +176,7 @@ library.add(
 export default class ManageSettings extends Vue {
   identities: Identities = emptyPagination;
   showDelete: Identity | null = null;
+  serviceIdentities = serviceIdentities;
   loadingMore = false;
   loading = "";
   newIdentity = "";
@@ -234,4 +251,17 @@ export default class ManageSettings extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button--type-identity {
+  width: 7rem;
+  .icon {
+    font-size: 200%;
+    margin-bottom: 1rem;
+  }
+  > span {
+    display: block;
+  }
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+</style>
