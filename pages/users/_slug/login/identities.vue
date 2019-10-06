@@ -28,8 +28,9 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Device</th>
-              <th>Last used</th>
+              <th>Service</th>
+              <th>Identity</th>
+              <th>Connected</th>
               <th></th>
             </tr>
           </thead>
@@ -38,9 +39,10 @@
               v-for="(identity, index) in identities.data"
               :key="`${identity.id}_${index}`"
             >
-              <td>{{ identity }}</td>
+              <td>{{ identity.type }}</td>
+              <td>{{ identity.loginName }}</td>
               <td>
-                <TimeAgo :date="identity.updatedAt || identity.createdAt" />
+                <TimeAgo :date="identity.createdAt" />
               </td>
               <td class="text text--align-right">
                 <button
@@ -82,27 +84,26 @@
         You can add all your third-party accounts here.
       </p>
       <form>
-        <button class="button">Google</button>
-        <button class="button">Apple</button>
-        <button class="button">Facebook</button>
-        <button class="button">Twitter</button>
+        <button class="button" @click.prevent="getOAuthLink('github')">
+          GitHub
+        </button>
       </form>
     </div>
     <transition name="modal">
       <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
-        <h2>Are you sure you want log out of this identity?</h2>
+        <h2>Are you sure you want to remove this identity?</h2>
         <p>
-          We'll automatically log you out of this identity in the next few
-          minutes. You'll have to log in on that device again.
+          We'll un-link this connected account and you won't be able to log in
+          using this identity again.
         </p>
         <button
           class="button button--color-danger button--state-cta"
           @click="deleteIdentity(showDelete.id)"
         >
-          Yes, log me out
+          Yes, un-link account
         </button>
         <button type="button" class="button" @click="showDelete = null">
-          No, don't leave
+          No, don't un-link
         </button>
       </Confirm>
     </transition>
@@ -219,6 +220,16 @@ export default class ManageSettings extends Vue {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
+  }
+
+  private async getOAuthLink(service: string) {
+    const data = await this.$axios.put(
+      `/users/${this.$route.params.slug}/identities`,
+      {
+        service
+      }
+    );
+    location.replace(data.data.url);
   }
 }
 </script>
