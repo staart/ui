@@ -1430,12 +1430,12 @@
     markdown-it "^8.3.1"
 
 "@nuxtjs/markdownit@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/markdownit/-/markdownit-1.2.6.tgz#489de5529d3d7eb71006c3032f086ebf3de745b2"
-  integrity sha512-mogE6lXoQghZMkJoXj7TfWrlvmVrB/2s5FfFsSv23s4vJt0ZgmPSqI1X+qaAFuP1BSVPpQOoFtesZUA6n8bFmQ==
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/markdownit/-/markdownit-1.2.7.tgz#23ad23c924be686f55f1401c664a7f2166558f67"
+  integrity sha512-dpn0pJme4rYsxCiBgljKjZkTxuToAd5e95RZU945lJwYxj7hYZXH3DTWewXK/gYgJMWIQEaiscd436XbT6JERQ==
   dependencies:
     "@nuxtjs/markdownit-loader" "^1.1.1"
-    raw-loader "^3.0.0"
+    raw-loader "^3.1.0"
 
 "@nuxtjs/meta@^2.6.0":
   version "2.6.0"
@@ -9110,7 +9110,7 @@ raw-body@^2.2.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-raw-loader@^3.0.0:
+raw-loader@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/raw-loader/-/raw-loader-3.1.0.tgz#5e9d399a5a222cc0de18f42c3bc5e49677532b3f"
   integrity sha512-lzUVMuJ06HF4rYveaz9Tv0WRlUMxJ0Y1hgSkkgg+50iEdaI0TthyEDe08KIHb0XsF6rn8WYTqPCaGTZg3sX+qA==
