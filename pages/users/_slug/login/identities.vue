@@ -3,7 +3,7 @@
     <Loading v-if="loading" :message="loading" />
     <div v-else>
       <div class="row">
-        <h1>Active identities</h1>
+        <h1>Connected accounts</h1>
         <div class="text text--align-right">
           <button
             aria-label="Refresh"
@@ -240,6 +240,7 @@ export default class ManageSettings extends Vue {
   }
 
   private async getOAuthLink(service: string) {
+    this.loading = "Connecting your account";
     const data = await this.$axios.put(
       `/users/${this.$route.params.slug}/identities`,
       {

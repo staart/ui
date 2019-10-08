@@ -131,9 +131,7 @@
                 :to="`/users/${user.username || user.id}/memberships`"
                 >Your teams</nuxt-link
               >
-              <button style="margin-top: 1rem" class="item" @click="logout">
-                Logout
-              </button>
+              <button class="item" @click="logout">Logout</button>
             </div>
           </transition>
         </span>

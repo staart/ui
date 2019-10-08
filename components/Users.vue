@@ -33,7 +33,7 @@
             class="sub-item"
             :to="`/users/${$route.params.slug}/login/identities`"
           >
-            <span>Identities</span>
+            <span>Connected accounts</span>
           </nuxt-link>
           <nuxt-link
             class="sub-item"

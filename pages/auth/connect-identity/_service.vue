@@ -35,7 +35,10 @@ export default class ConnectIdentity extends Vue {
 
   private async mounted() {
     const service = this.$route.params.service;
-    const code = this.$route.query.code;
+    const url = location.href.replace(
+      "http://localhost:3000/",
+      "https://staart-ui.o15y.now.sh/"
+    );
 
     if (
       !this.isAuthenticated ||
@@ -46,7 +49,7 @@ export default class ConnectIdentity extends Vue {
     try {
       const result = await this.$axios.post(
         `/users/${this.user.username || this.user.id}/identities/${service}`,
-        { code }
+        { url }
       );
     } catch (error) {}
 

@@ -41,7 +41,8 @@ export default {
     "cannot-delete-email": "This email cannot be deleted"
   },
   serviceIdentities: {
-    github: "GitHub"
+    github: "GitHub",
+    microsoft: "Microsoft"
   },
   securityEvents: {
     "user.created": "Created account",
