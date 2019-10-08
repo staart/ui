@@ -1811,9 +1811,9 @@
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
 
 "@types/stripe@^6.32.5":
-  version "6.32.8"
-  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-6.32.8.tgz#88b1a2bdac19ff0a98f42a424b66e9e3d7727a80"
-  integrity sha512-OMt5Aw589W20v/vWgaRRQGovQgWhVMsF5UNw7a4otD7fkd344V1IDSaU+BSZb32qke2u2eSV/7QfBquweakaig==
+  version "6.32.10"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-6.32.10.tgz#aac6b6e9bcc5ada24695b1f9304764111e94885a"
+  integrity sha512-sY8HwmXcesAtz07CX42/5uzOyu+LQKo6zl6tSPtE1RBPVnqhUrEY2zvJLwSlpQS3FyzOEwjun4H1ucDvs4FXnQ==
   dependencies:
     "@types/node" "*"
 
