@@ -60,7 +60,7 @@
     "@nuxtjs/sitemap": "^2.0.0",
     "@types/downloadjs": "^1.4.1",
     "@types/hashids": "^1.0.30",
-    "@types/stripe": "^6.32.5",
+    "@types/stripe": "^7.10.2",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "babel-eslint": "^10.0.3",
