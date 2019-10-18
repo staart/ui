@@ -59,6 +59,13 @@ Generate static pages for deployment:
 yarn generate
 ```
 
+## 📝 Docs
+
+**[Visit our docs site →**](https://staart.js.org/ui/)
+
+- [Getting started](https://staart.js.org/ui/getting-started)
+- [Updating Staart UI](https://staart.js.org/ui/update)
+
 ## 🏁 Staart Ecosystem
 
 The Staart ecosystem consists of open-source projects to build your SaaS startup, written in TypeScript.
