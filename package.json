@@ -53,7 +53,7 @@
   "devDependencies": {
     "@bazzite/nuxt-netlify": "^0.1.1",
     "@nuxt/typescript-build": "^0.3.0",
-    "@nuxt/typescript-runtime": "^0.1.7",
+    "@nuxt/typescript-runtime": "^0.2.2",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config": "^1.1.2",
     "@nuxtjs/markdownit": "^1.2.6",
