@@ -37,7 +37,7 @@
     "date-fns": "^2.4.1",
     "downloadjs": "^1.4.7",
     "feeedback": "^1.0.2",
-    "flat": "^4.1.0",
+    "flat": "^5.0.0",
     "hashids": "^2.0.1",
     "jwt-decode": "^2.2.0",
     "meta-ctrl-enter": "^1.0.2",
