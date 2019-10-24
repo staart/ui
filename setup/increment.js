@@ -1,5 +1,5 @@
-const fs = require("fs-extra");
 const path = require("path");
+const fs = require("fs-extra");
 
 const incrementVersion = async () => {
   const pkg = JSON.parse(

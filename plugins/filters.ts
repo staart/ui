@@ -4,9 +4,6 @@ Vue.filter("currency", (value: number) =>
 );
 
 Vue.filter("number", (data: any) => {
-  if (typeof data === "string")
-    data = parseInt(data);
-  if (!isNaN(data))
-    return data.toLocaleString();
-  return;
-})
+  if (typeof data === "string") data = parseInt(data);
+  if (!isNaN(data)) return data.toLocaleString();
+});
