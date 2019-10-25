@@ -67,6 +67,22 @@ yarn generate
 - [Getting started](https://staart.js.org/ui/getting-started)
 - [Updating Staart UI](https://staart.js.org/ui/update)
 
+## 👥 Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://anandchowdhary.com/?utm_source=github&utm_campaign=about-link"><img src="https://avatars3.githubusercontent.com/u/2841780?v=4" width="100px;" alt="Anand Chowdhary"/><br /><sub><b>Anand Chowdhary</b></sub></a><br /><a href="https://github.com/o15y/staart-ui/commits?author=AnandChowdhary" title="Code">💻</a> <a href="https://github.com/o15y/staart-ui/commits?author=AnandChowdhary" title="Documentation">📖</a> <a href="#design-AnandChowdhary" title="Design">🎨</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
 ## 🏁 Staart Ecosystem
 
 The Staart ecosystem consists of open-source projects to build your SaaS startup, written in TypeScript.
@@ -83,19 +99,3 @@ The Staart ecosystem consists of open-source projects to build your SaaS startup
 
 - Code: [MIT](https://github.com/o15y/staart-native/blob/master/LICENSE)
 - Logo and assets: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<table>
-  <tr>
-    <td align="center"><a href="https://anandchowdhary.com/?utm_source=github&utm_campaign=about-link"><img src="https://avatars3.githubusercontent.com/u/2841780?v=4" width="100px;" alt="Anand Chowdhary"/><br /><sub><b>Anand Chowdhary</b></sub></a><br /><a href="https://github.com/o15y/staart-ui/commits?author=AnandChowdhary" title="Code">💻</a> <a href="https://github.com/o15y/staart-ui/commits?author=AnandChowdhary" title="Documentation">📖</a> <a href="#design-AnandChowdhary" title="Design">🎨</a></td>
-  </tr>
-</table>
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
