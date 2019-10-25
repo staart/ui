@@ -1,5 +1,4 @@
 ![Staart](https://raw.githubusercontent.com/o15y/staart-ui/master/static/staart-ui-logo.png)
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
 Staart UI is a frontend starter for SaaS startups written in TypeScript and Vue
 using Nuxt.js. It has built-in landing pages, authentication, settings UIs, and
