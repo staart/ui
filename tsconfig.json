@@ -26,10 +26,11 @@
       ]
     },
     "types": [
-      "node_modules/@types",
+      "@types/node",
       "@nuxt/types",
       "@nuxtjs/axios/types",
-      "vue-notification"
+      "vue-notification",
+      "jest"
     ]
   }
 }
