@@ -1,10 +1,10 @@
 language: node_js
 node_js:
- - "node"
+  - "node"
 install:
- - "yarn"
+  - "yarn"
 script:
- - "yarn test"
+  - "yarn test"
 deploy:
   provider: npm
   email: $NPM_EMAIL
