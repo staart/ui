@@ -1,6 +1,6 @@
-import { exec } from "shelljs";
 import { join } from "path";
 import { readFileSync } from "fs";
+import { exec } from "shelljs";
 import { JSDOM } from "jsdom";
 
 jest.setTimeout(60000);
@@ -15,7 +15,9 @@ test("index.html is created", () => {
 });
 
 test("index.html has a title", () => {
-  readFileSync(join(publicDir, "index.html")).toString().includes("<title>Staart UI");
+  readFileSync(join(publicDir, "index.html"))
+    .toString()
+    .includes("<title>Staart UI");
 });
 
 test("pwa is build", () => {
@@ -23,7 +25,9 @@ test("pwa is build", () => {
 });
 
 test("login form has a password input", () => {
-  const html = readFileSync(join(publicDir, "auth", "login", "index.html")).toString();
+  const html = readFileSync(
+    join(publicDir, "auth", "login", "index.html")
+  ).toString();
   const { window } = new JSDOM(html).window;
   const element = window.document.querySelector("form input[type='password']");
   expect(element).toBeTruthy();
