@@ -1,6 +1,6 @@
 {
   "name": "@staart/ui",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Frontend admin UI for Staart",
   "author": "Anand Chowdhary",
   "license": "MIT",
@@ -39,6 +39,7 @@
     "downloadjs": "^1.4.7",
     "feeedback": "^1.0.2",
     "flat": "^5.0.0",
+    "has-yarn": "^2.1.0",
     "hashids": "^2.0.1",
     "jwt-decode": "^2.2.0",
     "meta-ctrl-enter": "^1.0.2",
@@ -81,7 +82,6 @@
     "eslint-plugin-promise": ">=4.2.1",
     "eslint-plugin-standard": ">=4.0.1",
     "eslint-plugin-vue": "^5.2.3",
-    "has-yarn": "^2.1.0",
     "husky": "^3.0.8",
     "jest": "^24.9.0",
     "jsdom": "^15.2.0",
