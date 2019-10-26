@@ -1,0 +1,34 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "AnandChowdhary",
+      "name": "Anand Chowdhary",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2841780?v=4",
+      "profile": "https://anandchowdhary.com/?utm_source=github&utm_campaign=about-link",
+      "contributions": [
+        "code",
+        "doc",
+        "design"
+      ]
+    },
+    {
+      "login": "reallinfo",
+      "name": "reallinfo",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/36298335?v=4",
+      "profile": "http://komiserback@gmail.com",
+      "contributions": [
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "staart-ui",
+  "projectOwner": "o15y",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
