@@ -1,7 +1,7 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import Vue from "vue";
-import { RootState, User, emptyPagination } from "~/types/users";
 import download from "downloadjs";
+import { RootState, User, emptyPagination } from "~/types/users";
 
 export const state = (): RootState => ({
   users: {},
@@ -18,7 +18,10 @@ export const state = (): RootState => ({
 });
 
 export const mutations: MutationTree<RootState> = {
-  setUser(state: RootState, { user, loggedInUser }: { user: User, loggedInUser: number }): void {
+  setUser(
+    state: RootState,
+    { user, loggedInUser }: { user: User; loggedInUser: number }
+  ): void {
     const users = state.users;
     users[user.id] = user;
     Vue.set(state, "users", users);
@@ -41,7 +44,10 @@ export const mutations: MutationTree<RootState> = {
       } catch (error) {}
     }
   },
-  setAccessTokens(state: RootState, { slug, accessTokens, start, next, hasMore }): void {
+  setAccessTokens(
+    state: RootState,
+    { slug, accessTokens, start, next, hasMore }
+  ): void {
     const currentAccessTokens = state.accessTokens;
     currentAccessTokens[slug] = currentAccessTokens[slug] || emptyPagination;
     if (start) {
@@ -62,7 +68,10 @@ export const mutations: MutationTree<RootState> = {
     currentAccessTokens[slug][id] = { ...accessToken };
     Vue.set(state, "accessToken", currentAccessTokens);
   },
-  setMemberships(state: RootState, { slug, memberships, start, next, hasMore }): void {
+  setMemberships(
+    state: RootState,
+    { slug, memberships, start, next, hasMore }
+  ): void {
     const currentMemberships = state.memberships;
     currentMemberships[slug] = currentMemberships[slug] || emptyPagination;
     if (start) {
@@ -101,11 +110,17 @@ export const mutations: MutationTree<RootState> = {
     currentEmails[slug][id] = { ...email };
     Vue.set(state, "email", currentEmails);
   },
-  setSessions(state: RootState, { slug, sessions, start, next, hasMore }): void {
+  setSessions(
+    state: RootState,
+    { slug, sessions, start, next, hasMore }
+  ): void {
     const currentSessions = state.sessions;
     currentSessions[slug] = currentSessions[slug] || emptyPagination;
     if (start) {
-      currentSessions[slug].data = [...currentSessions[slug].data, ...sessions.data];
+      currentSessions[slug].data = [
+        ...currentSessions[slug].data,
+        ...sessions.data
+      ];
     } else {
       currentSessions[slug].data = sessions.data;
     }
@@ -119,11 +134,17 @@ export const mutations: MutationTree<RootState> = {
     currentSessions[slug][id] = { ...session };
     Vue.set(state, "session", currentSessions);
   },
-  setIdentities(state: RootState, { slug, identities, start, next, hasMore }): void {
+  setIdentities(
+    state: RootState,
+    { slug, identities, start, next, hasMore }
+  ): void {
     const currentIdentities = state.identities;
     currentIdentities[slug] = currentIdentities[slug] || emptyPagination;
     if (start) {
-      currentIdentities[slug].data = [...currentIdentities[slug].data, ...identities.data];
+      currentIdentities[slug].data = [
+        ...currentIdentities[slug].data,
+        ...identities.data
+      ];
     } else {
       currentIdentities[slug].data = identities.data;
     }
@@ -232,7 +253,9 @@ export const actions: ActionTree<RootState, RootState> = {
     return membership;
   },
   async deleteMembership({ dispatch }, context) {
-    await this.$axios.delete(`/users/${context.slug}/memberships/${context.id}`);
+    await this.$axios.delete(
+      `/users/${context.slug}/memberships/${context.id}`
+    );
     return dispatch("getMemberships", { slug: context.slug });
   },
   async getEmails({ commit }, { slug, start = 0 }) {
@@ -271,9 +294,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return dispatch("getMemberships", { slug });
   },
   async deleteAccount(action, context) {
-    const result = await this.$axios.delete(
-      `/users/${context.slug}`
-    );
+    const result = await this.$axios.delete(`/users/${context.slug}`);
     return result;
   },
   async getExport(action, context) {
@@ -308,9 +329,8 @@ export const actions: ActionTree<RootState, RootState> = {
     return await dispatch("getBackupCodes", slug);
   },
   async getBackupCodes({ commit }, slug) {
-    const backupCodes = (await this.$axios.get(
-      `/users/${slug}/backup-codes`
-    )).data;
+    const backupCodes = (await this.$axios.get(`/users/${slug}/backup-codes`))
+      .data;
     return backupCodes;
   },
   async regenerateCodes({ dispatch }, context) {
@@ -346,9 +366,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return dispatch("getSessions", { slug: context.slug });
   },
   async deleteSession({ dispatch }, context) {
-    await this.$axios.delete(
-      `/users/${context.slug}/sessions/${context.id}`
-    );
+    await this.$axios.delete(`/users/${context.slug}/sessions/${context.id}`);
     return dispatch("getSessions", { slug: context.slug });
   },
   async getIdentities({ commit }, { slug, start = 0 }) {
@@ -377,9 +395,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return dispatch("getIdentities", { slug: context.slug });
   },
   async deleteIdentity({ dispatch }, context) {
-    await this.$axios.delete(
-      `/users/${context.slug}/identities/${context.id}`
-    );
+    await this.$axios.delete(`/users/${context.slug}/identities/${context.id}`);
     return dispatch("getIdentities", { slug: context.slug });
   }
 };

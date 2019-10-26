@@ -24,9 +24,9 @@ export interface ServerLogs extends Paginated {
 }
 
 export interface RootState {
-  users: Users,
-  organizations: Organizations,
-  serverLogs: ServerLogs
+  users: Users;
+  organizations: Organizations;
+  serverLogs: ServerLogs;
 }
 
 export const emptyPagination = {
