@@ -1,5 +1,4 @@
 import Vue from "vue";
-import { MutationTree, ActionTree, GetterTree } from "vuex";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { AxiosRequestConfig } from "axios";
 import decode from "jwt-decode";
@@ -66,13 +65,19 @@ export default function({
   );
   $axios.onResponse(response => {
     if (response.data.success === true) {
-      if (response.data.message) {
+      if (response.data.text) {
         Vue.notify({
           group: "auth",
-          text: messages[response.data.message] || messages.success,
+          text: response.data.text,
           type: "notification notification--color-success"
         });
-      } else {
+      } else if (response.data.message) {
+          Vue.notify({
+            group: "auth",
+            text: messages[response.data.message] || messages.success,
+            type: "notification notification--color-success"
+          });
+        } else {
         Vue.notify({
           group: "auth",
           text: messages.success,
