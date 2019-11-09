@@ -4869,12 +4869,12 @@ eslint-plugin-node@^9.1.0:
     semver "^6.1.0"
 
 eslint-plugin-nuxt@>=0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-nuxt/-/eslint-plugin-nuxt-0.4.3.tgz#4a6114372c3b1311685d19a00a470233fa6a477e"
-  integrity sha512-Irw6YjbfNJpC8zykyvWA8cMRGfF97xGNKhwFLyMEeXKMXug9o/FKe7fHhN1qEoMJWI1SKgFr/spVW6ZV41geAQ==
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-nuxt/-/eslint-plugin-nuxt-0.5.0.tgz#ca855110c5e32d07629112d53cf632bece1ba78c"
+  integrity sha512-bYMl58s3mFD28wUU++5eEGaJG44naJZEo3my4+GixacmcD/vOyQZr3Hu1ToNmJJbZ3z1Ci3La5YMEyl+t2105Q==
   dependencies:
-    eslint-plugin-vue "^5.2.2"
-    vue-eslint-parser "^5.0.0"
+    eslint-plugin-vue "^6.0.0"
+    vue-eslint-parser "^7.0.0"
 
 eslint-plugin-prettier@^3.1.1:
   version "3.1.1"
@@ -4911,7 +4911,7 @@ eslint-plugin-unicorn@^9.1.1:
     reserved-words "^0.1.2"
     safe-regex "^2.0.1"
 
-eslint-plugin-vue@^5.2.2, eslint-plugin-vue@^5.2.3:
+eslint-plugin-vue@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.2.3.tgz#3ee7597d823b5478804b2feba9863b1b74273961"
   integrity sha512-mGwMqbbJf0+VvpGR5Lllq0PMxvTdrZ/ZPjmhkacrCHbubJeJOt+T6E3HUzAifa2Mxi7RSdJfC9HFpOeSYVMMIw==
@@ -12540,6 +12540,18 @@ vue-eslint-parser@^6.0.4:
     espree "^5.0.0"
     esquery "^1.0.1"
     lodash "^4.17.11"
+
+vue-eslint-parser@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.0.0.tgz#a4ed2669f87179dedd06afdd8736acbb3a3864d6"
+  integrity sha512-yR0dLxsTT7JfD2YQo9BhnQ6bUTLsZouuzt9SKRP7XNaZJV459gvlsJo4vT2nhZ/2dH9j3c53bIx9dnqU2prM9g==
+  dependencies:
+    debug "^4.1.1"
+    eslint-scope "^5.0.0"
+    eslint-visitor-keys "^1.1.0"
+    espree "^6.1.2"
+    esquery "^1.0.1"
+    lodash "^4.17.15"
 
 vue-focus-lock@^1.3.2:
   version "1.3.2"
