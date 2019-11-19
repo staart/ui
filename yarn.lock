@@ -3892,9 +3892,9 @@ cosmiconfig@^5.0.0, cosmiconfig@^5.2.1:
     parse-json "^4.0.0"
 
 countries-and-timezones@^2.0.1:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/countries-and-timezones/-/countries-and-timezones-2.0.3.tgz#216cdb6916e04d7d00b5cabce516cc7fa003bf4c"
-  integrity sha512-MexvshAVmlwvkBF+fJ1oc7bvYkjcfZDV4Da5VPEFUh7rvIiDIsLj5T0luaoetZGpsQ8IPIYZdAPeDH31OZGhpw==
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/countries-and-timezones/-/countries-and-timezones-2.0.4.tgz#9a353d6403d9c8622155a822fb6f4b5b921d07fa"
+  integrity sha512-TfQjnzVaE29FAgB8tw11qZyqdfFEKtfpkfOSy61QxiIRZohxiv6o12KvRvkJ2xB4TrmQr3QfS9rhFNWBaOa2Qw==
 
 create-ecdh@^4.0.0:
   version "4.0.3"
