@@ -87,7 +87,7 @@
     "jest": "^24.9.0",
     "jsdom": "^15.2.0",
     "node-sass": "^4.12.0",
-    "nodemon": "^1.19.3",
+    "nodemon": "^2.0.0",
     "prettier": "^1.18.2",
     "sass-loader": "^8.0.0",
     "ts-jest": "^24.1.0",
