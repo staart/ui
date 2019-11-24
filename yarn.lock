@@ -12660,9 +12660,9 @@ vue@^2.6.10:
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
 
 vuex-persist@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/vuex-persist/-/vuex-persist-2.1.1.tgz#2d525f3d2e62fc51b610d3c4af54688a760d7115"
-  integrity sha512-FD/l3M5b2y3r/zerE/IV7EmWAq03g/t5uKboLD3dB+8hyTAQztX+rqNvbJqBJ3aOcccIrkvEmyvwgOW9QM/LPg==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/vuex-persist/-/vuex-persist-2.2.0.tgz#4acec75562896b045c43d319690b93d6bc1b2bbc"
+  integrity sha512-o/qbBeMcKZZqMvCXc7kfIew/5cjHxlP1f53rx5YYp3r2tk2kxXYK/UZumxKn7OXywlurl2r0mgkuBzH6nIWFjw==
   dependencies:
     flatted "^2.0.0"
     lodash.merge "^4.6.2"
