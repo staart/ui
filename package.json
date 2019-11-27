@@ -58,7 +58,7 @@
     "@nuxt/typescript-build": "^0.3.0",
     "@nuxt/typescript-runtime": "^0.2.2",
     "@nuxtjs/dotenv": "^1.4.1",
-    "@nuxtjs/eslint-config": "^1.1.2",
+    "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/markdownit": "^1.2.6",
     "@nuxtjs/sitemap": "^2.0.0",
     "@types/downloadjs": "^1.4.1",
