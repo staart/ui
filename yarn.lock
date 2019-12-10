@@ -12914,9 +12914,9 @@ whatwg-url@^7.0.0:
     webidl-conversions "^4.0.2"
 
 which-browser@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/which-browser/-/which-browser-0.5.0.tgz#204ddf1e4e3f08598a6f15c2429a6278e77c8b99"
-  integrity sha512-ge43qIdmM7pF7YxUurx0pI3G+z2+adX8zbD00fpQbOv9Kt+Q0EIjaSBaMItWTVpfASoZacGnjz+5hgt1dStJwQ==
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/which-browser/-/which-browser-0.5.1.tgz#4e0c8b1135d2f5cf1fd5766964ed170d981eeb57"
+  integrity sha512-MulGxP+e6dN62chtrKRPRftpyAqt870E8KtonNRwuOn5hilWkNW4MUbsXxNy1IdyrPD8xKKFLqLbuYV1pOIi4Q==
 
 which-module@^1.0.0:
   version "1.0.0"
