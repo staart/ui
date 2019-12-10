@@ -2013,9 +2013,9 @@
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
 "@types/stripe@^7.10.2":
-  version "7.13.14"
-  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.14.tgz#8f85cdd1d2741312ea15e0cc714520dffc793921"
-  integrity sha512-gqbUnVI6jLQuQDfJd2r5edtS6EHYXiokRG5uoOtGWDTNlyFjtZc2ciwDBGjOo0F3aoZ2jJeiGVWkkemS7RbY7g==
+  version "7.13.15"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.15.tgz#96a00403cfdf48f086946823990b89a4a8d7f52c"
+  integrity sha512-Wus9h7G0BstwaP3z1p9Ufq84LQubFF4xk1fUdwQ/3Al/U7N/LWqLTL41R0A+i2DvaX2TZegMr+7Y4+iTHYHSkQ==
   dependencies:
     "@types/node" "*"
 
