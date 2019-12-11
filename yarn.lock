@@ -757,7 +757,7 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@fortawesome/fontawesome-common-types@^0.2.25", "@fortawesome/fontawesome-common-types@^0.2.26":
+"@fortawesome/fontawesome-common-types@^0.2.26":
   version "0.2.26"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.26.tgz#6e0b13a752676036f8196f8a1500d53a27b4adc1"
   integrity sha512-CcM/fIFwZlRdiWG/25xE/wHbtyUuCtqoCTrr6BsWw7hH072fR++n4L56KPydAr3ANgMJMjT8v83ZFIsDc7kE+A==
@@ -11307,9 +11307,9 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     then-fs "^2.0.0"
 
 snyk@^1.232.0:
-  version "1.258.1"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.258.1.tgz#95046164594f63275e25a8f75eabd8608d989ffa"
-  integrity sha512-+ofhHwi6L8sYEVrohNpYEWdKSa4mVGl8KXeKCfZhe5gERM2TBj9wlQZx7UKxsM9hjHv7iqeZlFp1HfPqcqtPhw==
+  version "1.258.2"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.258.2.tgz#ef26ee26dc11c141c1b646e219a91b93eb5370f8"
+  integrity sha512-SGVl7Wk82YFhemPuJQZvFkNdSefe6HAQcEbXp4AotwPiYPSP0wLNVuOPlKWakOduBB7/zEAZltRL2+0dv23txQ==
   dependencies:
     "@snyk/cli-interface" "2.3.0"
     "@snyk/dep-graph" "1.13.1"
