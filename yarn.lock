@@ -1497,11 +1497,11 @@
     typescript "~3.7"
 
 "@nuxt/typescript-runtime@^0.3.1":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@nuxt/typescript-runtime/-/typescript-runtime-0.3.2.tgz#a4594c048383795e6ff5fad2e08eace5816367ea"
-  integrity sha512-aivipsgSQjWs0eKiKbDsdT3Vbi9+Bma9sj55ktekZbD4RQl55eXIcPszZ87S6IIbShORGBxmVGlQArytYEtBKQ==
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@nuxt/typescript-runtime/-/typescript-runtime-0.3.3.tgz#12bd6247463835efd4f9dad1db75fe4c2f45c7a6"
+  integrity sha512-2jjLo1WuFRSG894PFBxARbZDV4LbFfo3cvq8laAwneRnWq5sm0FlRHVJwxV0GrCSsdkAIOM75YAy5uf1xLlmpw==
   dependencies:
-    "@nuxt/types" "0.5.6"
+    "@nuxt/types" "0.5.7"
     ts-node "^8.5.4"
     typescript "~3.7"
 
