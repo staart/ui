@@ -2113,9 +2113,9 @@
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
 "@types/stripe@^7.10.2":
-  version "7.13.17"
-  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.17.tgz#572ad5685727872370c01ed0399b01bb4a3a19af"
-  integrity sha512-vnKhkVIHNKU4lA1rJvldujtsnpl5Pt0ojLx9zwP+hySfOxSW7S0/8vSoGhXMptWmz8cj7Ry9G7Jhw9+72nORig==
+  version "7.13.18"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.18.tgz#ea265d13155261cf873a54ef0a5f69b44dbdd696"
+  integrity sha512-uK4Pktv+Q00JOj6t7ZGkNRoFbH3NZllYNNTLQ7wu7v5i7Ylyjc06zbVsz1TRVDjazauUB1orhG74VNulmq+qcQ==
   dependencies:
     "@types/node" "*"
 
