@@ -1437,30 +1437,6 @@
     serve-static "^1.14.1"
     server-destroy "^1.0.1"
 
-"@nuxt/types@0.5.6":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@nuxt/types/-/types-0.5.6.tgz#f982e64b33f9be3d5e18d0d4d8b7252f26f5eec5"
-  integrity sha512-TudjS1TP9F4+4DencHbNNNmz7xBIaSLE0sMw6uWwEU/1plJKsbGsCyOo+nHhgas/eyYXUQxs7lHR1Q/bjWfZ+A==
-  dependencies:
-    "@types/autoprefixer" "^9.6.1"
-    "@types/babel__core" "^7.1.3"
-    "@types/compression" "^1.0.1"
-    "@types/connect" "^3.4.32"
-    "@types/etag" "^1.8.0"
-    "@types/file-loader" "^4.2.0"
-    "@types/html-minifier" "^3.5.3"
-    "@types/less" "^3.0.1"
-    "@types/node" "^12.12.17"
-    "@types/node-sass" "^4.11.0"
-    "@types/optimize-css-assets-webpack-plugin" "^5.0.1"
-    "@types/pug" "^2.0.4"
-    "@types/serve-static" "^1.13.3"
-    "@types/terser-webpack-plugin" "^2.2.0"
-    "@types/webpack" "^4.41.0"
-    "@types/webpack-bundle-analyzer" "^2.13.3"
-    "@types/webpack-dev-middleware" "^2.0.3"
-    "@types/webpack-hot-middleware" "^2.25.0"
-
 "@nuxt/types@0.5.7":
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@nuxt/types/-/types-0.5.7.tgz#ec989a7e2071bdcc60f68010df9ee1b5bba54037"
@@ -1890,7 +1866,7 @@
   dependencies:
     "@types/express" "*"
 
-"@types/connect@*", "@types/connect@^3.4.32":
+"@types/connect@*":
   version "3.4.32"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.32.tgz#aa0e9616b9435ccad02bc52b5b454ffc2c70ba28"
   integrity sha512-4r8qa0quOvh7lGD0pre62CAb1oni1OO6ecJLGCezTmhQ8Fz50Arx9RUszryR8KlgK6avuSXvviL6yWyViQABOg==
@@ -2055,7 +2031,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^12.0.2", "@types/node@^12.12.17":
+"@types/node@*", "@types/node@^12.0.2":
   version "12.12.17"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.17.tgz#191b71e7f4c325ee0fb23bc4a996477d92b8c39b"
   integrity sha512-Is+l3mcHvs47sKy+afn2O1rV4ldZFU7W8101cNlOd+MRbjM4Onida8jSZnJdTe/0Pcf25g9BNIUsuugmE6puHA==
@@ -11491,9 +11467,9 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     then-fs "^2.0.0"
 
 snyk@^1.232.0:
-  version "1.263.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.263.0.tgz#fb682de8663fc0593de757978b9b95ff6a4f9201"
-  integrity sha512-ScqzacuzBf4KtKIsltDq7rHjVP6IV6D/mTTKMMpjJAqEsUekeE61tOMX2Jx0D1HmHObSpVEXTPMlVXN9kb4Qxg==
+  version "1.263.1"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.263.1.tgz#1ae61ad5a933ea2948e02dbdebd9bb773b8ba80e"
+  integrity sha512-Y6sSX5Gioz0ZrqNQypl6D906uqtHhSS5CjHqWbNz3jC8KKif/nyixORb/b9JsRYedFsIpf+7CzbM2r1o6LW+Iw==
   dependencies:
     "@snyk/cli-interface" "2.3.0"
     "@snyk/dep-graph" "1.13.1"
