@@ -1461,12 +1461,36 @@
     "@types/webpack-dev-middleware" "^2.0.3"
     "@types/webpack-hot-middleware" "^2.25.0"
 
-"@nuxt/typescript-build@^0.5.0":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@nuxt/typescript-build/-/typescript-build-0.5.2.tgz#df649db628951b06e035e5c36f7bee9b0eba2a53"
-  integrity sha512-8FKtt+0bU+6TxWdcY/G7a3OK/lXh1oSqDJLEGqrkj41ObK3HXO3a1LsfgZpgxIHJL5Y+mmuLvhMXRmbVZSjN7g==
+"@nuxt/types@0.5.8":
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/@nuxt/types/-/types-0.5.8.tgz#33e8b62a84d3aa931722c1bd0932b39784852bdf"
+  integrity sha512-tBvUdxTQCLg9mXycA639PFcismtYplZlSE1qGqVy230NQfudrwsyKSu9l7wY17lognFoaZGkRcdS14kLz/KJwg==
   dependencies:
-    "@nuxt/types" "0.5.7"
+    "@types/autoprefixer" "^9.6.1"
+    "@types/babel__core" "^7.1.3"
+    "@types/compression" "^1.0.1"
+    "@types/connect" "^3.4.33"
+    "@types/etag" "^1.8.0"
+    "@types/file-loader" "^4.2.0"
+    "@types/html-minifier" "^3.5.3"
+    "@types/less" "^3.0.1"
+    "@types/node" "^12.12.21"
+    "@types/node-sass" "^4.11.0"
+    "@types/optimize-css-assets-webpack-plugin" "^5.0.1"
+    "@types/pug" "^2.0.4"
+    "@types/serve-static" "^1.13.3"
+    "@types/terser-webpack-plugin" "^2.2.0"
+    "@types/webpack" "^4.41.0"
+    "@types/webpack-bundle-analyzer" "^2.13.3"
+    "@types/webpack-dev-middleware" "^2.0.3"
+    "@types/webpack-hot-middleware" "^2.25.0"
+
+"@nuxt/typescript-build@^0.5.0":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@nuxt/typescript-build/-/typescript-build-0.5.3.tgz#a77b18f7eee3461b5ee1f1fbc1ddc720fde263b0"
+  integrity sha512-d3X34yGMhR/TawTKFYqPRmq+4MmTqdsdlgve+J5qotFI3orENN0cn0YTMygJNUKeq82bJiuGgaqIYi+mqR9aTw==
+  dependencies:
+    "@nuxt/types" "0.5.8"
     consola "^2.11.1"
     fork-ts-checker-webpack-plugin "^3.1.1"
     ts-loader "^6.2.1"
