@@ -5098,9 +5098,9 @@ eslint-plugin-unicorn@^13.0.0:
     semver "^6.3.0"
 
 eslint-plugin-vue@^6.0.0, eslint-plugin-vue@^6.0.1:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-6.1.0.tgz#b8dffb75dcaa62dec813ef9e7c10059f15ef7e99"
-  integrity sha512-3EQ51TnZBG8MpjYqcss1HNEZvEWCPmE5XMlNgEbM9ipL7aUQNBq1BZXBZDHOEJ1cW9zY4XTVDp373S9BgwJ3Pg==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-6.1.1.tgz#183c4c8b54880e81b585d2f3dd5c183598e73664"
+  integrity sha512-WsJcndi3iOtKF+Wkrw7mWiKT3GdGYUM8onbWYX7sBgggiFKoxHyx8VciA5letkx6iKzoW4B7XrBeVdTukmrtpg==
   dependencies:
     vue-eslint-parser "^7.0.0"
 
