@@ -1461,13 +1461,37 @@
     "@types/webpack-dev-middleware" "^2.0.3"
     "@types/webpack-hot-middleware" "^2.25.0"
 
-"@nuxt/typescript-build@^0.5.0":
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/@nuxt/typescript-build/-/typescript-build-0.5.4.tgz#5b4b3b310d86bbe4eb1a5a10d8327e8160a0b02d"
-  integrity sha512-BuVdoQMbaantvp4OrYhgTJ/4Q+OXTE/1gRxV8h/JyhWkKbiyekfKj388XUoH6lSH0/4BiGpbpg2FgUcZvxZOvA==
+"@nuxt/types@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@nuxt/types/-/types-0.6.0.tgz#f127c31d8c86cfbe522654da91704a98a2cb0fb3"
+  integrity sha512-LJF95jLe4Ir/mrKJ5d2QC+t89xnXVM2EWagXx8YDM32RObIAHEU8jUQLPy4uvx1w3APDOMAtByG5V3vlRo7HwQ==
   dependencies:
-    "@nuxt/types" "0.5.9"
-    consola "^2.11.1"
+    "@types/autoprefixer" "^9.6.1"
+    "@types/babel__core" "^7.1.3"
+    "@types/compression" "^1.0.1"
+    "@types/connect" "^3.4.33"
+    "@types/etag" "^1.8.0"
+    "@types/file-loader" "^4.2.0"
+    "@types/html-minifier" "^3.5.3"
+    "@types/less" "^3.0.1"
+    "@types/node" "^12.12.22"
+    "@types/node-sass" "^4.11.0"
+    "@types/optimize-css-assets-webpack-plugin" "^5.0.1"
+    "@types/pug" "^2.0.4"
+    "@types/serve-static" "^1.13.3"
+    "@types/terser-webpack-plugin" "^2.2.0"
+    "@types/webpack" "^4.41.1"
+    "@types/webpack-bundle-analyzer" "^2.13.3"
+    "@types/webpack-dev-middleware" "^2.0.3"
+    "@types/webpack-hot-middleware" "^2.25.0"
+
+"@nuxt/typescript-build@^0.5.0":
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/@nuxt/typescript-build/-/typescript-build-0.5.5.tgz#5cb01380f567344339b016a88503fed2bd67b8bf"
+  integrity sha512-VB2PcS8XbW0nUn+AY9+JqbuBO3K3Ys9xoIG8s4uJ9vua/rwLRe4mS6jIoIhMVOoiPjoz8CNq7F3edOXsevSleA==
+  dependencies:
+    "@nuxt/types" "0.6.0"
+    consola "^2.11.3"
     fork-ts-checker-webpack-plugin "^3.1.1"
     ts-loader "^6.2.1"
     typescript "~3.7"
@@ -2201,6 +2225,18 @@
   version "4.41.0"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.0.tgz#b813a044d8b0dec7dfcd7622fdbe327bde06eb9a"
   integrity sha512-tWkdf9nO0zFgAY/EumUKwrDUhraHKDqCPhwfFR/R8l0qnPdgb9le0Gzhvb7uzVpouuDGBgiE//ZdY+5jcZy2TA==
+  dependencies:
+    "@types/anymatch" "*"
+    "@types/node" "*"
+    "@types/tapable" "*"
+    "@types/uglify-js" "*"
+    "@types/webpack-sources" "*"
+    source-map "^0.6.0"
+
+"@types/webpack@^4.41.1":
+  version "4.41.1"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.1.tgz#571f0e137ce698710dd2637f7d222811eb83e274"
+  integrity sha512-n9fP8UrMxOi1wiM3oM+vMZHMJJ7WoQohqd63C20cmKOFkNEy9Q8hyZyDR6PWdvSYt3V3A7cwDq/kWxHlRYYZEg==
   dependencies:
     "@types/anymatch" "*"
     "@types/node" "*"
@@ -3919,10 +3955,10 @@ connect@^3.7.0:
     parseurl "~1.3.3"
     utils-merge "1.0.1"
 
-consola@^2.10.0, consola@^2.10.1, consola@^2.11.0, consola@^2.11.1, consola@^2.5.6, consola@^2.6.0, consola@^2.7.1, consola@^2.9.0:
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/consola/-/consola-2.11.1.tgz#1df259c0a7aef44c9eb4f448e3a20ba0850a65e7"
-  integrity sha512-zFH/xFAE/KHJiWqwyTEDmdFe34Swc0pqMKJeowTvR3irepx8kKPu8bjaKzRd+RLjLH+0TvFxFBnohbSUQ+hOsw==
+consola@^2.10.0, consola@^2.10.1, consola@^2.11.0, consola@^2.11.1, consola@^2.11.3, consola@^2.5.6, consola@^2.6.0, consola@^2.7.1, consola@^2.9.0:
+  version "2.11.3"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-2.11.3.tgz#f7315836224c143ac5094b47fd4c816c2cd1560e"
+  integrity sha512-aoW0YIIAmeftGR8GSpw6CGQluNdkWMWh3yEFjH/hmynTYnMtibXszii3lxCXmk8YxJtI3FAK5aTiquA5VH68Gw==
 
 console-browserify@^1.1.0:
   version "1.1.0"
