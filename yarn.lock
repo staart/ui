@@ -1572,9 +1572,9 @@
     webpackbar "^4.0.0"
 
 "@nuxtjs/axios@^5.6.0":
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.9.0.tgz#08c20fa4c9936bf0015733e1598860032a1a237a"
-  integrity sha512-jc3KOHlFA5zdijiuYSRk0nzmqGSoP30LasD5J5XxUDpc/YlzwAL+Z0+kLcU5IwlrEDkg4VwkhZd/9OG6RkA2CQ==
+  version "5.9.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.9.1.tgz#83fb6e8c90349f0ca519655635f450e694d51503"
+  integrity sha512-Uv03zzeZUwspu0PVzoJrKlTdlc8YjJ72k3ZnmJ/oDQZQr+rIjydCmLBbj3uQYtTIAAJRg06rB3Ffp6xM5ehc2Q==
   dependencies:
     "@nuxtjs/proxy" "^1.3.3"
     axios "^0.19.0"
