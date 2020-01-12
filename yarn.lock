@@ -5043,11 +5043,12 @@ eslint-plugin-import@>=2.18.2, eslint-plugin-import@^2.18.2:
     resolve "^1.12.0"
 
 eslint-plugin-jest@>=22.17.0, eslint-plugin-jest@^23.0.4:
-  version "23.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.4.0.tgz#5209a659cf415a5154d64f957e0508ee83de224b"
-  integrity sha512-BKZmxpvya0/slJdUr5MJdWvIUNtDySzbAxigr3xMVmyiSUvQLhnLde+8dDM56sFPDSU1pQG9ZqNglMq0jLYVqw==
+  version "23.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.5.0.tgz#d9e9ab7a6ccc37b586257933bb6c30df69cd570c"
+  integrity sha512-laSi1cj1K+l/3+56PDCtl8SfUNp1ARTG7Q/aF5Z1lvo83t/1GmCEXXtMM79Gq85o1c/KXRMb/CbzdaVYzEf3qw==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
+    micromatch "^4.0.2"
 
 eslint-plugin-node@>=10.0.0:
   version "11.0.0"
@@ -8255,7 +8256,7 @@ micromatch@^3.1.10, micromatch@^3.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
-micromatch@^4.0.0:
+micromatch@^4.0.0, micromatch@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.2.tgz#4fcb0999bf9fbc2fcbdd212f6d629b9a56c39259"
   integrity sha512-y7FpHSbMUMoyPbYUSzO6PaZ6FyRnQOpHuKwbo1G+Knck95XVU4QAiKdGEnj5wwoS7PlOgthX/09u5iFJ+aYf5Q==
