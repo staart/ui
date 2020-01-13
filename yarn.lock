@@ -1444,30 +1444,6 @@
     serve-static "^1.14.1"
     server-destroy "^1.0.1"
 
-"@nuxt/types@0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@nuxt/types/-/types-0.6.0.tgz#f127c31d8c86cfbe522654da91704a98a2cb0fb3"
-  integrity sha512-LJF95jLe4Ir/mrKJ5d2QC+t89xnXVM2EWagXx8YDM32RObIAHEU8jUQLPy4uvx1w3APDOMAtByG5V3vlRo7HwQ==
-  dependencies:
-    "@types/autoprefixer" "^9.6.1"
-    "@types/babel__core" "^7.1.3"
-    "@types/compression" "^1.0.1"
-    "@types/connect" "^3.4.33"
-    "@types/etag" "^1.8.0"
-    "@types/file-loader" "^4.2.0"
-    "@types/html-minifier" "^3.5.3"
-    "@types/less" "^3.0.1"
-    "@types/node" "^12.12.22"
-    "@types/node-sass" "^4.11.0"
-    "@types/optimize-css-assets-webpack-plugin" "^5.0.1"
-    "@types/pug" "^2.0.4"
-    "@types/serve-static" "^1.13.3"
-    "@types/terser-webpack-plugin" "^2.2.0"
-    "@types/webpack" "^4.41.1"
-    "@types/webpack-bundle-analyzer" "^2.13.3"
-    "@types/webpack-dev-middleware" "^2.0.3"
-    "@types/webpack-hot-middleware" "^2.25.0"
-
 "@nuxt/types@0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@nuxt/types/-/types-0.6.1.tgz#f94601630367ba790e6ca320c30406a4e253599d"
@@ -2062,12 +2038,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^12.0.2", "@types/node@^12.12.22":
-  version "12.12.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.22.tgz#b8d9eae3328b96910a373cf06ac8d3c5abe9c200"
-  integrity sha512-r5i93jqbPWGXYXxianGATOxTelkp6ih/U0WVnvaqAvTqM+0U6J3kw6Xk6uq/dWNRkEVw/0SLcO5ORXbVNz4FMQ==
-
-"@types/node@^12.12.24":
+"@types/node@*", "@types/node@^12.0.2", "@types/node@^12.12.24":
   version "12.12.24"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.24.tgz#d4606afd8cf6c609036b854360367d1b2c78931f"
   integrity sha512-1Ciqv9pqwVtW6FsIUKSZNB82E5Cu1I2bBTj1xuIHXLe/1zYLl3956Nbhg2MzSYHVfl9/rmanjbQIb7LibfCnug==
@@ -2161,9 +2132,9 @@
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
 "@types/stripe@^7.10.2":
-  version "7.13.19"
-  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.19.tgz#2762b2da5a16e2504d37679923ca633443c5280d"
-  integrity sha512-pUZfv5rX/86/2PCduZC2PHUpjS0R2qLvqDP9lx/Fs+YpekL7vv6spfrPQmbE2mkXQnACY6PMPU/pt3ilU1Sj6g==
+  version "7.13.20"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.20.tgz#f97fdc3db2f7d5b1388e2f277b450863df8aca8f"
+  integrity sha512-PP/IXu1HOvtsRWpTm1em+MfKVcNjPSiYwmK0IP9D5QAH5L3r5JiN4DshUpcO8sixAmXUE0JGtiW1Jqmekme7RA==
   dependencies:
     "@types/node" "*"
 
@@ -2230,18 +2201,6 @@
   version "4.39.5"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.39.5.tgz#3671b65928d9e0c6fcd4adff3f8167d48b174681"
   integrity sha512-9twG6D97ao13MBLvigwfBJe6rxtb04UY3TcYHBYkW5sXZjUrNhqIRxLYg74VzK/YAE8xlVhOyd+3Whr7E5RrBA==
-  dependencies:
-    "@types/anymatch" "*"
-    "@types/node" "*"
-    "@types/tapable" "*"
-    "@types/uglify-js" "*"
-    "@types/webpack-sources" "*"
-    source-map "^0.6.0"
-
-"@types/webpack@^4.41.1":
-  version "4.41.1"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.1.tgz#571f0e137ce698710dd2637f7d222811eb83e274"
-  integrity sha512-n9fP8UrMxOi1wiM3oM+vMZHMJJ7WoQohqd63C20cmKOFkNEy9Q8hyZyDR6PWdvSYt3V3A7cwDq/kWxHlRYYZEg==
   dependencies:
     "@types/anymatch" "*"
     "@types/node" "*"
