@@ -116,6 +116,9 @@ const config: Configuration = {
   typescript: {
     typeCheck: true,
     ignoreNotFoundWarnings: true
+  },
+  sitemap: {
+    hostname: "https://staart-ui.o15y.now.sh"
   }
 };
 
