@@ -1,4 +1,5 @@
 [![Staart UI](https://raw.githubusercontent.com/staart/staart.js.org/master/assets/svg/ui.svg?sanitize=true)](https://staart.js.org/ui)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fstaart%2Fui.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fstaart%2Fui?ref=badge_shield)
 
 Staart UI is a frontend starter for SaaS startups written in TypeScript and Vue
 using Nuxt.js. It has built-in landing pages, authentication, settings UIs, and
@@ -117,3 +118,6 @@ The development of Staart projects is supported by these wonderful companies. [F
 
 - Code: [MIT](https://github.com/staart/ui/blob/master/LICENSE)
 - Logo and assets: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fstaart%2Fui.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fstaart%2Fui?ref=badge_large)
