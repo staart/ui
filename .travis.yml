@@ -1,13 +1,7 @@
 language: node_js
-version: 1.0
 node_js:
   - "node"
 install:
   - "yarn"
 script:
   - "yarn test"
-deploy:
-  edge: true
-  provider: npm
-  email: $NPM_EMAIL
-  api_key: $NPM_TOKEN
