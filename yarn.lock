@@ -2142,12 +2142,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^12.0.2":
-  version "12.12.24"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.24.tgz#d4606afd8cf6c609036b854360367d1b2c78931f"
-  integrity sha512-1Ciqv9pqwVtW6FsIUKSZNB82E5Cu1I2bBTj1xuIHXLe/1zYLl3956Nbhg2MzSYHVfl9/rmanjbQIb7LibfCnug==
-
-"@types/node@^12.12.27":
+"@types/node@*", "@types/node@^12.0.2", "@types/node@^12.12.27":
   version "12.12.27"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.27.tgz#d7506f73160ad30fcebbcf5b8b7d2d976e649e42"
   integrity sha512-odQFl/+B9idbdS0e8IxDl2ia/LP8KZLXhV3BUeI98TrZp0uoIzQPhGd+5EtzHmT0SMOIaPd7jfz6pOHLWTtl7A==
@@ -2246,9 +2241,9 @@
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
 "@types/stripe@^7.10.2":
-  version "7.13.21"
-  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.21.tgz#aab3eb8a2f1df960024847a64842470ed7d727f2"
-  integrity sha512-BSWs535ZI26U4onblbajT1qAZDucrfY3sJdnmIZR4WVTpPnWDIL7IFPq8AWhRKEj9x5WcfgILSpf3kQ26PGXQQ==
+  version "7.13.22"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.22.tgz#7927d30c3dd1a4cb7333d3c5eb0fa2fa8402f16b"
+  integrity sha512-iAYycvdjpquHGvPymWSzplrLENxp4SiBre2mfAqNOqPNS6UtVCHcYz5g9Gqlci0fCekqvUbeiARJ/VmovBqIMA==
   dependencies:
     "@types/node" "*"
 
