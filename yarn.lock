@@ -1677,9 +1677,9 @@
     markdown-it "^8.3.1"
 
 "@nuxtjs/markdownit@^1.2.6":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/markdownit/-/markdownit-1.2.8.tgz#2329d6ed2c5c171ea11a5dab2bee4d0d37f1a28c"
-  integrity sha512-YjXRWC2cW7v+Mnr92sGDsNixYwX2wigAJoc6AFFQrm+COKqd0x5oqD+aTdJBSWHRHa4YSeY2sR/hVUpwz9wfMw==
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/markdownit/-/markdownit-1.2.9.tgz#c347fcb68c80bfd608d90af4b5a1665c3786c52f"
+  integrity sha512-zysuv6Kp0BJv7V3fD4NJW/6OExFPg0XWAnr6pTQkF7c7w3fx0j4O993faehh4OCCIxf5cD2HO74FnC6v2sPsdw==
   dependencies:
     "@nuxtjs/markdownit-loader" "^1.1.1"
     raw-loader "^4.0.0"
