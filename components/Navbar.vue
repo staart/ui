@@ -197,7 +197,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Trap from "vue-focus-lock";
-// import Feeedback from "feeedback";
+import Feeedback from "feeedback";
 import {
   faBell,
   faQuestionCircle,
@@ -209,14 +209,19 @@ import { Memberships } from "../types/settings";
 import { emptyPagination } from "../types/manage";
 import { emptyUser } from "../types/users";
 library.add(faBell, faQuestionCircle, faBars, faTimes);
-// const feedback = new Feeedback({
-//   onSubmit: result =>
-//     new Promise((resolve, reject) => {
-//       if (window.agastya && typeof window.agastya.secureTrack === "function")
-//         window.agastya.secureTrack({ feedback: result });
-//       resolve();
-//     })
-// });
+const feedback = new Feeedback({
+  onSubmit: result =>
+    new Promise((resolve, reject) => {
+      if (
+        (window as any).agastya &&
+        typeof (window as any).agastya.secureTrack === "function"
+      )
+        (window as any).agastya.secureTrack({ feedback: result });
+      if ((window as any).ga)
+        (window as any).ga("send", "feedback", result.rating, result.message);
+      resolve();
+    })
+});
 
 @Component({
   components: {
@@ -311,7 +316,7 @@ export default class Card extends Vue {
   }
 
   private feedback() {
-    // feedback.open();
+    feedback.open();
   }
 
   private load() {
