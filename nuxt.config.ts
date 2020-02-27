@@ -71,7 +71,8 @@ const config: Configuration = {
     "~/plugins/vue-timeago",
     "~/plugins/meta-ctrl-enter",
     "~/plugins/filters",
-    { src: "~/plugins/vuex-persist", ssr: false }
+    { src: "~/plugins/vuex-persist", ssr: false },
+    { src: "~/plugins/feeedback", ssr: false }
   ],
   modules: [
     "@nuxtjs/dotenv",

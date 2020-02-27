@@ -24,10 +24,17 @@
         >
         <nuxt-link v-else class="item" to="/settings">Settings</nuxt-link>
         <nuxt-link class="item" to="/docs">Docs</nuxt-link>
+        <button class="item item--type-less" @click="feedback">
+          <font-awesome-icon
+            class="nav-icon hide-mobile"
+            icon="comment"
+            fixed-width
+          />
+          <span>Feedback</span>
+        </button>
         <span>
           <button
             class="item item--type-less"
-            to="/settings/account"
             aria-label="Help"
             data-balloon-pos="down"
             aria-controls="help"
@@ -38,7 +45,7 @@
               icon="question-circle"
               fixed-width
             />
-            <span class="hide-desktop">Help</span>
+            <span>Help</span>
           </button>
           <transition name="dropdown-fade">
             <div
@@ -60,16 +67,13 @@
         <span class="hide-mobile">
           <button
             class="item item--type-less item--type-last"
-            to="/settings/notifications"
             aria-label="Notifications"
             data-balloon-pos="down"
             aria-controls="notifications"
             :aria-expanded="(visible === 'notifications').toString()"
           >
             <font-awesome-icon class="nav-icon" icon="bell" fixed-width />
-            <span v-if="notificationCount" class="notif-count">{{
-              notificationCount
-            }}</span>
+            <span>Updates</span>
           </button>
           <transition name="dropdown-fade">
             <div
@@ -79,7 +83,7 @@
               class="dropdown"
               style="width: 350px"
             >
-              <Notifications :on-count="updateNotificationCount" />
+              <Notifications />
             </div>
           </transition>
         </span>
@@ -197,18 +201,19 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Trap from "vue-focus-lock";
-import Feeedback from "feeedback";
 import {
   faBell,
   faQuestionCircle,
   faBars,
-  faTimes
+  faTimes,
+  faComment
 } from "@fortawesome/free-solid-svg-icons";
 import Notifications from "@/components/Notifications.vue";
 import { Memberships } from "../types/settings";
 import { emptyPagination } from "../types/manage";
 import { emptyUser } from "../types/users";
-library.add(faBell, faQuestionCircle, faBars, faTimes);
+import Feeedback from "~/plugins/feeedback";
+library.add(faBell, faQuestionCircle, faBars, faTimes, faComment);
 const feedback = new Feeedback({
   onSubmit: result =>
     new Promise((resolve, reject) => {
@@ -234,7 +239,6 @@ export default class Card extends Vue {
   visible: string | null = null;
   memberships: Memberships = emptyPagination;
   isVisible = true;
-  notificationCount = 0;
   showNav = false;
   activeOrganization: string | null = null;
   isAuthenticated = false;
@@ -274,10 +278,6 @@ export default class Card extends Vue {
       this.memberships = {
         ...this.$store.getters["users/memberships"](user.username)
       };
-  }
-
-  private updateNotificationCount(count: number) {
-    this.notificationCount = count;
   }
 
   private logout() {
