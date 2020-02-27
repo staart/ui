@@ -1,145 +1,149 @@
 <template>
-  <main class="card">
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
-      <div class="row">
-        <div>
-          <nuxt-link
-            :to="`/teams/${$route.params.team}/billing/subscription`"
-            aria-label="Back"
-            data-balloon-pos="down"
-            class="button button--type-icon button--type-back"
-          >
-            <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
-          </nuxt-link>
-          <h1>Subscription</h1>
+  <div class="container container--type-settings">
+    <main class="card">
+      <Loading v-if="loading" :message="loading" />
+      <div v-else>
+        <div class="row">
+          <div>
+            <nuxt-link
+              :to="`/teams/${$route.params.team}/billing/subscription`"
+              aria-label="Back"
+              data-balloon-pos="down"
+              class="button button--type-icon button--type-back"
+            >
+              <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+            </nuxt-link>
+            <h1>Subscription</h1>
+          </div>
+          <div class="text text--align-right">
+            <button
+              aria-label="Refresh"
+              data-balloon-pos="down"
+              class="button button--type-icon"
+              @click="load"
+            >
+              <font-awesome-icon class="icon" icon="sync" fixed-width />
+            </button>
+          </div>
         </div>
-        <div class="text text--align-right">
-          <button
-            aria-label="Refresh"
-            data-balloon-pos="down"
-            class="button button--type-icon"
-            @click="load"
-          >
-            <font-awesome-icon class="icon" icon="sync" fixed-width />
-          </button>
+        <LargeMessage
+          v-if="!loading && !subscription"
+          img="undraw_product_tour_foyt.svg"
+          heading="Subscription not found"
+          text="We couldn't find this subscription for you."
+        />
+        <div v-else-if="subscription">
+          <table class="table table--type-cols">
+            <tbody>
+              <tr>
+                <td>Subscription ID</td>
+                <td>
+                  <code>{{ subscription.id }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Created</td>
+                <td><TimeAgo :date="subscription.created * 1000" /></td>
+              </tr>
+              <tr v-if="subscription.status">
+                <td>Status</td>
+                <td>
+                  <span :class="`label label--color-${subscription.status}`">{{
+                    subscription.status
+                  }}</span>
+                  <span
+                    v-if="subscription.cancel_at"
+                    :class="`label label--color-danger`"
+                    >Scheduled to cancel</span
+                  >
+                </td>
+              </tr>
+              <tr v-if="subscription.cancel_at">
+                <td>Cancels</td>
+                <td><TimeAgo :date="subscription.cancel_at * 1000" /></td>
+              </tr>
+              <tr v-if="subscription.current_period_end">
+                <td>Biling period end</td>
+                <td>
+                  <TimeAgo :date="subscription.current_period_end * 1000" />
+                </td>
+              </tr>
+              <tr v-if="subscription.plan && subscription.plan.nickname">
+                <td>Plan</td>
+                <td>
+                  {{ subscription.plan.nickname }}
+                </td>
+              </tr>
+              <tr v-if="subscription.plan && subscription.plan.id">
+                <td>Plan ID</td>
+                <td>
+                  <code>{{ subscription.plan.id }}</code>
+                </td>
+              </tr>
+              <tr v-if="subscription.plan && subscription.plan.currency">
+                <td>Amount</td>
+                <td>
+                  {{ (subscription.plan.currency || "eur").toUpperCase() }}
+                  {{ subscription.plan.amount | currency }}
+                </td>
+              </tr>
+              <tr v-if="subscription.plan && subscription.plan.interval">
+                <td>Billing interval</td>
+                <td>
+                  {{ subscription.plan.interval_count }}
+                  {{ subscription.plan.interval }}
+                </td>
+              </tr>
+              <tr v-if="subscription.trial_end">
+                <td>Trial end</td>
+                <td>
+                  <TimeAgo :date="subscription.trial_end * 1000" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div v-if="!subscription.cancel_at" class="text text--mt-2">
+            <button
+              class="button button--color-danger"
+              @click="() => (showDelete = true)"
+            >
+              Cancel subscription
+            </button>
+          </div>
+          <div v-else class="card card--type-padded text text--mt-2">
+            <h2>Scheduled for cancelation</h2>
+            <p>
+              This subscription will be cancelled at
+              {{
+                new Date(subscription.cancel_at * 1000).toLocaleDateString()
+              }}.
+            </p>
+            <button class="button button--color-success" @click="revertCancel">
+              Revert cancelation
+            </button>
+          </div>
         </div>
       </div>
-      <LargeMessage
-        v-if="!loading && !subscription"
-        img="undraw_product_tour_foyt.svg"
-        heading="Subscription not found"
-        text="We couldn't find this subscription for you."
-      />
-      <div v-else-if="subscription">
-        <table class="table table--type-cols">
-          <tbody>
-            <tr>
-              <td>Subscription ID</td>
-              <td>
-                <code>{{ subscription.id }}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>Created</td>
-              <td><TimeAgo :date="subscription.created * 1000" /></td>
-            </tr>
-            <tr v-if="subscription.status">
-              <td>Status</td>
-              <td>
-                <span :class="`label label--color-${subscription.status}`">{{
-                  subscription.status
-                }}</span>
-                <span
-                  v-if="subscription.cancel_at"
-                  :class="`label label--color-danger`"
-                  >Scheduled to cancel</span
-                >
-              </td>
-            </tr>
-            <tr v-if="subscription.cancel_at">
-              <td>Cancels</td>
-              <td><TimeAgo :date="subscription.cancel_at * 1000" /></td>
-            </tr>
-            <tr v-if="subscription.current_period_end">
-              <td>Biling period end</td>
-              <td>
-                <TimeAgo :date="subscription.current_period_end * 1000" />
-              </td>
-            </tr>
-            <tr v-if="subscription.plan && subscription.plan.nickname">
-              <td>Plan</td>
-              <td>
-                {{ subscription.plan.nickname }}
-              </td>
-            </tr>
-            <tr v-if="subscription.plan && subscription.plan.id">
-              <td>Plan ID</td>
-              <td>
-                <code>{{ subscription.plan.id }}</code>
-              </td>
-            </tr>
-            <tr v-if="subscription.plan && subscription.plan.currency">
-              <td>Amount</td>
-              <td>
-                {{ (subscription.plan.currency || "eur").toUpperCase() }}
-                {{ subscription.plan.amount | currency }}
-              </td>
-            </tr>
-            <tr v-if="subscription.plan && subscription.plan.interval">
-              <td>Billing interval</td>
-              <td>
-                {{ subscription.plan.interval_count }}
-                {{ subscription.plan.interval }}
-              </td>
-            </tr>
-            <tr v-if="subscription.trial_end">
-              <td>Trial end</td>
-              <td>
-                <TimeAgo :date="subscription.trial_end * 1000" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div v-if="!subscription.cancel_at" class="text text--mt-2">
-          <button
-            class="button button--color-danger"
-            @click="() => (showDelete = true)"
-          >
-            Cancel subscription
-          </button>
-        </div>
-        <div v-else class="card card--type-padded text text--mt-2">
-          <h2>Scheduled for cancelation</h2>
+      <transition name="modal">
+        <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
+          <h2>Are you sure you want to cancel this subscription?</h2>
           <p>
-            This subscription will be cancelled at
-            {{ new Date(subscription.cancel_at * 1000).toLocaleDateString() }}.
+            Any data linked to this subscription will be permanently deleted and
+            your any paid features will stop working immediately.
           </p>
-          <button class="button button--color-success" @click="revertCancel">
-            Revert cancelation
+          <button
+            class="button button--color-danger button--state-cta"
+            @click="cancelSubscription"
+          >
+            Yes, cancel
           </button>
-        </div>
-      </div>
-    </div>
-    <transition name="modal">
-      <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
-        <h2>Are you sure you want to cancel this subscription?</h2>
-        <p>
-          Any data linked to this subscription will be permanently deleted and
-          your any paid features will stop working immediately.
-        </p>
-        <button
-          class="button button--color-danger button--state-cta"
-          @click="cancelSubscription"
-        >
-          Yes, cancel
-        </button>
-        <button type="button" class="button" @click="showDelete = false">
-          No, don't cancel
-        </button>
-      </Confirm>
-    </transition>
-  </main>
+          <button type="button" class="button" @click="showDelete = false">
+            No, don't cancel
+          </button>
+        </Confirm>
+      </transition>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">

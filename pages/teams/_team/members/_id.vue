@@ -1,67 +1,69 @@
 <template>
-  <main class="card">
-    <div class="row">
-      <div>
-        <nuxt-link
-          :to="`/teams/${$route.params.team}/members`"
-          aria-label="Back"
-          data-balloon-pos="down"
-          class="button button--type-icon button--type-back"
-        >
-          <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
-        </nuxt-link>
-        <h1 v-if="membership">{{ membership.user.name }}</h1>
+  <div class="container container--type-settings">
+    <main class="card">
+      <div class="row">
+        <div>
+          <nuxt-link
+            :to="`/teams/${$route.params.team}/members`"
+            aria-label="Back"
+            data-balloon-pos="down"
+            class="button button--type-icon button--type-back"
+          >
+            <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+          </nuxt-link>
+          <h1 v-if="membership">{{ membership.user.name }}</h1>
+        </div>
+        <div class="text text--align-right">
+          <button
+            aria-label="Refresh"
+            data-balloon-pos="down"
+            class="button button--type-icon"
+            @click="load"
+          >
+            <font-awesome-icon class="icon" icon="sync" fixed-width />
+          </button>
+        </div>
       </div>
-      <div class="text text--align-right">
-        <button
-          aria-label="Refresh"
-          data-balloon-pos="down"
-          class="button button--type-icon"
-          @click="load"
-        >
-          <font-awesome-icon class="icon" icon="sync" fixed-width />
-        </button>
+      <div v-if="membership">
+        <table class="table table--type-cols">
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td><User :user="membership.user" /></td>
+            </tr>
+            <tr>
+              <td>Joined organization</td>
+              <td><TimeAgo :date="membership.createdAt" /></td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td><Country :code="membership.user.countryCode" /></td>
+            </tr>
+            <tr>
+              <td>Timezone</td>
+              <td>{{ membership.user.timezone }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>Edit memberhsip</h2>
       </div>
-    </div>
-    <div v-if="membership">
-      <table class="table table--type-cols">
-        <tbody>
-          <tr>
-            <td>Name</td>
-            <td><User :user="membership.user" /></td>
-          </tr>
-          <tr>
-            <td>Joined organization</td>
-            <td><TimeAgo :date="membership.createdAt" /></td>
-          </tr>
-          <tr>
-            <td>Country</td>
-            <td><Country :code="membership.user.countryCode" /></td>
-          </tr>
-          <tr>
-            <td>Timezone</td>
-            <td>{{ membership.user.timezone }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h2>Edit memberhsip</h2>
-    </div>
-    <Loading v-if="inviting" />
-    <form
-      v-else
-      v-meta-ctrl-enter="updateMembership"
-      @submit.prevent="updateMembership"
-    >
-      <Select
-        :value="newUserRole"
-        label="Role"
-        :options="membershipRoles"
-        required
-        @input="val => (newUserRole = val)"
-      />
-      <button class="button">Update membership</button>
-    </form>
-  </main>
+      <Loading v-if="inviting" />
+      <form
+        v-else
+        v-meta-ctrl-enter="updateMembership"
+        @submit.prevent="updateMembership"
+      >
+        <Select
+          :value="newUserRole"
+          label="Role"
+          :options="membershipRoles"
+          required
+          @input="val => (newUserRole = val)"
+        />
+        <button class="button">Update membership</button>
+      </form>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">

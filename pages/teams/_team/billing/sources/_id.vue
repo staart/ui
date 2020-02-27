@@ -1,123 +1,125 @@
 <template>
-  <main class="card">
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
-      <div class="row">
-        <div>
-          <nuxt-link
-            :to="`/teams/${$route.params.team}/billing/sources`"
-            aria-label="Back"
-            data-balloon-pos="down"
-            class="button button--type-icon button--type-back"
-          >
-            <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
-          </nuxt-link>
-          <h1>Your card</h1>
+  <div class="container container--type-settings">
+    <main class="card">
+      <Loading v-if="loading" :message="loading" />
+      <div v-else>
+        <div class="row">
+          <div>
+            <nuxt-link
+              :to="`/teams/${$route.params.team}/billing/sources`"
+              aria-label="Back"
+              data-balloon-pos="down"
+              class="button button--type-icon button--type-back"
+            >
+              <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+            </nuxt-link>
+            <h1>Your card</h1>
+          </div>
+          <div class="text text--align-right">
+            <button
+              aria-label="Refresh"
+              data-balloon-pos="down"
+              class="button button--type-icon"
+              @click="load"
+            >
+              <font-awesome-icon class="icon" icon="sync" fixed-width />
+            </button>
+          </div>
         </div>
-        <div class="text text--align-right">
-          <button
-            aria-label="Refresh"
-            data-balloon-pos="down"
-            class="button button--type-icon"
-            @click="load"
-          >
-            <font-awesome-icon class="icon" icon="sync" fixed-width />
-          </button>
+        <LargeMessage
+          v-if="!loading && !source"
+          heading="Source not found"
+          img="undraw_credit_card_payment_yb88.svg"
+          text="We couldn't find this source for you."
+        />
+        <div v-else-if="source">
+          <table class="table table--type-cols">
+            <tbody>
+              <tr>
+                <td>ID</td>
+                <td>
+                  <code>{{ source.id }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Fingerprint</td>
+                <td>
+                  <code>{{ source.fingerprint }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Number</td>
+                <td>
+                  <code>···· ···· ···· {{ source.last4 }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Brand</td>
+                <td>{{ source.brand }}</td>
+              </tr>
+              <tr>
+                <td>Country</td>
+                <td><Country :code="source.country" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <form @submit.prevent="updateCard">
+            <div class="row">
+              <Input
+                :value="source.name"
+                label="Name"
+                placeholder="Enter your name on card"
+                @input="val => (source.name = val)"
+              />
+            </div>
+            <div class="row">
+              <Select
+                :value="source.exp_month"
+                label="Expiry month"
+                :options="months"
+                required
+                @input="val => (source.exp_month = val)"
+              />
+              <Select
+                :value="source.exp_year"
+                label="Expiry year"
+                :options="years"
+                required
+                @input="val => (source.exp_year = val)"
+              />
+            </div>
+            <button class="button">Update card</button>
+            <button
+              type="button"
+              class="button button--color-danger"
+              style="margin-left: 1rem"
+              @click.prevent="() => (showDelete = true)"
+            >
+              Delete card
+            </button>
+          </form>
         </div>
       </div>
-      <LargeMessage
-        v-if="!loading && !source"
-        heading="Source not found"
-        img="undraw_credit_card_payment_yb88.svg"
-        text="We couldn't find this source for you."
-      />
-      <div v-else-if="source">
-        <table class="table table--type-cols">
-          <tbody>
-            <tr>
-              <td>ID</td>
-              <td>
-                <code>{{ source.id }}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>Fingerprint</td>
-              <td>
-                <code>{{ source.fingerprint }}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>Number</td>
-              <td>
-                <code>···· ···· ···· {{ source.last4 }}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>Brand</td>
-              <td>{{ source.brand }}</td>
-            </tr>
-            <tr>
-              <td>Country</td>
-              <td><Country :code="source.country" /></td>
-            </tr>
-          </tbody>
-        </table>
-        <form @submit.prevent="updateCard">
-          <div class="row">
-            <Input
-              :value="source.name"
-              label="Name"
-              placeholder="Enter your name on card"
-              @input="val => (source.name = val)"
-            />
-          </div>
-          <div class="row">
-            <Select
-              :value="source.exp_month"
-              label="Expiry month"
-              :options="months"
-              required
-              @input="val => (source.exp_month = val)"
-            />
-            <Select
-              :value="source.exp_year"
-              label="Expiry year"
-              :options="years"
-              required
-              @input="val => (source.exp_year = val)"
-            />
-          </div>
-          <button class="button">Update card</button>
+      <transition name="modal">
+        <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
+          <h2>Are you sure you want to delete this credit card?</h2>
+          <p>
+            Deleting an credit card is not reversible, and if you don't add
+            another payment method, your subscription may be cancelled.
+          </p>
           <button
-            type="button"
-            class="button button--color-danger"
-            style="margin-left: 1rem"
-            @click.prevent="() => (showDelete = true)"
+            class="button button--color-danger button--state-cta"
+            @click="deleteCard()"
           >
-            Delete card
+            Yes, delete credit card
           </button>
-        </form>
-      </div>
-    </div>
-    <transition name="modal">
-      <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
-        <h2>Are you sure you want to delete this credit card?</h2>
-        <p>
-          Deleting an credit card is not reversible, and if you don't add
-          another payment method, your subscription may be cancelled.
-        </p>
-        <button
-          class="button button--color-danger button--state-cta"
-          @click="deleteCard()"
-        >
-          Yes, delete credit card
-        </button>
-        <button type="button" class="button" @click="showDelete = false">
-          No, don't delete
-        </button>
-      </Confirm>
-    </transition>
-  </main>
+          <button type="button" class="button" @click="showDelete = false">
+            No, don't delete
+          </button>
+        </Confirm>
+      </transition>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">

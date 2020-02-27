@@ -1,99 +1,105 @@
 <template>
-  <main class="card">
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
-      <h1>Invoice</h1>
-      <LargeMessage
-        v-if="!loading && !invoice"
-        img="undraw_printing_invoices_5r4r.svg"
-        heading="Invoice not found"
-        text="We couldn't find this invoice for you."
-      />
-      <div v-else-if="invoice">
-        <table class="table table--type-cols">
-          <tbody>
-            <tr>
-              <td>Invoice #</td>
-              <td>
-                <code>{{ invoice.number }}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>Date</td>
-              <td>{{ new Date(invoice.created * 1000).toLocaleString() }}</td>
-            </tr>
-            <tr>
-              <td>Status</td>
-              <td>
-                <span :class="`label label--color-${invoice.status}`">
-                  {{ invoice.status }}
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>Created</td>
-              <td><TimeAgo :date="invoice.created * 1000" /></td>
-            </tr>
-            <tr>
-              <td>Amount due</td>
-              <td>
-                {{ invoice.currency && invoice.currency.toUpperCase() }}
-                {{ invoice.amount_due | currency }}
-              </td>
-            </tr>
-            <tr>
-              <td>Amount paid</td>
-              <td>
-                {{ invoice.currency && invoice.currency.toUpperCase() }}
-                {{ invoice.amount_paid | currency }}
-              </td>
-            </tr>
-            <tr>
-              <td>Amount remaining</td>
-              <td>
-                {{ invoice.currency && invoice.currency.toUpperCase() }}
-                {{ invoice.amount_remaining | currency }}
-              </td>
-            </tr>
-            <tr>
-              <td>collection_method</td>
-              <td>{{ invoice.collection_method }}</td>
-            </tr>
-            <tr>
-              <td>billing_reason</td>
-              <td>{{ invoice.billing_reason }}</td>
-            </tr>
-            <tr>
-              <td>Customer</td>
-              <td>{{ invoice.customer_name || invoice.customer_email }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="text text--mt-2">
-          <a target="_blank" :href="invoice.hosted_invoice_url" class="button">
-            <font-awesome-icon
-              class="icon icon--mr-1"
-              icon="file-invoice-dollar"
-              fixed-width
-            />
-            <span>View invoice</span>
-          </a>
-          <a
-            target="_blank"
-            :href="invoice.invoice_pdf"
-            class="button icon icon--ml-2"
-          >
-            <font-awesome-icon
-              class="icon icon--mr-1"
-              icon="cloud-download-alt"
-              fixed-width
-            />
-            <span>Download PDF</span>
-          </a>
+  <div class="container container--type-settings">
+    <main class="card">
+      <Loading v-if="loading" :message="loading" />
+      <div v-else>
+        <h1>Invoice</h1>
+        <LargeMessage
+          v-if="!loading && !invoice"
+          img="undraw_printing_invoices_5r4r.svg"
+          heading="Invoice not found"
+          text="We couldn't find this invoice for you."
+        />
+        <div v-else-if="invoice">
+          <table class="table table--type-cols">
+            <tbody>
+              <tr>
+                <td>Invoice #</td>
+                <td>
+                  <code>{{ invoice.number }}</code>
+                </td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>{{ new Date(invoice.created * 1000).toLocaleString() }}</td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td>
+                  <span :class="`label label--color-${invoice.status}`">
+                    {{ invoice.status }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>Created</td>
+                <td><TimeAgo :date="invoice.created * 1000" /></td>
+              </tr>
+              <tr>
+                <td>Amount due</td>
+                <td>
+                  {{ invoice.currency && invoice.currency.toUpperCase() }}
+                  {{ invoice.amount_due | currency }}
+                </td>
+              </tr>
+              <tr>
+                <td>Amount paid</td>
+                <td>
+                  {{ invoice.currency && invoice.currency.toUpperCase() }}
+                  {{ invoice.amount_paid | currency }}
+                </td>
+              </tr>
+              <tr>
+                <td>Amount remaining</td>
+                <td>
+                  {{ invoice.currency && invoice.currency.toUpperCase() }}
+                  {{ invoice.amount_remaining | currency }}
+                </td>
+              </tr>
+              <tr>
+                <td>collection_method</td>
+                <td>{{ invoice.collection_method }}</td>
+              </tr>
+              <tr>
+                <td>billing_reason</td>
+                <td>{{ invoice.billing_reason }}</td>
+              </tr>
+              <tr>
+                <td>Customer</td>
+                <td>{{ invoice.customer_name || invoice.customer_email }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text text--mt-2">
+            <a
+              target="_blank"
+              :href="invoice.hosted_invoice_url"
+              class="button"
+            >
+              <font-awesome-icon
+                class="icon icon--mr-1"
+                icon="file-invoice-dollar"
+                fixed-width
+              />
+              <span>View invoice</span>
+            </a>
+            <a
+              target="_blank"
+              :href="invoice.invoice_pdf"
+              class="button icon icon--ml-2"
+            >
+              <font-awesome-icon
+                class="icon icon--mr-1"
+                icon="cloud-download-alt"
+                fixed-width
+              />
+              <span>Download PDF</span>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
