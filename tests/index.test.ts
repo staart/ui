@@ -7,7 +7,7 @@ jest.setTimeout(60000);
 const publicDir = join(__dirname, "..", "public");
 
 beforeAll(async () => {
-  exec("yarn generate");
+  exec("npm run generate");
 });
 
 test("index.html is created", () => {

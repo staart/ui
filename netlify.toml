@@ -1,5 +1,5 @@
 [build]
-	command = "yarn generate"
+	command = "npm run generate"
 	publish = "public"
 
 [[redirects]]
