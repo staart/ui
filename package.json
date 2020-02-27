@@ -1,6 +1,6 @@
 {
   "name": "@staart/ui",
-  "version": "1.1.27",
+  "version": "1.1.28",
   "description": "Frontend admin UI for Staart",
   "author": "Anand Chowdhary",
   "license": "MIT",
@@ -48,6 +48,7 @@
     "ua-parser-js": "^0.7.20",
     "vue-focus-lock": "^1.3.2",
     "vue-notification": "^1.3.16",
+    "vue-select": "^3.4.0",
     "vue-timeago": "^5.1.2",
     "vuex-persist": "^2.1.0",
     "which-browser": "^0.5.0"
@@ -66,6 +67,7 @@
     "@types/jsdom": "^16.1.0",
     "@types/shelljs": "^0.8.5",
     "@types/stripe": "^7.10.2",
+    "@types/vue-select": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "babel-eslint": "^10.0.3",
