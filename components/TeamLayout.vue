@@ -1,132 +1,27 @@
 <template>
-  <div>
+  <div :key="`manage_${$route.params.team}`">
     <div class="subnav">
       <div class="container">
         <nav>
-          <nuxt-link :to="`/teams/${$route.params.team}/products`"
-            >Products</nuxt-link
-          >
-          <nuxt-link :to="`/teams/${$route.params.team}/members`"
-            >Members</nuxt-link
-          >
-          <nuxt-link :to="`/teams/${$route.params.team}/billing/details`"
-            >Billing</nuxt-link
-          >
-          <nuxt-link :to="`/teams/${$route.params.team}/developer/api-keys`"
-            >Developer</nuxt-link
-          >
-          <nuxt-link :to="`/teams/${$route.params.team}/settings`"
-            >Team settings</nuxt-link
-          >
+          <nuxt-link :to="`/teams/${$route.params.team}/products`">
+            Products
+          </nuxt-link>
+          <nuxt-link :to="`/teams/${$route.params.team}/members`">
+            Members
+          </nuxt-link>
+          <nuxt-link :to="`/teams/${$route.params.team}/billing/details`">
+            Billing
+          </nuxt-link>
+          <nuxt-link :to="`/teams/${$route.params.team}/developer/api-keys`">
+            Developer
+          </nuxt-link>
+          <nuxt-link :to="`/teams/${$route.params.team}/settings`">
+            Team settings
+          </nuxt-link>
         </nav>
       </div>
     </div>
-    <div
-      :key="`manage_${$route.params.team}`"
-      class="container container--type-settings"
-    >
-      <aside>
-        <nav>
-          <nuxt-link
-            class="item"
-            :to="`/manage/${$route.params.team}/settings`"
-          >
-            <font-awesome-icon class="nav-icon" icon="cog" fixed-width />
-            <span>Settings</span>
-          </nuxt-link>
-          <nuxt-link
-            class="item item--type-parent"
-            :to="`/manage/${$route.params.team}/team/members`"
-          >
-            <font-awesome-icon class="nav-icon" icon="users" fixed-width />
-            <span>Team</span>
-          </nuxt-link>
-          <nav v-if="$route.path.includes('/team/')" class="sub-nav">
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/team/members`"
-            >
-              <span>Members</span>
-            </nuxt-link>
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/team/settings`"
-            >
-              <span>Settings</span>
-            </nuxt-link>
-          </nav>
-          <nuxt-link
-            class="item item--type-parent"
-            :to="`/manage/${$route.params.team}/billing/details`"
-          >
-            <font-awesome-icon
-              class="nav-icon"
-              icon="money-bill-wave"
-              fixed-width
-            />
-            <span>Billing</span>
-          </nuxt-link>
-          <nav v-if="$route.path.includes('/billing/')" class="sub-nav">
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/billing/details`"
-            >
-              <span>Details</span>
-            </nuxt-link>
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/billing/subscription`"
-            >
-              <span>Subscription</span>
-            </nuxt-link>
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/billing/sources`"
-            >
-              <span>Payment methods</span>
-            </nuxt-link>
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/billing/invoices`"
-            >
-              <span>Invoices</span>
-            </nuxt-link>
-          </nav>
-          <nuxt-link class="item" :to="`/manage/${$route.params.team}/data`">
-            <font-awesome-icon class="nav-icon" icon="database" fixed-width />
-            <span>Data &amp; security</span>
-          </nuxt-link>
-          <nuxt-link
-            class="item item--type-parent"
-            :to="`/manage/${$route.params.team}/developer/api-keys`"
-          >
-            <font-awesome-icon class="nav-icon" icon="code" fixed-width />
-            <span>Developer</span>
-          </nuxt-link>
-          <nav v-if="$route.path.includes('/developer/')" class="sub-nav">
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/developer/api-keys`"
-            >
-              <span>API keys</span>
-            </nuxt-link>
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/developer/webhooks`"
-            >
-              <span>Webhooks</span>
-            </nuxt-link>
-            <nuxt-link
-              class="sub-item"
-              :to="`/manage/${$route.params.team}/developer/logs`"
-            >
-              <span>API logs</span>
-            </nuxt-link>
-          </nav>
-        </nav>
-      </aside>
-      <slot />
-    </div>
+    <slot />
   </div>
 </template>
 

@@ -614,3 +614,27 @@ code {
     font-weight: 600;
   }
 }
+
+aside nav {
+  a {
+    display: block;
+    padding: 0.56rem 1rem;
+    position: relative;
+    color: inherit;
+    &.nuxt-link-exact-active {
+      font-weight: bold;
+      // background-color: #fff;
+      // box-shadow: -0.5rem 0 1rem 0 rgba(60, 66, 87, 0.075);
+      // border-radius: 0.2rem;
+      // &::after {
+      //   content: "";
+      //   background-color: #fff;
+      //   position: absolute;
+      //   right: -1rem;
+      //   top: 0;
+      //   bottom: 0;
+      //   width: 2rem;
+      // }
+    }
+  }
+}
