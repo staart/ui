@@ -1,102 +1,113 @@
 <template>
-  <main class="card">
-    <div>
-      <div class="row">
-        <div>
-          <nuxt-link
-            :to="`/manage/${$route.params.team}/developer/webhooks`"
-            aria-label="Back"
-            data-balloon-pos="down"
-            class="button button--type-icon button--type-back"
-          >
-            <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
-          </nuxt-link>
-          <h1>Webhook</h1>
-        </div>
-        <div class="text text--align-right">
-          <button
-            aria-label="Refresh"
-            data-balloon-pos="down"
-            class="button button--type-icon"
-            @click="load"
-          >
-            <font-awesome-icon
-              class="icon"
-              icon="sync"
-              :spin="!!loading"
-              fixed-width
-            />
-          </button>
-        </div>
-      </div>
-      <div v-if="webhook && webhook.url">
-        <form v-meta-ctrl-enter="updateWebhook" @submit.prevent="updateWebhook">
-          <Select
-            :value="webhook.event"
-            label="Event"
-            :options="events"
-            required
-            @input="val => (webhook.event = val)"
-          />
-          <Input
-            label="URL"
-            placeholder="Enter a URL for this webhook"
-            :value="webhook.url"
-            @input="val => (webhook.url = val)"
-          />
-          <Select
-            :value="webhook.contentType"
-            label="Content type"
-            :options="['application/json', 'application/x-www-form-urlencoded']"
-            required
-            @input="val => (webhook.contentType = val)"
-          />
-          <Input
-            label="Secret"
-            placeholder="Enter a secret key for this webhook"
-            :value="webhook.secret"
-            @input="val => (webhook.secret = val)"
-          />
-          <Checkbox
-            :value="webhook.isActive"
-            label="Activate this webhook"
-            @input="val => (webhook.isActive = val)"
-          />
+  <div class="container container--type-settings">
+    <aside>
+      <Developer />
+    </aside>
+    <main class="card">
+      <div>
+        <div class="row">
           <div>
-            <button class="button">Update webhook</button>
-            <button
-              class="button button--color-danger"
-              type="button"
-              style="margin-left: 0.5rem"
-              @click="() => (showDelete = true)"
+            <nuxt-link
+              :to="`/manage/${$route.params.team}/developer/webhooks`"
+              aria-label="Back"
+              data-balloon-pos="down"
+              class="button button--type-icon button--type-back"
             >
-              <font-awesome-icon class="icon icon--mr-1" icon="trash" />
-              <span>Delete webhook</span>
+              <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+            </nuxt-link>
+            <h1>Webhook</h1>
+          </div>
+          <div class="text text--align-right">
+            <button
+              aria-label="Refresh"
+              data-balloon-pos="down"
+              class="button button--type-icon"
+              @click="load"
+            >
+              <font-awesome-icon
+                class="icon"
+                icon="sync"
+                :spin="!!loading"
+                fixed-width
+              />
             </button>
           </div>
-        </form>
+        </div>
+        <div v-if="webhook && webhook.url">
+          <form
+            v-meta-ctrl-enter="updateWebhook"
+            @submit.prevent="updateWebhook"
+          >
+            <Select
+              :value="webhook.event"
+              label="Event"
+              :options="events"
+              required
+              @input="val => (webhook.event = val)"
+            />
+            <Input
+              label="URL"
+              placeholder="Enter a URL for this webhook"
+              :value="webhook.url"
+              @input="val => (webhook.url = val)"
+            />
+            <Select
+              :value="webhook.contentType"
+              label="Content type"
+              :options="[
+                'application/json',
+                'application/x-www-form-urlencoded'
+              ]"
+              required
+              @input="val => (webhook.contentType = val)"
+            />
+            <Input
+              label="Secret"
+              placeholder="Enter a secret key for this webhook"
+              :value="webhook.secret"
+              @input="val => (webhook.secret = val)"
+            />
+            <Checkbox
+              :value="webhook.isActive"
+              label="Activate this webhook"
+              @input="val => (webhook.isActive = val)"
+            />
+            <div>
+              <button class="button">Update webhook</button>
+              <button
+                class="button button--color-danger"
+                type="button"
+                style="margin-left: 0.5rem"
+                @click="() => (showDelete = true)"
+              >
+                <font-awesome-icon class="icon icon--mr-1" icon="trash" />
+                <span>Delete webhook</span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <Loading v-else :message="loading" />
       </div>
-      <Loading v-else :message="loading" />
-    </div>
-    <transition name="modal">
-      <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
-        <h2>Are you sure you want to delete this webhook?</h2>
-        <p>
-          Deleting an webhook is not reversible, and we'll immediately stop
-          firing this webbook.
-        </p>
-        <button
-          class="button button--color-danger button--state-cta"
-          @click="deleteWebhook()"
-        >
-          Yes, delete webhook
-        </button>
-        <button type="button" class="button" @click="showDelete = false">
-          No, don't delete
-        </button>
-      </Confirm>
-    </transition>
-  </main>
+      <transition name="modal">
+        <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
+          <h2>Are you sure you want to delete this webhook?</h2>
+          <p>
+            Deleting an webhook is not reversible, and we'll immediately stop
+            firing this webbook.
+          </p>
+          <button
+            class="button button--color-danger button--state-cta"
+            @click="deleteWebhook()"
+          >
+            Yes, delete webhook
+          </button>
+          <button type="button" class="button" @click="showDelete = false">
+            No, don't delete
+          </button>
+        </Confirm>
+      </transition>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -116,6 +127,7 @@ import {
 import copy from "copy-to-clipboard";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
+import Developer from "@/components/sidebars/Developer.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
@@ -134,6 +146,7 @@ library.add(faPencilAlt, faArrowDown, faSync, faTrash, faCopy, faArrowLeft);
     Input,
     TimeAgo,
     FontAwesomeIcon,
+    Developer,
     Select,
     LargeMessage,
     Checkbox

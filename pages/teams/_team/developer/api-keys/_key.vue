@@ -1,125 +1,130 @@
 <template>
-  <main class="card">
-    <div>
-      <div class="row">
-        <div>
-          <nuxt-link
-            :to="`/manage/${$route.params.team}/developer/api-keys`"
-            aria-label="Back"
-            data-balloon-pos="down"
-            class="button button--type-icon button--type-back"
-          >
-            <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
-          </nuxt-link>
-          <h1>API key</h1>
+  <div class="container container--type-settings">
+    <aside>
+      <Developer />
+    </aside>
+    <main class="card">
+      <div>
+        <div class="row">
+          <div>
+            <nuxt-link
+              :to="`/manage/${$route.params.team}/developer/api-keys`"
+              aria-label="Back"
+              data-balloon-pos="down"
+              class="button button--type-icon button--type-back"
+            >
+              <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
+            </nuxt-link>
+            <h1>API key</h1>
+          </div>
+          <div class="text text--align-right">
+            <button
+              aria-label="Refresh"
+              data-balloon-pos="down"
+              class="button button--type-icon"
+              @click="load"
+            >
+              <font-awesome-icon
+                class="icon"
+                icon="sync"
+                :spin="!!loading"
+                fixed-width
+              />
+            </button>
+          </div>
         </div>
-        <div class="text text--align-right">
-          <button
-            aria-label="Refresh"
-            data-balloon-pos="down"
-            class="button button--type-icon"
-            @click="load"
-          >
-            <font-awesome-icon
-              class="icon"
-              icon="sync"
-              :spin="!!loading"
-              fixed-width
-            />
+        <div v-if="apiKey && apiKey.jwtApiKey">
+          <h2>Use API key</h2>
+          <Input label="API key" :value="apiKey.jwtApiKey" disabled />
+          <button class="button" @click="copy(apiKey.jwtApiKey)">
+            <font-awesome-icon class="icon icon--mr-1" icon="copy" />
+            <span v-if="copied">Copied</span>
+            <span v-else>Copy</span>
           </button>
-        </div>
-      </div>
-      <div v-if="apiKey && apiKey.jwtApiKey">
-        <h2>Use API key</h2>
-        <Input label="API key" :value="apiKey.jwtApiKey" disabled />
-        <button class="button" @click="copy(apiKey.jwtApiKey)">
-          <font-awesome-icon class="icon icon--mr-1" icon="copy" />
-          <span v-if="copied">Copied</span>
-          <span v-else>Copy</span>
-        </button>
-        <button
-          type="button"
-          class="button button--color-danger"
-          style="margin-left: 0.5rem"
-          @click.prevent="showDelete = apiKey"
-        >
-          <font-awesome-icon class="icon icon--mr-1" icon="trash" />
-          <span>Delete</span>
-        </button>
-        <div class="text text--mt-2">
-          <h2>Edit API key</h2>
-          <form
-            v-meta-ctrl-enter="() => (showUpdate = true)"
-            @submit.prevent="() => (showUpdate = true)"
+          <button
+            type="button"
+            class="button button--color-danger"
+            style="margin-left: 0.5rem"
+            @click.prevent="showDelete = apiKey"
           >
-            <Input
-              label="Name"
-              placeholder="Enter a name for this API key"
-              :value="apiKey.name"
-              @input="val => (apiKey.name = val)"
-            />
-            <CheckList
-              label="API restrictions"
-              :options="scopes"
-              :value="apiKey.scopes"
-              @input="val => (apiKey.scopes = val)"
-            />
-            <CommaList
-              label="IP restrictions"
-              :value="apiKey.ipRestrictions"
-              placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
-              @input="val => (apiKey.ipRestrictions = val)"
-            />
-            <CommaList
-              label="Referrer restrictions"
-              :value="apiKey.referrerRestrictions"
-              placeholder="Enter a host name without protocol, e.g., example.com"
-              @input="val => (apiKey.referrerRestrictions = val)"
-            />
-            <button class="button">Update API key</button>
-          </form>
+            <font-awesome-icon class="icon icon--mr-1" icon="trash" />
+            <span>Delete</span>
+          </button>
+          <div class="text text--mt-2">
+            <h2>Edit API key</h2>
+            <form
+              v-meta-ctrl-enter="() => (showUpdate = true)"
+              @submit.prevent="() => (showUpdate = true)"
+            >
+              <Input
+                label="Name"
+                placeholder="Enter a name for this API key"
+                :value="apiKey.name"
+                @input="val => (apiKey.name = val)"
+              />
+              <CheckList
+                label="API restrictions"
+                :options="scopes"
+                :value="apiKey.scopes"
+                @input="val => (apiKey.scopes = val)"
+              />
+              <CommaList
+                label="IP restrictions"
+                :value="apiKey.ipRestrictions"
+                placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
+                @input="val => (apiKey.ipRestrictions = val)"
+              />
+              <CommaList
+                label="Referrer restrictions"
+                :value="apiKey.referrerRestrictions"
+                placeholder="Enter a host name without protocol, e.g., example.com"
+                @input="val => (apiKey.referrerRestrictions = val)"
+              />
+              <button class="button">Update API key</button>
+            </form>
+          </div>
         </div>
+        <Loading v-else-if="loading" :message="loading" />
       </div>
-      <Loading v-else-if="loading" :message="loading" />
-    </div>
-    <transition name="modal">
-      <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
-        <h2>Are you sure you want to delete this API key?</h2>
-        <p>
-          Deleting an API key is not reversible, and you'll need to update any
-          apps using this key.
-        </p>
-        <button
-          class="button button--color-danger button--state-cta"
-          @click="deleteApiKey(showDelete.id)"
-        >
-          Yes, delete API key
-        </button>
-        <button type="button" class="button" @click="showDelete = false">
-          No, don't delete
-        </button>
-      </Confirm>
-    </transition>
-    <transition name="modal">
-      <Confirm v-if="showUpdate" :on-close="() => (showUpdate = false)">
-        <h2>Are you sure you want to update and regenerate this API key?</h2>
-        <p>
-          Updating your API key will generate a new API key, so you'll have to
-          update it wherever you're using it.
-        </p>
-        <p>The current API key will stop working instantly.</p>
-        <button
-          class="button button--color-primary button--state-cta"
-          @click="updateApiKey"
-        >
-          Yes, regenerate API key
-        </button>
-        <button type="button" class="button" @click="showUpdate = false">
-          No, don't update
-        </button>
-      </Confirm>
-    </transition>
-  </main>
+      <transition name="modal">
+        <Confirm v-if="showDelete" :on-close="() => (showDelete = false)">
+          <h2>Are you sure you want to delete this API key?</h2>
+          <p>
+            Deleting an API key is not reversible, and you'll need to update any
+            apps using this key.
+          </p>
+          <button
+            class="button button--color-danger button--state-cta"
+            @click="deleteApiKey(showDelete.id)"
+          >
+            Yes, delete API key
+          </button>
+          <button type="button" class="button" @click="showDelete = false">
+            No, don't delete
+          </button>
+        </Confirm>
+      </transition>
+      <transition name="modal">
+        <Confirm v-if="showUpdate" :on-close="() => (showUpdate = false)">
+          <h2>Are you sure you want to update and regenerate this API key?</h2>
+          <p>
+            Updating your API key will generate a new API key, so you'll have to
+            update it wherever you're using it.
+          </p>
+          <p>The current API key will stop working instantly.</p>
+          <button
+            class="button button--color-primary button--state-cta"
+            @click="updateApiKey"
+          >
+            Yes, regenerate API key
+          </button>
+          <button type="button" class="button" @click="showUpdate = false">
+            No, don't update
+          </button>
+        </Confirm>
+      </transition>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -140,6 +145,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import copy from "copy-to-clipboard";
 import Loading from "@/components/Loading.vue";
+import Developer from "@/components/sidebars/Developer.vue";
 import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
@@ -173,6 +179,7 @@ library.add(
     CommaList,
     FontAwesomeIcon,
     CheckList,
+    Developer,
     Select,
     LargeMessage,
     Checkbox

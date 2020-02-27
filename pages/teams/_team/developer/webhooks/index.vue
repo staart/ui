@@ -1,164 +1,172 @@
 <template>
-  <main class="card">
-    <div>
-      <div class="row">
-        <h1>Webhooks</h1>
-        <div class="text text--align-right">
-          <button
-            aria-label="Refresh"
-            data-balloon-pos="down"
-            class="button button--type-icon"
-            @click="load"
-          >
-            <font-awesome-icon
-              class="icon"
-              icon="sync"
-              :spin="!!loading"
-              fixed-width
-            />
-          </button>
-        </div>
-      </div>
-      <LargeMessage
-        v-if="
-          !loading && (!webhooks || !webhooks.data || !webhooks.data.length)
-        "
-        heading="No Webhooks yet"
-        img="undraw_software_engineer_lvl5.svg"
-        text="Create a webhook below"
-      />
-      <div v-else-if="webhooks && webhooks.data && webhooks.data.length">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Event</th>
-              <th>Created</th>
-              <th>Last fired</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(webhook, index) in webhooks.data"
-              :key="`${webhook.id}_${index}`"
-            >
-              <td>
-                <span>{{ events[webhook.event] || webhook.event }}</span>
-                <span
-                  v-if="webhook.isActive"
-                  aria-label="Active"
-                  data-balloon-pos="up"
-                >
-                  <font-awesome-icon
-                    class="icon icon--ml-2 icon--color-success"
-                    icon="check-circle"
-                  />
-                </span>
-              </td>
-              <td><TimeAgo :date="webhook.createdAt" /></td>
-              <td v-if="webhook.lastFiredAt">
-                <TimeAgo :date="webhook.lastFiredAt" />
-              </td>
-              <td v-else>Never</td>
-              <td class="text text--align-right">
-                <router-link
-                  :to="
-                    `/manage/${$route.params.team}/developer/webhooks/${webhook.id}`
-                  "
-                  aria-label="Edit"
-                  data-balloon-pos="up"
-                  class="button button--type-icon"
-                >
-                  <font-awesome-icon
-                    class="icon"
-                    icon="pencil-alt"
-                    fixed-width
-                  />
-                </router-link>
-                <button
-                  aria-label="Delete"
-                  data-balloon-pos="up"
-                  class="button button--type-icon button--color-danger"
-                  @click="() => (showDelete = webhook)"
-                >
-                  <font-awesome-icon class="icon" icon="trash" fixed-width />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="pagination text text--align-center">
-          <button
-            v-if="webhooks && webhooks.hasMore"
-            class="button"
-            :disabled="loadingMore"
-            @click="loadMore"
-          >
-            <span>Load more Webhooks</span>
-            <font-awesome-icon
-              v-if="!loadingMore"
-              class="icon"
-              icon="arrow-down"
-            />
-            <font-awesome-icon
-              v-else
-              class="icon icon--ml-2 icon--color-light"
-              icon="sync"
-              spin
-            />
-          </button>
-        </div>
-      </div>
-      <Loading v-else :message="loading" />
+  <div class="container container--type-settings">
+    <aside>
+      <Developer />
+    </aside>
+    <main class="card">
       <div>
-        <h2>Create webhook</h2>
-        <p>
-          You can use webhooks to get access to events in your developer
-          applications.
-        </p>
-        <form v-meta-ctrl-enter="createWebhook" @submit.prevent="createWebhook">
-          <Select
-            :value="newHookEvent"
-            label="Event"
-            :options="events"
-            required
-            @input="val => (newHookEvent = val)"
-          />
-          <Input
-            :value="newHookUrl"
-            label="URL"
-            type="url"
-            placeholder="Enter the complete URL to your hook"
-            required
-            @input="val => (newHookUrl = val)"
-          />
-          <p class="text text--color-muted text--size-small">
-            You can add a secret key and content type after creating the
-            webhook.
+        <div class="row">
+          <h1>Webhooks</h1>
+          <div class="text text--align-right">
+            <button
+              aria-label="Refresh"
+              data-balloon-pos="down"
+              class="button button--type-icon"
+              @click="load"
+            >
+              <font-awesome-icon
+                class="icon"
+                icon="sync"
+                :spin="!!loading"
+                fixed-width
+              />
+            </button>
+          </div>
+        </div>
+        <LargeMessage
+          v-if="
+            !loading && (!webhooks || !webhooks.data || !webhooks.data.length)
+          "
+          heading="No Webhooks yet"
+          img="undraw_software_engineer_lvl5.svg"
+          text="Create a webhook below"
+        />
+        <div v-else-if="webhooks && webhooks.data && webhooks.data.length">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Created</th>
+                <th>Last fired</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(webhook, index) in webhooks.data"
+                :key="`${webhook.id}_${index}`"
+              >
+                <td>
+                  <span>{{ events[webhook.event] || webhook.event }}</span>
+                  <span
+                    v-if="webhook.isActive"
+                    aria-label="Active"
+                    data-balloon-pos="up"
+                  >
+                    <font-awesome-icon
+                      class="icon icon--ml-2 icon--color-success"
+                      icon="check-circle"
+                    />
+                  </span>
+                </td>
+                <td><TimeAgo :date="webhook.createdAt" /></td>
+                <td v-if="webhook.lastFiredAt">
+                  <TimeAgo :date="webhook.lastFiredAt" />
+                </td>
+                <td v-else>Never</td>
+                <td class="text text--align-right">
+                  <router-link
+                    :to="
+                      `/manage/${$route.params.team}/developer/webhooks/${webhook.id}`
+                    "
+                    aria-label="Edit"
+                    data-balloon-pos="up"
+                    class="button button--type-icon"
+                  >
+                    <font-awesome-icon
+                      class="icon"
+                      icon="pencil-alt"
+                      fixed-width
+                    />
+                  </router-link>
+                  <button
+                    aria-label="Delete"
+                    data-balloon-pos="up"
+                    class="button button--type-icon button--color-danger"
+                    @click="() => (showDelete = webhook)"
+                  >
+                    <font-awesome-icon class="icon" icon="trash" fixed-width />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination text text--align-center">
+            <button
+              v-if="webhooks && webhooks.hasMore"
+              class="button"
+              :disabled="loadingMore"
+              @click="loadMore"
+            >
+              <span>Load more Webhooks</span>
+              <font-awesome-icon
+                v-if="!loadingMore"
+                class="icon"
+                icon="arrow-down"
+              />
+              <font-awesome-icon
+                v-else
+                class="icon icon--ml-2 icon--color-light"
+                icon="sync"
+                spin
+              />
+            </button>
+          </div>
+        </div>
+        <Loading v-else :message="loading" />
+        <div>
+          <h2>Create webhook</h2>
+          <p>
+            You can use webhooks to get access to events in your developer
+            applications.
           </p>
-          <button class="button">Add webhook</button>
-        </form>
+          <form
+            v-meta-ctrl-enter="createWebhook"
+            @submit.prevent="createWebhook"
+          >
+            <Select
+              :value="newHookEvent"
+              label="Event"
+              :options="events"
+              required
+              @input="val => (newHookEvent = val)"
+            />
+            <Input
+              :value="newHookUrl"
+              label="URL"
+              type="url"
+              placeholder="Enter the complete URL to your hook"
+              required
+              @input="val => (newHookUrl = val)"
+            />
+            <p class="text text--color-muted text--size-small">
+              You can add a secret key and content type after creating the
+              webhook.
+            </p>
+            <button class="button">Add webhook</button>
+          </form>
+        </div>
       </div>
-    </div>
-    <transition name="modal">
-      <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
-        <h2>Are you sure you want to delete this webhook?</h2>
-        <p>
-          Deleting a webhook is not reversible, and we'll immediately stop
-          firing this webbook.
-        </p>
-        <button
-          class="button button--color-danger button--state-cta"
-          @click="deleteWebhook(showDelete.id)"
-        >
-          Yes, delete Webhook
-        </button>
-        <button type="button" class="button" @click="showDelete = null">
-          No, don't delete
-        </button>
-      </Confirm>
-    </transition>
-  </main>
+      <transition name="modal">
+        <Confirm v-if="showDelete" :on-close="() => (showDelete = null)">
+          <h2>Are you sure you want to delete this webhook?</h2>
+          <p>
+            Deleting a webhook is not reversible, and we'll immediately stop
+            firing this webbook.
+          </p>
+          <button
+            class="button button--color-danger button--state-cta"
+            @click="deleteWebhook(showDelete.id)"
+          >
+            Yes, delete Webhook
+          </button>
+          <button type="button" class="button" @click="showDelete = null">
+            No, don't delete
+          </button>
+        </Confirm>
+      </transition>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -176,6 +184,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
+import Developer from "@/components/sidebars/Developer.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
@@ -188,6 +197,7 @@ library.add(faArrowDown, faSync, faTrash, faPencilAlt, faCheckCircle);
 
 @Component({
   components: {
+    Developer,
     Loading,
     Confirm,
     TimeAgo,

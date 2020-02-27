@@ -9,6 +9,7 @@
         <div
           v-if="
             isAuthenticated &&
+              $route.path.startsWith('/teams/') &&
               memberships &&
               memberships.data &&
               memberships.data.length
@@ -48,9 +49,16 @@
                         `/teams/${membership.organization.username}`
                       )
                     "
-                    >{{ (membership.organization || {}).name }}</nuxt-link
                   >
+                    {{ (membership.organization || {}).name }}
+                  </nuxt-link>
                 </span>
+                <nuxt-link
+                  class="item"
+                  :to="`/users/${user.username || user.id}/memberships`"
+                >
+                  Create a new team
+                </nuxt-link>
               </div>
             </div>
           </transition>

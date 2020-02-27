@@ -1,165 +1,172 @@
 <template>
-  <main class="card">
-    <div>
-      <div class="row">
-        <h1>API logs</h1>
-        <div class="text text--align-right">
-          <button
-            aria-label="Refresh"
-            data-balloon-pos="down"
-            class="button button--type-icon"
-            @click="load"
-          >
-            <font-awesome-icon
-              class="icon"
-              icon="sync"
-              :spin="!!loading"
-              fixed-width
-            />
-          </button>
-        </div>
-      </div>
-      <LargeMessage
-        v-if="!loading && (!apiKeys || !apiKeys.data || !apiKeys.data.length)"
-        heading="No API keys yet"
-        img="undraw_software_engineer_lvl5.svg"
-      />
-      <div v-else-if="apiKeys && apiKeys.data && apiKeys.data.length">
-        <form @submit.prevent="loadData">
-          <div class="row">
-            <Select
-              label="API key"
-              :options="apiKeyOptions"
-              :value="activeApiKey"
-              @input="val => (activeApiKey = val)"
-            />
-            <Select
-              label="Time filter"
-              :options="timeOptions"
-              :value="timeFilter"
-              @input="val => (timeFilter = val)"
-            />
-            <div style="display: flex; margin-bottom: 1rem; margin-top: 2rem;">
-              <button class="button">Load API logs</button>
-            </div>
+  <div class="container container--type-settings">
+    <aside>
+      <Developer />
+    </aside>
+    <main class="card">
+      <div>
+        <div class="row">
+          <h1>API logs</h1>
+          <div class="text text--align-right">
+            <button
+              aria-label="Refresh"
+              data-balloon-pos="down"
+              class="button button--type-icon"
+              @click="load"
+            >
+              <font-awesome-icon
+                class="icon"
+                icon="sync"
+                :spin="!!loading"
+                fixed-width
+              />
+            </button>
           </div>
-        </form>
-        <div class="pagination text text--align-center">
-          <button
-            v-if="apiKeys && apiKeys.hasMore"
-            class="button"
-            :disabled="loadingMore"
-            @click="loadMore"
-          >
-            <span>Load more API keys</span>
-            <font-awesome-icon
-              v-if="!loadingMore"
-              class="icon"
-              icon="arrow-down"
-            />
-            <font-awesome-icon
-              v-else
-              class="icon icon--ml-2 icon--color-light"
-              icon="sync"
-              spin
-            />
-          </button>
         </div>
-        <div>
-          <LargeMessage
-            v-if="!loading && (!data || !data.data || !data.data.length)"
-            heading="No API logs yet"
-            img="undraw_software_engineer_lvl5.svg"
-            text="We couldn't find any API logs for this API key yet, go ahead and make some requests first"
-          />
-          <div v-else>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Method</th>
-                  <th>Endpoint</th>
-                  <th>Status</th>
-                  <th>Response time</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(log, i) in data.data" :key="`l${log._id}${i}`">
-                  <td v-if="log._source && log._source.date">
-                    <TimeAgo :date="log._source.date" />
-                  </td>
-                  <td v-if="log._source && log._source.method">
-                    {{ log._source.method }}
-                  </td>
-                  <td class="less-pad">
-                    <input
-                      v-if="log._source && log._source.url"
-                      class="input input--font-monospace input--padding-condensed"
-                      :value="log._source.url"
-                      disabled
-                    />
-                  </td>
-                  <td v-if="log._source && log._source.statusCode">
-                    <HTTPStatus :status="log._source.statusCode" />
-                  </td>
-                  <td
-                    v-if="
-                      log._source &&
-                        log._source.completedDate &&
-                        log._source.date
-                    "
-                  >
-                    {{
-                      new Date(log._source.completedDate).getTime() -
-                        new Date(log._source.date).getTime()
-                    }}
-                    ms
-                  </td>
-                  <td>
-                    <button
-                      aria-label="Download JSON"
-                      data-balloon-pos="up"
-                      class="button button--type-icon"
-                      @click="() => downloadJson(log)"
-                    >
-                      <font-awesome-icon
-                        class="icon"
-                        icon="cloud-download-alt"
-                        fixed-width
-                      />
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="pagination text text--align-center">
-              <button
-                v-if="data && data.hasMore"
-                class="button"
-                :disabled="loadingMore"
-                @click="loadMore"
+        <LargeMessage
+          v-if="!loading && (!apiKeys || !apiKeys.data || !apiKeys.data.length)"
+          heading="No API keys yet"
+          img="undraw_software_engineer_lvl5.svg"
+        />
+        <div v-else-if="apiKeys && apiKeys.data && apiKeys.data.length">
+          <form @submit.prevent="loadData">
+            <div class="row">
+              <Select
+                label="API key"
+                :options="apiKeyOptions"
+                :value="activeApiKey"
+                @input="val => (activeApiKey = val)"
+              />
+              <Select
+                label="Time filter"
+                :options="timeOptions"
+                :value="timeFilter"
+                @input="val => (timeFilter = val)"
+              />
+              <div
+                style="display: flex; margin-bottom: 1rem; margin-top: 2rem;"
               >
-                <span>Load more logs</span>
-                <font-awesome-icon
-                  v-if="!loadingMore"
-                  class="icon"
-                  icon="arrow-down"
-                />
-                <font-awesome-icon
-                  v-else
-                  class="icon icon--ml-2 icon--color-light"
-                  icon="sync"
-                  spin
-                />
-              </button>
+                <button class="button">Load API logs</button>
+              </div>
+            </div>
+          </form>
+          <div class="pagination text text--align-center">
+            <button
+              v-if="apiKeys && apiKeys.hasMore"
+              class="button"
+              :disabled="loadingMore"
+              @click="loadMore"
+            >
+              <span>Load more API keys</span>
+              <font-awesome-icon
+                v-if="!loadingMore"
+                class="icon"
+                icon="arrow-down"
+              />
+              <font-awesome-icon
+                v-else
+                class="icon icon--ml-2 icon--color-light"
+                icon="sync"
+                spin
+              />
+            </button>
+          </div>
+          <div>
+            <LargeMessage
+              v-if="!loading && (!data || !data.data || !data.data.length)"
+              heading="No API logs yet"
+              img="undraw_software_engineer_lvl5.svg"
+              text="We couldn't find any API logs for this API key yet, go ahead and make some requests first"
+            />
+            <div v-else>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Method</th>
+                    <th>Endpoint</th>
+                    <th>Status</th>
+                    <th>Response time</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(log, i) in data.data" :key="`l${log._id}${i}`">
+                    <td v-if="log._source && log._source.date">
+                      <TimeAgo :date="log._source.date" />
+                    </td>
+                    <td v-if="log._source && log._source.method">
+                      {{ log._source.method }}
+                    </td>
+                    <td class="less-pad">
+                      <input
+                        v-if="log._source && log._source.url"
+                        class="input input--font-monospace input--padding-condensed"
+                        :value="log._source.url"
+                        disabled
+                      />
+                    </td>
+                    <td v-if="log._source && log._source.statusCode">
+                      <HTTPStatus :status="log._source.statusCode" />
+                    </td>
+                    <td
+                      v-if="
+                        log._source &&
+                          log._source.completedDate &&
+                          log._source.date
+                      "
+                    >
+                      {{
+                        new Date(log._source.completedDate).getTime() -
+                          new Date(log._source.date).getTime()
+                      }}
+                      ms
+                    </td>
+                    <td>
+                      <button
+                        aria-label="Download JSON"
+                        data-balloon-pos="up"
+                        class="button button--type-icon"
+                        @click="() => downloadJson(log)"
+                      >
+                        <font-awesome-icon
+                          class="icon"
+                          icon="cloud-download-alt"
+                          fixed-width
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination text text--align-center">
+                <button
+                  v-if="data && data.hasMore"
+                  class="button"
+                  :disabled="loadingMore"
+                  @click="loadMore"
+                >
+                  <span>Load more logs</span>
+                  <font-awesome-icon
+                    v-if="!loadingMore"
+                    class="icon"
+                    icon="arrow-down"
+                  />
+                  <font-awesome-icon
+                    v-else
+                    class="icon icon--ml-2 icon--color-light"
+                    icon="sync"
+                    spin
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
+        <Loading v-else :message="loading" />
       </div>
-      <Loading v-else :message="loading" />
-    </div>
-  </main>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -176,6 +183,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
+import Developer from "@/components/sidebars/Developer.vue";
 import HTTPStatus from "@/components/HTTPStatus.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
@@ -196,6 +204,7 @@ library.add(faArrowDown, faSync, faCloudDownloadAlt);
     HTTPStatus,
     CheckList,
     TimeAgo,
+    Developer,
     Input,
     FontAwesomeIcon,
     Select,
