@@ -28,11 +28,11 @@ export default class Dashboard extends Vue {
         return this.$store
           .dispatch("users/getMemberships", { slug: user.username })
           .then(memberships => this.continue(memberships))
-          .catch(() => {});
+          .catch(() => this.$router.push("/errors/unable-to-fetch"));
       this.$store
         .dispatch("settings/getMemberships")
         .then(memberships => this.continue(memberships))
-        .catch(() => {});
+        .catch(() => this.$router.push("/errors/unable-to-fetch"));
     }
   }
 

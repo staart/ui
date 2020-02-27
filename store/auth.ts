@@ -94,6 +94,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async safeRefresh({ state, dispatch }) {
     const token = state.tokens.token;
     if (!token) return;
+    console.log(decode(token).exp * 1000, new Date().getTime());
     if (decode(token).exp * 1000 < new Date().getTime()) {
       return dispatch("refresh");
     }
@@ -102,9 +103,11 @@ export const actions: ActionTree<RootState, RootState> = {
     if (!state.tokens.refresh) throw new Error();
     commit("startLoading");
     try {
-      const tokens: Tokens = (await this.$axios.post("/auth/refresh", {
-        token: state.tokens.refresh
-      })).data;
+      const tokens: Tokens = (
+        await this.$axios.post("/auth/refresh", {
+          token: state.tokens.refresh
+        })
+      ).data;
       this.$axios.setToken(tokens.token, "Bearer");
       commit("setAuthentication", tokens);
       return tokens.token;
@@ -116,9 +119,11 @@ export const actions: ActionTree<RootState, RootState> = {
   async oauthLogin({ commit }, { service, code }) {
     commit("startLoading");
     try {
-      const tokens = (await this.$axios.post(`/auth/oauth/${service}`, {
-        code
-      })).data;
+      const tokens = (
+        await this.$axios.post(`/auth/oauth/${service}`, {
+          code
+        })
+      ).data;
       if (tokens.twoFactorToken) {
         commit("set2FA", tokens.twoFactorToken);
         return "2fa";
@@ -135,10 +140,9 @@ export const actions: ActionTree<RootState, RootState> = {
     await this.$axios.post("/auth/reset-password/request", context);
   },
   async resetPassword({ commit }, context) {
-    const response = (await this.$axios.post(
-      "/auth/reset-password/recover",
-      context
-    )).data;
+    const response = (
+      await this.$axios.post("/auth/reset-password/recover", context)
+    ).data;
   },
   logout({ commit }) {
     commit("removeAuthentication");
