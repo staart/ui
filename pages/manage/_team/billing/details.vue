@@ -34,9 +34,11 @@
             <tr>
               <td>Account balance</td>
               <td>
-                <span style="text-transform: uppercase">{{
+                <span style="text-transform: uppercase">
+                  {{
                   billing.currency || "eur"
-                }}</span>
+                  }}
+                </span>
                 {{ billing.account_balance | currency }}
               </td>
             </tr>
@@ -55,12 +57,7 @@
           </tbody>
         </table>
       </div>
-      <form
-        v-if="billing"
-        v-meta-ctrl-enter="save"
-        class="text text--mt-2"
-        @submit.prevent="save"
-      >
+      <form v-if="billing" v-meta-ctrl-enter="save" class="text text--mt-2" @submit.prevent="save">
         <Input
           :value="billing.name"
           label="Name"
@@ -125,12 +122,8 @@
             @input="val => (billing.address.country = val)"
           />
         </div>
-        <button v-if="noBilling" class="button button--state-cta">
-          Create billing account
-        </button>
-        <button v-else class="button">
-          Update settings
-        </button>
+        <button v-if="noBilling" class="button button--state-cta">Create billing account</button>
+        <button v-else class="button">Update settings</button>
       </form>
       <Loading v-else-if="loading" :message="loading" />
     </div>
@@ -189,9 +182,7 @@ export default class ManageSettings extends Vue {
     const countries = {};
     const allCountries = getAllCountries();
     for (const country in allCountries) {
-      if (allCountries.hasOwnProperty(country)) {
-        countries[country.toUpperCase()] = allCountries[country].name;
-      }
+      countries[country.toUpperCase()] = allCountries[country].name;
     }
     this.countries = countries;
   }

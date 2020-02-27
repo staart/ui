@@ -127,10 +127,8 @@ library.add(faSync);
 const countries = {};
 const allCountries = getAllCountries();
 for (const country in allCountries) {
-  if (allCountries.hasOwnProperty(country)) {
-    const cc = country.toLowerCase();
-    countries[cc] = allCountries[country].name;
-  }
+  const cc = country.toLowerCase();
+  countries[cc] = allCountries[country].name;
 }
 
 @Component({

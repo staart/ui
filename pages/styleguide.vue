@@ -33,112 +33,72 @@
         <tbody>
           <tr>
             <td>
-              <button class="button">
-                Default button
-              </button>
+              <button class="button">Default button</button>
             </td>
             <td>
-              <button class="button button--state-hover">
-                Default button
-              </button>
+              <button class="button button--state-hover">Default button</button>
             </td>
             <td>
-              <button class="button button--state-focus">
-                Default button
-              </button>
+              <button class="button button--state-focus">Default button</button>
             </td>
             <td>
-              <button class="button button--state-cta">
-                Default button
-              </button>
+              <button class="button button--state-cta">Default button</button>
             </td>
           </tr>
           <tr>
             <td>
-              <button class="button button--color-danger">
-                Danger button
-              </button>
+              <button class="button button--color-danger">Danger button</button>
             </td>
             <td>
-              <button class="button button--color-danger button--state-hover">
-                Danger button
-              </button>
+              <button class="button button--color-danger button--state-hover">Danger button</button>
             </td>
             <td>
-              <button class="button button--color-danger button--state-focus">
-                Danger button
-              </button>
+              <button class="button button--color-danger button--state-focus">Danger button</button>
             </td>
             <td>
-              <button class="button button--color-danger button--state-cta">
-                Danger button
-              </button>
+              <button class="button button--color-danger button--state-cta">Danger button</button>
             </td>
           </tr>
           <tr>
             <td>
-              <button class="button button--color-success">
-                Success button
-              </button>
+              <button class="button button--color-success">Success button</button>
             </td>
             <td>
-              <button class="button button--color-success button--state-hover">
-                Success button
-              </button>
+              <button class="button button--color-success button--state-hover">Success button</button>
             </td>
             <td>
-              <button class="button button--color-success button--state-focus">
-                Success button
-              </button>
+              <button class="button button--color-success button--state-focus">Success button</button>
             </td>
             <td>
-              <button class="button button--color-success button--state-cta">
-                Success button
-              </button>
+              <button class="button button--color-success button--state-cta">Success button</button>
             </td>
           </tr>
           <tr>
             <td>
-              <button class="button button--color-info">
-                Info button
-              </button>
+              <button class="button button--color-info">Info button</button>
             </td>
             <td>
-              <button class="button button--color-info button--state-hover">
-                Info button
-              </button>
+              <button class="button button--color-info button--state-hover">Info button</button>
             </td>
             <td>
-              <button class="button button--color-info button--state-focus">
-                Info button
-              </button>
+              <button class="button button--color-info button--state-focus">Info button</button>
             </td>
             <td>
-              <button class="button button--color-info button--state-cta">
-                Info button
-              </button>
+              <button class="button button--color-info button--state-cta">Info button</button>
             </td>
           </tr>
           <tr>
             <td>
-              <button class="button button--color-warning">
-                Warning button
-              </button>
+              <button class="button button--color-warning">Warning button</button>
             </td>
             <td>
-              <button class="button button--color-warning button--state-hover">
-                Warning button
-              </button>
+              <button class="button button--color-warning button--state-hover">Warning button</button>
             </td>
             <td>
-              <button class="button button--color-warning button--state-focus">
-                Warning button
-              </button>
+              <button class="button button--color-warning button--state-focus">Warning button</button>
             </td>
             <td>
-              <button class="button button--color-warning button--state-cta">
-                Warning button
-              </button>
+              <button class="button button--color-warning button--state-cta">Warning button</button>
             </td>
           </tr>
         </tbody>
@@ -146,133 +106,53 @@
       <h2>Colors</h2>
       <h3>Text colors</h3>
       <div class="row row--type-colors">
-        <div class="text text--color-white">
-          White
-        </div>
-        <div class="text text--color-light-gray">
-          Light gray
-        </div>
-        <div class="text text--color-red">
-          Red
-        </div>
-        <div class="text text--color-pink">
-          Pink
-        </div>
-        <div class="text text--color-dull-purple">
-          Dull purple
-        </div>
-        <div class="text text--color-purple">
-          Purple
-        </div>
-        <div class="text text--color-deep-purple">
-          Deep purple
-        </div>
-        <div class="text text--color-blue">
-          Blue
-        </div>
-        <div class="text text--color-cyan">
-          Cyan
-        </div>
-        <div class="text text--color-teal">
-          Teal
-        </div>
+        <div class="text text--color-white">White</div>
+        <div class="text text--color-light-gray">Light gray</div>
+        <div class="text text--color-red">Red</div>
+        <div class="text text--color-pink">Pink</div>
+        <div class="text text--color-dull-purple">Dull purple</div>
+        <div class="text text--color-purple">Purple</div>
+        <div class="text text--color-deep-purple">Deep purple</div>
+        <div class="text text--color-blue">Blue</div>
+        <div class="text text--color-cyan">Cyan</div>
+        <div class="text text--color-teal">Teal</div>
       </div>
       <div class="row row--type-colors">
-        <div class="text text--color-green">
-          Green
-        </div>
-        <div class="text text--color-light-green">
-          Light green
-        </div>
-        <div class="text text--color-lime">
-          Lime
-        </div>
-        <div class="text text--color-yellow">
-          Yellow
-        </div>
-        <div class="text text--color-amber">
-          Amber
-        </div>
-        <div class="text text--color-orange">
-          Orange
-        </div>
-        <div class="text text--color-brown">
-          Brown
-        </div>
-        <div class="text text--color-gray">
-          Gray
-        </div>
-        <div class="text text--color-blue-gray">
-          Blue gray
-        </div>
-        <div class="text text--color-black">
-          Black
-        </div>
+        <div class="text text--color-green">Green</div>
+        <div class="text text--color-light-green">Light green</div>
+        <div class="text text--color-lime">Lime</div>
+        <div class="text text--color-yellow">Yellow</div>
+        <div class="text text--color-amber">Amber</div>
+        <div class="text text--color-orange">Orange</div>
+        <div class="text text--color-brown">Brown</div>
+        <div class="text text--color-gray">Gray</div>
+        <div class="text text--color-blue-gray">Blue gray</div>
+        <div class="text text--color-black">Black</div>
       </div>
       <h3>Background colors</h3>
       <div class="row row--type-colors">
-        <div class="bg bg--color-white">
-          White
-        </div>
-        <div class="bg bg--color-light-gray">
-          Light gray
-        </div>
-        <div class="bg bg--color-red">
-          Red
-        </div>
-        <div class="bg bg--color-pink">
-          Pink
-        </div>
-        <div class="bg bg--color-dull-purple">
-          Dull purple
-        </div>
-        <div class="bg bg--color-purple">
-          Purple
-        </div>
-        <div class="bg bg--color-deep-purple">
-          Deep purple
-        </div>
-        <div class="bg bg--color-blue">
-          Blue
-        </div>
-        <div class="bg bg--color-cyan">
-          Cyan
-        </div>
-        <div class="bg bg--color-teal">
-          Teal
-        </div>
+        <div class="bg bg--color-white">White</div>
+        <div class="bg bg--color-light-gray">Light gray</div>
+        <div class="bg bg--color-red">Red</div>
+        <div class="bg bg--color-pink">Pink</div>
+        <div class="bg bg--color-dull-purple">Dull purple</div>
+        <div class="bg bg--color-purple">Purple</div>
+        <div class="bg bg--color-deep-purple">Deep purple</div>
+        <div class="bg bg--color-blue">Blue</div>
+        <div class="bg bg--color-cyan">Cyan</div>
+        <div class="bg bg--color-teal">Teal</div>
       </div>
       <div class="row row--type-colors">
-        <div class="bg bg--color-green">
-          Green
-        </div>
-        <div class="bg bg--color-light-green">
-          Light green
-        </div>
-        <div class="bg bg--color-lime">
-          Lime
-        </div>
-        <div class="bg bg--color-yellow">
-          Yellow
-        </div>
-        <div class="bg bg--color-amber">
-          Amber
-        </div>
-        <div class="bg bg--color-orange">
-          Orange
-        </div>
-        <div class="bg bg--color-brown">
-          Brown
-        </div>
-        <div class="bg bg--color-gray">
-          Gray
-        </div>
-        <div class="bg bg--color-blue-gray">
-          Blue gray
-        </div>
-        <div class="bg bg--color-black">
-          Black
-        </div>
+        <div class="bg bg--color-green">Green</div>
+        <div class="bg bg--color-light-green">Light green</div>
+        <div class="bg bg--color-lime">Lime</div>
+        <div class="bg bg--color-yellow">Yellow</div>
+        <div class="bg bg--color-amber">Amber</div>
+        <div class="bg bg--color-orange">Orange</div>
+        <div class="bg bg--color-brown">Brown</div>
+        <div class="bg bg--color-gray">Gray</div>
+        <div class="bg bg--color-blue-gray">Blue gray</div>
+        <div class="bg bg--color-black">Black</div>
       </div>
       <h2>Card</h2>
       <div class="card">This is a card</div>
@@ -285,31 +165,20 @@
           class="label-help"
           aria-label="Was this helpful?"
           data-balloon-pos="up"
-          >?</span
-        >
+        >?</span>
       </p>
       <h3>Positions</h3>
-      <button class="button" aria-label="I am up" data-balloon-pos="up">
-        Tooltip up
-      </button>
-      <button class="button" aria-label="I am down" data-balloon-pos="down">
-        Tooltip down
-      </button>
-      <button class="button" aria-label="I am left" data-balloon-pos="left">
-        Tooltip left
-      </button>
-      <button class="button" aria-label="I am right" data-balloon-pos="right">
-        Tooltip right
-      </button>
+      <button class="button" aria-label="I am up" data-balloon-pos="up">Tooltip up</button>
+      <button class="button" aria-label="I am down" data-balloon-pos="down">Tooltip down</button>
+      <button class="button" aria-label="I am left" data-balloon-pos="left">Tooltip left</button>
+      <button class="button" aria-label="I am right" data-balloon-pos="right">Tooltip right</button>
       <h2>Modals</h2>
       <p>
         Modals are used as confirm dialogs or to show important information.
         They are accessible with full keyboard navigation support and focus
         trapping.
       </p>
-      <button class="button button--color-danger" @click="showConfirm = true">
-        Delete account
-      </button>
+      <button class="button button--color-danger" @click="showConfirm = true">Delete account</button>
       <h2>Forms</h2>
       <p>
         These form elements are Vue components which automatically generate an
@@ -344,25 +213,15 @@
         label="CommaList component converts this to a comma-separated string"
         placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
       />
-      <Autocomplete
-        label="Country"
-        :options="countries"
-        placeholder="Select your country"
-      />
+      <Autocomplete label="Country" :options="countries" placeholder="Select your country" />
     </div>
     <transition name="modal">
       <Confirm v-if="showConfirm" :on-close="() => (showConfirm = false)">
         <h2>Are you sure you want to delete your account?</h2>
-        <p>
-          Deleting an account is not reversible, and all data will be removed.
-        </p>
+        <p>Deleting an account is not reversible, and all data will be removed.</p>
         <form @submit.prevent="showConfirm = false">
-          <button class="button button--color-danger button--state-cta">
-            Yes, delete my account
-          </button>
-          <button type="button" class="button" @click="showConfirm = false">
-            No, don't delete
-          </button>
+          <button class="button button--color-danger button--state-cta">Yes, delete my account</button>
+          <button type="button" class="button" @click="showConfirm = false">No, don't delete</button>
         </form>
       </Confirm>
     </transition>
@@ -420,13 +279,11 @@ library.add(
 const countries = {};
 const allCountries = getAllCountries();
 for (const country in allCountries) {
-  if (allCountries.hasOwnProperty(country)) {
-    const cc = country.toLowerCase();
-    countries[cc] = {
-      value: allCountries[country].name
-      // img: `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/flags/1x1/${cc}.svg`
-    };
-  }
+  const cc = country.toLowerCase();
+  countries[cc] = {
+    value: allCountries[country].name
+    // img: `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/flags/1x1/${cc}.svg`
+  };
 }
 
 @Component({
