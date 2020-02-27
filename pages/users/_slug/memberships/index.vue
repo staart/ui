@@ -54,7 +54,9 @@
                   <font-awesome-icon class="icon" icon="eye" fixed-width />
                 </router-link>
                 <router-link
-                  :to="`/manage/${membership.organization.username}/settings`"
+                  :to="
+                    `/manage/${membership.organization.username}/settings/general`
+                  "
                   aria-label="Team settings"
                   data-balloon-pos="up"
                   class="button button--type-icon"

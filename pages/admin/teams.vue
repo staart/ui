@@ -45,7 +45,8 @@
               </router-link>
               <router-link
                 :to="
-                  `/manage/${organization.username || organization.id}/settings`
+                  `/teams/${organization.username ||
+                    organization.id}/settings/general`
                 "
                 aria-label="Edit"
                 data-balloon-pos="up"

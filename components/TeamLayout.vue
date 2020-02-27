@@ -15,7 +15,7 @@
           <nuxt-link :to="`/teams/${$route.params.team}/developer/api-keys`">
             Developer
           </nuxt-link>
-          <nuxt-link :to="`/teams/${$route.params.team}/settings`">
+          <nuxt-link :to="`/teams/${$route.params.team}/settings/general`">
             Team settings
           </nuxt-link>
         </nav>

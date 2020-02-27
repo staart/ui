@@ -166,7 +166,7 @@
                     class="item"
                     :to="
                       `/teams/${membership.organization.username ||
-                        membership.organization.id}/settings`
+                        membership.organization.id}/settings/general`
                     "
                     >{{ (membership.organization || {}).name }}</nuxt-link
                   >

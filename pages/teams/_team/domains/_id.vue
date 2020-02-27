@@ -5,7 +5,7 @@
       <div class="row">
         <div>
           <nuxt-link
-            :to="`/teams/${$route.params.team}/settings`"
+            :to="`/teams/${$route.params.team}/settings/general`"
             aria-label="Back"
             data-balloon-pos="down"
             class="button button--type-icon button--type-back"
@@ -212,7 +212,9 @@ export default class ManageMembers extends Vue {
         method: this.verifyOption
       })
       .then(() => {
-        this.$router.push(`/manage/${this.$route.params.team}/settings`);
+        this.$router.push(
+          `/manage/${this.$route.params.team}/settings/general`
+        );
       })
       .catch(() => {
         this.hasError = true;
