@@ -206,27 +206,3 @@ export default class Manage extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.subnav {
-  background-color: #130f40;
-  padding-bottom: 5rem;
-  nav {
-    display: flex;
-  }
-  a {
-    padding: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    &:first-child {
-      margin-left: -1rem;
-    }
-    &.nuxt-link-exact-active {
-      font-weight: bold;
-      color: #fff;
-    }
-  }
-}
-.container--type-settings {
-  margin-top: -3.5rem;
-}
-</style>

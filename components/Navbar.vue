@@ -1,18 +1,25 @@
 <template>
-  <div v-if="isVisible" class="navbar">
+  <div
+    v-if="isVisible"
+    :class="{ navbar: true, 'navbar-auth': isAuthenticated }"
+  >
     <div class="container">
       <nuxt-link class="item item--type-logo" to="/">
         <img alt="" src="/android-chrome-72x72.png" />
         <span>Staart</span>
       </nuxt-link>
       <nav v-if="isAuthenticated">
-        <button class="item item--type-less" @click="feedback">
+        <button
+          class="item item--type-less"
+          aria-label="Feedback"
+          data-balloon-pos="down"
+          @click="feedback"
+        >
           <font-awesome-icon
             class="nav-icon hide-mobile"
             icon="comment"
             fixed-width
           />
-          <span>Feedback</span>
         </button>
         <span>
           <button
@@ -27,7 +34,6 @@
               icon="question-circle"
               fixed-width
             />
-            <span>Help</span>
           </button>
           <transition name="dropdown-fade">
             <div
@@ -55,7 +61,6 @@
             :aria-expanded="(visible === 'notifications').toString()"
           >
             <font-awesome-icon class="nav-icon" icon="bell" fixed-width />
-            <span>Updates</span>
           </button>
           <transition name="dropdown-fade">
             <div
@@ -419,7 +424,7 @@ nav .item {
   transform: translateX(-50%);
   width: 100%;
   min-width: 175px;
-  display: none;
+  color: #000;
   top: 95%;
   background: #fff;
   box-shadow: 0px 0px 0px 1px rgba(136, 152, 170, 0.1),
@@ -441,19 +446,16 @@ nav .item {
     z-index: 1;
   }
 }
-.dropdown {
-  display: block;
-}
 .dropdown .item {
   padding: 0.5rem 1.5rem;
   display: block;
   width: 100%;
 }
 nav .item.item--type-less {
-  padding: 1.5rem 0.5rem;
+  padding: 1.5rem 1rem;
 }
 nav .item.item--type-last {
-  padding-right: 0;
+  padding-right: 0.5rem;
 }
 nav .item.item--type-user {
   padding-right: 0.5rem;
@@ -463,7 +465,7 @@ nav .item.item--type-user {
 }
 .nav-icon {
   opacity: 0.7;
-  transform: scale(1.1);
+  transform: scale(1.25);
 }
 nav .item.item--type-less:hover {
   opacity: 1;

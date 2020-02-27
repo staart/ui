@@ -487,6 +487,7 @@ code {
   display: flex;
   aside {
     width: 300px;
+    margin-top: 5rem;
   }
   aside > nav {
     position: sticky;
@@ -580,4 +581,35 @@ code {
 
 .fa-spin {
   animation-duration: 1.5s !important;
+}
+
+.subnav {
+  background-color: $color-black;
+  padding-bottom: 5rem;
+  font-weight: 600;
+  nav {
+    display: flex;
+  }
+  a {
+    padding: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    &:first-child {
+      margin-left: -1rem;
+    }
+    &.nuxt-link-exact-active {
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+  + div {
+    margin-top: -3.5rem;
+  }
+}
+
+.navbar-auth {
+  background-color: $color-black;
+  color: #fff;
+  a {
+    font-weight: 600;
+  }
 }
