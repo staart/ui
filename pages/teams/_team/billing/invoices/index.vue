@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <BillingSidebar />
+    </aside>
     <main class="card">
       <largeMessage
         v-if="noBilling"
@@ -156,6 +159,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
+import BillingSidebar from "@/components/sidebars/Billing.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
@@ -174,6 +178,7 @@ library.add(
   components: {
     Loading,
     TimeAgo,
+    BillingSidebar,
     Input,
     FontAwesomeIcon,
     Select,

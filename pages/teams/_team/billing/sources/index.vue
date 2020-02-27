@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <BillingSidebar />
+    </aside>
     <main class="card">
       <largeMessage
         v-if="noBilling"
@@ -190,6 +193,7 @@ import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
+import BillingSidebar from "@/components/sidebars/Billing.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import Select from "@/components/form/Select.vue";
 import { User } from "@/types/auth";
@@ -200,6 +204,7 @@ const months = en.months;
 
 @Component({
   components: {
+    BillingSidebar,
     Loading,
     TimeAgo,
     Input,

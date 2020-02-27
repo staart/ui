@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <BillingSidebar />
+    </aside>
     <main class="card">
       <div class="row">
         <h1>Customer details</h1>
@@ -148,6 +151,7 @@ import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import ImageInput from "@/components/form/Image.vue";
+import BillingSidebar from "@/components/sidebars/Billing.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { User } from "@/types/auth";
 import {
@@ -167,6 +171,7 @@ library.add(faSync);
     Select,
     ImageInput,
     Checkbox,
+    BillingSidebar,
     FontAwesomeIcon
   },
   computed: mapGetters({

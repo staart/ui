@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <BillingSidebar />
+    </aside>
     <main class="card">
       <Loading v-if="loading" :message="loading" />
       <div v-else>
@@ -114,6 +117,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { invoices } from "stripe";
 import Loading from "@/components/Loading.vue";
+import BillingSidebar from "@/components/sidebars/Billing.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
@@ -130,6 +134,7 @@ library.add(faCloudDownloadAlt, faFileInvoice);
     Input,
     FontAwesomeIcon,
     Select,
+    BillingSidebar,
     LargeMessage,
     Checkbox
   },

@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <BillingSidebar />
+    </aside>
     <main class="card">
       <Loading v-if="loading" :message="loading" />
       <div v-else>
@@ -132,6 +135,7 @@ import { faArrowLeft, faSync } from "@fortawesome/free-solid-svg-icons";
 import { sources, cards } from "stripe";
 import Confirm from "@/components/Confirm.vue";
 import Loading from "@/components/Loading.vue";
+import BillingSidebar from "@/components/sidebars/Billing.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Country from "@/components/Country.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
@@ -149,6 +153,7 @@ const months = en.months;
     Loading,
     TimeAgo,
     Input,
+    BillingSidebar,
     Confirm,
     Country,
     FontAwesomeIcon,

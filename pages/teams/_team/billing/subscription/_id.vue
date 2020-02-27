@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <BillingSidebar />
+    </aside>
     <main class="card">
       <Loading v-if="loading" :message="loading" />
       <div v-else>
@@ -162,6 +165,7 @@ import {
 import { subscriptions } from "stripe";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
+import BillingSidebar from "@/components/sidebars/Billing.vue";
 import Confirm from "@/components/Confirm.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
@@ -176,6 +180,7 @@ library.add(faFileInvoiceDollar, faPencilAlt, faArrowLeft, faArrowDown, faSync);
     Confirm,
     Loading,
     TimeAgo,
+    BillingSidebar,
     Input,
     FontAwesomeIcon,
     Select,
