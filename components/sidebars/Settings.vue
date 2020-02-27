@@ -3,8 +3,8 @@
     <nuxt-link :to="`/teams/${$route.params.team}/settings/general`">
       General
     </nuxt-link>
-    <nuxt-link :to="`/teams/${$route.params.team}/settings/data`">
-      Data &amp; privacy
+    <nuxt-link :to="`/teams/${$route.params.team}/settings/security`">
+      Security
     </nuxt-link>
   </nav>
 </template>
