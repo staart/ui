@@ -1,29 +1,11 @@
 <template>
-  <Trap v-if="isVisible" :disabled="!showNav" class="navbar">
+  <div v-if="isVisible" class="navbar">
     <div class="container">
       <nuxt-link class="item item--type-logo" to="/">
         <img alt="" src="/android-chrome-72x72.png" />
         <span>Staart</span>
       </nuxt-link>
-      <nav v-if="isAuthenticated" :class="{ 'nav--visible-true': showNav }">
-        <nuxt-link v-if="user.role === 3" class="item" :to="`/admin/users`"
-          >Admin</nuxt-link
-        >
-        <nuxt-link
-          v-if="activeOrganization"
-          class="item"
-          :to="`/dashboard/${activeOrganization}`"
-          >Dashboard</nuxt-link
-        >
-        <nuxt-link v-else class="item" to="/dashboard">Dashboard</nuxt-link>
-        <nuxt-link
-          v-if="activeOrganization"
-          class="item"
-          :to="`/manage/${activeOrganization}/settings`"
-          >Settings</nuxt-link
-        >
-        <nuxt-link v-else class="item" to="/settings">Settings</nuxt-link>
-        <nuxt-link class="item" to="/docs">Docs</nuxt-link>
+      <nav v-if="isAuthenticated">
         <button class="item item--type-less" @click="feedback">
           <font-awesome-icon
             class="nav-icon hide-mobile"
@@ -140,7 +122,7 @@
           </transition>
         </span>
       </nav>
-      <nav v-else :class="{ 'nav--visible-true': showNav }">
+      <nav v-else>
         <nuxt-link class="item" to="/">Solutions</nuxt-link>
         <span>
           <button
@@ -177,30 +159,13 @@
         >
       </nav>
     </div>
-    <button class="button button--type-nav" @click="showNav = !showNav">
-      <font-awesome-icon
-        v-if="showNav"
-        class="icon nav-icon icon--mr-1"
-        icon="times"
-        fixed-width
-      />
-      <font-awesome-icon
-        v-else
-        class="icon nav-icon icon--mr-1"
-        icon="bars"
-        fixed-width
-      />
-      <span v-if="showNav">Hide menu</span>
-      <span v-else>Menu</span>
-    </button>
-  </Trap>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import Trap from "vue-focus-lock";
 import {
   faBell,
   faQuestionCircle,
@@ -217,15 +182,13 @@ library.add(faBell, faQuestionCircle, faBars, faTimes, faComment);
 @Component({
   components: {
     FontAwesomeIcon,
-    Notifications,
-    Trap
+    Notifications
   }
 })
 export default class Card extends Vue {
   visible: string | null = null;
   memberships: Memberships = emptyPagination;
   isVisible = true;
-  showNav = false;
   activeOrganization: string | null = null;
   isAuthenticated = false;
   user = emptyUser;
@@ -248,7 +211,6 @@ export default class Card extends Vue {
         this.user = this.$store.state.auth.user;
       }
     } catch (error) {}
-    this.showNav = false;
     if (this.$route.path.startsWith("/onboarding")) {
       this.isVisible = false;
     } else {

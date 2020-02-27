@@ -9,11 +9,13 @@ html {
   background-color: rgba($color-primary, 0.15);
 }
 
-ul, ol {
+ul,
+ol {
   li:not(:last-child) {
     margin-bottom: 0.5rem;
   }
-  ul, ol {
+  ul,
+  ol {
     margin-top: 0.5rem;
   }
 }
@@ -65,12 +67,14 @@ a {
   &:hover {
     text-decoration: underline;
   }
-  &:focus, &:active {
+  &:focus,
+  &:active {
     outline: 0;
     border-radius: 0.2rem;
     box-shadow: rgba($button-background-color, 0.46) 0px 0px 0px 1px,
       rgba($color-black, 0.42) 0px 1px 1px 0px,
-      rgba($button-background-color, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($button-background-color, 0.25);
+      rgba($button-background-color, 0.42) 0px 2px 5px 0px,
+      0 0 0 3px rgba($button-background-color, 0.25);
   }
 }
 
@@ -94,16 +98,22 @@ code {
   background: $button-background-color;
   color: $button-text-color;
   box-shadow: rgba($color-primary, 0.16) 0px 0px 0px 1px,
-    rgba($color-primary, 0.12) 0px 1px 1px 0px, rgba($color-primary, 0.12) 0px 2px 5px 0px;
-  &:hover, &.button--state-hover {
+    rgba($color-primary, 0.12) 0px 1px 1px 0px,
+    rgba($color-primary, 0.12) 0px 2px 5px 0px;
+  &:hover,
+  &.button--state-hover {
     box-shadow: rgba($color-primary, 0.2) 0px 0px 0px 1px,
-      rgba($color-primary, 0.2) 0px 1px 1px 0px, rgba($color-primary, 0.2) 0px 2px 5px 0px;
+      rgba($color-primary, 0.2) 0px 1px 1px 0px,
+      rgba($color-primary, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active,
-  &.button--state-focus, &.button--state-active {
+  &:focus,
+  &:active,
+  &.button--state-focus,
+  &.button--state-active {
     box-shadow: rgba($color-primary, 0.46) 0px 0px 0px 1px,
       rgba($color-primary, 0.42) 0px 1px 1px 0px,
-      rgba($color-primary, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-primary, 0.25);
+      rgba($color-primary, 0.42) 0px 2px 5px 0px,
+      0 0 0 3px rgba($color-primary, 0.25);
   }
   &.button--state-cta,
   &.button--color-primary {
@@ -162,13 +172,18 @@ code {
   background: rgba($color-red, 0.01) !important;
   color: $color-red !important;
   box-shadow: rgba($color-red, 0.16) 0px 0px 0px 1px,
-    rgba($color-red, 0.12) 0px 1px 1px 0px, rgba($color-red, 0.12) 0px 2px 5px 0px;
-  &:hover, &.button--state-hover {
+    rgba($color-red, 0.12) 0px 1px 1px 0px,
+    rgba($color-red, 0.12) 0px 2px 5px 0px;
+  &:hover,
+  &.button--state-hover {
     box-shadow: rgba($color-red, 0.2) 0px 0px 0px 2px,
-      rgba($color-red, 0.2) 0px 2px 1px 0px, rgba($color-red, 0.2) 0px 2px 5px 0px;
+      rgba($color-red, 0.2) 0px 2px 1px 0px,
+      rgba($color-red, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active,
-  &.button--state-focus, &.button--state-active {
+  &:focus,
+  &:active,
+  &.button--state-focus,
+  &.button--state-active {
     box-shadow: rgba($color-red, 0.46) 0px 0px 0px 1px,
       rgba($color-red, 0.42) 0px 1px 1px 0px,
       rgba($color-red, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-red, 0.25);
@@ -182,16 +197,22 @@ code {
   background: rgba($color-green, 0.01) !important;
   color: $color-green !important;
   box-shadow: rgba($color-green, 0.16) 0px 0px 0px 1px,
-    rgba($color-green, 0.12) 0px 1px 1px 0px, rgba($color-green, 0.12) 0px 2px 5px 0px;
-  &:hover, &.button--state-hover {
+    rgba($color-green, 0.12) 0px 1px 1px 0px,
+    rgba($color-green, 0.12) 0px 2px 5px 0px;
+  &:hover,
+  &.button--state-hover {
     box-shadow: rgba($color-green, 0.2) 0px 0px 0px 2px,
-      rgba($color-green, 0.2) 0px 2px 1px 0px, rgba($color-green, 0.2) 0px 2px 5px 0px;
+      rgba($color-green, 0.2) 0px 2px 1px 0px,
+      rgba($color-green, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active,
-  &.button--state-focus, &.button--state-active {
+  &:focus,
+  &:active,
+  &.button--state-focus,
+  &.button--state-active {
     box-shadow: rgba($color-green, 0.46) 0px 0px 0px 1px,
       rgba($color-green, 0.42) 0px 1px 1px 0px,
-      rgba($color-green, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-green, 0.25);
+      rgba($color-green, 0.42) 0px 2px 5px 0px,
+      0 0 0 3px rgba($color-green, 0.25);
   }
   &.button--state-cta {
     background: $color-green !important;
@@ -202,13 +223,18 @@ code {
   background: rgba($color-blue, 0.01) !important;
   color: $color-blue !important;
   box-shadow: rgba($color-blue, 0.16) 0px 0px 0px 1px,
-    rgba($color-blue, 0.12) 0px 1px 1px 0px, rgba($color-blue, 0.12) 0px 2px 5px 0px;
-  &:hover, &.button--state-hover {
+    rgba($color-blue, 0.12) 0px 1px 1px 0px,
+    rgba($color-blue, 0.12) 0px 2px 5px 0px;
+  &:hover,
+  &.button--state-hover {
     box-shadow: rgba($color-blue, 0.2) 0px 0px 0px 2px,
-      rgba($color-blue, 0.2) 0px 2px 1px 0px, rgba($color-blue, 0.2) 0px 2px 5px 0px;
+      rgba($color-blue, 0.2) 0px 2px 1px 0px,
+      rgba($color-blue, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active,
-  &.button--state-focus, &.button--state-active {
+  &:focus,
+  &:active,
+  &.button--state-focus,
+  &.button--state-active {
     box-shadow: rgba($color-blue, 0.46) 0px 0px 0px 1px,
       rgba($color-blue, 0.42) 0px 1px 1px 0px,
       rgba($color-blue, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-blue, 0.25);
@@ -222,16 +248,22 @@ code {
   background: rgba($color-orange, 0.01) !important;
   color: $color-orange !important;
   box-shadow: rgba($color-orange, 0.16) 0px 0px 0px 1px,
-    rgba($color-orange, 0.12) 0px 1px 1px 0px, rgba($color-orange, 0.12) 0px 2px 5px 0px;
-  &:hover, &.button--state-hover {
+    rgba($color-orange, 0.12) 0px 1px 1px 0px,
+    rgba($color-orange, 0.12) 0px 2px 5px 0px;
+  &:hover,
+  &.button--state-hover {
     box-shadow: rgba($color-orange, 0.2) 0px 0px 0px 2px,
-      rgba($color-orange, 0.2) 0px 2px 1px 0px, rgba($color-orange, 0.2) 0px 2px 5px 0px;
+      rgba($color-orange, 0.2) 0px 2px 1px 0px,
+      rgba($color-orange, 0.2) 0px 2px 5px 0px;
   }
-  &:focus, &:active,
-  &.button--state-focus, &.button--state-active {
+  &:focus,
+  &:active,
+  &.button--state-focus,
+  &.button--state-active {
     box-shadow: rgba($color-orange, 0.46) 0px 0px 0px 1px,
       rgba($color-orange, 0.42) 0px 1px 1px 0px,
-      rgba($color-orange, 0.42) 0px 2px 5px 0px, 0 0 0 3px rgba($color-orange, 0.25);
+      rgba($color-orange, 0.42) 0px 2px 5px 0px,
+      0 0 0 3px rgba($color-orange, 0.25);
   }
   &.button--state-cta {
     background: $color-orange !important;
@@ -245,7 +277,8 @@ code {
 }
 .button--type-back {
   display: inline-block;
-  + h1, + h2 {
+  + h1,
+  + h2 {
     display: inline-block;
     margin-top: 0;
     margin-left: 1rem;
@@ -419,10 +452,10 @@ code {
     display: block;
     margin-bottom: 0.5rem;
   }
-
 }
 
-.form-group input, .input {
+.form-group input,
+.input {
   font: inherit;
   padding: 0.75rem;
   display: block;
@@ -440,7 +473,8 @@ code {
     background-color: rgba($color-primary, 0.025);
   }
   &.input--font-monospace {
-    font-family: "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace;
+    font-family: "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo",
+      monospace;
     font-size: 85%;
   }
   &.input--padding-condensed {
