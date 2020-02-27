@@ -44,6 +44,7 @@ export default class Token extends Vue {
     if (this.isAuthenticated)
       return this.$router.replace(this.redirect || "/dashboard");
   }
+
   private mounted() {
     this.$store
       .dispatch("auth/setAuthTokens", this.$route.query)

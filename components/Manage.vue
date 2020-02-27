@@ -141,10 +141,12 @@ export default class Manage extends Vue {
   private mounted() {
     this.update();
   }
+
   private update() {
     this.$store.commit("auth/setActiveOrganization", this.$route.params.team);
     this.getUserMembership();
   }
+
   private getUserMembership() {
     const user = this.$store.state.auth.user;
     if (user) {
@@ -181,6 +183,7 @@ export default class Manage extends Vue {
       }
     }
   }
+
   @Watch("$route.path")
   onRouteChanged() {
     this.update();

@@ -215,6 +215,7 @@ export default class ManageDomains extends Vue {
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }
+
   private loadMoreDomains() {
     this.loadingMore = true;
     this.$store

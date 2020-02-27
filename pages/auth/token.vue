@@ -58,6 +58,7 @@ export default class Token extends Vue {
         };
     }
   }
+
   private tokenAction() {
     switch (this.$route.query.subject) {
       case "email-verify":
@@ -68,6 +69,7 @@ export default class Token extends Vue {
         return "verify";
     }
   }
+
   private mounted() {
     const token = this.$route.query.token;
     const subject = this.$route.query.subject;

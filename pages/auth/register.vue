@@ -99,6 +99,7 @@ export default class Login extends Vue {
         this.isLoading = false;
       });
   }
+
   private created() {
     if (this.isAuthenticated) return this.$router.replace("/dashboard");
   }

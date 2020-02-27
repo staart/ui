@@ -76,13 +76,16 @@ export default class Autocomplete extends Vue {
     this.filteredItems = this.items;
     if (process.client) document.addEventListener("click", this.listener);
   }
+
   beforeDestroy() {
     if (process.client) document.removeEventListener("click", this.listener);
   }
+
   @Watch("options")
   onOptionsChanged() {
     this.normalize();
   }
+
   normalize() {
     const items = {};
     if (Array.isArray(this.options)) {
@@ -127,6 +130,7 @@ export default class Autocomplete extends Vue {
     this.filteredItems = items;
     this.val = exactValue;
   }
+
   selectOption(index: string) {
     this.search = this.filteredItems[index].value;
     this.filteredItems = this.items;
@@ -134,6 +138,7 @@ export default class Autocomplete extends Vue {
     this.optionsVisible = false;
     this.$emit("input", this.val);
   }
+
   tryOption(event: KeyboardEvent, index: string) {
     if (event.keyCode === 13) {
       this.selectOption(index);
@@ -145,6 +150,7 @@ export default class Autocomplete extends Vue {
           : String.fromCharCode(event.keyCode).toLowerCase();
     }
   }
+
   checkAndHide() {
     if (!this.val) this.search = "";
     setTimeout(() => {

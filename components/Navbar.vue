@@ -204,10 +204,10 @@ import {
   faBars,
   faTimes
 } from "@fortawesome/free-solid-svg-icons";
+import Notifications from "@/components/Notifications.vue";
 import { Memberships } from "../types/settings";
 import { emptyPagination } from "../types/manage";
 import { emptyUser } from "../types/users";
-import Notifications from "@/components/Notifications.vue";
 library.add(faBell, faQuestionCircle, faBars, faTimes);
 // const feedback = new Feeedback({
 //   onSubmit: result =>
@@ -238,12 +238,14 @@ export default class Card extends Vue {
   private onRouteChanged() {
     this.updateNavBar();
   }
+
   @Watch("visible")
   private changedVisible() {
     if (this.visible === "account") {
       this.load();
     }
   }
+
   private updateNavBar() {
     try {
       this.isAuthenticated = this.$store.state.auth.isAuthenticated;
@@ -268,18 +270,22 @@ export default class Card extends Vue {
         ...this.$store.getters["users/memberships"](user.username)
       };
   }
+
   private updateNotificationCount(count: number) {
     this.notificationCount = count;
   }
+
   private logout() {
     this.$store.dispatch("auth/logout");
     this.isAuthenticated = false;
     this.user = emptyUser;
     this.$router.push("/");
   }
+
   private mounted() {
     this.updateNavBar();
   }
+
   private created() {
     if (typeof document !== "undefined" && document.body)
       document.body.addEventListener("click", event => {
@@ -303,9 +309,11 @@ export default class Card extends Vue {
         });
       });
   }
+
   private feedback() {
     // feedback.open();
   }
+
   private load() {
     const user = this.$store.getters["auth/user"];
     if (

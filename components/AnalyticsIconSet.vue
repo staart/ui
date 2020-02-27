@@ -43,11 +43,13 @@ export default class AnalyticsIconSet extends Vue {
     const result = new WhichBrowser(userAgent);
     return result.browser.name;
   }
+
   getManufactererName(userAgent) {
     if (this.manufacturer) return this.manufacturer;
     const result = new WhichBrowser(userAgent);
     return result.device.manufacturer;
   }
+
   getOsName(userAgent) {
     if (this.os) return this.os;
     const result = new WhichBrowser(userAgent);

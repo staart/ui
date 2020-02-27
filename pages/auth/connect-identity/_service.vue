@@ -13,10 +13,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import { User } from "../../../types/auth";
 import Card from "@/components/Card.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
+import { User } from "../../../types/auth";
 
 @Component({
   components: {

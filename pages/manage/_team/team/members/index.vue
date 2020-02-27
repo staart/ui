@@ -214,6 +214,7 @@ export default class ManageMembers extends Vue {
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }
+
   private loadMoreMembers() {
     this.loadingMore = true;
     this.$store

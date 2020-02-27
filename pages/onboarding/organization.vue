@@ -76,6 +76,7 @@ export default class OnboardingTeam extends Vue {
     if (this.user && this.user.nickname)
       this.teamName = `${this.user.nickname}'s team`;
   }
+
   private setupTeam() {
     this.teamName = this.teamName || `${this.user.nickname}'s team`;
     this.loading = true;

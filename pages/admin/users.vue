@@ -74,10 +74,10 @@ import { Component, Vue } from "vue-property-decorator";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faArrowDown, faSync, faEye } from "@fortawesome/free-solid-svg-icons";
-import { emptyPagination } from "../../types/admin";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import User from "@/components/User.vue";
+import { emptyPagination } from "../../types/admin";
 library.add(faArrowDown, faSync, faEye);
 
 @Component({

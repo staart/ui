@@ -69,6 +69,7 @@ export default class Checkbox extends Vue {
   labelId = Math.random()
     .toString(36)
     .substring(7);
+
   months = months;
 }
 </script>

@@ -182,11 +182,13 @@ export default class Login extends Vue {
         this.password = "";
       });
   }
+
   private created() {
     this.redirect = this.$route.query.redirect as string | undefined;
     if (this.isAuthenticated)
       return this.$router.replace(this.redirect || "/dashboard");
   }
+
   private async oauthLogin(service: string) {
     this.$store.commit("auth/startLoading");
     const link = (await this.$axios.get(`/auth/oauth/${service}`)).data

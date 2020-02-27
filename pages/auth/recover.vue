@@ -71,6 +71,7 @@ export default class Login extends Vue {
         this.password = "";
       });
   }
+
   private created() {
     if (this.isAuthenticated) return this.$router.replace("/dashboard");
   }

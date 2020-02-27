@@ -93,6 +93,7 @@ export default class Footer extends Vue {
   private onRouteChanged() {
     this.updateNavBar();
   }
+
   private updateNavBar() {
     try {
       this.isAuthenticated = !!this.$store.state.auth.isAuthenticated;
@@ -103,6 +104,7 @@ export default class Footer extends Vue {
       this.isVisible = true;
     }
   }
+
   private mounted() {
     this.updateNavBar();
   }

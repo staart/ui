@@ -92,10 +92,10 @@ import {
   faEye,
   faCog
 } from "@fortawesome/free-solid-svg-icons";
-import { emptyPagination } from "../../types/admin";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import Team from "@/components/Team.vue";
+import { emptyPagination } from "../../types/admin";
 library.add(faArrowDown, faSync, faEye, faCog);
 
 @Component({

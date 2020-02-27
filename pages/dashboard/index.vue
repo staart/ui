@@ -35,6 +35,7 @@ export default class Dashboard extends Vue {
         .catch(() => {});
     }
   }
+
   private continue(memberships) {
     if (memberships.data && memberships.data.length) {
       if (
