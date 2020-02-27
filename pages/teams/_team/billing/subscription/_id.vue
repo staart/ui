@@ -5,7 +5,7 @@
       <div class="row">
         <div>
           <nuxt-link
-            :to="`/manage/${$route.params.team}/billing/subscription`"
+            :to="`/teams/${$route.params.team}/billing/subscription`"
             aria-label="Back"
             data-balloon-pos="down"
             class="button button--type-icon button--type-back"

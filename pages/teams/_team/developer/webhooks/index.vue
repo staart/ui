@@ -67,7 +67,7 @@
                 <td class="text text--align-right">
                   <router-link
                     :to="
-                      `/manage/${$route.params.team}/developer/webhooks/${webhook.id}`
+                      `/teams/${$route.params.team}/developer/webhooks/${webhook.id}`
                     "
                     aria-label="Edit"
                     data-balloon-pos="up"

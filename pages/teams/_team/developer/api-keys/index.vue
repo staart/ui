@@ -70,7 +70,7 @@
                 <td class="text text--align-right">
                   <router-link
                     :to="
-                      `/manage/${$route.params.team}/developer/api-keys/${apiKey.id}`
+                      `/teams/${$route.params.team}/developer/api-keys/${apiKey.id}`
                     "
                     aria-label="View"
                     data-balloon-pos="up"
@@ -80,7 +80,7 @@
                   </router-link>
                   <router-link
                     :to="
-                      `/manage/${$route.params.team}/developer/logs?key=${apiKey.id}`
+                      `/teams/${$route.params.team}/developer/logs?key=${apiKey.id}`
                     "
                     aria-label="Logs"
                     data-balloon-pos="up"

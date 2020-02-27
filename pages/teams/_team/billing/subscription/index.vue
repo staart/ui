@@ -5,7 +5,7 @@
       heading="No billing account"
       text="You need to setup a billing account before you can create a subscription. You only need a billing account if you want to switch to a paid subscription, you can continue to use your free account."
       cta-text="Setup billing"
-      :cta-to="`/manage/${$route.params.team}/billing/details`"
+      :cta-to="`/teams/${$route.params.team}/billing/details`"
     />
     <div v-else>
       <div class="row">
@@ -137,7 +137,7 @@
           </table>
           <router-link
             :to="
-              `/manage/${$route.params.team}/billing/subscription/${subscriptions.data[0].id}`
+              `/teams/${$route.params.team}/billing/subscription/${subscriptions.data[0].id}`
             "
             aria-label="Edit"
             data-balloon-pos="up"
@@ -198,7 +198,7 @@
               <td class="text text--align-right">
                 <router-link
                   :to="
-                    `/manage/${$route.params.team}/invoices/${subscription.latest_invoice}`
+                    `/teams/${$route.params.team}/invoices/${subscription.latest_invoice}`
                   "
                   aria-label="Last invoice"
                   data-balloon-pos="up"
@@ -213,7 +213,7 @@
                 </router-link>
                 <router-link
                   :to="
-                    `/manage/${$route.params.team}/billing/subscription/${subscription.id}`
+                    `/teams/${$route.params.team}/billing/subscription/${subscription.id}`
                   "
                   aria-label="Edit"
                   data-balloon-pos="up"

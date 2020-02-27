@@ -53,7 +53,7 @@
           <td class="text text--align-right">
             <router-link
               v-if="!domain.isVerified"
-              :to="`/manage/${$route.params.team}/domains/${domain.id}`"
+              :to="`/teams/${$route.params.team}/domains/${domain.id}`"
               data-balloon-pos="up"
               class="button button--type-icon"
             >

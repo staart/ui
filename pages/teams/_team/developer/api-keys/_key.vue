@@ -8,7 +8,7 @@
         <div class="row">
           <div>
             <nuxt-link
-              :to="`/manage/${$route.params.team}/developer/api-keys`"
+              :to="`/teams/${$route.params.team}/developer/api-keys`"
               aria-label="Back"
               data-balloon-pos="down"
               class="button button--type-icon button--type-back"

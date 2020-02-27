@@ -5,7 +5,7 @@
       heading="No billing account"
       text="You need to setup a billing account before you view your sources. You only need a billing account if you want to switch to a paid subscription, you can continue to use your free account."
       cta-text="Setup billing"
-      :cta-to="`/manage/${$route.params.team}/billing/details`"
+      :cta-to="`/teams/${$route.params.team}/billing/details`"
     />
     <div v-else>
       <div class="row">
@@ -56,7 +56,7 @@
               <td class="text text--align-right">
                 <router-link
                   :to="
-                    `/manage/${$route.params.team}/billing/sources/${source.id}`
+                    `/teams/${$route.params.team}/billing/sources/${source.id}`
                   "
                   aria-label="Edit"
                   data-balloon-pos="up"

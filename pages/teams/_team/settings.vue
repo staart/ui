@@ -1,59 +1,61 @@
 <template>
-  <main class="card">
-    <div class="row">
-      <h1>Settings</h1>
-      <div class="text text--align-right">
-        <button
-          aria-label="Refresh"
-          data-balloon-pos="down"
-          class="button button--type-icon"
-          @click="load"
-        >
-          <font-awesome-icon
-            title="Refresh"
-            class="icon"
-            icon="sync"
-            fixed-width
-          />
-        </button>
+  <div class="container container--type-settings">
+    <main class="card">
+      <div class="row">
+        <h1>Settings</h1>
+        <div class="text text--align-right">
+          <button
+            aria-label="Refresh"
+            data-balloon-pos="down"
+            class="button button--type-icon"
+            @click="load"
+          >
+            <font-awesome-icon
+              title="Refresh"
+              class="icon"
+              icon="sync"
+              fixed-width
+            />
+          </button>
+        </div>
       </div>
-    </div>
-    <Loading v-if="loading" :message="loading" />
-    <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
-      <Input
-        :value="organization.name"
-        label="Team name"
-        placeholder="Enter your organization's name"
-        required
-        @input="val => (organization.name = val)"
-      />
-      <Input
-        :value="organization.username"
-        label="Team username"
-        placeholder="Enter a unique username"
-        help="Changing your username can have unintended side effects"
-        @input="val => (organization.username = val)"
-      />
-      <Checkbox
-        :value="organization.autoJoinDomain"
-        label="Allow users with verified domain emails to automatically join this team"
-        help="You can set up verified domains below to make it easy for your team to join"
-        :question-mark="true"
-        @input="val => (organization.autoJoinDomain = val)"
-      />
-      <Checkbox
-        :value="organization.onlyAllowDomain"
-        label="Only allow users with verified domain emails to join this team"
-        help="We won't let managers invite users with emails from other domains"
-        :question-mark="true"
-        @input="val => (organization.onlyAllowDomain = val)"
-      />
-      <button class="button">
-        Update settings
-      </button>
-    </form>
-    <Domains style="margin-top: 2rem" />
-  </main>
+      <Loading v-if="loading" :message="loading" />
+      <form v-else v-meta-ctrl-enter="save" @submit.prevent="save">
+        <Input
+          :value="organization.name"
+          label="Team name"
+          placeholder="Enter your organization's name"
+          required
+          @input="val => (organization.name = val)"
+        />
+        <Input
+          :value="organization.username"
+          label="Team username"
+          placeholder="Enter a unique username"
+          help="Changing your username can have unintended side effects"
+          @input="val => (organization.username = val)"
+        />
+        <Checkbox
+          :value="organization.autoJoinDomain"
+          label="Allow users with verified domain emails to automatically join this team"
+          help="You can set up verified domains below to make it easy for your team to join"
+          :question-mark="true"
+          @input="val => (organization.autoJoinDomain = val)"
+        />
+        <Checkbox
+          :value="organization.onlyAllowDomain"
+          label="Only allow users with verified domain emails to join this team"
+          help="We won't let managers invite users with emails from other domains"
+          :question-mark="true"
+          @input="val => (organization.onlyAllowDomain = val)"
+        />
+        <button class="button">
+          Update settings
+        </button>
+      </form>
+      <Domains style="margin-top: 2rem" />
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -123,9 +125,7 @@ export default class ManageSettings extends Vue {
       })
       .then(org => {
         this.organization = { ...org };
-        this.$router.replace(
-          `/manage/${this.organization.username}/team/settings`
-        );
+        this.$router.replace(`/teams/${this.organization.username}/settings`);
       })
       .catch(() => {})
       .finally(() => (this.loading = ""));
