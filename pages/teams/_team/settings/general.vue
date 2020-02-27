@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <SettingsSidebar />
+    </aside>
     <main class="card">
       <div class="row">
         <h1>Settings</h1>
@@ -67,6 +70,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Input from "@/components/form/Input.vue";
+import SettingsSidebar from "@/components/sidebars/Settings.vue";
 import Select from "@/components/form/Select.vue";
 import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
@@ -81,6 +85,7 @@ library.add(faSync);
 
 @Component({
   components: {
+    SettingsSidebar,
     Loading,
     Input,
     Domains,

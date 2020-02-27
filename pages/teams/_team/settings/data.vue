@@ -1,5 +1,8 @@
 <template>
   <div class="container container--type-settings">
+    <aside>
+      <SettingsSidebar />
+    </aside>
     <main class="card">
       <Loading v-if="loading" :message="loading" />
       <div v-else>
@@ -107,6 +110,7 @@ import Input from "@/components/form/Input.vue";
 import Select from "@/components/form/Select.vue";
 import CommaList from "@/components/form/CommaList.vue";
 import ImageInput from "@/components/form/Image.vue";
+import SettingsSidebar from "@/components/sidebars/Settings.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import { User } from "@/types/auth";
 import {
@@ -120,6 +124,7 @@ library.add(faSync);
   components: {
     Loading,
     Confirm,
+    SettingsSidebar,
     Input,
     CommaList,
     FontAwesomeIcon,

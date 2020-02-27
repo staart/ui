@@ -9,7 +9,7 @@
     <nuxt-link :to="`/teams/${$route.params.team}/billing/sources`">
       Payment methods
     </nuxt-link>
-    <nuxt-link :to="`/teams/${$route.params.team}/billing/invoice`">
+    <nuxt-link :to="`/teams/${$route.params.team}/billing/invoices`">
       Invoices
     </nuxt-link>
   </nav>
