@@ -212,21 +212,7 @@ import Notifications from "@/components/Notifications.vue";
 import { Memberships } from "../types/settings";
 import { emptyPagination } from "../types/manage";
 import { emptyUser } from "../types/users";
-import Feeedback from "~/plugins/feeedback";
 library.add(faBell, faQuestionCircle, faBars, faTimes, faComment);
-const feedback = new Feeedback({
-  onSubmit: result =>
-    new Promise((resolve, reject) => {
-      if (
-        (window as any).agastya &&
-        typeof (window as any).agastya.secureTrack === "function"
-      )
-        (window as any).agastya.secureTrack({ feedback: result });
-      if ((window as any).ga)
-        (window as any).ga("send", "feedback", result.rating, result.message);
-      resolve();
-    })
-});
 
 @Component({
   components: {
@@ -316,6 +302,25 @@ export default class Card extends Vue {
   }
 
   private feedback() {
+    if (!(window as any).Feeedback) return;
+    const feedback = new (window as any).Feeedback({
+      onSubmit: result =>
+        new Promise((resolve, reject) => {
+          if (
+            (window as any).agastya &&
+            typeof (window as any).agastya.secureTrack === "function"
+          )
+            (window as any).agastya.secureTrack({ feedback: result });
+          if ((window as any).ga)
+            (window as any).ga(
+              "send",
+              "feedback",
+              result.rating,
+              result.message
+            );
+          resolve();
+        })
+    });
     feedback.open();
   }
 

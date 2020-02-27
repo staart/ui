@@ -58,7 +58,12 @@ const config: Configuration = {
       },
       {
         type: "text/javascript",
-        src: "https://platform.oswaldlabs.com/_/d1b9d3cd29.js",
+        src: "https://platform.oswaldlabs.com/v1/agastya/load/d1b9d3cd29.js",
+        async: true
+      },
+      {
+        type: "text/javascript",
+        src: "https://unpkg.com/feeedback@1.0.2/docs/index.js",
         async: true
       }
     ]
@@ -71,8 +76,7 @@ const config: Configuration = {
     "~/plugins/vue-timeago",
     "~/plugins/meta-ctrl-enter",
     "~/plugins/filters",
-    { src: "~/plugins/vuex-persist", ssr: false },
-    { src: "~/plugins/feeedback", ssr: false }
+    { src: "~/plugins/vuex-persist", ssr: false }
   ],
   modules: [
     "@nuxtjs/dotenv",
