@@ -5,7 +5,7 @@
         <div class="row">
           <div>
             <h1><Translate t="pages.index.hero.title" /></h1>
-            <p style="max-width: 500px">
+            <p class="lead">
               <Translate t="pages.index.hero.intro" />
             </p>
             <div v-if="isAuthenticated">
@@ -446,11 +446,16 @@ export default class Home extends Vue {}
 
 <style lang="scss" scoped>
 header {
-  padding: 15rem 0 7.5rem 0;
+  padding: 15rem 0 5rem 0;
   margin-top: -7.5rem;
   h1 {
     margin: 0 0 2rem 0;
+    font-size: 200%;
   }
+}
+.lead {
+  font-size: 110%;
+  max-width: 500px;
 }
 h2 {
   font-weight: 300;

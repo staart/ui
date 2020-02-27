@@ -234,9 +234,9 @@ export default {
   pages: {
     index: {
       hero: {
-        title: "Staart is a SaaS starter for your next big idea.",
+        title: "SaaS starter for your next big idea.",
         intro:
-          "Written in TypeScript and Vue, Staart gives you a 6-month headstart in building your SaaS product. Free and open-source."
+          "Written in TypeScript and Vue, Staart UI is a PWA that gives you a 6-month headstart in building your SaaS product, and works with Staart API — free and open-source."
       },
       features: {
         1: {
