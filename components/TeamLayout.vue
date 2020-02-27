@@ -6,16 +6,16 @@
           <nuxt-link :to="`/teams/${$route.params.team}/products`"
             >Products</nuxt-link
           >
-          <nuxt-link :to="`/teams/${$route.params.team}/team/members`"
+          <nuxt-link :to="`/teams/${$route.params.team}/members`"
             >Members</nuxt-link
           >
-          <nuxt-link :to="`/teams/${$route.params.team}/billing`"
+          <nuxt-link :to="`/teams/${$route.params.team}/billing/details`"
             >Billing</nuxt-link
           >
           <nuxt-link :to="`/teams/${$route.params.team}/developer/api-keys`"
             >Developer</nuxt-link
           >
-          <nuxt-link :to="`/teams/${$route.params.team}/team/settings`"
+          <nuxt-link :to="`/teams/${$route.params.team}/settings`"
             >Team settings</nuxt-link
           >
         </nav>
@@ -125,9 +125,7 @@
           </nav>
         </nav>
       </aside>
-      <div class="card">
-        <slot />
-      </div>
+      <slot />
     </div>
   </div>
 </template>

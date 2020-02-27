@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="card">
     <largeMessage
       v-if="noBilling"
       heading="No billing account"

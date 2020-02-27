@@ -1,6 +1,6 @@
 <template>
   <Loading v-if="loading" :message="loading" />
-  <main v-else>
+  <main v-else class="card">
     <div class="row">
       <h2>Security settings</h2>
       <div class="text text--align-right">

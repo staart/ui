@@ -1,16 +1,16 @@
 <template>
-  <main>
+  <main class="card">
     <div class="row">
       <div>
         <nuxt-link
-          :to="`/manage/${$route.params.team}/team/members`"
+          :to="`/teams/${$route.params.team}/members`"
           aria-label="Back"
           data-balloon-pos="down"
           class="button button--type-icon button--type-back"
         >
           <font-awesome-icon class="icon" icon="arrow-left" fixed-width />
         </nuxt-link>
-        <h1>Membership</h1>
+        <h1 v-if="membership">{{ membership.user.name }}</h1>
       </div>
       <div class="text text--align-right">
         <button

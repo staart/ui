@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="card">
     <Loading v-if="loading" :message="loading" />
     <div v-else>
       <h1>Invoice</h1>

@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="card">
     <div class="row">
       <h1>Settings</h1>
       <div class="text text--align-right">

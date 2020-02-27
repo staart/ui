@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="card">
     <div>
       <div class="row">
         <h1>API keys</h1>
