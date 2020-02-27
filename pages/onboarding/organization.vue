@@ -16,7 +16,7 @@
         @submit.prevent="setupTeam"
       >
         <div class="card card--type-padded">
-          <div class="emoji">👨‍👩‍👦‍👦</div>
+          <div class="emoji">🏢</div>
           <h2>Yes, I have a team</h2>
           <p>If you have a team, you can invite them in the next step.</p>
           <div>
