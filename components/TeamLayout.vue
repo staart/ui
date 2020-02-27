@@ -3,11 +3,21 @@
     <div class="subnav">
       <div class="container">
         <nav>
-          <nuxt-link to="#">Products</nuxt-link>
-          <nuxt-link to="#">Members</nuxt-link>
-          <nuxt-link to="#">Billing</nuxt-link>
-          <nuxt-link to="#">Developer</nuxt-link>
-          <nuxt-link to="#">Team settings</nuxt-link>
+          <nuxt-link :to="`/teams/${$route.params.team}/products`"
+            >Products</nuxt-link
+          >
+          <nuxt-link :to="`/teams/${$route.params.team}/team/members`"
+            >Members</nuxt-link
+          >
+          <nuxt-link :to="`/teams/${$route.params.team}/billing`"
+            >Billing</nuxt-link
+          >
+          <nuxt-link :to="`/teams/${$route.params.team}/developer/api-keys`"
+            >Developer</nuxt-link
+          >
+          <nuxt-link :to="`/teams/${$route.params.team}/team/settings`"
+            >Team settings</nuxt-link
+          >
         </nav>
       </div>
     </div>

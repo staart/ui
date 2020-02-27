@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="isVisible"
-    :class="{ navbar: true, 'navbar-auth': isAuthenticated }"
-  >
+  <div v-if="isVisible" :class="{ navbar: true, 'navbar-auth': light }">
     <div class="container">
       <nuxt-link class="item item--type-logo" to="/">
         <img alt="" src="/android-chrome-72x72.png" />
@@ -109,7 +106,7 @@
                     v-if="membership && membership.organization"
                     class="item"
                     :to="
-                      `/manage/${membership.organization.username ||
+                      `/teams/${membership.organization.username ||
                         membership.organization.id}/settings`
                     "
                     >{{ (membership.organization || {}).name }}</nuxt-link
@@ -196,6 +193,7 @@ export default class Card extends Vue {
   isVisible = true;
   activeOrganization: string | null = null;
   isAuthenticated = false;
+  light = false;
   user = emptyUser;
   @Watch("$route")
   private onRouteChanged() {
@@ -210,6 +208,7 @@ export default class Card extends Vue {
   }
 
   private updateNavBar() {
+    this.light = this.$route.path.startsWith("/teams/");
     try {
       this.isAuthenticated = this.$store.state.auth.isAuthenticated;
       if (this.isAuthenticated) {
