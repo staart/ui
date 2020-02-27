@@ -50,27 +50,41 @@
               <button class="button button--color-danger">Danger button</button>
             </td>
             <td>
-              <button class="button button--color-danger button--state-hover">Danger button</button>
+              <button class="button button--color-danger button--state-hover">
+                Danger button
+              </button>
             </td>
             <td>
-              <button class="button button--color-danger button--state-focus">Danger button</button>
+              <button class="button button--color-danger button--state-focus">
+                Danger button
+              </button>
             </td>
             <td>
-              <button class="button button--color-danger button--state-cta">Danger button</button>
+              <button class="button button--color-danger button--state-cta">
+                Danger button
+              </button>
             </td>
           </tr>
           <tr>
             <td>
-              <button class="button button--color-success">Success button</button>
+              <button class="button button--color-success">
+                Success button
+              </button>
             </td>
             <td>
-              <button class="button button--color-success button--state-hover">Success button</button>
+              <button class="button button--color-success button--state-hover">
+                Success button
+              </button>
             </td>
             <td>
-              <button class="button button--color-success button--state-focus">Success button</button>
+              <button class="button button--color-success button--state-focus">
+                Success button
+              </button>
             </td>
             <td>
-              <button class="button button--color-success button--state-cta">Success button</button>
+              <button class="button button--color-success button--state-cta">
+                Success button
+              </button>
             </td>
           </tr>
           <tr>
@@ -78,27 +92,41 @@
               <button class="button button--color-info">Info button</button>
             </td>
             <td>
-              <button class="button button--color-info button--state-hover">Info button</button>
+              <button class="button button--color-info button--state-hover">
+                Info button
+              </button>
             </td>
             <td>
-              <button class="button button--color-info button--state-focus">Info button</button>
+              <button class="button button--color-info button--state-focus">
+                Info button
+              </button>
             </td>
             <td>
-              <button class="button button--color-info button--state-cta">Info button</button>
+              <button class="button button--color-info button--state-cta">
+                Info button
+              </button>
             </td>
           </tr>
           <tr>
             <td>
-              <button class="button button--color-warning">Warning button</button>
+              <button class="button button--color-warning">
+                Warning button
+              </button>
             </td>
             <td>
-              <button class="button button--color-warning button--state-hover">Warning button</button>
+              <button class="button button--color-warning button--state-hover">
+                Warning button
+              </button>
             </td>
             <td>
-              <button class="button button--color-warning button--state-focus">Warning button</button>
+              <button class="button button--color-warning button--state-focus">
+                Warning button
+              </button>
             </td>
             <td>
-              <button class="button button--color-warning button--state-cta">Warning button</button>
+              <button class="button button--color-warning button--state-cta">
+                Warning button
+              </button>
             </td>
           </tr>
         </tbody>
@@ -165,20 +193,31 @@
           class="label-help"
           aria-label="Was this helpful?"
           data-balloon-pos="up"
-        >?</span>
+          >?</span
+        >
       </p>
       <h3>Positions</h3>
-      <button class="button" aria-label="I am up" data-balloon-pos="up">Tooltip up</button>
-      <button class="button" aria-label="I am down" data-balloon-pos="down">Tooltip down</button>
-      <button class="button" aria-label="I am left" data-balloon-pos="left">Tooltip left</button>
-      <button class="button" aria-label="I am right" data-balloon-pos="right">Tooltip right</button>
+      <button class="button" aria-label="I am up" data-balloon-pos="up">
+        Tooltip up
+      </button>
+      <button class="button" aria-label="I am down" data-balloon-pos="down">
+        Tooltip down
+      </button>
+      <button class="button" aria-label="I am left" data-balloon-pos="left">
+        Tooltip left
+      </button>
+      <button class="button" aria-label="I am right" data-balloon-pos="right">
+        Tooltip right
+      </button>
       <h2>Modals</h2>
       <p>
         Modals are used as confirm dialogs or to show important information.
         They are accessible with full keyboard navigation support and focus
         trapping.
       </p>
-      <button class="button button--color-danger" @click="showConfirm = true">Delete account</button>
+      <button class="button button--color-danger" @click="showConfirm = true">
+        Delete account
+      </button>
       <h2>Forms</h2>
       <p>
         These form elements are Vue components which automatically generate an
@@ -213,15 +252,25 @@
         label="CommaList component converts this to a comma-separated string"
         placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
       />
-      <Autocomplete label="Country" :options="countries" placeholder="Select your country" />
+      <Autocomplete
+        label="Country"
+        :options="countries"
+        placeholder="Select your country"
+      />
     </div>
     <transition name="modal">
       <Confirm v-if="showConfirm" :on-close="() => (showConfirm = false)">
         <h2>Are you sure you want to delete your account?</h2>
-        <p>Deleting an account is not reversible, and all data will be removed.</p>
+        <p>
+          Deleting an account is not reversible, and all data will be removed.
+        </p>
         <form @submit.prevent="showConfirm = false">
-          <button class="button button--color-danger button--state-cta">Yes, delete my account</button>
-          <button type="button" class="button" @click="showConfirm = false">No, don't delete</button>
+          <button class="button button--color-danger button--state-cta">
+            Yes, delete my account
+          </button>
+          <button type="button" class="button" @click="showConfirm = false">
+            No, don't delete
+          </button>
         </form>
       </Confirm>
     </transition>
