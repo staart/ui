@@ -1,3 +1,5 @@
+import { Organization } from "./manage";
+
 export interface User {
   id: number;
   name: string;
@@ -23,6 +25,7 @@ export interface Emails {
 
 export interface Membership {
   id: number;
+  organization: Organization;
 }
 export interface Memberships {
   data: Membership[];

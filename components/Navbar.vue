@@ -1,10 +1,61 @@
 <template>
   <div v-if="isVisible" :class="{ navbar: true, 'navbar-auth': light }">
     <div class="container">
-      <nuxt-link class="item item--type-logo" to="/">
-        <img alt="" src="/android-chrome-72x72.png" />
-        <span>Staart</span>
-      </nuxt-link>
+      <div class="flex">
+        <nuxt-link class="item item--type-logo" to="/">
+          <img alt="" src="/android-chrome-72x72.png" />
+          <span>Staart</span>
+        </nuxt-link>
+        <div
+          v-if="
+            isAuthenticated &&
+              memberships &&
+              memberships.data &&
+              memberships.data.length
+          "
+          class="team-selector"
+        >
+          <button
+            aria-controls="teams"
+            :aria-expanded="(visible === 'teams').toString()"
+            class="item item-teams"
+          >
+            {{ selectedTeam.name }}
+            <font-awesome-icon icon="angle-down" />
+          </button>
+          <transition name="dropdown-fade">
+            <div
+              v-show="visible === 'teams' && user"
+              id="teams"
+              ref="dropdown-teams"
+              class="dropdown dropdown-teams"
+            >
+              <div
+                v-if="
+                  memberships && memberships.data && memberships.data.length
+                "
+              >
+                <span
+                  v-for="(membership, i) in memberships.data"
+                  :key="`m${membership.id}${i}`"
+                >
+                  <nuxt-link
+                    v-if="membership && membership.organization"
+                    class="item"
+                    :to="
+                      $route.path.replace(
+                        `/teams/${selectedTeam.username}`,
+                        `/teams/${membership.organization.username}`
+                      )
+                    "
+                    >{{ (membership.organization || {}).name }}</nuxt-link
+                  >
+                </span>
+              </div>
+            </div>
+          </transition>
+        </div>
+      </div>
       <nav v-if="isAuthenticated">
         <button
           class="item item--type-less"
@@ -173,18 +224,21 @@ import {
   faQuestionCircle,
   faBars,
   faTimes,
-  faComment
+  faComment,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
+import vSelect from "vue-select";
 import Notifications from "@/components/Notifications.vue";
 import { Memberships } from "../types/settings";
 import { emptyPagination } from "../types/manage";
 import { emptyUser } from "../types/users";
-library.add(faBell, faQuestionCircle, faBars, faTimes, faComment);
+library.add(faBell, faQuestionCircle, faBars, faTimes, faComment, faAngleDown);
 
 @Component({
   components: {
     FontAwesomeIcon,
-    Notifications
+    Notifications,
+    vSelect
   }
 })
 export default class Card extends Vue {
@@ -195,6 +249,7 @@ export default class Card extends Vue {
   isAuthenticated = false;
   light = false;
   user = emptyUser;
+  selectedTeam = { username: "", name: "" };
   @Watch("$route")
   private onRouteChanged() {
     this.updateNavBar();
@@ -226,10 +281,18 @@ export default class Card extends Vue {
       this.activeOrganization = this.$store.getters["auth/activeOrganization"];
     }
     const user = this.$store.getters["auth/user"];
-    if (user && user.username)
+    if (user && user.username) {
       this.memberships = {
         ...this.$store.getters["users/memberships"](user.username)
       };
+      const team = this.memberships?.data?.find(
+        i => i.organization.username === this.$route.params.team
+      );
+      this.selectedTeam = {
+        name: team?.organization.name || "",
+        username: team?.organization.username || ""
+      };
+    }
   }
 
   private logout() {
@@ -316,6 +379,10 @@ export default class Card extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.flex {
+  display: flex;
 }
 
 .button--type-nav {
@@ -498,5 +565,21 @@ nav .item.item--type-less:hover {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 85%;
+}
+
+.item-teams {
+  font-size: 125%;
+  margin-left: 2rem;
+  padding: 0;
+  svg {
+    margin-left: 0.5rem;
+  }
+}
+.team-selector {
+  position: relative;
+}
+.dropdown-teams {
+  top: 3rem;
+  margin-left: 1rem;
 }
 </style>

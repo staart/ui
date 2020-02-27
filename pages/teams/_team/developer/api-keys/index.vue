@@ -209,7 +209,8 @@ library.add(faArrowDown, faSync, faTrash, faEye, faChartLine);
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
+    Developer
   },
   middleware: "auth"
 })
