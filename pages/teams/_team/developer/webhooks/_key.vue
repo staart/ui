@@ -221,7 +221,7 @@ export default class ManageSettings extends Vue {
       .then(webhooks => {
         this.webhooks = { ...webhooks };
         this.$router.push(
-          `/manage/${this.$route.params.team}/developer/webhooks`
+          `/teams/${this.$route.params.team}/developer/webhooks`
         );
       })
       .catch(error => {

@@ -55,7 +55,7 @@
                 </router-link>
                 <router-link
                   :to="
-                    `/manage/${membership.organization.username}/settings/general`
+                    `/teams/${membership.organization.username}/settings/general`
                   "
                   aria-label="Team settings"
                   data-balloon-pos="up"

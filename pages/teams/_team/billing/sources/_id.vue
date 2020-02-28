@@ -234,7 +234,7 @@ export default class ManageSettings extends Vue {
       })
       .finally(() => {
         this.loading = "";
-        this.$router.push(`/manage/${this.$route.params.team}/billing/sources`);
+        this.$router.push(`/teams/${this.$route.params.team}/billing/sources`);
       });
   }
 }

@@ -212,9 +212,7 @@ export default class ManageMembers extends Vue {
         method: this.verifyOption
       })
       .then(() => {
-        this.$router.push(
-          `/manage/${this.$route.params.team}/settings/general`
-        );
+        this.$router.push(`/teams/${this.$route.params.team}/settings/general`);
       })
       .catch(() => {
         this.hasError = true;
