@@ -43,6 +43,9 @@ export default class User extends Vue {
   > * {
     display: inline-block;
   }
+  &:hover {
+    text-decoration: none;
+  }
 }
 .text--type-you {
   margin-left: 0.5rem;

@@ -46,7 +46,7 @@
               <td><TimeAgo :date="membership.createdAt" /></td>
               <td class="text text--align-right">
                 <router-link
-                  :to="`/dashboard/${membership.organization.username}`"
+                  :to="`/teams/${membership.organization.username}/products`"
                   aria-label="View dashboard"
                   data-balloon-pos="up"
                   class="button button--type-icon"
