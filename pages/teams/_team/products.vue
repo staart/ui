@@ -1,24 +1,7 @@
 <template>
   <div class="container container--type-settings">
     <main class="card">
-      <div class="row">
-        <h1>Products</h1>
-        <div class="text text--align-right">
-          <button
-            aria-label="Refresh"
-            data-balloon-pos="down"
-            class="button button--type-icon"
-            @click="load"
-          >
-            <font-awesome-icon
-              title="Refresh"
-              class="icon"
-              icon="sync"
-              fixed-width
-            />
-          </button>
-        </div>
-      </div>
+      <h1>Products</h1>
       <Loading v-if="loading" :message="loading" />
       <div v-else>Your team's products...</div>
     </main>
@@ -60,7 +43,7 @@ library.add(faSync);
   },
   middleware: "auth"
 })
-export default class ManageSettings extends Vue {
+export default class Products extends Vue {
   loading = "";
   organization: Organization = emptyOrganization;
 
