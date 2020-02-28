@@ -35,6 +35,8 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Input from "@/components/form/Input.vue";
 import Loading from "@/components/Loading.vue";
 import Card from "@/components/Card.vue";
+import { Memberships } from "@/types/users";
+import { emptyPagination } from "@/types/manage";
 library.add(faGoogle);
 
 @Component({
@@ -58,8 +60,16 @@ export default class Login extends Vue {
         code: this.code,
         token: this.$store.state.auth.tokens.twoFactorToken
       })
-      .then(response => {
-        this.$router.push("/dashboard");
+      .then(() => this.$store.dispatch("users/getMemberships", { slug: "me" }))
+      .then(memberships => {
+        if (
+          memberships?.data.length &&
+          memberships?.data[0]?.organization?.username
+        )
+          return this.$router.replace(
+            `/teams/${memberships.data[0].organization.username}/products`
+          );
+        return this.$router.replace("/");
       })
       .catch(error => {
         throw new Error(error);

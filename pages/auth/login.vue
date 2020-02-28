@@ -169,10 +169,20 @@ export default class Login extends Vue {
       })
       .then(response => {
         if (response === "2fa") {
-          this.$router.push("/auth/2fa");
+          return this.$router.push("/auth/2fa");
         } else {
-          this.$router.push(this.redirect || "/dashboard");
         }
+      })
+      .then(() => this.$store.dispatch("users/getMemberships", { slug: "me" }))
+      .then(memberships => {
+        if (
+          memberships?.data.length &&
+          memberships?.data[0]?.organization?.username
+        )
+          return this.$router.replace(
+            `/teams/${memberships.data[0].organization.username}/products`
+          );
+        return this.$router.replace("/");
       })
       .catch(error => {
         throw new Error(error);

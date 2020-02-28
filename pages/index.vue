@@ -4,14 +4,24 @@
       <div class="container">
         <div class="row">
           <div>
-            <h1><Translate t="pages.index.hero.title" /></h1>
+            <h1>
+              <Translate t="pages.index.hero.title" />
+            </h1>
             <p class="lead">
               <Translate t="pages.index.hero.intro" />
             </p>
             <div v-if="isAuthenticated">
               <nuxt-link
+                v-if="
+                  memberships &&
+                    memberships.data &&
+                    memberships.data.length &&
+                    memberships.data[0].organization
+                "
                 class="button button--size-large button--color-primary"
-                to="/dashboard"
+                :to="
+                  `/teams/${memberships.data[0].organization.username}/products`
+                "
               >
                 <Translate t="buttons.goToDashboard" />
               </nuxt-link>
@@ -25,7 +35,7 @@
               </nuxt-link>
             </div>
           </div>
-          <img class="b" alt="" src="/images/undraw_product_tour_foyt.svg" />
+          <img class="b" alt src="/images/undraw_product_tour_foyt.svg" />
         </div>
       </div>
     </header>
@@ -39,8 +49,12 @@
                 icon="credit-card"
                 fixed-width
               />
-              <h3><Translate t="pages.index.features.1.title" /></h3>
-              <p><Translate t="pages.index.features.1.intro" /></p>
+              <h3>
+                <Translate t="pages.index.features.1.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.features.1.intro" />
+              </p>
             </div>
             <div>
               <font-awesome-icon
@@ -48,8 +62,12 @@
                 icon="users"
                 fixed-width
               />
-              <h3><Translate t="pages.index.features.2.title" /></h3>
-              <p><Translate t="pages.index.features.2.intro" /></p>
+              <h3>
+                <Translate t="pages.index.features.2.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.features.2.intro" />
+              </p>
             </div>
             <div>
               <font-awesome-icon
@@ -57,8 +75,12 @@
                 icon="code"
                 fixed-width
               />
-              <h3><Translate t="pages.index.features.3.title" /></h3>
-              <p><Translate t="pages.index.features.3.intro" /></p>
+              <h3>
+                <Translate t="pages.index.features.3.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.features.3.intro" />
+              </p>
             </div>
             <div>
               <font-awesome-icon
@@ -66,8 +88,12 @@
                 icon="laptop"
                 fixed-width
               />
-              <h3><Translate t="pages.index.features.4.title" /></h3>
-              <p><Translate t="pages.index.features.4.intro" /></p>
+              <h3>
+                <Translate t="pages.index.features.4.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.features.4.intro" />
+              </p>
             </div>
           </div>
         </div>
@@ -79,7 +105,9 @@
           </h2>
           <div class="row">
             <div>
-              <h3><Translate t="pages.index.lists.1.title" /></h3>
+              <h3>
+                <Translate t="pages.index.lists.1.title" />
+              </h3>
               <dl>
                 <div class="rc">
                   <div>
@@ -92,8 +120,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.1.1.title" /></dt>
-                    <dd><Translate t="pages.index.lists.1.1.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.1.1.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.1.1.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -107,8 +139,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.1.2.title" /></dt>
-                    <dd><Translate t="pages.index.lists.1.2.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.1.2.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.1.2.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -122,8 +158,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.1.3.title" /></dt>
-                    <dd><Translate t="pages.index.lists.1.3.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.1.3.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.1.3.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -137,7 +177,9 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.1.4.title" /></dt>
+                    <dt>
+                      <Translate t="pages.index.lists.1.4.title" />
+                    </dt>
                     <dd>
                       <Translate t="pages.index.lists.1.4.intro" />tokens.
                     </dd>
@@ -164,7 +206,9 @@
                         <span aria-hidden="true">?</span>
                       </span>
                     </dt>
-                    <dd><Translate t="pages.index.lists.1.5.intro" /></dd>
+                    <dd>
+                      <Translate t="pages.index.lists.1.5.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -178,8 +222,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.1.6.title" /></dt>
-                    <dd><Translate t="pages.index.lists.1.6.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.1.6.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.1.6.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -193,8 +241,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.1.7.title" /></dt>
-                    <dd><Translate t="pages.index.lists.1.7.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.1.7.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.1.7.intro" />
+                    </dd>
                   </div>
                 </div>
               </dl>
@@ -209,7 +261,9 @@
               </div>
             </div>
             <div>
-              <h3><Translate t="pages.index.lists.2.title" /></h3>
+              <h3>
+                <Translate t="pages.index.lists.2.title" />
+              </h3>
               <dl>
                 <div class="rc">
                   <div>
@@ -222,8 +276,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.2.1.title" /></dt>
-                    <dd><Translate t="pages.index.lists.2.1.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.2.1.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.2.1.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -237,8 +295,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.2.2.title" /></dt>
-                    <dd><Translate t="pages.index.lists.2.2.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.2.2.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.2.2.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -252,8 +314,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.2.3.title" /></dt>
-                    <dd><Translate t="pages.index.lists.2.3.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.2.3.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.2.3.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -267,7 +333,9 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.2.4.title" /></dt>
+                    <dt>
+                      <Translate t="pages.index.lists.2.4.title" />
+                    </dt>
                     <dd><Translate t="pages.index.lists.2.4.intro" />more.</dd>
                   </div>
                 </div>
@@ -282,8 +350,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.2.5.title" /></dt>
-                    <dd><Translate t="pages.index.lists.2.5.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.2.5.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.2.5.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -297,8 +369,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.2.6.title" /></dt>
-                    <dd><Translate t="pages.index.lists.2.6.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.2.6.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.2.6.intro" />
+                    </dd>
                   </div>
                 </div>
                 <div class="rc">
@@ -312,8 +388,12 @@
                     </div>
                   </div>
                   <div>
-                    <dt><Translate t="pages.index.lists.2.7.title" /></dt>
-                    <dd><Translate t="pages.index.lists.2.7.intro" /></dd>
+                    <dt>
+                      <Translate t="pages.index.lists.2.7.title" />
+                    </dt>
+                    <dd>
+                      <Translate t="pages.index.lists.2.7.intro" />
+                    </dd>
                   </div>
                 </div>
               </dl>
@@ -342,8 +422,12 @@
                 :icon="['fab', 'accessible-icon']"
                 fixed-width
               />
-              <h3><Translate t="pages.index.logos.1.title" /></h3>
-              <p><Translate t="pages.index.logos.1.intro" /></p>
+              <h3>
+                <Translate t="pages.index.logos.1.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.logos.1.intro" />
+              </p>
             </div>
             <div>
               <font-awesome-icon
@@ -351,8 +435,12 @@
                 icon="hands-helping"
                 fixed-width
               />
-              <h3><Translate t="pages.index.logos.2.title" /></h3>
-              <p><Translate t="pages.index.logos.2.intro" /></p>
+              <h3>
+                <Translate t="pages.index.logos.2.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.logos.2.intro" />
+              </p>
             </div>
             <div>
               <font-awesome-icon
@@ -360,8 +448,12 @@
                 icon="calendar"
                 fixed-width
               />
-              <h3><Translate t="pages.index.logos.3.title" /></h3>
-              <p><Translate t="pages.index.logos.3.intro" /></p>
+              <h3>
+                <Translate t="pages.index.logos.3.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.logos.3.intro" />
+              </p>
             </div>
             <div>
               <font-awesome-icon
@@ -369,8 +461,12 @@
                 icon="image"
                 fixed-width
               />
-              <h3><Translate t="pages.index.logos.4.title" /></h3>
-              <p><Translate t="pages.index.logos.4.intro" /></p>
+              <h3>
+                <Translate t="pages.index.logos.4.title" />
+              </h3>
+              <p>
+                <Translate t="pages.index.logos.4.intro" />
+              </p>
             </div>
           </div>
         </div>
@@ -409,6 +505,8 @@ import {
   faAccessibleIcon
 } from "@fortawesome/free-brands-svg-icons";
 import Translate from "@/components/Translate.vue";
+import { Memberships } from "../types/users";
+import { emptyPagination } from "../types/manage";
 library.add(
   faSync,
   faMagic,
@@ -441,7 +539,40 @@ library.add(
     FontAwesomeIcon
   }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  memberships: Memberships = emptyPagination;
+  isAuthenticated!: boolean;
+  private created() {
+    if (!this.isAuthenticated) return;
+    this.load();
+    const user = this.$store.getters["auth/user"];
+    if (user && user.username) {
+      this.memberships = {
+        ...this.$store.getters["users/memberships"](user.username)
+      };
+    }
+  }
+
+  private load() {
+    if (!this.isAuthenticated) return;
+    const user = this.$store.getters["auth/user"];
+    if (
+      user &&
+      user.username &&
+      (!this.memberships ||
+        !this.memberships.data ||
+        !this.memberships.data.length)
+    )
+      this.$store
+        .dispatch("users/getMemberships", { slug: user.username })
+        .then(memberships => {
+          this.memberships = { ...memberships };
+        })
+        .catch(error => {
+          throw new Error(error);
+        });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
