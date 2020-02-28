@@ -78,6 +78,18 @@ a {
   }
 }
 
+button {
+  &:focus,
+  &:active {
+    outline: 0;
+    border-radius: 0.2rem;
+    box-shadow: rgba($button-background-color, 0.46) 0px 0px 0px 1px,
+      rgba($color-black, 0.42) 0px 1px 1px 0px,
+      rgba($button-background-color, 0.42) 0px 2px 5px 0px,
+      0 0 0 3px rgba($button-background-color, 0.25);
+  }
+}
+
 code {
   font-size: 110%;
   background-color: #fff;
