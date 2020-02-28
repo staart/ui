@@ -103,11 +103,11 @@ export const actions: ActionTree<RootState, RootState> = {
       return dispatch("refresh");
     }
   },
-  async refresh({ state, commit }) {
+  async refresh({ state, dispatch, commit }) {
     const refreshToken = state.tokens.refresh;
     if (!refreshToken) throw new Error();
     if (decode(refreshToken).exp * 1000 < new Date().getTime()) {
-      commit("logout");
+      dispatch("logout");
       window.location.href = "/";
       return;
     }
