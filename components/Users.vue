@@ -13,6 +13,7 @@
             :to="`/users/${$route.params.slug}/developer/access-tokens`"
           >
             Developer
+          </nuxt-link>
         </nav>
       </div>
     </div>
