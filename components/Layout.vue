@@ -1,9 +1,6 @@
 <template>
   <div id="content">
-    <Settings v-if="activeRoute === 'user-settings'">
-      <nuxt />
-    </Settings>
-    <Admin v-else-if="activeRoute === 'admin'">
+    <Admin v-if="activeRoute === 'admin'">
       <nuxt />
     </Admin>
     <Users v-else-if="activeRoute === 'users'">
@@ -23,14 +20,12 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import Admin from "@/components/Admin.vue";
 import Users from "@/components/Users.vue";
-import Settings from "@/components/Settings.vue";
 import TeamLayout from "@/components/TeamLayout.vue";
 import Policies from "@/components/Policies.vue";
 
 @Component({
   components: {
     Users,
-    Settings,
     Admin,
     Policies,
     TeamLayout
