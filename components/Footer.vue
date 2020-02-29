@@ -16,13 +16,14 @@
     <div class="container links">
       <div class="larger">
         <nuxt-link class="item item--type-logo" to="/">
-          <img alt="" src="/android-chrome-72x72.png" />
+          <img alt src="/android-chrome-72x72.png" />
           <span>Staart</span>
         </nuxt-link>
         <p class="text text--mt-1">
           An
           <a target="_blank" href="https://o15y.com">O15Y</a>
-          project<br />Made by
+          project
+          <br />Made by
           <a target="_blank" href="https://anandchowdhary.com"
             >Anand Chowdhary</a
           >
@@ -61,10 +62,10 @@
       <div>
         <h2>Policies</h2>
         <nav>
-          <nuxt-link to="/">Terms of use</nuxt-link>
-          <nuxt-link to="/policies/privacy/">Privacy</nuxt-link>
-          <nuxt-link to="/">Cookies</nuxt-link>
-          <nuxt-link to="/">GDPR</nuxt-link>
+          <nuxt-link to="/policies/terms">Terms of use</nuxt-link>
+          <nuxt-link to="/policies/privacy">Privacy</nuxt-link>
+          <nuxt-link to="/policies/cookies">Cookies</nuxt-link>
+          <nuxt-link to="/policies/sla">Enterprise SLA</nuxt-link>
         </nav>
       </div>
       <div>

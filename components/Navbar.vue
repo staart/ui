@@ -49,17 +49,15 @@
                         `/teams/${membership.organization.username}`
                       )
                     "
+                    >{{ (membership.organization || {}).name }}</nuxt-link
                   >
-                    {{ (membership.organization || {}).name }}
-                  </nuxt-link>
                 </span>
                 <hr />
                 <nuxt-link
                   class="item item-action"
                   :to="`/users/${user.username || user.id}/teams`"
+                  >Create a new team</nuxt-link
                 >
-                  Create a new team
-                </nuxt-link>
               </div>
             </div>
           </transition>
@@ -99,12 +97,10 @@
               ref="dropdown-help"
               class="dropdown"
             >
-              <button class="item" @click="feedback">
-                Feedback
-              </button>
+              <button class="item" @click="feedback">Feedback</button>
               <!-- <nuxt-link class="item" to="/settings/account">
                 Help Center
-              </nuxt-link> -->
+              </nuxt-link>-->
               <button class="item" onclick="window.agastya.open()">
                 Accessibility
               </button>
@@ -152,35 +148,28 @@
               <nuxt-link
                 class="item"
                 :to="`/users/${user.username || user.id}/account/profile`"
+                >User settings</nuxt-link
               >
-                User settings
-              </nuxt-link>
               <nuxt-link
                 class="item"
                 :to="`/users/${user.username || user.id}/teams`"
+                >Teams</nuxt-link
               >
-                Teams
-              </nuxt-link>
               <nuxt-link
                 class="item"
                 :to="
                   `/users/${user.username || user.id}/developer/access-tokens`
                 "
+                >Developer</nuxt-link
               >
-                Developer
-              </nuxt-link>
               <hr />
-              <button class="item" @click="logout">
-                Logout
-              </button>
+              <button class="item" @click="logout">Logout</button>
             </div>
           </transition>
         </span>
       </nav>
       <nav v-else>
-        <nuxt-link class="item" to="/">
-          Solutions
-        </nuxt-link>
+        <nuxt-link class="item" to="/">Solutions</nuxt-link>
         <span>
           <button
             class="item"
@@ -196,27 +185,23 @@
               ref="dropdown-resources"
               class="dropdown"
             >
-              <nuxt-link class="item" to="/styleguide">
-                Styleguide
-              </nuxt-link>
-              <nuxt-link class="item" to="/policies/licenses">
-                FOSS licenses
-              </nuxt-link>
+              <nuxt-link class="item" to="/styleguide">Styleguide</nuxt-link>
+              <nuxt-link class="item" to="/policies/licenses"
+                >FOSS licenses</nuxt-link
+              >
             </div>
           </transition>
         </span>
         <nuxt-link class="item" to="/pricing">Pricing</nuxt-link>
-        <nuxt-link class="item" to="/docs">Docs</nuxt-link>
         <nuxt-link
           v-if="$route.path !== '/auth/login'"
           class="button"
           to="/auth/login"
+          >Login &rarr;</nuxt-link
         >
-          Login &rarr;
-        </nuxt-link>
-        <nuxt-link v-else class="button" to="/auth/register">
-          Get started &rarr;
-        </nuxt-link>
+        <nuxt-link v-else class="button" to="/auth/register"
+          >Get started &rarr;</nuxt-link
+        >
       </nav>
     </div>
   </div>

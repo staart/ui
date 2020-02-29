@@ -635,18 +635,13 @@ aside nav {
     color: inherit;
     &.nuxt-link-active {
       font-weight: bold;
-      // background-color: #fff;
-      // box-shadow: -0.5rem 0 1rem 0 rgba(60, 66, 87, 0.075);
-      // border-radius: 0.2rem;
-      // &::after {
-      //   content: "";
-      //   background-color: #fff;
-      //   position: absolute;
-      //   right: -1rem;
-      //   top: 0;
-      //   bottom: 0;
-      //   width: 2rem;
-      // }
     }
   }
+}
+
+blockquote {
+  border-left: 0.25rem solid rgba(0, 0, 0, 0.1);
+  margin-left: 0;
+  padding-left: 2rem;
+  font-style: italic;
 }
