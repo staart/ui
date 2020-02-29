@@ -148,36 +148,24 @@
             >
               <nuxt-link
                 class="item"
-                :to="`/users/${user.username || user.id}/profile`"
-                >Profile</nuxt-link
+                :to="`/users/${user.username || user.id}/account/profile`"
               >
-              <div
-                v-if="
-                  memberships && memberships.data && memberships.data.length
+                Profile
+              </nuxt-link>
+              <nuxt-link
+                class="item"
+                :to="`/users/${user.username || user.id}/teams`"
+              >
+                Teams
+              </nuxt-link>
+              <nuxt-link
+                class="item"
+                :to="
+                  `/users/${user.username || user.id}/developer/access-tokens`
                 "
               >
-                <div class="subheading">Your teams</div>
-                <span
-                  v-for="(membership, i) in memberships.data"
-                  :key="`m${membership.id}${i}`"
-                >
-                  <nuxt-link
-                    v-if="membership && membership.organization"
-                    class="item"
-                    :to="
-                      `/teams/${membership.organization.username ||
-                        membership.organization.id}/settings/general`
-                    "
-                    >{{ (membership.organization || {}).name }}</nuxt-link
-                  >
-                </span>
-              </div>
-              <nuxt-link
-                v-else
-                class="item"
-                :to="`/users/${user.username || user.id}/memberships`"
-                >Your teams</nuxt-link
-              >
+                Developer
+              </nuxt-link>
               <button class="item" @click="logout">Logout</button>
             </div>
           </transition>
