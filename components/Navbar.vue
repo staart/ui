@@ -271,7 +271,9 @@ export default class Card extends Vue {
   }
 
   private updateNavBar() {
-    this.light = this.$route.path.startsWith("/teams/");
+    this.light =
+      this.$route.path.startsWith("/teams/") ||
+      this.$route.path.startsWith("/users/");
     try {
       this.isAuthenticated = this.$store.state.auth.isAuthenticated;
       if (this.isAuthenticated) {

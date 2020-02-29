@@ -1,145 +1,150 @@
 <template>
-  <main>
-    <Loading v-if="loading" :message="loading" />
-    <div v-else>
-      <h2>Change password</h2>
-      <form @submit.prevent="changePassword">
-        <input
-          type="text"
-          autocomplete="username"
-          :value="user.username"
-          hidden
-          disabled
-        />
-        <Input
-          label="Current password"
-          type="password"
-          placeholder="Enter your current password"
-          :value="oldPassword"
-          autocomplete="currency-password"
-          @input="val => (oldPassword = val)"
-        />
-        <Input
-          label="New password"
-          type="password"
-          placeholder="Enter a new password"
-          :value="newPassword"
-          autocomplete="new-password"
-          @input="val => (newPassword = val)"
-        />
-        <button class="button">Change password</button>
-      </form>
-      <h2>Two-factor authentication</h2>
-      <p>
-        Adding a second factor increases security while logging in to your
-        account and doing sensitive operations. 2FA is currently
-        <strong>{{
-          user && user.twoFactorEnabled ? "enabled" : "disabled"
-        }}</strong
-        >.
-      </p>
-      <form
-        v-if="user && !user.twoFactorEnabled"
-        v-meta-ctrl-enter="enable2FA"
-        @submit.prevent="enable2FA"
-      >
-        <button class="button button--type-loading" :disabled="enabling">
-          <span>Enable 2FA</span>
-          <font-awesome-icon
-            v-if="enabling"
-            class="icon icon--ml-2"
-            icon="sync"
-            spin
+  <div class="container container--type-settings">
+    <aside>
+      <AccountSidebar />
+    </aside>
+    <main class="card">
+      <Loading v-if="loading" :message="loading" />
+      <div v-else>
+        <h2>Change password</h2>
+        <form @submit.prevent="changePassword">
+          <input
+            type="text"
+            autocomplete="username"
+            :value="user.username"
+            hidden
+            disabled
           />
-        </button>
-      </form>
-      <form
-        v-else
-        v-meta-ctrl-enter="() => (showDisable = true)"
-        @submit.prevent="() => (showDisable = true)"
-      >
-        <button
-          class="button button--type-loading button--color-danger"
-          :disabled="enabling"
+          <Input
+            label="Current password"
+            type="password"
+            placeholder="Enter your current password"
+            :value="oldPassword"
+            autocomplete="currency-password"
+            @input="val => (oldPassword = val)"
+          />
+          <Input
+            label="New password"
+            type="password"
+            placeholder="Enter a new password"
+            :value="newPassword"
+            autocomplete="new-password"
+            @input="val => (newPassword = val)"
+          />
+          <button class="button">Change password</button>
+        </form>
+        <h2>Two-factor authentication</h2>
+        <p>
+          Adding a second factor increases security while logging in to your
+          account and doing sensitive operations. 2FA is currently
+          <strong>{{
+            user && user.twoFactorEnabled ? "enabled" : "disabled"
+          }}</strong
+          >.
+        </p>
+        <form
+          v-if="user && !user.twoFactorEnabled"
+          v-meta-ctrl-enter="enable2FA"
+          @submit.prevent="enable2FA"
         >
-          <span>Disable 2FA</span>
-          <font-awesome-icon
-            v-if="enabling"
-            class="icon icon--ml-2"
-            icon="sync"
-            spin
-          />
-        </button>
-      </form>
-    </div>
-    <transition name="modal">
-      <Modal v-if="showOTP" :on-close="() => (showOTP = false)">
-        <h2>Enable two-factor authentication</h2>
-        <p>To enable 2FA, scan this QR code in your Authenticator app.</p>
-        <div class="text text--align-center">
-          <img class="qr-code" alt="QR code" :src="qrCode" />
-        </div>
-        <form v-meta-ctrl-enter="verify2FA" @submit.prevent="verify2FA">
-          <Input
-            :value="verificationCode"
-            type="number"
-            autocomplete="one-time-code"
-            label="One-time Password"
-            placeholder="Enter the one-time password"
-            required
-            @input="val => (verificationCode = val)"
-          />
-          <button class="button button--color-primary">
+          <button class="button button--type-loading" :disabled="enabling">
             <span>Enable 2FA</span>
+            <font-awesome-icon
+              v-if="enabling"
+              class="icon icon--ml-2"
+              icon="sync"
+              spin
+            />
           </button>
         </form>
-      </Modal>
-    </transition>
-    <transition name="modal">
-      <Modal
-        v-if="showBackupCodes"
-        :on-close="() => (showBackupCodes = false)"
-        :disable-background-close="true"
-        close-text="I've copied these backup codes somewhere safe"
-      >
-        <h2>Backup codes</h2>
-        <p>
-          You can use these backup codes in case you don't have access to your
-          authenticator device or app. You can only use each code ones. Make
-          sure you keep them safe.
-        </p>
-        <ul v-if="backupCodes" class="codes">
-          <li v-for="(code, i) in backupCodes" :key="`k${code.code}${i}`">
-            <code>{{ code.code }}</code>
-          </li>
-        </ul>
-      </Modal>
-    </transition>
-    <transition name="modal">
-      <Confirm v-if="showDisable" :on-close="() => (showDisable = false)">
-        <h2>Are you sure you want to disable 2FA?</h2>
-        <p>
-          Disabling two-factor authentication means your account will be less
-          secure.
-        </p>
-        <form v-meta-ctrl-enter="disable2FA" @submit.prevent="disable2FA">
-          <Input
-            :value="disableText"
-            label='To confirm, enter "disable 2FA" below'
-            placeholder="Write those exact words"
-            required
-            @input="val => (disableText = val)"
-          />
-          <button class="button button--color-danger button--state-cta">
-            Yes, disable 2FA
-          </button>
-          <button type="button" class="button" @click="showDisable = false">
-            No, don't disable
+        <form
+          v-else
+          v-meta-ctrl-enter="() => (showDisable = true)"
+          @submit.prevent="() => (showDisable = true)"
+        >
+          <button
+            class="button button--type-loading button--color-danger"
+            :disabled="enabling"
+          >
+            <span>Disable 2FA</span>
+            <font-awesome-icon
+              v-if="enabling"
+              class="icon icon--ml-2"
+              icon="sync"
+              spin
+            />
           </button>
         </form>
-      </Confirm>
-    </transition>
-  </main>
+      </div>
+      <transition name="modal">
+        <Modal v-if="showOTP" :on-close="() => (showOTP = false)">
+          <h2>Enable two-factor authentication</h2>
+          <p>To enable 2FA, scan this QR code in your Authenticator app.</p>
+          <div class="text text--align-center">
+            <img class="qr-code" alt="QR code" :src="qrCode" />
+          </div>
+          <form v-meta-ctrl-enter="verify2FA" @submit.prevent="verify2FA">
+            <Input
+              :value="verificationCode"
+              type="number"
+              autocomplete="one-time-code"
+              label="One-time Password"
+              placeholder="Enter the one-time password"
+              required
+              @input="val => (verificationCode = val)"
+            />
+            <button class="button button--color-primary">
+              <span>Enable 2FA</span>
+            </button>
+          </form>
+        </Modal>
+      </transition>
+      <transition name="modal">
+        <Modal
+          v-if="showBackupCodes"
+          :on-close="() => (showBackupCodes = false)"
+          :disable-background-close="true"
+          close-text="I've copied these backup codes somewhere safe"
+        >
+          <h2>Backup codes</h2>
+          <p>
+            You can use these backup codes in case you don't have access to your
+            authenticator device or app. You can only use each code ones. Make
+            sure you keep them safe.
+          </p>
+          <ul v-if="backupCodes" class="codes">
+            <li v-for="(code, i) in backupCodes" :key="`k${code.code}${i}`">
+              <code>{{ code.code }}</code>
+            </li>
+          </ul>
+        </Modal>
+      </transition>
+      <transition name="modal">
+        <Confirm v-if="showDisable" :on-close="() => (showDisable = false)">
+          <h2>Are you sure you want to disable 2FA?</h2>
+          <p>
+            Disabling two-factor authentication means your account will be less
+            secure.
+          </p>
+          <form v-meta-ctrl-enter="disable2FA" @submit.prevent="disable2FA">
+            <Input
+              :value="disableText"
+              label='To confirm, enter "disable 2FA" below'
+              placeholder="Write those exact words"
+              required
+              @input="val => (disableText = val)"
+            />
+            <button class="button button--color-danger button--state-cta">
+              Yes, disable 2FA
+            </button>
+            <button type="button" class="button" @click="showDisable = false">
+              No, don't disable
+            </button>
+          </form>
+        </Confirm>
+      </transition>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -158,6 +163,7 @@ import {
   faEnvelopeOpen
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/components/Modal.vue";
+import AccountSidebar from "@/components/sidebars/Account.vue";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -183,6 +189,7 @@ library.add(
     Confirm,
     TimeAgo,
     Input,
+    AccountSidebar,
     FontAwesomeIcon,
     Select,
     LargeMessage,

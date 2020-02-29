@@ -1,91 +1,57 @@
 <template>
-  <div
-    :key="`users_${$route.params.slug}`"
-    class="container container--type-settings"
-  >
-    <aside>
-      <nav>
-        <nuxt-link class="item" :to="`/users/${$route.params.slug}/profile`">
-          <font-awesome-icon class="nav-icon" icon="user" fixed-width />
-          <span>Profile</span>
-        </nuxt-link>
-        <nuxt-link
-          class="item item--type-parent"
-          :to="`/users/${$route.params.slug}/login/emails`"
-        >
-          <font-awesome-icon class="nav-icon" icon="key" fixed-width />
-          <span>Login</span>
-        </nuxt-link>
-        <nav v-if="$route.path.includes('/login/')" class="sub-nav">
-          <nuxt-link
-            class="sub-item"
-            :to="`/users/${$route.params.slug}/login/emails`"
-          >
-            <span>Emails</span>
+  <div :key="`manage_${$route.params.slug}`">
+    <div class="subnav">
+      <div class="container">
+        <nav>
+          <nuxt-link :to="`/users/${$route.params.slug}/account/profile`">
+            Settings
+          </nuxt-link>
+          <nuxt-link :to="`/users/${$route.params.slug}/teams`">
+            Teams
           </nuxt-link>
           <nuxt-link
-            class="sub-item"
-            :to="`/users/${$route.params.slug}/login/passwords`"
+            :to="`/users/${$route.params.slug}/developer/access-tokens`"
           >
-            <span>Passwords &amp; 2FA</span>
+            Developer
           </nuxt-link>
-          <nuxt-link
-            class="sub-item"
-            :to="`/users/${$route.params.slug}/login/identities`"
-          >
-            <span>Connected accounts</span>
-          </nuxt-link>
-          <nuxt-link
-            class="sub-item"
-            :to="`/users/${$route.params.slug}/login/sessions`"
-          >
-            <span>Sessions</span>
+          <nuxt-link :to="`/users/${$route.params.slug}/settings/general`">
+            Team settings
           </nuxt-link>
         </nav>
-        <nuxt-link
-          class="item"
-          :to="`/users/${$route.params.slug}/memberships`"
-        >
-          <font-awesome-icon class="nav-icon" icon="building" fixed-width />
-          <span>Your teams</span>
-        </nuxt-link>
-        <nuxt-link
-          class="item"
-          :to="`/users/${$route.params.slug}/access-tokens`"
-        >
-          <font-awesome-icon class="nav-icon" icon="code" fixed-width />
-          <span>Access tokens</span>
-        </nuxt-link>
-        <nuxt-link class="item" :to="`/users/${$route.params.slug}/data`">
-          <font-awesome-icon class="nav-icon" icon="database" fixed-width />
-          <span>Data &amp; privacy</span>
-        </nuxt-link>
-      </nav>
-    </aside>
-    <div class="card">
-      <slot />
+      </div>
     </div>
+    <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faKey,
   faDatabase,
-  faBuilding,
+  faUsers,
+  faCog,
+  faBoxOpen,
   faUser,
+  faMoneyBillWave,
   faCode
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faKey, faDatabase, faBuilding, faUser, faCode);
+library.add(
+  faDatabase,
+  faUsers,
+  faCog,
+  faBoxOpen,
+  faUser,
+  faCode,
+  faMoneyBillWave
+);
 
 @Component({
   components: {
     FontAwesomeIcon
   }
 })
-export default class Settings extends Vue {}
+export default class UsersLayout extends Vue {}
 </script>
