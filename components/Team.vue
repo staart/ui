@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="`/team/${team.username || team.id}/settings/general`"
+    :to="`/teams/${team.username || team.id}/settings/general`"
     class="team"
   >
     <div

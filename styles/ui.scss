@@ -609,7 +609,7 @@ code {
     &:first-child {
       margin-left: -1rem;
     }
-    &.nuxt-link-exact-active {
+    &.nuxt-link-active {
       font-weight: bold;
       color: #fff;
     }
@@ -633,7 +633,7 @@ aside nav {
     padding: 0.56rem 1rem;
     position: relative;
     color: inherit;
-    &.nuxt-link-exact-active {
+    &.nuxt-link-active {
       font-weight: bold;
       // background-color: #fff;
       // box-shadow: -0.5rem 0 1rem 0 rgba(60, 66, 87, 0.075);
