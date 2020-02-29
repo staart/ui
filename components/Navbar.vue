@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex">
         <nuxt-link class="item item--type-logo" to="/">
-          <img alt="" src="/android-chrome-72x72.png" />
+          <img alt src="/android-chrome-72x72.png" />
           <span>Staart</span>
         </nuxt-link>
         <div
@@ -49,16 +49,15 @@
                         `/teams/${membership.organization.username}`
                       )
                     "
+                    >{{ (membership.organization || {}).name }}</nuxt-link
                   >
-                    {{ (membership.organization || {}).name }}
-                  </nuxt-link>
                 </span>
+                <hr />
                 <nuxt-link
-                  class="item"
+                  class="item item-action"
                   :to="`/users/${user.username || user.id}/teams`"
+                  >Create a new team</nuxt-link
                 >
-                  Create a new team
-                </nuxt-link>
               </div>
             </div>
           </transition>
@@ -101,7 +100,7 @@
               <button class="item" @click="feedback">Feedback</button>
               <!-- <nuxt-link class="item" to="/settings/account"
                 >Help Center</nuxt-link
-              > -->
+              >-->
               <button class="item" onclick="window.agastya.open()">
                 Accessibility
               </button>
@@ -136,7 +135,7 @@
             aria-controls="account"
             :aria-expanded="(visible === 'account').toString()"
           >
-            <img alt="" :src="user.profilePicture" />
+            <img alt :src="user.profilePicture" />
             {{ user.nickname }}
           </button>
           <transition name="dropdown-fade">
@@ -149,23 +148,21 @@
               <nuxt-link
                 class="item"
                 :to="`/users/${user.username || user.id}/account/profile`"
+                >Profile</nuxt-link
               >
-                Profile
-              </nuxt-link>
               <nuxt-link
                 class="item"
                 :to="`/users/${user.username || user.id}/teams`"
+                >Teams</nuxt-link
               >
-                Teams
-              </nuxt-link>
               <nuxt-link
                 class="item"
                 :to="
                   `/users/${user.username || user.id}/developer/access-tokens`
                 "
+                >Developer</nuxt-link
               >
-                Developer
-              </nuxt-link>
+              <hr />
               <button class="item" @click="logout">Logout</button>
             </div>
           </transition>
@@ -392,6 +389,10 @@ export default class Card extends Vue {
     transform: translateY(-0.05rem);
     display: inline-block;
   }
+}
+
+hr {
+  opacity: 0.25;
 }
 
 @media (max-width: 500px) {
