@@ -1,8 +1,5 @@
 <template>
   <div class="container container--type-settings">
-    <aside>
-      <AccountSidebar />
-    </aside>
     <main class="card">
       <Loading v-if="loading" :message="loading" />
       <div v-else>
@@ -156,7 +153,6 @@ import Confirm from "@/components/Confirm.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import CheckList from "@/components/form/CheckList.vue";
-import AccountSidebar from "@/components/sidebars/Account.vue";
 import Input from "@/components/form/Input.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
 import Select from "@/components/form/Select.vue";
@@ -172,7 +168,6 @@ library.add(faArrowDown, faSync, faTrash, faEye);
     Confirm,
     CheckList,
     TimeAgo,
-    AccountSidebar,
     Input,
     FontAwesomeIcon,
     Select,

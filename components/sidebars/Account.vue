@@ -1,18 +1,18 @@
 <template>
   <nav>
-    <nuxt-link :to="`/users/${$route.params.team}/account/profile`">
+    <nuxt-link :to="`/users/${route.params.team}/account/profile`">
       Profile
     </nuxt-link>
-    <nuxt-link :to="`/users/${$route.params.team}/account/emails`">
+    <nuxt-link :to="`/users/${route.params.team}/account/emails`">
       Emails
     </nuxt-link>
-    <nuxt-link :to="`/users/${$route.params.team}/account/password`">
+    <nuxt-link :to="`/users/${route.params.team}/account/password`">
       Password
     </nuxt-link>
-    <nuxt-link :to="`/users/${$route.params.team}/account/identities`">
+    <nuxt-link :to="`/users/${route.params.team}/account/identities`">
       Identities
     </nuxt-link>
-    <nuxt-link :to="`/users/${$route.params.team}/account/sessions`">
+    <nuxt-link :to="`/users/${route.params.team}/account/sessions`">
       Sessions
     </nuxt-link>
   </nav>

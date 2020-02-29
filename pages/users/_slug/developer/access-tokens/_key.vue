@@ -1,8 +1,5 @@
 <template>
   <div class="container container--type-settings">
-    <aside>
-      <AccountSidebar />
-    </aside>
     <main class="card">
       <Loading v-if="loading" :message="loading" />
       <div v-else>
@@ -133,7 +130,6 @@ import {
 import copy from "copy-to-clipboard";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
-import AccountSidebar from "@/components/sidebars/Account.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
 import Input from "@/components/form/Input.vue";
@@ -162,7 +158,6 @@ library.add(
     Loading,
     Confirm,
     Input,
-    AccountSidebar,
     TimeAgo,
     CommaList,
     FontAwesomeIcon,
