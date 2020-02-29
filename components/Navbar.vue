@@ -55,7 +55,7 @@
                 </span>
                 <nuxt-link
                   class="item"
-                  :to="`/users/${user.username || user.id}/memberships`"
+                  :to="`/users/${user.username || user.id}/teams`"
                 >
                   Create a new team
                 </nuxt-link>
@@ -99,9 +99,9 @@
               class="dropdown"
             >
               <button class="item" @click="feedback">Feedback</button>
-              <nuxt-link class="item" to="/settings/account"
+              <!-- <nuxt-link class="item" to="/settings/account"
                 >Help Center</nuxt-link
-              >
+              > -->
               <button class="item" onclick="window.agastya.open()">
                 Accessibility
               </button>
