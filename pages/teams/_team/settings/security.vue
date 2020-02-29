@@ -183,13 +183,14 @@ export default class ManageSettings extends Vue {
   }
 
   private deleteOrganization() {
+    const user = this.$store.state.auth.user;
     if (this.deleteText !== "delete team") return;
     this.showDelete = false;
     this.loading = "Deleting your team";
     this.$store
       .dispatch("manage/deleteOrganization", { team: this.$route.params.team })
       .then(() => {
-        this.$router.push("/settings/organizations");
+        this.$router.push(`/users/${user.username}/teams`);
       })
       .catch(error => {
         throw new Error(error);

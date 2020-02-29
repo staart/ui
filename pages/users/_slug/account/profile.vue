@@ -126,7 +126,7 @@ import Select from "@/components/form/Select.vue";
 import AccountSidebar from "@/components/sidebars/Account.vue";
 import ImageInput from "@/components/form/Image.vue";
 import Checkbox from "@/components/form/Checkbox.vue";
-import { UsersKV, User, emptyUser } from "@/types/users";
+import { User, emptyUser } from "@/types/users";
 import en from "@/locales/en";
 const genders = en.genders;
 library.add(faSync);
