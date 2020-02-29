@@ -106,7 +106,8 @@
         </div>
         <h2>Create another team</h2>
         <p>
-          To invite your team to Staart, get started by creating a new team.
+          To invite your team to StartupName, get started by creating a new
+          team.
         </p>
         <form @submit.prevent="createNewTeam">
           <Input

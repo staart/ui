@@ -6,14 +6,14 @@ const config: Configuration = {
     dir: "public"
   },
   head: {
-    title: "Staart UI",
+    title: "StartupName",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: "Frontend admin UI for Staart"
+        content: "StartupName"
       }
     ],
     link: [

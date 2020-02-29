@@ -17,7 +17,7 @@
       </form>
       <h2>Delete account</h2>
       <p>
-        You can delete your Staart account. Note that this action is not
+        You can delete your StartupName account. Note that this action is not
         reversible, and all your data will be permanently lost. If you ever
         change your mind, you'll have to create a new account.
       </p>

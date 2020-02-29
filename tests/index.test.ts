@@ -17,7 +17,7 @@ test("index.html is created", () => {
 test("index.html has a title", () => {
   readFileSync(join(publicDir, "index.html"))
     .toString()
-    .includes("<title>Staart UI");
+    .includes("<title>StartupName");
 });
 
 test("pwa is build", () => {

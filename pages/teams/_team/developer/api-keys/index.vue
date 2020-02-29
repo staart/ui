@@ -130,7 +130,7 @@
         <div class="text text--mt-2">
           <h2>Create API key</h2>
           <p>
-            You can use API keys to programmatically access Staart in your
+            You can use API keys to programmatically access StartupName in your
             applications.
           </p>
           <form @submit.prevent="createApiKey">

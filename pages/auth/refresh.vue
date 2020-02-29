@@ -5,7 +5,7 @@
     <LargeMessage
       img="undraw_loading_frh4.svg"
       heading="Just a moment"
-      text="It's been a while since you used Staart, so we're refreshing data for you"
+      text="It's been a while since you used StartupName, so we're refreshing data for you"
     />
   </main>
 </template>
