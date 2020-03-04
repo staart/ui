@@ -43,6 +43,11 @@ export default function({
           );
           if (decode(token).exp * 1000 < new Date().getTime()) {
             $axios.setHeader("Authorization", undefined);
+            if (
+              !store.state.auth.tokens.token ||
+              !store.state.auth.tokens.refresh
+            )
+              return resolve(config);
             store
               .dispatch("auth/refresh")
               .then((newToken: string) => {
@@ -51,9 +56,7 @@ export default function({
                   Authorization: `Bearer ${newToken}`
                 };
               })
-              .catch((error: any) => {
-                throw new Error(error);
-              })
+              .catch(() => store.dispatch("auth/logout"))
               .then(() => resolve(config));
           } else {
             resolve(config);
@@ -72,12 +75,12 @@ export default function({
           type: "notification notification--color-success"
         });
       } else if (response.data.message) {
-          Vue.notify({
-            group: "auth",
-            text: messages[response.data.message] || messages.success,
-            type: "notification notification--color-success"
-          });
-        } else {
+        Vue.notify({
+          group: "auth",
+          text: messages[response.data.message] || messages.success,
+          type: "notification notification--color-success"
+        });
+      } else {
         Vue.notify({
           group: "auth",
           text: messages.success,
