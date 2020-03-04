@@ -13,12 +13,7 @@
             class="button button--type-icon"
             @click="load"
           >
-            <font-awesome-icon
-              title="Refresh"
-              class="icon"
-              icon="sync"
-              fixed-width
-            />
+            <font-awesome-icon title="Refresh" class="icon" icon="sync" fixed-width />
           </button>
         </div>
       </div>
@@ -28,7 +23,7 @@
           <div
             class="profile-picture column column--type-shrink text text--align-center text--mr-2 text--mb-1"
           >
-            <img alt="" :src="user.profilePicture" />
+            <img alt :src="user.profilePicture" />
             <a href="https://gravatar.com" target="_blank">Gravatar</a>
           </div>
           <div>
@@ -101,9 +96,7 @@
           label="I prefer a dark color scheme"
           @input="val => (user.prefersColorSchemeDark = val)"
         />
-        <button class="button">
-          Update profile
-        </button>
+        <button class="button">Update profile</button>
       </form>
     </main>
   </div>
@@ -188,7 +181,7 @@ export default class ManageSettings extends Vue {
       })
       .then(user => {
         this.user = { ...user };
-        this.$router.replace(`/users/${this.user.username}/profile`);
+        this.$router.replace(`/users/${this.user.username}/account/profile`);
       })
       .catch(() => {})
       .finally(() => (this.loading = ""));
