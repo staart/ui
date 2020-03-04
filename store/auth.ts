@@ -157,8 +157,8 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   logout({ commit }) {
     commit("removeAuthentication");
-    commit("settings/clearAll", undefined, { root: true });
     commit("manage/clearAll", undefined, { root: true });
+    commit("users/clearAll", undefined, { root: true });
     if (process.client) {
       document.documentElement.classList.remove("prefers-reduced-motion");
       document.documentElement.classList.remove("prefers-color-scheme-dark");
