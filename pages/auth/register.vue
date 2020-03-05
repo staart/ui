@@ -35,13 +35,27 @@
           label="Password"
           placeholder="Enter a secure password"
           autocomplete="new-password"
-          help="Tip: Use a strong password generator"
+        />
+        <Input
+          v-if="showInviteCode"
+          v-model="invitedByUser"
+          type="text"
+          label="Invitation code"
+          placeholder="Enter an optional invite code"
+          help="If you have an invite code, enter that here"
         />
         <button
           class="button button--width-full button--size-large"
           type="submit"
         >
           Register for an account
+        </button>
+        <button
+          type="button"
+          class="button button--size-small button--width-full button--color-none"
+          @click="showInviteCode = !showInviteCode"
+        >
+          I have an invite code
         </button>
       </form>
     </Card>
@@ -75,7 +89,9 @@ export default class Login extends Vue {
   name = "";
   email = "";
   password = "";
+  invitedByUser = "";
   isAuthenticated!: boolean;
+  showInviteCode = false;
   isLoading = false;
   completedRegistration = false;
   private register() {
@@ -84,7 +100,8 @@ export default class Login extends Vue {
       .dispatch("auth/register", {
         email: this.email,
         name: this.name,
-        password: this.password
+        password: this.password,
+        invitedByUser: this.invitedByUser
       })
       .then(() => {
         this.completedRegistration = true;
@@ -96,6 +113,7 @@ export default class Login extends Vue {
         this.name = "";
         this.email = "";
         this.password = "";
+        this.invitedByUser = "";
         this.isLoading = false;
       });
   }
@@ -105,3 +123,9 @@ export default class Login extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.button--size-large + .button--size-small {
+  margin-top: 1rem;
+}
+</style>

@@ -13,7 +13,12 @@
             class="button button--type-icon"
             @click="load"
           >
-            <font-awesome-icon title="Refresh" class="icon" icon="sync" fixed-width />
+            <font-awesome-icon
+              title="Refresh"
+              class="icon"
+              icon="sync"
+              fixed-width
+            />
           </button>
         </div>
       </div>

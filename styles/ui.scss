@@ -205,6 +205,24 @@ code {
     color: $color-white !important;
   }
 }
+.button.button--color-none {
+  background: none !important;
+  color: inherit !important;
+  box-shadow: none;
+  &:hover,
+  &.button--state-hover {
+    color: $color-primary !important;
+  }
+  &:focus,
+  &:active,
+  &.button--state-focus,
+  &.button--state-active {
+    box-shadow: rgba($color-primary, 0.46) 0px 0px 0px 1px,
+      rgba($color-primary, 0.42) 0px 1px 1px 0px,
+      rgba($color-primary, 0.42) 0px 2px 5px 0px,
+      0 0 0 3px rgba($color-primary, 0.25);
+  }
+}
 .button.button--color-success {
   background: rgba($color-green, 0.01) !important;
   color: $color-green !important;
