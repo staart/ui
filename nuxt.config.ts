@@ -93,7 +93,7 @@ const config: Configuration = {
   axios: {
     baseURL:
       process.env.NODE_ENV === "production"
-        ? "https://staart.prod.oswaldlabs.com/v1"
+        ? "https://staart.dev.oswaldlabs.com/v1"
         : "http://localhost:7007/v1"
   },
   scrollBehavior() {
