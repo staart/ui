@@ -125,6 +125,7 @@ import Input from "@/components/form/Input.vue";
 import Loading from "@/components/Loading.vue";
 import Modal from "@/components/Modal.vue";
 import Card from "@/components/Card.vue";
+import { User } from "../../types/auth";
 library.add(
   faGoogle,
   faSalesforce,
@@ -152,6 +153,7 @@ interface IWindow extends Window {
   },
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
+    user: "auth/user",
     isLoading: "auth/isLoading"
   })
 })
@@ -159,6 +161,7 @@ export default class Login extends Vue {
   email = "";
   password = "";
   isAuthenticated!: boolean;
+  user!: User;
   showMore = false;
   redirect: string | undefined = "";
   private login() {
@@ -173,7 +176,11 @@ export default class Login extends Vue {
         } else {
         }
       })
-      .then(() => this.$store.dispatch("users/getMemberships", { slug: "me" }))
+      .then(() =>
+        this.$store.dispatch("users/getMemberships", {
+          slug: this.user.username || this.user.id
+        })
+      )
       .then(memberships => {
         if (
           memberships?.data.length &&
@@ -182,6 +189,8 @@ export default class Login extends Vue {
           return this.$router.replace(
             `/teams/${memberships.data[0].organization.username}/products`
           );
+        if (!memberships?.data.length)
+          return this.$router.replace("/onboarding/organization");
         return this.$router.replace("/");
       })
       .catch(error => {
