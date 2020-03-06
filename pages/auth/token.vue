@@ -88,7 +88,7 @@ export default class Token extends Vue {
           subject === "approve-location" &&
           this.$store.state.auth.isAuthenticated
         ) {
-          this.$router.replace("/dashboard");
+          this.$router.replace("/");
         } else if (subject === "password-reset") {
           this.$router.replace(`/auth/recover?token=${token}`);
         } else if (subject === "auth") {
@@ -98,7 +98,7 @@ export default class Token extends Vue {
               if (response === "2fa") {
                 this.$router.push("/auth/2fa");
               } else {
-                this.$router.push("/dashboard");
+                this.$router.push("/");
               }
             });
         }

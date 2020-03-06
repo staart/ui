@@ -204,8 +204,7 @@ export default class Login extends Vue {
 
   private created() {
     this.redirect = this.$route.query.redirect as string | undefined;
-    if (this.isAuthenticated)
-      return this.$router.replace(this.redirect || "/dashboard");
+    if (this.isAuthenticated) return this.$router.replace(this.redirect || "/");
   }
 
   private async oauthLogin(service: string) {

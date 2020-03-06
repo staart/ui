@@ -49,7 +49,7 @@ export default class Token extends Vue {
           this.$router.push("/auth/2fa");
         }
         if (this.$store.state.auth.isAuthenticated) {
-          this.$router.replace("/dashboard");
+          this.$router.replace("/");
         }
       })
       .catch(error => {

@@ -41,8 +41,7 @@ export default class Token extends Vue {
   redirect: string | undefined = "";
   private created() {
     this.redirect = this.$route.query.redirect as string | undefined;
-    if (this.isAuthenticated)
-      return this.$router.replace(this.redirect || "/dashboard");
+    if (this.isAuthenticated) return this.$router.replace(this.redirect || "/");
   }
 
   private mounted() {
@@ -52,7 +51,7 @@ export default class Token extends Vue {
         if (response === "2fa") {
           this.$router.push("/auth/2fa");
         } else {
-          this.$router.push(this.redirect || "/dashboard");
+          this.$router.push(this.redirect || "/");
         }
       })
       .catch(error => {
