@@ -81,11 +81,24 @@ export default class OnboardingTeam extends Vue {
     this.teamName = this.teamName || `${this.user.nickname}'s team`;
     this.loading = true;
     this.$store
-      .dispatch("settings/createOrganization", {
-        name: this.teamName
+      .dispatch("users/createOrganization", {
+        name: this.teamName,
+        slug: this.user.username || this.user.id
       })
-      .then(() => {
-        this.$router.push("/dashboard");
+      .then(() =>
+        this.$store.dispatch("users/getMemberships", {
+          slug: this.user.username || this.user.id
+        })
+      )
+      .then(memberships => {
+        if (
+          memberships?.data.length &&
+          memberships?.data[0]?.organization?.username
+        )
+          return this.$router.replace(
+            `/teams/${memberships.data[0].organization.username}/products`
+          );
+        return this.$router.replace("/");
       })
       .catch(() => {})
       .finally(() => (this.loading = false));
