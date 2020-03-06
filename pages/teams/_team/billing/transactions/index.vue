@@ -38,7 +38,7 @@
           "
           heading="No transactions yet"
           img="undraw_credit_card_payment_yb88.svg"
-          text="Add your credit card below for automatic payments."
+          text="This page will be updated when we have some transactions."
         />
         <div
           v-else-if="
@@ -48,15 +48,40 @@
           <table class="table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Details</th>
+                <th>Balance</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr
-                v-for="(source, index) in transactions.data"
-                :key="`${source.id}_${index}`"
+                v-for="(transaction, index) in transactions.data"
+                :key="`${transaction.id}_${index}`"
               >
-                <td>{{ source.id }}</td>
+                <td><TimeAgo :date="transaction.created * 1000" /></td>
+                <td>
+                  {{ (transaction.currency || "eur").toUpperCase() }}
+                  {{ transaction.amount | currency }}
+                </td>
+                <td>{{ transaction.description }}</td>
+                <td>
+                  {{ (transaction.currency || "eur").toUpperCase() }}
+                  {{ transaction.ending_balance | currency }}
+                </td>
+                <td class="text text--align-right">
+                  <router-link
+                    :to="
+                      `/teams/${$route.params.team}/billing/transactions/${transaction.id}`
+                    "
+                    aria-label="View"
+                    data-balloon-pos="up"
+                    class="button button--type-icon"
+                  >
+                    <font-awesome-icon class="icon" icon="eye" fixed-width />
+                  </router-link>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -88,8 +113,8 @@
         <form @submit.prevent="availCredits">
           <Input
             :value="couponCode"
-            label="Name"
-            placeholder="Enter your name on card"
+            label="Coupon code"
+            placeholder="Copy and paste the coupon code"
             @input="val => (couponCode = val)"
           />
           <button class="button">Add credits</button>
@@ -106,7 +131,7 @@ import { getAllCountries } from "countries-and-timezones";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faPencilAlt,
+  faEye,
   faArrowDown,
   faSync,
   faCloudDownloadAlt,
@@ -123,7 +148,7 @@ import Select from "@/components/form/Select.vue";
 import { User } from "@/types/auth";
 import { Transactions, emptyPagination } from "@/types/manage";
 import en from "@/locales/en";
-library.add(faPencilAlt, faCloudDownloadAlt, faArrowDown, faSync, faTrash);
+library.add(faEye, faCloudDownloadAlt, faArrowDown, faSync, faTrash);
 const months = en.months;
 
 @Component({
@@ -190,9 +215,9 @@ export default class ManageSettings extends Vue {
   }
 
   private availCredits() {
-    this.loading = "Adding your credit card";
+    this.loading = "Adding your credits";
     this.$store
-      .dispatch("manage/createSource", {
+      .dispatch("manage/availCredits", {
         team: this.$route.params.team,
         couponCode: this.couponCode
       })
