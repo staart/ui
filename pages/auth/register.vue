@@ -101,7 +101,7 @@ export default class Login extends Vue {
         email: this.email,
         name: this.name,
         password: this.password,
-        invitedByUser: this.invitedByUser
+        invitedByUser: this.invitedByUser ? this.invitedByUser : undefined
       })
       .then(() => {
         this.completedRegistration = true;
