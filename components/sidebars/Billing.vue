@@ -12,6 +12,9 @@
     <nuxt-link :to="`/teams/${$route.params.team}/billing/invoices`">
       Invoices
     </nuxt-link>
+    <nuxt-link :to="`/teams/${$route.params.team}/billing/transactions`">
+      Credits &amp; History
+    </nuxt-link>
   </nav>
 </template>
 

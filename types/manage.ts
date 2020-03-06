@@ -1,4 +1,9 @@
-import { subscriptions, invoices, sources } from "stripe";
+import {
+  subscriptions,
+  invoices,
+  sources,
+  customerBalanceTransactions
+} from "stripe";
 import { IdRow, Row, Paginated } from "./root";
 
 export interface Organization extends IdRow {
@@ -45,6 +50,9 @@ export interface Invoices extends Paginated {
 export interface Sources extends Paginated {
   data: sources.ISource[];
 }
+export interface Transactions extends Paginated {
+  data: customerBalanceTransactions.ICustomerBalanceTransaction[];
+}
 export interface ApiKeys extends Paginated {
   data: ApiKey[];
 }
@@ -87,6 +95,9 @@ export interface InvoicesKV {
 export interface SourcesKV {
   [index: string]: Sources;
 }
+export interface TransactionsKV {
+  [index: string]: Transactions;
+}
 export interface ApiKeysKV {
   [index: string]: ApiKeys;
 }
@@ -110,6 +121,11 @@ export interface SingleInvoiceKV {
 export interface SingleSourceKV {
   [index: string]: {
     [index: string]: sources.ISource;
+  };
+}
+export interface SingleTransactionKV {
+  [index: string]: {
+    [index: string]: customerBalanceTransactions.ICustomerBalanceTransaction;
   };
 }
 export interface SingleApiKeyKV {
@@ -148,6 +164,8 @@ export interface RootState {
   invoice: SingleInvoiceKV;
   sources: SourcesKV;
   source: SingleSourceKV;
+  transactions: TransactionsKV;
+  transaction: SingleTransactionKV;
   apiKeys: ApiKeysKV;
   apiKey: SingleApiKeyKV;
   apiKeyLogs: SingleApiKeyLogsKV;
