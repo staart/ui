@@ -37,7 +37,7 @@
     "date-fns": "^2.4.1",
     "downloadjs": "^1.4.7",
     "flat": "^5.0.0",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "has-yarn": "^2.1.0",
     "hashids": "^2.0.1",
     "jwt-decode": "^2.2.0",
