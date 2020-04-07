@@ -39,6 +39,7 @@
     "jwt-decode": "^2.2.0",
     "meta-ctrl-enter": "^1.0.2",
     "nuxt": "^2.9.2",
+    "nuxt-buefy": "^0.3.26",
     "shelljs": "^0.8.3",
     "snyk": "^1.232.0",
     "ua-parser-js": "^0.7.20",

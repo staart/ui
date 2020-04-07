@@ -81,6 +81,7 @@ const config: Configuration = {
     "@nuxtjs/markdownit",
     "@nuxtjs/sitemap",
     "@bazzite/nuxt-netlify",
+    "nuxt-buefy",
     [
       "@nuxtjs/google-analytics",
       {
