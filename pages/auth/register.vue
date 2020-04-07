@@ -79,11 +79,11 @@ import Input from "@/components/form/Input.vue";
     Card,
     LargeMessage,
     Loading,
-    Input
+    Input,
   },
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
-  })
+    isAuthenticated: "auth/isAuthenticated",
+  }),
 })
 export default class Login extends Vue {
   name = "";
@@ -101,12 +101,12 @@ export default class Login extends Vue {
         email: this.email,
         name: this.name,
         password: this.password,
-        invitedByUser: this.invitedByUser ? this.invitedByUser : undefined
+        invitedByUser: this.invitedByUser ? this.invitedByUser : undefined,
       })
       .then(() => {
         this.completedRegistration = true;
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => {

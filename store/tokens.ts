@@ -20,5 +20,5 @@ export const actions: ActionTree<RootState, RootState> = {
       commit("auth/setAuthentication", data, { root: true });
     }
     return data;
-  }
+  },
 };

@@ -42,7 +42,7 @@
               label='To confirm, enter "delete my account" below'
               placeholder="Write those exact words"
               required
-              @input="val => (deleteText = val)"
+              @input="(val) => (deleteText = val)"
             />
             <button class="button button--color-danger button--state-cta">
               Yes, delete my account
@@ -69,9 +69,9 @@ import AccountSidebar from "@/components/sidebars/Account.vue";
     Loading,
     Confirm,
     AccountSidebar,
-    Input
+    Input,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class AccountSettings extends Vue {
   loading = "";
@@ -99,7 +99,7 @@ export default class AccountSettings extends Vue {
         this.$store.dispatch("auth/logout");
         this.$router.push("/errors/user-deleted");
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .then(() => (this.isDeleting = false));

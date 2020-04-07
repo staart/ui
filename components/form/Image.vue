@@ -33,9 +33,7 @@ export default class ImageInput extends Vue {
   @Prop() placeholder;
   @Prop() help;
   @Prop() autocomplete;
-  labelId = Math.random()
-    .toString(36)
-    .substring(7);
+  labelId = Math.random().toString(36).substring(7);
 }
 </script>
 

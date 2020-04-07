@@ -39,9 +39,7 @@ export default class Input extends Vue {
   labelId = "";
 
   private created() {
-    this.labelId = Math.random()
-      .toString(36)
-      .substring(7);
+    this.labelId = Math.random().toString(36).substring(7);
   }
 }
 </script>

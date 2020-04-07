@@ -36,8 +36,8 @@ library.add(faQuestionCircle);
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class Checkbox extends Vue {
   @Prop({ default: "text" }) type;
@@ -49,9 +49,7 @@ export default class Checkbox extends Vue {
   @Prop() help;
   @Prop({ default: false }) questionMark;
   @Prop() autocomplete;
-  labelId = Math.random()
-    .toString(36)
-    .substring(7);
+  labelId = Math.random().toString(36).substring(7);
 }
 </script>
 

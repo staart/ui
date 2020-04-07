@@ -82,7 +82,7 @@ export default class HTTPStatus extends Vue {
       525: "SSL Handshake Failed",
       526: "Invalid SSL Certificate",
       527: "Railgun Error",
-      530: "Origin DNS Error"
+      530: "Origin DNS Error",
     };
     this.statusText = `${this.status} ${statuses[parseInt(this.status)]}`;
   }

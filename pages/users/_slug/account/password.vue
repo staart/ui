@@ -21,7 +21,7 @@
             placeholder="Enter your current password"
             :value="oldPassword"
             autocomplete="currency-password"
-            @input="val => (oldPassword = val)"
+            @input="(val) => (oldPassword = val)"
           />
           <Input
             label="New password"
@@ -29,7 +29,7 @@
             placeholder="Enter a new password"
             :value="newPassword"
             autocomplete="new-password"
-            @input="val => (newPassword = val)"
+            @input="(val) => (newPassword = val)"
           />
           <button class="button">Change password</button>
         </form>
@@ -91,7 +91,7 @@
               label="One-time Password"
               placeholder="Enter the one-time password"
               required
-              @input="val => (verificationCode = val)"
+              @input="(val) => (verificationCode = val)"
             />
             <button class="button button--color-primary">
               <span>Enable 2FA</span>
@@ -132,7 +132,7 @@
               label='To confirm, enter "disable 2FA" below'
               placeholder="Write those exact words"
               required
-              @input="val => (disableText = val)"
+              @input="(val) => (disableText = val)"
             />
             <button class="button button--color-danger button--state-cta">
               Yes, disable 2FA
@@ -160,7 +160,7 @@ import {
   faCheckCircle,
   faExclamationCircle,
   faStar,
-  faEnvelopeOpen
+  faEnvelopeOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/components/Modal.vue";
 import AccountSidebar from "@/components/sidebars/Account.vue";
@@ -194,9 +194,9 @@ library.add(
     Select,
     LargeMessage,
     Modal,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   user: User = emptyUser;
@@ -214,7 +214,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.user = {
-      ...this.$store.getters["users/user"](this.$route.params.slug)
+      ...this.$store.getters["users/user"](this.$route.params.slug),
     };
   }
 
@@ -222,7 +222,7 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading security details";
     this.$store
       .dispatch("users/getUser", this.$route.params.slug)
-      .then(user => {
+      .then((user) => {
         this.user = { ...user };
         if (this.user.twoFactorEnabled) {
           return this.$store.dispatch(
@@ -231,7 +231,7 @@ export default class ManageSettings extends Vue {
           );
         }
       })
-      .then(backupCodes => {
+      .then((backupCodes) => {
         if (backupCodes) {
           this.backupCodes = { ...backupCodes };
         }
@@ -250,9 +250,9 @@ export default class ManageSettings extends Vue {
       .dispatch("users/updatePassword", {
         slug: this.$route.params.slug,
         oldPassword: this.oldPassword,
-        newPassword: this.newPassword
+        newPassword: this.newPassword,
       })
-      .then(user => {
+      .then((user) => {
         this.user = { ...user };
       })
       .catch(() => {})
@@ -267,7 +267,7 @@ export default class ManageSettings extends Vue {
     this.enabling = true;
     this.$store
       .dispatch("users/enable2FA", { slug: this.$route.params.slug })
-      .then(response => {
+      .then((response) => {
         this.qrCode = response.qrCode;
         this.showOTP = true;
       })
@@ -283,9 +283,9 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/verify2FA", {
         slug: this.$route.params.slug,
-        code: this.verificationCode
+        code: this.verificationCode,
       })
-      .then(backupCodes => {
+      .then((backupCodes) => {
         this.backupCodes = { ...backupCodes };
         this.showBackupCodes = true;
         this.user.twoFactorEnabled = true;
@@ -302,7 +302,7 @@ export default class ManageSettings extends Vue {
     this.loading = "Regenerating backup codes";
     this.$store
       .dispatch("users/regenerateCodes", { slug: this.$route.params.slug })
-      .then(backupCodes => {
+      .then((backupCodes) => {
         this.backupCodes = { ...backupCodes };
       })
       .catch(() => {})
@@ -317,7 +317,7 @@ export default class ManageSettings extends Vue {
     this.showDisable = false;
     this.$store
       .dispatch("users/disable2FA", { slug: this.$route.params.slug })
-      .then(user => {
+      .then((user) => {
         this.user = { ...user };
       })
       .then(() => this.$store.dispatch("auth/refresh"))

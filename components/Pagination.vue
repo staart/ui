@@ -20,9 +20,9 @@
         page === activePage ? `Current page, page ${page}` : `Page ${page}`
       "
       :aria-current="page === activePage"
-      :class="
-        `button button--type-${page === activePage ? 'active' : 'inactive'}`
-      "
+      :class="`button button--type-${
+        page === activePage ? 'active' : 'inactive'
+      }`"
       @click="() => (activePage = page)"
     >
       <span>{{ page }}</span>
@@ -47,8 +47,8 @@ library.add(faArrowRight, faArrowLeft);
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class Pagination extends Vue {
   @Prop({ default: 0 }) numberOfItems;

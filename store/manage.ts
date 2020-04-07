@@ -23,7 +23,7 @@ export const state = (): RootState => ({
   devWebhook: {},
   apiKeyLogs: {},
   transactions: {},
-  transaction: {}
+  transaction: {},
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -43,7 +43,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentMembers[team].data = [
         ...currentMembers[team].data,
-        ...members.data
+        ...members.data,
       ];
     } else {
       currentMembers[team].data = members.data;
@@ -66,7 +66,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentSubscriptions[team].data = [
         ...currentSubscriptions[team].data,
-        ...subscriptions.data
+        ...subscriptions.data,
       ];
     } else {
       currentSubscriptions[team].data = subscriptions.data;
@@ -90,7 +90,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentInvoices[team].data = [
         ...currentInvoices[team].data,
-        ...invoices.data
+        ...invoices.data,
       ];
     } else {
       currentInvoices[team].data = invoices.data;
@@ -111,7 +111,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentSources[team].data = [
         ...currentSources[team].data,
-        ...sources.data
+        ...sources.data,
       ];
     } else {
       currentSources[team].data = sources.data;
@@ -135,7 +135,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentTransactions[team].data = [
         ...currentTransactions[team].data,
-        ...transactions.data
+        ...transactions.data,
       ];
     } else {
       currentTransactions[team].data = transactions.data;
@@ -156,7 +156,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentApiKeys[team].data = [
         ...currentApiKeys[team].data,
-        ...apiKeys.data
+        ...apiKeys.data,
       ];
     } else {
       currentApiKeys[team].data = apiKeys.data;
@@ -179,7 +179,7 @@ export const mutations: MutationTree<RootState> = {
     if (from) {
       currentApiKeyLogs[team][id].data = [
         ...currentApiKeyLogs[team][id].data,
-        ...apiKeyLogs.data
+        ...apiKeyLogs.data,
       ];
     } else {
       currentApiKeyLogs[team][id] = { ...apiKeyLogs };
@@ -192,7 +192,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentDomains[team].data = [
         ...currentDomains[team].data,
-        ...domains.data
+        ...domains.data,
       ];
     } else {
       currentDomains[team].data = domains.data;
@@ -216,7 +216,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentWebhooks[team].data = [
         ...currentWebhooks[team].data,
-        ...webhooks.data
+        ...webhooks.data,
       ];
     } else {
       currentWebhooks[team].data = webhooks.data;
@@ -260,7 +260,7 @@ export const mutations: MutationTree<RootState> = {
     currentState.transactions = {};
     currentState.transaction = {};
     state = currentState;
-  }
+  },
 };
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -360,7 +360,7 @@ export const actions: ActionTree<RootState, RootState> = {
       team,
       subscriptions,
       start,
-      next: subscriptions.next
+      next: subscriptions.next,
     });
     return subscriptions;
   },
@@ -438,7 +438,7 @@ export const actions: ActionTree<RootState, RootState> = {
       team,
       transactions,
       start,
-      next: transactions.next
+      next: transactions.next,
     });
     return transactions;
   },
@@ -589,40 +589,40 @@ export const actions: ActionTree<RootState, RootState> = {
       await this.$axios.get(`/organizations/${organizationId}/events`)
     ).data;
     commit("setRecentEvents", events);
-  }
+  },
 };
 
 export const getters: GetterTree<RootState, RootState> = {
-  membership: state => state.membership,
-  pricingPlans: state => state.pricingPlans,
-  securityEvents: state => state.recentEvents,
-  isDownloading: state => state.isDownloading,
-  memberships: state => (team: string) => state.memberships[team],
-  loggedInMembership: state => (team: string) =>
+  membership: (state) => state.membership,
+  pricingPlans: (state) => state.pricingPlans,
+  securityEvents: (state) => state.recentEvents,
+  isDownloading: (state) => state.isDownloading,
+  memberships: (state) => (team: string) => state.memberships[team],
+  loggedInMembership: (state) => (team: string) =>
     state.loggedInMembership[team] || 4,
-  billing: state => (team: string) => state.billing[team],
-  subscriptions: state => (team: string) => state.subscriptions[team],
-  subscription: state => (team: string, subscriptionId: string) =>
+  billing: (state) => (team: string) => state.billing[team],
+  subscriptions: (state) => (team: string) => state.subscriptions[team],
+  subscription: (state) => (team: string, subscriptionId: string) =>
     state.subscription[team] && state.subscription[team][subscriptionId],
-  invoices: state => (team: string) => state.invoices[team],
-  invoice: state => (team: string, invoiceId: string) =>
+  invoices: (state) => (team: string) => state.invoices[team],
+  invoice: (state) => (team: string, invoiceId: string) =>
     state.invoice[team] && state.invoice[team][invoiceId],
-  sources: state => (team: string) => state.sources[team],
-  source: state => (team: string, sourceId: string) =>
+  sources: (state) => (team: string) => state.sources[team],
+  source: (state) => (team: string, sourceId: string) =>
     state.source[team] && state.source[team][sourceId],
-  apiKeys: state => (team: string) => state.apiKeys[team],
-  apiKey: state => (team: string, apiKey: string) =>
+  apiKeys: (state) => (team: string) => state.apiKeys[team],
+  apiKey: (state) => (team: string, apiKey: string) =>
     state.apiKey[team] && state.apiKey[team][apiKey],
-  domains: state => (team: string) => state.domains[team],
-  domain: state => (team: string, domain: string) =>
+  domains: (state) => (team: string) => state.domains[team],
+  domain: (state) => (team: string, domain: string) =>
     state.domain[team] && state.domain[team][domain],
-  webhooks: state => (team: string) => state.devWebhooks[team],
-  webhook: state => (team: string, webhook: string) =>
+  webhooks: (state) => (team: string) => state.devWebhooks[team],
+  webhook: (state) => (team: string, webhook: string) =>
     state.devWebhook[team] && state.devWebhook[team][webhook],
-  apiKeyLogs: state => (team: string, apiKeyLogs: string) =>
+  apiKeyLogs: (state) => (team: string, apiKeyLogs: string) =>
     state.apiKeyLogs[team] && state.apiKeyLogs[team][apiKeyLogs],
-  transactions: state => (team: string) => state.transactions[team],
-  transaction: state => (team: string, transactionId: string) =>
+  transactions: (state) => (team: string) => state.transactions[team],
+  transaction: (state) => (team: string, transactionId: string) =>
     state.transaction[team] && state.transaction[team][transactionId],
-  organization: state => (team: string) => state.organizations[team]
+  organization: (state) => (team: string) => state.organizations[team],
 };

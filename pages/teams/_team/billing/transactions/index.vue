@@ -34,7 +34,7 @@
         <LargeMessage
           v-if="
             !loading &&
-              (!transactions || !transactions.data || !transactions.data.length)
+            (!transactions || !transactions.data || !transactions.data.length)
           "
           heading="No transactions yet"
           img="undraw_credit_card_payment_yb88.svg"
@@ -72,9 +72,7 @@
                 </td>
                 <td class="text text--align-right">
                   <router-link
-                    :to="
-                      `/teams/${$route.params.team}/billing/transactions/${transaction.id}`
-                    "
+                    :to="`/teams/${$route.params.team}/billing/transactions/${transaction.id}`"
                     aria-label="View"
                     data-balloon-pos="up"
                     class="button button--type-icon"
@@ -115,7 +113,7 @@
             :value="couponCode"
             label="Coupon code"
             placeholder="Copy and paste the coupon code"
-            @input="val => (couponCode = val)"
+            @input="(val) => (couponCode = val)"
           />
           <button class="button">Add credits</button>
         </form>
@@ -135,7 +133,7 @@ import {
   faArrowDown,
   faSync,
   faCloudDownloadAlt,
-  faTrash
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import Confirm from "@/components/Confirm.vue";
 import Loading from "@/components/Loading.vue";
@@ -161,9 +159,9 @@ const months = en.months;
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   transactions: Transactions = emptyPagination;
@@ -174,7 +172,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.transactions = {
-      ...this.$store.getters["manage/transactions"](this.$route.params.team)
+      ...this.$store.getters["manage/transactions"](this.$route.params.team),
     };
   }
 
@@ -182,10 +180,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your transactions";
     this.$store
       .dispatch("manage/getTransactions", { team: this.$route.params.team })
-      .then(transactions => {
+      .then((transactions) => {
         this.transactions = { ...transactions };
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => (this.loading = ""));
@@ -201,14 +199,16 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/getTransactions", {
         team: this.$route.params.team,
         start: this.$store.state.manage.transactions[this.$route.params.team]
-          .next
+          .next,
       })
       .then(() => {
         this.transactions = {
-          ...this.$store.getters["manage/transactions"](this.$route.params.team)
+          ...this.$store.getters["manage/transactions"](
+            this.$route.params.team
+          ),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => (this.loadingMore = false));
@@ -219,12 +219,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/availCredits", {
         team: this.$route.params.team,
-        couponCode: this.couponCode
+        couponCode: this.couponCode,
       })
-      .then(transactions => {
+      .then((transactions) => {
         this.transactions = { ...transactions };
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => {

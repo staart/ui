@@ -155,7 +155,7 @@
             type="email"
             placeholder="Enter your email address"
             :value="newEmail"
-            @input="val => (newEmail = val)"
+            @input="(val) => (newEmail = val)"
           />
           <button class="button">Add email</button>
         </form>
@@ -213,7 +213,7 @@ import {
   faCheckCircle,
   faExclamationCircle,
   faStar,
-  faEnvelopeOpen
+  faEnvelopeOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -245,9 +245,9 @@ library.add(
     Select,
     AccountSidebar,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   emails: Emails = emptyPagination;
@@ -259,7 +259,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.emails = {
-      ...this.$store.getters["users/emails"](this.$route.params.slug)
+      ...this.$store.getters["users/emails"](this.$route.params.slug),
     };
   }
 
@@ -267,10 +267,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your emails";
     this.$store
       .dispatch("users/getEmails", { slug: this.$route.params.slug })
-      .then(emails => {
+      .then((emails) => {
         this.emails = { ...emails };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
@@ -285,14 +285,14 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/getEmails", {
         slug: this.$route.params.slug,
-        start: this.$store.state.users.emails[this.$route.params.slug].next
+        start: this.$store.state.users.emails[this.$route.params.slug].next,
       })
       .then(() => {
         this.emails = {
-          ...this.$store.getters["users/emails"](this.$route.params.slug)
+          ...this.$store.getters["users/emails"](this.$route.params.slug),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loadingMore = false));
@@ -303,12 +303,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/createEmail", {
         email: this.newEmail,
-        slug: this.$route.params.slug
+        slug: this.$route.params.slug,
       })
-      .then(emails => {
+      .then((emails) => {
         this.emails = { ...emails };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => {
@@ -323,12 +323,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/deleteEmail", {
         slug: this.$route.params.slug,
-        id: key
+        id: key,
       })
-      .then(emails => {
+      .then((emails) => {
         this.emails = { ...emails };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
@@ -340,10 +340,10 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/resendEmail", {
         slug: this.$route.params.slug,
-        id: key
+        id: key,
       })
       .then(() => {})
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
@@ -354,13 +354,13 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/updateUser", {
         slug: this.$route.params.slug,
-        primaryEmail: key
+        primaryEmail: key,
       })
-      .then(emails => {
+      .then((emails) => {
         this.emails = { ...emails };
       })
       .then(() => this.$store.dispatch("auth/refresh"))
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .then(() => this.load());

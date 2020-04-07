@@ -28,8 +28,8 @@ import Policies from "@/components/Policies.vue";
     Users,
     Admin,
     Policies,
-    TeamLayout
-  }
+    TeamLayout,
+  },
 })
 export default class Layout extends Vue {
   activeRoute = "default";

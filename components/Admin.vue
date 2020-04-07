@@ -32,8 +32,8 @@ library.add(faUsers, faBuilding, faCode);
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class Settings extends Vue {}
 </script>

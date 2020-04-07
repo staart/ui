@@ -29,12 +29,12 @@
             label="IP restrictions"
             :value="organization.ipRestrictions"
             placeholder="Enter an IP address or CIDR, e.g., 192.168.1.1/42"
-            @input="val => (organization.ipRestrictions = val)"
+            @input="(val) => (organization.ipRestrictions = val)"
           />
           <Checkbox
             :value="organization.forceTwoFactor"
             label="Enforce two-factor authorization (2FA) on team members"
-            @input="val => (organization.forceTwoFactor = val)"
+            @input="(val) => (organization.forceTwoFactor = val)"
           />
           <button class="button">
             Update security settings
@@ -81,7 +81,7 @@
                 label='To confirm, enter "delete team" below'
                 placeholder="Write those exact words"
                 required
-                @input="val => (deleteText = val)"
+                @input="(val) => (deleteText = val)"
               />
               <button class="button button--color-danger button--state-cta">
                 Yes, delete team
@@ -116,7 +116,7 @@ import { User } from "@/types/auth";
 import {
   OrganizationsKV,
   Organization,
-  emptyOrganization
+  emptyOrganization,
 } from "@/types/manage";
 library.add(faSync);
 
@@ -130,9 +130,9 @@ library.add(faSync);
     FontAwesomeIcon,
     Select,
     ImageInput,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   loading = "";
@@ -142,7 +142,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.organization = {
-      ...this.$store.getters["manage/organization"](this.$route.params.team)
+      ...this.$store.getters["manage/organization"](this.$route.params.team),
     };
   }
 
@@ -150,7 +150,7 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading organization details";
     this.$store
       .dispatch("manage/getOrganization", this.$route.params.team)
-      .then(org => {
+      .then((org) => {
         this.organization = { ...org };
       })
       .catch(() => {})
@@ -166,7 +166,7 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/updateOrganization", {
         team: this.$route.params.team,
-        ...this.organization
+        ...this.organization,
       })
       .then(() => {})
       .catch(() => {})
@@ -192,7 +192,7 @@ export default class ManageSettings extends Vue {
       .then(() => {
         this.$router.push(`/users/${user.username}/teams`);
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .then(() => (this.loading = ""));

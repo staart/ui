@@ -23,7 +23,7 @@ export default class User extends Vue {
   @Prop({
     default: () => {
       return {};
-    }
+    },
   })
   team;
 }

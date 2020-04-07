@@ -26,8 +26,8 @@ import Trap from "vue-focus-lock";
 
 @Component({
   components: {
-    Trap
-  }
+    Trap,
+  },
 })
 export default class Modal extends Vue {
   @Prop() onClose;

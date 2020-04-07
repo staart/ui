@@ -1,6 +1,6 @@
 export const removeNulls = (value: any) => {
   if (typeof value === "object") {
-    Object.keys(value).forEach(key => {
+    Object.keys(value).forEach((key) => {
       if (value[key] === null) delete value[key];
     });
   }
@@ -9,7 +9,7 @@ export const removeNulls = (value: any) => {
 
 export const removeFalsyValues = (value: any) => {
   if (typeof value === "object") {
-    Object.keys(value).forEach(key => {
+    Object.keys(value).forEach((key) => {
       if (!value[key]) {
         delete value[key];
       }
@@ -20,7 +20,7 @@ export const removeFalsyValues = (value: any) => {
 
 export const removeReadOnlyValues = (value: any) => {
   if (typeof value === "object") {
-    Object.keys(value).forEach(key => {
+    Object.keys(value).forEach((key) => {
       if (
         [
           "createdAt",
@@ -31,7 +31,7 @@ export const removeReadOnlyValues = (value: any) => {
           "stripeCustomerId",
           "updatedAt",
           "twoFactorEnabled",
-          "lastFiredAt"
+          "lastFiredAt",
         ].includes(key)
       ) {
         delete value[key];

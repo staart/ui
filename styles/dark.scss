@@ -18,18 +18,15 @@
     color: $dark-button-text-color;
     background-color: $dark-button-background-color;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 1px,
-      rgba(0, 0, 0, 0.5) 0px 1px 1px 0px,
-      rgba(0, 0, 0, 0.5) 0px 2px 5px 0px;
+      rgba(0, 0, 0, 0.5) 0px 1px 1px 0px, rgba(0, 0, 0, 0.5) 0px 2px 5px 0px;
     &:hover {
-      box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 0px 3px,
-        rgba(0, 0, 0, 0.2) 0px 3px 3px 0px,
-        rgba(0, 0, 0, 0.2) 0px 5px 7px 0px,
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px 3px,
+        rgba(0, 0, 0, 0.2) 0px 3px 3px 0px, rgba(0, 0, 0, 0.2) 0px 5px 7px 0px,
         inset rgba(255, 255, 255, 0.05) 0 0 10rem;
     }
     &:focus {
       box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 0px 3px,
-        rgba(0, 0, 0, 0.4) 0px 3px 3px 0px,
-        rgba(0, 0, 0, 0.4) 0px 5px 7px 0px,
+        rgba(0, 0, 0, 0.4) 0px 3px 3px 0px, rgba(0, 0, 0, 0.4) 0px 5px 7px 0px,
         inset rgba(255, 255, 255, 0.1) 0 0 10rem;
     }
   }
@@ -56,7 +53,8 @@
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25) !important;
     }
   }
-  .icon--type-check, .modal-back .close {
+  .icon--type-check,
+  .modal-back .close {
     color: #fff !important;
   }
   .item.nuxt-link-active {

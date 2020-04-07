@@ -33,7 +33,7 @@ import {
   faBoxOpen,
   faUser,
   faMoneyBillWave,
-  faCode
+  faCode,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
   faDatabase,
@@ -47,8 +47,8 @@ library.add(
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class UsersLayout extends Vue {}
 </script>

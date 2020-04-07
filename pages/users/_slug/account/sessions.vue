@@ -132,7 +132,7 @@ import {
   faCheckCircle,
   faExclamationCircle,
   faStar,
-  faEnvelopeOpen
+  faEnvelopeOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -164,9 +164,9 @@ library.add(
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   sessions: Sessions = emptyPagination;
@@ -182,7 +182,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.sessions = {
-      ...this.$store.getters["users/sessions"](this.$route.params.slug)
+      ...this.$store.getters["users/sessions"](this.$route.params.slug),
     };
   }
 
@@ -190,10 +190,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your sessions";
     this.$store
       .dispatch("users/getSessions", { slug: this.$route.params.slug })
-      .then(sessions => {
+      .then((sessions) => {
         this.sessions = { ...sessions };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
@@ -208,14 +208,14 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/getSessions", {
         slug: this.$route.params.slug,
-        start: this.$store.state.users.sessions[this.$route.params.slug].next
+        start: this.$store.state.users.sessions[this.$route.params.slug].next,
       })
       .then(() => {
         this.sessions = {
-          ...this.$store.getters["users/sessions"](this.$route.params.slug)
+          ...this.$store.getters["users/sessions"](this.$route.params.slug),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loadingMore = false));
@@ -227,12 +227,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/deleteSession", {
         slug: this.$route.params.slug,
-        id: key
+        id: key,
       })
-      .then(sessions => {
+      .then((sessions) => {
         this.sessions = { ...sessions };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));

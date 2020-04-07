@@ -136,9 +136,9 @@ export const emptyUser: User = {
   prefersReducedMotion: false,
   profilePicture: "",
   role: 1,
-  gender: "x"
+  gender: "x",
 };
 export const emptyPagination = {
   data: [],
-  hasMore: false
+  hasMore: false,
 };

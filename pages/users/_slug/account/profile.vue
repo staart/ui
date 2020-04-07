@@ -37,7 +37,7 @@
               label="Full name"
               placeholder="Enter your full name"
               required
-              @input="val => (user.name = val)"
+              @input="(val) => (user.name = val)"
             />
           </div>
         </div>
@@ -46,14 +46,14 @@
           label="Nickname"
           placeholder="Enter a nickname we should call you"
           required
-          @input="val => (user.name = val)"
+          @input="(val) => (user.name = val)"
         />
         <Input
           :value="user.username"
           label="Username"
           placeholder="Enter a unique username"
           required
-          @input="val => (user.username = val)"
+          @input="(val) => (user.username = val)"
         />
         <Select
           :value="user.gender"
@@ -61,7 +61,7 @@
           placeholder="Select the gender you most identify with"
           :options="genders"
           required
-          @input="val => (user.gender = val)"
+          @input="(val) => (user.gender = val)"
         />
         <div class="row">
           <Select
@@ -70,7 +70,7 @@
             placeholder="Select your country"
             :options="countries"
             required
-            @input="val => (user.countryCode = val)"
+            @input="(val) => (user.countryCode = val)"
           />
           <Select
             :value="user.timezone"
@@ -78,7 +78,7 @@
             placeholder="Select your timezone"
             :options="listTimeZones"
             required
-            @input="val => (user.timezone = val)"
+            @input="(val) => (user.timezone = val)"
           />
         </div>
         <Select
@@ -86,20 +86,20 @@
           label="Language"
           placeholder="Select your preferred language"
           :options="{
-            'en-us': 'English (US)'
+            'en-us': 'English (US)',
           }"
           required
-          @input="val => (user.preferredLanguage = val)"
+          @input="(val) => (user.preferredLanguage = val)"
         />
         <Checkbox
           :value="user.prefersReducedMotion"
           label="I prefer reduced motion (minimize animations and movement)"
-          @input="val => (user.prefersReducedMotion = val)"
+          @input="(val) => (user.prefersReducedMotion = val)"
         />
         <Checkbox
           :value="user.prefersColorSchemeDark"
           label="I prefer a dark color scheme"
-          @input="val => (user.prefersColorSchemeDark = val)"
+          @input="(val) => (user.prefersColorSchemeDark = val)"
         />
         <button class="button">Update profile</button>
       </form>
@@ -112,7 +112,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import {
   getAllCountries,
-  getTimezonesForCountry
+  getTimezonesForCountry,
 } from "countries-and-timezones";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -144,9 +144,9 @@ for (const country in allCountries) {
     FontAwesomeIcon,
     Select,
     ImageInput,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   loading = "";
@@ -156,7 +156,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.user = {
-      ...this.$store.getters["users/user"](this.$route.params.slug)
+      ...this.$store.getters["users/user"](this.$route.params.slug),
     };
   }
 
@@ -164,7 +164,7 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading user details";
     this.$store
       .dispatch("users/getUser", this.$route.params.slug)
-      .then(user => {
+      .then((user) => {
         this.user = { ...user };
       })
       .catch(() => {})
@@ -182,9 +182,9 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/updateUser", {
         slug: this.$route.params.slug,
-        ...user
+        ...user,
       })
-      .then(user => {
+      .then((user) => {
         this.user = { ...user };
         this.$router.replace(`/users/${this.user.username}/account/profile`);
       })

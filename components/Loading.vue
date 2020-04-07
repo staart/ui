@@ -14,8 +14,8 @@ library.add(faSync);
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class Loading extends Vue {
   @Prop({ default: "Loading" }) message;

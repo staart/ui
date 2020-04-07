@@ -11,10 +11,10 @@ const errors = en.errors;
 const redirectErrors = ["unapproved-location", "missing-token"];
 const ignoredErrors = ["no-customer"];
 
-export default function({
+export default function ({
   $axios,
   redirect,
-  store
+  store,
 }: {
   $axios: NuxtAxiosInstance;
   redirect: any;
@@ -53,7 +53,7 @@ export default function({
               .then((newToken: string) => {
                 config.headers = {
                   ...config.headers,
-                  Authorization: `Bearer ${newToken}`
+                  Authorization: `Bearer ${newToken}`,
                 };
               })
               .catch(() => store.dispatch("auth/logout"))
@@ -66,30 +66,30 @@ export default function({
         }
       })
   );
-  $axios.onResponse(response => {
+  $axios.onResponse((response) => {
     if (response.data.success === true) {
       if (response.data.text) {
         Vue.notify({
           group: "auth",
           text: response.data.text,
-          type: "notification notification--color-success"
+          type: "notification notification--color-success",
         });
       } else if (response.data.message) {
         Vue.notify({
           group: "auth",
           text: messages[response.data.message] || messages.success,
-          type: "notification notification--color-success"
+          type: "notification notification--color-success",
         });
       } else {
         Vue.notify({
           group: "auth",
           text: messages.success,
-          type: "notification notification--color-success"
+          type: "notification notification--color-success",
         });
       }
     }
   });
-  $axios.onError(error => {
+  $axios.onError((error) => {
     if (!error.response) return;
     if (
       ["revoked-token", "invalid-token", "expired-token"].includes(
@@ -120,13 +120,13 @@ export default function({
         group: "auth",
         text: errors[error.response.data.code || error.response.data.error],
         duration: 5000,
-        type: "notification notification--color-danger"
+        type: "notification notification--color-danger",
       });
     } else {
       Vue.notify({
         group: "auth",
         text: error.response.data.code || error.response.data.error,
-        type: "notification notification--color-danger"
+        type: "notification notification--color-danger",
       });
     }
   });

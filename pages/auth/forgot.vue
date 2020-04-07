@@ -48,11 +48,11 @@ import Input from "@/components/form/Input.vue";
   components: {
     Card,
     LargeMessage,
-    Input
+    Input,
   },
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
-  })
+    isAuthenticated: "auth/isAuthenticated",
+  }),
 })
 export default class Login extends Vue {
   email = "";
@@ -61,10 +61,10 @@ export default class Login extends Vue {
   private forgot() {
     this.$store
       .dispatch("auth/sendPasswordResetLink", {
-        email: this.email
+        email: this.email,
       })
       .then(() => (this.isSent = true))
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => {

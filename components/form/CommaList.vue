@@ -13,7 +13,7 @@
               :required="required"
               v-bind="$attrs"
               :disabled="disabled"
-              @input="val => input(index, val)"
+              @input="(val) => input(index, val)"
             />
           </td>
           <td v-if="!disabled" class="text text--align-right">
@@ -63,8 +63,8 @@ library.add(faTimes, faPlus);
 @Component({
   components: {
     FontAwesomeIcon,
-    Input
-  }
+    Input,
+  },
 })
 export default class CommaList extends Vue {
   @Prop() value;
@@ -79,9 +79,7 @@ export default class CommaList extends Vue {
   commaList = "";
 
   private created() {
-    this.labelId = Math.random()
-      .toString(36)
-      .substring(7);
+    this.labelId = Math.random().toString(36).substring(7);
   }
 
   private mounted() {
@@ -104,7 +102,7 @@ export default class CommaList extends Vue {
   }
 
   private update() {
-    this.commaList = this.list.filter(item => !!item).join(",");
+    this.commaList = this.list.filter((item) => !!item).join(",");
     this.$emit("input", this.commaList);
   }
 }

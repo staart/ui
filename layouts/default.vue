@@ -25,8 +25,8 @@ import Footer from "@/components/Footer.vue";
   components: {
     Navbar,
     Layout,
-    Footer
-  }
+    Footer,
+  },
 })
 export default class Default extends Vue {
   private created() {

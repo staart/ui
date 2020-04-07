@@ -22,12 +22,12 @@ import { User } from "../../../types/auth";
   components: {
     Card,
     LargeMessage,
-    Input
+    Input,
   },
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user"
-  })
+    user: "auth/user",
+  }),
 })
 export default class ConnectIdentity extends Vue {
   isAuthenticated!: boolean;

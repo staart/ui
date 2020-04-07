@@ -9,10 +9,10 @@
         <div
           v-if="
             isAuthenticated &&
-              $route.path.startsWith('/teams/') &&
-              memberships &&
-              memberships.data &&
-              memberships.data.length
+            $route.path.startsWith('/teams/') &&
+            memberships &&
+            memberships.data &&
+            memberships.data.length
           "
           class="team-selector"
         >
@@ -123,7 +123,7 @@
               id="notifications"
               ref="dropdown-notifications"
               class="dropdown"
-              style="width: 350px"
+              style="width: 350px;"
             >
               <Notifications />
             </div>
@@ -157,9 +157,9 @@
               >
               <nuxt-link
                 class="item"
-                :to="
-                  `/users/${user.username || user.id}/developer/access-tokens`
-                "
+                :to="`/users/${
+                  user.username || user.id
+                }/developer/access-tokens`"
                 >Developer</nuxt-link
               >
               <hr />
@@ -217,7 +217,7 @@ import {
   faBars,
   faTimes,
   faComment,
-  faAngleDown
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import vSelect from "vue-select";
 import Notifications from "@/components/Notifications.vue";
@@ -230,8 +230,8 @@ library.add(faBell, faQuestionCircle, faBars, faTimes, faComment, faAngleDown);
   components: {
     FontAwesomeIcon,
     Notifications,
-    vSelect
-  }
+    vSelect,
+  },
 })
 export default class Card extends Vue {
   visible: string | null = null;
@@ -277,14 +277,14 @@ export default class Card extends Vue {
     const user = this.$store.getters["auth/user"];
     if (user && user.username) {
       this.memberships = {
-        ...this.$store.getters["users/memberships"](user.username)
+        ...this.$store.getters["users/memberships"](user.username),
       };
       const team = this.memberships?.data?.find(
-        i => i.organization.username === this.$route.params.team
+        (i) => i.organization.username === this.$route.params.team
       );
       this.selectedTeam = {
         name: team?.organization.name || "",
-        username: team?.organization.username || ""
+        username: team?.organization.username || "",
       };
     }
   }
@@ -302,10 +302,10 @@ export default class Card extends Vue {
 
   private created() {
     if (typeof document !== "undefined" && document.body)
-      document.body.addEventListener("click", event => {
+      document.body.addEventListener("click", (event) => {
         const path = event.composedPath();
         this.visible = null;
-        document.querySelectorAll("[aria-controls]").forEach(controller => {
+        document.querySelectorAll("[aria-controls]").forEach((controller) => {
           if (path && path.includes(controller)) {
             this.visible = controller.getAttribute("aria-controls");
             setTimeout(() => {
@@ -327,7 +327,7 @@ export default class Card extends Vue {
   private feedback() {
     if (!(window as any).Feeedback) return;
     const feedback = new (window as any).Feeedback({
-      onSubmit: result =>
+      onSubmit: (result) =>
         new Promise((resolve, reject) => {
           if (
             (window as any).agastya &&
@@ -342,7 +342,7 @@ export default class Card extends Vue {
               result.message
             );
           resolve();
-        })
+        }),
     });
     feedback.open();
   }
@@ -358,10 +358,10 @@ export default class Card extends Vue {
     )
       this.$store
         .dispatch("users/getMemberships", { slug: user.username })
-        .then(memberships => {
+        .then((memberships) => {
           this.memberships = { ...memberships };
         })
-        .catch(error => {
+        .catch((error) => {
           throw new Error(error);
         });
   }

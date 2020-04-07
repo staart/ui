@@ -46,15 +46,15 @@ import {
   faUser,
   faCookieBite,
   faBuilding,
-  faLock
+  faLock,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGitAlt } from "@fortawesome/free-brands-svg-icons";
 library.add(faUser, faCookieBite, faBuilding, faGitAlt, faLock);
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class Settings extends Vue {}
 </script>

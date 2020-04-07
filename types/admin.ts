@@ -31,5 +31,5 @@ export interface RootState {
 
 export const emptyPagination = {
   data: [],
-  hasMore: false
+  hasMore: false,
 };

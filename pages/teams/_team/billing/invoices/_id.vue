@@ -113,7 +113,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCloudDownloadAlt,
-  faFileInvoice
+  faFileInvoice,
 } from "@fortawesome/free-solid-svg-icons";
 import { invoices } from "stripe";
 import Loading from "@/components/Loading.vue";
@@ -136,9 +136,9 @@ library.add(faCloudDownloadAlt, faFileInvoice);
     Select,
     BillingSidebar,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   invoice?: invoices.IInvoice;
@@ -150,7 +150,7 @@ export default class ManageSettings extends Vue {
       ...this.$store.getters["manage/invoice"](
         this.$route.params.team,
         this.$route.params.id
-      )
+      ),
     };
   }
 
@@ -159,9 +159,9 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/getInvoice", {
         team: this.$route.params.team,
-        id: this.$route.params.id
+        id: this.$route.params.id,
       })
-      .then(invoice => {
+      .then((invoice) => {
         this.invoice = { ...invoice };
       })
       .catch(() => {})

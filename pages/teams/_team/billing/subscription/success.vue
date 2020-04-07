@@ -18,8 +18,8 @@ import LargeMessage from "@/components/LargeMessage.vue";
 
 @Component({
   components: {
-    LargeMessage
-  }
+    LargeMessage,
+  },
 })
 export default class SuccessSubscription extends Vue {
   private created() {}

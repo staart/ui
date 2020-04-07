@@ -23,15 +23,15 @@ import { mapGetters } from "vuex";
 
 @Component({
   computed: mapGetters({
-    self: "auth/user"
-  })
+    self: "auth/user",
+  }),
 })
 export default class User extends Vue {
   self!: any;
   @Prop({
     default: () => {
       return {};
-    }
+    },
   })
   user;
 }

@@ -33,7 +33,7 @@
           role="option"
           tabindex="0"
           @click="selectOption(index)"
-          @keyup="event => tryOption(event, index)"
+          @keyup="(event) => tryOption(event, index)"
         >
           <span
             v-if="item.img"
@@ -69,9 +69,7 @@ export default class Autocomplete extends Vue {
   listener = () => {};
 
   created() {
-    this.id = `id-${Math.random()
-      .toString()
-      .replace(".", "")}`;
+    this.id = `id-${Math.random().toString().replace(".", "")}`;
     this.normalize();
     this.filteredItems = this.items;
     if (process.client) document.addEventListener("click", this.listener);
@@ -91,16 +89,16 @@ export default class Autocomplete extends Vue {
     if (Array.isArray(this.options)) {
       for (let i = 0; i < this.options.length; i++) {
         items[`v${i}`] = {
-          value: String(this.options[i])
+          value: String(this.options[i]),
         };
       }
     } else {
-      Object.keys(this.options).forEach(key => {
+      Object.keys(this.options).forEach((key) => {
         if (typeof this.options[key] === "object") {
           items[key] = this.options[key];
         } else {
           items[key] = {
-            value: this.options[key]
+            value: this.options[key],
           };
         }
       });
@@ -118,7 +116,7 @@ export default class Autocomplete extends Vue {
     }
     const items = {};
     let exactValue: string | null = null;
-    Object.keys(this.items).forEach(key => {
+    Object.keys(this.items).forEach((key) => {
       if (
         this.items[key].value.toLowerCase().includes(this.search.toLowerCase())
       ) {

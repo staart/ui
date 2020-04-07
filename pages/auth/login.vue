@@ -34,9 +34,7 @@
             <button
               v-for="service in ['Google', 'Apple', 'Salesforce']"
               :key="`login_${service}`"
-              :class="
-                `button button--width-full button--size-large button--color-info button--color-brand-${service.toLowerCase()}`
-              "
+              :class="`button button--width-full button--size-large button--color-info button--color-brand-${service.toLowerCase()}`"
               type="button"
               :aria-label="`Login with ${service}`"
               data-balloon-pos="down"
@@ -51,7 +49,7 @@
             </button>
             <button
               class="button button--width-full button--size-large button--color-info"
-              style="width: 20%"
+              style="width: 20%;"
               type="button"
               aria-label="More services"
               data-balloon-pos="down"
@@ -65,7 +63,7 @@
     </Card>
     <div class="row text text--mt-1">
       <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
-      <nuxt-link to="/auth/register" style="text-align: right"
+      <nuxt-link to="/auth/register" style="text-align: right;"
         >Create an account</nuxt-link
       >
     </div>
@@ -85,7 +83,7 @@
               'Microsoft',
               'Facebook',
               'GitHub',
-              'Weixin'
+              'Weixin',
             ]"
             :key="`option_${service}`"
             class="button"
@@ -118,7 +116,7 @@ import {
   faMicrosoft,
   faApple,
   faWeixin,
-  faGithub
+  faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 import { faDotCircle, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import Input from "@/components/form/Input.vue";
@@ -149,13 +147,13 @@ interface IWindow extends Window {
     Card,
     Loading,
     Input,
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
     user: "auth/user",
-    isLoading: "auth/isLoading"
-  })
+    isLoading: "auth/isLoading",
+  }),
 })
 export default class Login extends Vue {
   email = "";
@@ -168,9 +166,9 @@ export default class Login extends Vue {
     this.$store
       .dispatch("auth/loginWithEmailPassword", {
         email: this.email,
-        password: this.password
+        password: this.password,
       })
-      .then(response => {
+      .then((response) => {
         if (response === "2fa") {
           return this.$router.push("/auth/2fa");
         } else {
@@ -178,10 +176,10 @@ export default class Login extends Vue {
       })
       .then(() =>
         this.$store.dispatch("users/getMemberships", {
-          slug: this.user.username || this.user.id
+          slug: this.user.username || this.user.id,
         })
       )
-      .then(memberships => {
+      .then((memberships) => {
         if (
           memberships?.data.length &&
           memberships?.data[0]?.organization?.username
@@ -193,7 +191,7 @@ export default class Login extends Vue {
           return this.$router.replace("/onboarding/organization");
         return this.$router.replace("/");
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => {

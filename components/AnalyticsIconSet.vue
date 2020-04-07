@@ -28,8 +28,8 @@ import IconText from "@/components/IconText.vue";
 @Component({
   components: {
     Country,
-    IconText
-  }
+    IconText,
+  },
 })
 export default class AnalyticsIconSet extends Vue {
   @Prop() countryCode;

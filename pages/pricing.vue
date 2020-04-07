@@ -7,7 +7,7 @@
       itemtype="https://schema.org/Offer"
     >
       <h1
-        style="font-size: 300%; max-width: none"
+        style="font-size: 300%; max-width: none;"
         class="hero hero--align-center"
       >
         Simple, transparent pricing.
@@ -84,7 +84,7 @@
         <div class="hide-mobile">
           <div
             class="card card--type-padded card--type-invisible"
-            style="padding-left: 0"
+            style="padding-left: 0;"
           >
             <ul>
               <li>Pageviews</li>
@@ -216,7 +216,7 @@
           <div
             v-for="(feature, i) in moreFeatures"
             :key="`f${i}`"
-            style="margin: 2rem 0"
+            style="margin: 2rem 0;"
           >
             <div>
               <h3>{{ i }}</h3>
@@ -236,7 +236,7 @@
           <div
             v-for="(feature, i) in moreFeatures"
             :key="`f${i}`"
-            style="margin: 2rem 0"
+            style="margin: 2rem 0;"
           >
             <div class="hide" aria-hidden="true">
               <h3>{{ i }}</h3>
@@ -308,17 +308,17 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCheck,
   faTimes,
-  faArrowRight
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faCheck, faTimes, faArrowRight);
 
 @Component({
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
-  })
+    isAuthenticated: "auth/isAuthenticated",
+  }),
 })
 export default class Pricing extends Vue {
   selectedCurrency = "usd";
@@ -327,19 +327,19 @@ export default class Pricing extends Vue {
     monthly: {
       usd: 15000,
       eur: 13000,
-      inr: 1200000
+      inr: 1200000,
     },
     annually: {
       usd: 150000,
       eur: 130000,
-      inr: 12000000
-    }
+      inr: 12000000,
+    },
   };
 
   currencySymbols = {
     usd: "$",
     eur: "€",
-    inr: "₹"
+    inr: "₹",
   };
 
   moreFeatures = {
@@ -347,28 +347,28 @@ export default class Pricing extends Vue {
       "Team members": [
         "3 users included",
         "5 users included",
-        "Unlimited users"
+        "Unlimited users",
       ],
       "IP whitelisting": [
         "Whitelist IP/CIDRs",
         "Whitelist IP/CIDRs",
-        "Whitelist IP/CIDRs"
+        "Whitelist IP/CIDRs",
       ],
-      "Single-sign on": [false, false, "SAML-based SSO"]
+      "Single-sign on": [false, false, "SAML-based SSO"],
     },
     Security: {
       "Bank-grade security": [
         "256-bit TLS/SSL",
         "256-bit TLS/SSL",
-        "Custom certificate"
+        "Custom certificate",
       ],
       "Compliant hosting": [
         "Hosted in Europe",
         "Hosted in Europe",
-        "Hosted in EU/US/IN"
+        "Hosted in EU/US/IN",
       ],
       "Two-factor authentication": [true, true, true],
-      "Data export & delete": [true, true, true]
+      "Data export & delete": [true, true, true],
     },
     Developers: {
       "Developer API": [true, true, true],
@@ -376,8 +376,8 @@ export default class Pricing extends Vue {
       "99.99% uptime SLA": [false, true, true],
       "Increased rate limit": [false, false, true],
       "Self-hosted service": [false, false, true],
-      "Reseller accounts": [false, false, true]
-    }
+      "Reseller accounts": [false, false, true],
+    },
   };
 
   private changeCurrency(currency: string) {

@@ -26,11 +26,11 @@ import LargeMessage from "@/components/LargeMessage.vue";
 
 @Component({
   components: {
-    LargeMessage
+    LargeMessage,
   },
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
-  })
+    isAuthenticated: "auth/isAuthenticated",
+  }),
 })
 export default class Token extends Vue {
   hasError = false;
@@ -47,14 +47,14 @@ export default class Token extends Vue {
   private mounted() {
     this.$store
       .dispatch("auth/setAuthTokens", this.$route.query)
-      .then(response => {
+      .then((response) => {
         if (response === "2fa") {
           this.$router.push("/auth/2fa");
         } else {
           this.$router.push(this.redirect || "/");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.hasError = false;
         throw new Error(error);
       });

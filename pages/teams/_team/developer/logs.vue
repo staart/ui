@@ -35,13 +35,13 @@
                 label="API key"
                 :options="apiKeyOptions"
                 :value="activeApiKey"
-                @input="val => (activeApiKey = val)"
+                @input="(val) => (activeApiKey = val)"
               />
               <Select
                 label="Time filter"
                 :options="timeOptions"
                 :value="timeFilter"
-                @input="val => (timeFilter = val)"
+                @input="(val) => (timeFilter = val)"
               />
               <div
                 style="display: flex; margin-bottom: 1rem; margin-top: 2rem;"
@@ -112,13 +112,13 @@
                     <td
                       v-if="
                         log._source &&
-                          log._source.completedDate &&
-                          log._source.date
+                        log._source.completedDate &&
+                        log._source.date
                       "
                     >
                       {{
                         new Date(log._source.completedDate).getTime() -
-                          new Date(log._source.date).getTime()
+                        new Date(log._source.date).getTime()
                       }}
                       ms
                     </td>
@@ -179,7 +179,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faArrowDown,
   faSync,
-  faCloudDownloadAlt
+  faCloudDownloadAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -209,9 +209,9 @@ library.add(faArrowDown, faSync, faCloudDownloadAlt);
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   apiKeys: ApiKeys = emptyPagination;
@@ -231,16 +231,16 @@ export default class ManageSettings extends Vue {
     "10m": "Last 10 minutes",
     "24h": "Last 24 hours",
     "7d": "Last 7 days",
-    "30d": "Last 30 days"
+    "30d": "Last 30 days",
   };
 
   private created() {
     this.apiKeys = {
-      ...this.$store.getters["manage/apiKeys"](this.$route.params.team)
+      ...this.$store.getters["manage/apiKeys"](this.$route.params.team),
     };
     const apiKeyOptions = {};
     if (this.apiKeys && this.apiKeys.data) {
-      this.apiKeys.data.forEach(apiKey => {
+      this.apiKeys.data.forEach((apiKey) => {
         apiKeyOptions[apiKey.id] = apiKey.name || apiKey.id;
       });
       this.apiKeyOptions = apiKeyOptions;
@@ -252,7 +252,7 @@ export default class ManageSettings extends Vue {
       ...this.$store.getters["manage/apiKeyLogs"](
         this.$route.params.team,
         this.activeApiKey
-      )
+      ),
     };
   }
 
@@ -260,10 +260,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your API keys";
     this.$store
       .dispatch("manage/getApiKeys", { team: this.$route.params.team })
-      .then(apiKeys => {
+      .then((apiKeys) => {
         this.apiKeys = { ...apiKeys };
         const apiKeyOptions = {};
-        apiKeys.data.forEach(apiKey => {
+        apiKeys.data.forEach((apiKey) => {
           apiKeyOptions[apiKey.id] = apiKey.name || apiKey.id;
         });
         this.apiKeyOptions = apiKeyOptions;
@@ -271,11 +271,11 @@ export default class ManageSettings extends Vue {
           return apiKeys.data[0].id;
         this.loading = "";
       })
-      .then(apiKeyId => {
+      .then((apiKeyId) => {
         if (apiKeyId && !this.activeApiKey) this.activeApiKey = apiKeyId;
         return this.loadData();
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       });
   }
@@ -293,12 +293,12 @@ export default class ManageSettings extends Vue {
         team: this.$route.params.team,
         id: this.activeApiKey,
         range: this.timeFilter,
-        from: this.from
+        from: this.from,
       })
-      .then(data => {
+      .then((data) => {
         this.data = data;
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
@@ -315,17 +315,17 @@ export default class ManageSettings extends Vue {
         team: this.$route.params.team,
         id: this.activeApiKey,
         range: this.timeFilter,
-        from: this.from
+        from: this.from,
       })
       .then(() => {
         this.data = {
           ...this.$store.getters["manage/apiKeyLogs"](
             this.$route.params.team,
             this.activeApiKey
-          )
+          ),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loadingMore = false));

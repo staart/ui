@@ -36,9 +36,9 @@
             <td><TimeAgo :date="organization.createdAt" /></td>
             <td class="text text--align-right">
               <router-link
-                :to="
-                  `/teams/${organization.username || organization.id}/products`
-                "
+                :to="`/teams/${
+                  organization.username || organization.id
+                }/products`"
                 aria-label="View"
                 data-balloon-pos="up"
                 class="button button--type-icon"
@@ -46,10 +46,9 @@
                 <font-awesome-icon class="icon" icon="eye" fixed-width />
               </router-link>
               <router-link
-                :to="
-                  `/teams/${organization.username ||
-                    organization.id}/settings/general`
-                "
+                :to="`/teams/${
+                  organization.username || organization.id
+                }/settings/general`"
                 aria-label="Edit"
                 data-balloon-pos="up"
                 class="button button--type-icon"
@@ -93,7 +92,7 @@ import {
   faArrowDown,
   faSync,
   faEye,
-  faCog
+  faCog,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -106,8 +105,8 @@ library.add(faArrowDown, faSync, faEye, faCog);
     Loading,
     TimeAgo,
     Team,
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class AdminOrganizations extends Vue {
   organizations = emptyPagination;
@@ -126,10 +125,10 @@ export default class AdminOrganizations extends Vue {
     this.loading = "Loading your organizations";
     this.$store
       .dispatch("admin/getOrganizations", {})
-      .then(organizations => {
+      .then((organizations) => {
         this.organizations = { ...organizations };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .then(() => (this.loading = ""));
@@ -139,14 +138,14 @@ export default class AdminOrganizations extends Vue {
     this.loadingMore = true;
     this.$store
       .dispatch("admin/getOrganizations", {
-        start: this.$store.state.admin.organizations.next
+        start: this.$store.state.admin.organizations.next,
       })
       .then(() => {
         this.organizations = {
-          ...this.$store.getters["admin/organizations"]()
+          ...this.$store.getters["admin/organizations"](),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loadingMore = false));

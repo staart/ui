@@ -10,8 +10,8 @@ import Modal from "@/components/Modal.vue";
 
 @Component({
   components: {
-    Modal
-  }
+    Modal,
+  },
 })
 export default class Confirm extends Vue {
   @Prop() onClose;

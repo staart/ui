@@ -66,9 +66,7 @@
                 <td v-else>Never</td>
                 <td class="text text--align-right">
                   <router-link
-                    :to="
-                      `/teams/${$route.params.team}/developer/webhooks/${webhook.id}`
-                    "
+                    :to="`/teams/${$route.params.team}/developer/webhooks/${webhook.id}`"
                     aria-label="Edit"
                     data-balloon-pos="up"
                     class="button button--type-icon"
@@ -129,7 +127,7 @@
               label="Event"
               :options="events"
               required
-              @input="val => (newHookEvent = val)"
+              @input="(val) => (newHookEvent = val)"
             />
             <Input
               :value="newHookUrl"
@@ -137,7 +135,7 @@
               type="url"
               placeholder="Enter the complete URL to your hook"
               required
-              @input="val => (newHookUrl = val)"
+              @input="(val) => (newHookUrl = val)"
             />
             <p class="text text--color-muted text--size-small">
               You can add a secret key and content type after creating the
@@ -180,7 +178,7 @@ import {
   faSync,
   faTrash,
   faPencilAlt,
-  faCheckCircle
+  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -204,9 +202,9 @@ library.add(faArrowDown, faSync, faTrash, faPencilAlt, faCheckCircle);
     Input,
     FontAwesomeIcon,
     Select,
-    LargeMessage
+    LargeMessage,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   webhooks: Webhooks = emptyPagination;
@@ -219,7 +217,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.webhooks = {
-      ...this.$store.getters["manage/webhooks"](this.$route.params.team)
+      ...this.$store.getters["manage/webhooks"](this.$route.params.team),
     };
   }
 
@@ -227,10 +225,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your webhooks";
     this.$store
       .dispatch("manage/getWebhooks", { team: this.$route.params.team })
-      .then(webhooks => {
+      .then((webhooks) => {
         this.webhooks = { ...webhooks };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
@@ -245,14 +243,14 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/getWebhooks", {
         team: this.$route.params.team,
-        start: this.$store.state.manage.webhooks[this.$route.params.team].next
+        start: this.$store.state.manage.webhooks[this.$route.params.team].next,
       })
       .then(() => {
         this.webhooks = {
-          ...this.$store.getters["manage/webhooks"](this.$route.params.team)
+          ...this.$store.getters["manage/webhooks"](this.$route.params.team),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loadingMore = false));
@@ -264,12 +262,12 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/createWebhook", {
         team: this.$route.params.team,
         event: this.newHookEvent,
-        url: this.newHookUrl
+        url: this.newHookUrl,
       })
-      .then(webhooks => {
+      .then((webhooks) => {
         this.webhooks = { ...webhooks };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => {
@@ -284,12 +282,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/deleteWebhook", {
         team: this.$route.params.team,
-        id: key
+        id: key,
       })
-      .then(webhooks => {
+      .then((webhooks) => {
         this.webhooks = { ...webhooks };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));

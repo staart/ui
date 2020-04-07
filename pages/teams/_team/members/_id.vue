@@ -58,7 +58,7 @@
           label="Role"
           :options="membershipRoles"
           required
-          @input="val => (newUserRole = val)"
+          @input="(val) => (newUserRole = val)"
         />
         <button class="button">Update membership</button>
       </form>
@@ -76,7 +76,7 @@ import {
   faTrash,
   faPencilAlt,
   faSync,
-  faArrowLeft
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Country from "@/components/Country.vue";
@@ -98,12 +98,12 @@ library.add(faTrash, faPencilAlt, faSync, faArrowLeft);
     User,
     Select,
     Checkbox,
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
   computed: mapGetters({
-    members: "manage/members"
+    members: "manage/members",
   }),
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageMembers extends Vue {
   members!: any;
@@ -117,9 +117,9 @@ export default class ManageMembers extends Vue {
     this.$store
       .dispatch("manage/getMembership", {
         team: this.$route.params.team,
-        id: this.$route.params.id
+        id: this.$route.params.id,
       })
-      .then(membership => {
+      .then((membership) => {
         this.membership = membership;
         this.newUserRole = membership.role;
       })
@@ -137,7 +137,7 @@ export default class ManageMembers extends Vue {
       .dispatch("manage/updateMembership", {
         team: this.$route.params.team,
         id: this.$route.params.id,
-        role: this.newUserRole
+        role: this.newUserRole,
       })
       .then(() => {})
       .catch(() => {})

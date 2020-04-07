@@ -47,11 +47,11 @@ import Input from "@/components/form/Input.vue";
   components: {
     Card,
     LargeMessage,
-    Input
+    Input,
   },
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
-  })
+    isAuthenticated: "auth/isAuthenticated",
+  }),
 })
 export default class Login extends Vue {
   password = "";
@@ -61,10 +61,10 @@ export default class Login extends Vue {
     this.$store
       .dispatch("auth/resetPassword", {
         password: this.password,
-        token: this.$route.query.token
+        token: this.$route.query.token,
       })
       .then(() => (this.isSent = true))
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => {

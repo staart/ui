@@ -8,9 +8,9 @@ export const state = (): RootState => ({
   loading: false,
   tokens: {
     token: "",
-    refresh: ""
+    refresh: "",
   },
-  notifications: []
+  notifications: [],
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -44,7 +44,7 @@ export const mutations: MutationTree<RootState> = {
   },
   setActiveOrganization(state: RootState, team: string) {
     Vue.set(state, "activeOrganization", team);
-  }
+  },
 };
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -115,7 +115,7 @@ export const actions: ActionTree<RootState, RootState> = {
     try {
       const tokens: Tokens = (
         await this.$axios.post("/auth/refresh", {
-          token: refreshToken
+          token: refreshToken,
         })
       ).data;
       this.$axios.setToken(tokens.token, "Bearer");
@@ -132,7 +132,7 @@ export const actions: ActionTree<RootState, RootState> = {
     try {
       const tokens = (
         await this.$axios.post(`/auth/oauth/${service}`, {
-          code
+          code,
         })
       ).data;
       if (tokens.twoFactorToken) {
@@ -171,16 +171,16 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async readNotification({ dispatch }, notificationId) {
     await this.$axios.patch(`/users/me/notifications/${notificationId}`, {
-      isRead: true
+      isRead: true,
     });
     return dispatch("getNotifications");
-  }
+  },
 };
 
 export const getters: GetterTree<RootState, RootState> = {
-  user: state => state.user,
-  isLoading: state => state.loading,
-  notifications: state => state.notifications,
-  activeOrganization: state => state.activeOrganization,
-  isAuthenticated: state => state.isAuthenticated
+  user: (state) => state.user,
+  isLoading: (state) => state.loading,
+  notifications: (state) => state.notifications,
+  activeOrganization: (state) => state.activeOrganization,
+  isAuthenticated: (state) => state.isAuthenticated,
 };

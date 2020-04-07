@@ -2,7 +2,7 @@ import {
   subscriptions,
   invoices,
   sources,
-  customerBalanceTransactions
+  customerBalanceTransactions,
 } from "stripe";
 import { IdRow, Row, Paginated } from "./root";
 
@@ -186,20 +186,20 @@ export const emptyOrganization: Organization = {
   username: "",
   stripeCustomerId: "",
   autoJoinDomain: false,
-  onlyAllowDomain: false
+  onlyAllowDomain: false,
 };
 export const emptyPagination = {
   data: [],
-  hasMore: false
+  hasMore: false,
 };
 export const emptyAddress: Address = {
   state: "",
   country: "",
   line1: "",
   city: "",
-  postal_code: ""
+  postal_code: "",
 };
 export const emptyBilling: Billing = {
   email: "",
-  address: emptyAddress
+  address: emptyAddress,
 };

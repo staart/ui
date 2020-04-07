@@ -245,7 +245,7 @@
         :options="{
           a: { text: 'This is an option' },
           b: { text: 'This is another option' },
-          c: { text: 'This is a third option' }
+          c: { text: 'This is a third option' },
         }"
       />
       <CommaList
@@ -293,12 +293,12 @@ import {
   faFile,
   faLanguage,
   faRocket,
-  faMagic
+  faMagic,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faNodeJs,
   faVuejs,
-  faAccessibleIcon
+  faAccessibleIcon,
 } from "@fortawesome/free-brands-svg-icons";
 import { getAllCountries } from "countries-and-timezones";
 import Autocomplete from "@/components/form/Autocomplete.vue";
@@ -330,14 +330,14 @@ const allCountries = getAllCountries();
 for (const country in allCountries) {
   const cc = country.toLowerCase();
   countries[cc] = {
-    value: allCountries[country].name
+    value: allCountries[country].name,
     // img: `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/flags/1x1/${cc}.svg`
   };
 }
 
 @Component({
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
+    isAuthenticated: "auth/isAuthenticated",
   }),
   components: {
     FontAwesomeIcon,
@@ -348,8 +348,8 @@ for (const country in allCountries) {
     CheckList,
     Select,
     Autocomplete,
-    DatePicker
-  }
+    DatePicker,
+  },
 })
 export default class StyleGuide extends Vue {
   showConfirm = false;

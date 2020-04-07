@@ -111,9 +111,9 @@ library.add(faArrowLeft, faSync);
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   transaction?: customerBalanceTransactions.ICustomerBalanceTransaction;
@@ -124,7 +124,7 @@ export default class ManageSettings extends Vue {
       ...this.$store.getters["manage/transaction"](
         this.$route.params.team,
         this.$route.params.id
-      )
+      ),
     };
   }
 
@@ -137,9 +137,9 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/getTransaction", {
         team: this.$route.params.team,
-        id: this.$route.params.id
+        id: this.$route.params.id,
       })
-      .then(transaction => {
+      .then((transaction) => {
         this.transaction = { ...transaction };
       })
       .catch(() => {})

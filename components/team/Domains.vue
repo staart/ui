@@ -114,7 +114,7 @@
         label="Domain"
         placeholder="Enter the hostname, e.g., oswaldlabs.com"
         required
-        @input="val => (newDomain = val)"
+        @input="(val) => (newDomain = val)"
       />
       <button class="button">Add domain</button>
     </form>
@@ -152,7 +152,7 @@ import {
   faSync,
   faExclamationCircle,
   faCheckCircle,
-  faLock
+  faLock,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -181,12 +181,12 @@ library.add(
     Select,
     Checkbox,
     FontAwesomeIcon,
-    Confirm
+    Confirm,
   },
   computed: mapGetters({
-    user: "auth/user"
+    user: "auth/user",
   }),
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageDomains extends Vue {
   domains: Domains = emptyPagination;
@@ -199,7 +199,7 @@ export default class ManageDomains extends Vue {
 
   private created() {
     this.domains = {
-      ...this.$store.getters["manage/domains"](this.$route.params.team)
+      ...this.$store.getters["manage/domains"](this.$route.params.team),
     };
   }
 
@@ -211,7 +211,7 @@ export default class ManageDomains extends Vue {
     this.loading = "Loading domains";
     this.$store
       .dispatch("manage/getDomains", { team: this.$route.params.team })
-      .then(domains => (this.domains = { ...domains }))
+      .then((domains) => (this.domains = { ...domains }))
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }
@@ -221,11 +221,11 @@ export default class ManageDomains extends Vue {
     this.$store
       .dispatch("manage/getDomains", {
         team: this.$route.params.team,
-        start: this.$store.state.manage.domains[this.$route.params.team].next
+        start: this.$store.state.manage.domains[this.$route.params.team].next,
       })
-      .then(domains => {
+      .then((domains) => {
         this.domains = {
-          ...this.$store.getters["manage/domains"](this.$route.params.team)
+          ...this.$store.getters["manage/domains"](this.$route.params.team),
         };
       })
       .catch(() => {})
@@ -237,9 +237,9 @@ export default class ManageDomains extends Vue {
     this.$store
       .dispatch("manage/createDomain", {
         domain: this.newDomain,
-        team: this.$route.params.team
+        team: this.$route.params.team,
       })
-      .then(domains => (this.domains = { ...domains }))
+      .then((domains) => (this.domains = { ...domains }))
       .catch(() => {})
       .finally(() => (this.creating = false));
     this.newDomain = "";
@@ -251,9 +251,9 @@ export default class ManageDomains extends Vue {
     this.$store
       .dispatch("manage/deleteDomain", {
         id,
-        team: this.$route.params.team
+        team: this.$route.params.team,
       })
-      .then(domains => (this.domains = { ...domains }))
+      .then((domains) => (this.domains = { ...domains }))
       .catch(() => {})
       .finally(() => (this.loading = ""));
   }

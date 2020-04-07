@@ -38,7 +38,7 @@
               <tr>
                 <td>Account balance</td>
                 <td>
-                  <span style="text-transform: uppercase">
+                  <span style="text-transform: uppercase;">
                     {{ billing.currency || "eur" }}
                   </span>
                   {{ billing.account_balance | currency }}
@@ -70,7 +70,7 @@
             label="Name"
             placeholder="Enter your full name"
             required
-            @input="val => (billing.name = val)"
+            @input="(val) => (billing.name = val)"
           />
           <div class="row">
             <Input
@@ -79,39 +79,39 @@
               label="Email"
               placeholder="Enter your billing email"
               required
-              @input="val => (billing.email = val)"
+              @input="(val) => (billing.email = val)"
             />
             <Input
               :value="billing.phone"
               label="Phone"
               placeholder="Enter your billing phone number"
-              @input="val => (billing.phone = val)"
+              @input="(val) => (billing.phone = val)"
             />
           </div>
           <Input
             :value="billing.address.line1"
             label="Address"
             placeholder="Enter your address"
-            @input="val => (billing.address.line1 = val)"
+            @input="(val) => (billing.address.line1 = val)"
           />
           <Input
             :value="billing.address.line2"
             label="Line 2"
             placeholder="Add another address line"
-            @input="val => (billing.address.line2 = val)"
+            @input="(val) => (billing.address.line2 = val)"
           />
           <div class="row">
             <Input
               :value="billing.address.postal_code"
               label="Postal code"
               placeholder="Enter your postal code"
-              @input="val => (billing.address.postal_code = val)"
+              @input="(val) => (billing.address.postal_code = val)"
             />
             <Input
               :value="billing.address.city"
               label="City"
               placeholder="Enter your city"
-              @input="val => (billing.address.city = val)"
+              @input="(val) => (billing.address.city = val)"
             />
           </div>
           <div class="row">
@@ -119,14 +119,14 @@
               :value="billing.address.state"
               label="State"
               placeholder="Enter your state"
-              @input="val => (billing.address.state = val)"
+              @input="(val) => (billing.address.state = val)"
             />
             <Select
               :value="billing.address.country"
               label="Country"
               placeholder="Select your billing country"
               :options="countries"
-              @input="val => (billing.address.country = val)"
+              @input="(val) => (billing.address.country = val)"
             />
           </div>
           <button v-if="noBilling" class="button button--state-cta">
@@ -159,7 +159,7 @@ import {
   emptyBilling,
   emptyAddress,
   Sources,
-  emptyPagination
+  emptyPagination,
 } from "@/types/manage";
 
 library.add(faSync);
@@ -172,12 +172,12 @@ library.add(faSync);
     ImageInput,
     Checkbox,
     BillingSidebar,
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
   computed: mapGetters({
-    user: "auth/user"
+    user: "auth/user",
   }),
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   user!: User;
@@ -189,7 +189,10 @@ export default class ManageSettings extends Vue {
   private created() {
     this.billing = {
       ...this.$store.getters["manage/billing"](this.$route.params.team),
-      address: { ...emptyAddress, country: this.user.countryCode.toUpperCase() }
+      address: {
+        ...emptyAddress,
+        country: this.user.countryCode.toUpperCase(),
+      },
     };
     const countries = {};
     const allCountries = getAllCountries();
@@ -207,18 +210,18 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading billing details";
     this.$store
       .dispatch("manage/getBilling", this.$route.params.team)
-      .then(billing => {
+      .then((billing) => {
         this.billing = {
           ...billing,
           address: billing.address
             ? { ...billing.address }
             : {
                 ...emptyAddress,
-                country: this.user.countryCode.toUpperCase()
-              }
+                country: this.user.countryCode.toUpperCase(),
+              },
         };
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.error === "no-customer") {
           this.noBilling = true;
           this.billing = {
@@ -226,8 +229,8 @@ export default class ManageSettings extends Vue {
             name: this.user.name,
             address: {
               ...emptyAddress,
-              country: this.user.countryCode.toUpperCase()
-            }
+              country: this.user.countryCode.toUpperCase(),
+            },
           };
         }
       })
@@ -244,15 +247,15 @@ export default class ManageSettings extends Vue {
         address:
           this.billing.address &&
           this.billing.address.line1 &&
-          this.billing.address
+          this.billing.address,
       })
       .then(() => {
         this.billing = {
           ...this.$store.getters["manage/billing"](this.$route.params.team),
           address: {
             ...emptyAddress,
-            country: this.user.countryCode.toUpperCase()
-          }
+            country: this.user.countryCode.toUpperCase(),
+          },
         };
       })
       .catch(() => {})

@@ -26,7 +26,7 @@ import { User } from "@/types/auth";
 import {
   OrganizationsKV,
   Organization,
-  emptyOrganization
+  emptyOrganization,
 } from "@/types/manage";
 library.add(faSync);
 
@@ -39,9 +39,9 @@ library.add(faSync);
     FontAwesomeIcon,
     Select,
     ImageInput,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class Products extends Vue {
   loading = "";
@@ -49,7 +49,7 @@ export default class Products extends Vue {
 
   private created() {
     this.organization = {
-      ...this.$store.getters["manage/organization"](this.$route.params.team)
+      ...this.$store.getters["manage/organization"](this.$route.params.team),
     };
   }
 }

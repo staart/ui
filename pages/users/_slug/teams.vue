@@ -19,7 +19,7 @@
         <LargeMessage
           v-if="
             !loading &&
-              (!memberships || !memberships.data || !memberships.data.length)
+            (!memberships || !memberships.data || !memberships.data.length)
           "
           heading="No memberships yet"
           img="undraw_software_engineer_lvl5.svg"
@@ -57,9 +57,7 @@
                     <font-awesome-icon class="icon" icon="eye" fixed-width />
                   </router-link>
                   <router-link
-                    :to="
-                      `/teams/${membership.organization.username}/settings/general`
-                    "
+                    :to="`/teams/${membership.organization.username}/settings/general`"
                     aria-label="Team settings"
                     data-balloon-pos="up"
                     class="button button--type-icon"
@@ -115,7 +113,7 @@
             placeholder="Enter your team's name"
             :value="newName"
             required
-            @input="val => (newName = val)"
+            @input="(val) => (newName = val)"
           />
           <button class="button">Set up your team</button>
         </form>
@@ -153,7 +151,7 @@ import {
   faSync,
   faSignOutAlt,
   faEye,
-  faCog
+  faCog,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import Confirm from "@/components/Confirm.vue";
@@ -179,9 +177,9 @@ library.add(faArrowDown, faSync, faSignOutAlt, faEye, faCog);
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   memberships: Memberships = emptyPagination;
@@ -194,7 +192,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.memberships = {
-      ...this.$store.getters["users/memberships"](this.$route.params.slug)
+      ...this.$store.getters["users/memberships"](this.$route.params.slug),
     };
   }
 
@@ -202,10 +200,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your memberships";
     this.$store
       .dispatch("users/getMemberships", { slug: this.$route.params.slug })
-      .then(memberships => {
+      .then((memberships) => {
         this.memberships = { ...memberships };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));
@@ -220,14 +218,15 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/getMemberships", {
         slug: this.$route.params.slug,
-        start: this.$store.state.users.memberships[this.$route.params.slug].next
+        start: this.$store.state.users.memberships[this.$route.params.slug]
+          .next,
       })
       .then(() => {
         this.memberships = {
-          ...this.$store.getters["users/memberships"](this.$route.params.slug)
+          ...this.$store.getters["users/memberships"](this.$route.params.slug),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loadingMore = false));
@@ -238,12 +237,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/createOrganization", {
         name: this.newName,
-        slug: this.$route.params.slug
+        slug: this.$route.params.slug,
       })
-      .then(memberships => {
+      .then((memberships) => {
         this.memberships = { ...memberships };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => {
@@ -258,12 +257,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("users/deleteMembership", {
         slug: this.$route.params.slug,
-        id: key
+        id: key,
       })
-      .then(memberships => {
+      .then((memberships) => {
         this.memberships = { ...memberships };
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error);
       })
       .finally(() => (this.loading = ""));

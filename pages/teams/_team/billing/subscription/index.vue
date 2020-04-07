@@ -34,9 +34,9 @@
         <LargeMessage
           v-if="
             !loading &&
-              (!subscriptions ||
-                !subscriptions.data ||
-                !subscriptions.data.length)
+            (!subscriptions ||
+              !subscriptions.data ||
+              !subscriptions.data.length)
           "
           heading="No subscriptions yet"
           img="undraw_product_tour_foyt.svg"
@@ -50,8 +50,8 @@
           <div
             v-if="
               subscriptions &&
-                subscriptions.data &&
-                subscriptions.data.length === 1
+              subscriptions.data &&
+              subscriptions.data.length === 1
             "
           >
             <h3>
@@ -109,7 +109,7 @@
                 <tr
                   v-if="
                     subscriptions.data[0].plan &&
-                      subscriptions.data[0].plan.interval
+                    subscriptions.data[0].plan.interval
                   "
                 >
                   <td>Price</td>
@@ -141,9 +141,7 @@
               </tbody>
             </table>
             <router-link
-              :to="
-                `/teams/${$route.params.team}/billing/subscription/${subscriptions.data[0].id}`
-              "
+              :to="`/teams/${$route.params.team}/billing/subscription/${subscriptions.data[0].id}`"
               aria-label="Edit"
               data-balloon-pos="up"
               class="button button--type-icon section section--mt-2"
@@ -203,9 +201,7 @@
                 </td>
                 <td class="text text--align-right">
                   <router-link
-                    :to="
-                      `/teams/${$route.params.team}/invoices/${subscription.latest_invoice}`
-                    "
+                    :to="`/teams/${$route.params.team}/invoices/${subscription.latest_invoice}`"
                     aria-label="Last invoice"
                     data-balloon-pos="up"
                     class="button button--type-icon"
@@ -218,9 +214,7 @@
                     />
                   </router-link>
                   <router-link
-                    :to="
-                      `/teams/${$route.params.team}/billing/subscription/${subscription.id}`
-                    "
+                    :to="`/teams/${$route.params.team}/billing/subscription/${subscription.id}`"
                     aria-label="Edit"
                     data-balloon-pos="up"
                     class="button button--type-icon"
@@ -273,9 +267,7 @@
           <LargeMessage
             v-else-if="
               !loadingPricingPlans &&
-                (!pricingPlans ||
-                  !pricingPlans.data ||
-                  !pricingPlans.data.length)
+              (!pricingPlans || !pricingPlans.data || !pricingPlans.data.length)
             "
             img="undraw_cancel_u1it.svg"
             heading="No plans here"
@@ -332,7 +324,7 @@ import {
   faFileInvoiceDollar,
   faPencilAlt,
   faArrowDown,
-  faSync
+  faSync,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading.vue";
 import TimeAgo from "@/components/TimeAgo.vue";
@@ -355,13 +347,13 @@ library.add(faFileInvoiceDollar, faPencilAlt, faArrowDown, faSync);
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
   computed: mapGetters({
     user: "auth/user",
-    pricingPlans: "manage/pricingPlans"
+    pricingPlans: "manage/pricingPlans",
   }),
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   subscriptions: Subscriptions = emptyPagination;
@@ -375,7 +367,7 @@ export default class ManageSettings extends Vue {
 
   private created() {
     this.subscriptions = {
-      ...this.$store.getters["manage/subscriptions"](this.$route.params.team)
+      ...this.$store.getters["manage/subscriptions"](this.$route.params.team),
     };
   }
 
@@ -383,10 +375,10 @@ export default class ManageSettings extends Vue {
     this.loading = "Loading your subscriptions";
     this.$store
       .dispatch("manage/getSubscriptions", { team: this.$route.params.team })
-      .then(subscriptions => {
+      .then((subscriptions) => {
         this.subscriptions = { ...subscriptions };
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => (this.loading = ""));
@@ -411,16 +403,16 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/getSubscriptions", {
         team: this.$route.params.team,
         start: this.$store.state.manage.subscriptions[this.$route.params.team]
-          .next
+          .next,
       })
       .then(() => {
         this.subscriptions = {
           ...this.$store.getters["manage/subscriptions"](
             this.$route.params.team
-          )
+          ),
         };
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => (this.loadingMore = false));
@@ -431,12 +423,12 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/createSubscription", {
         team: this.$route.params.team,
-        plan: this.newPlan
+        plan: this.newPlan,
       })
-      .then(subscriptions => {
+      .then((subscriptions) => {
         this.subscriptions = { ...subscriptions };
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.error === "no-customer") this.noBilling = true;
       })
       .finally(() => (this.loading = ""));

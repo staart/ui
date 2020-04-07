@@ -37,7 +37,7 @@ import {
   faBoxOpen,
   faUser,
   faMoneyBillWave,
-  faCode
+  faCode,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
   faDatabase,
@@ -51,8 +51,8 @@ library.add(
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class Manage extends Vue {
   doneOnce = false;
@@ -76,7 +76,7 @@ export default class Manage extends Vue {
         ];
         if (memberships) {
           const yourMembership = memberships.data.filter(
-            membership =>
+            (membership) =>
               membership.organization.id === org ||
               membership.organization.username === org
           );
@@ -84,7 +84,7 @@ export default class Manage extends Vue {
             const role = yourMembership[0].role;
             this.$store.commit("manage/setLoggedInMembership", {
               team: org,
-              role
+              role,
             });
           } else if (!this.doneOnce) {
             this.$store

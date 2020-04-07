@@ -3,7 +3,7 @@ import { Configuration } from "@nuxt/types";
 const config: Configuration = {
   mode: "universal",
   generate: {
-    dir: "public"
+    dir: "public",
   },
   head: {
     title: "StartupName",
@@ -13,56 +13,56 @@ const config: Configuration = {
       {
         hid: "description",
         name: "description",
-        content: "StartupName"
-      }
+        content: "StartupName",
+      },
     ],
     link: [
       { rel: "mask-icon", color: "#673ab7", href: "/safari-pinned-tab.svg" },
       {
         rel: "apple-touch-icon",
         sizes: "76x76",
-        href: "/apple-touch-icon.png"
+        href: "/apple-touch-icon.png",
       },
       {
         rel: "icon",
         type: "image/png",
         sizes: "32x32",
-        href: "/favicon-32x32.png"
+        href: "/favicon-32x32.png",
       },
       {
         rel: "icon",
         type: "image/png",
         sizes: "16x16",
-        href: "/favicon-16x16.png"
+        href: "/favicon-16x16.png",
       },
       {
         rel: "stylesheet",
         href:
-          "https://cdnjs.cloudflare.com/ajax/libs/balloon-css/1.0.3/balloon.min.css"
-      }
+          "https://cdnjs.cloudflare.com/ajax/libs/balloon-css/1.0.3/balloon.min.css",
+      },
     ],
     script: [
       {
         type: "text/javascript",
         src:
-          "https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CrequestIdleCallback%2CBlob%2CIntersectionObserver%2CHTMLPictureElement%2CIntersectionObserverEntry%2CMutationObserver%2Cfetch%2ClocalStorage%2CPromise%2CPromise.prototype.finally"
+          "https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CrequestIdleCallback%2CBlob%2CIntersectionObserver%2CHTMLPictureElement%2CIntersectionObserverEntry%2CMutationObserver%2Cfetch%2ClocalStorage%2CPromise%2CPromise.prototype.finally",
       },
       {
         type: "text/javascript",
         src: "https://public-cdn.oswaldlabs.com/focus-visible.js",
-        async: true
+        async: true,
       },
       {
         type: "text/javascript",
         src: "https://platform.oswaldlabs.com/v1/agastya/load/d1b9d3cd29.js",
-        async: true
+        async: true,
       },
       {
         type: "text/javascript",
         src: "https://unpkg.com/feeedback@1.0.2/docs/index.js",
-        async: true
-      }
-    ]
+        async: true,
+      },
+    ],
   },
   loading: { color: "#492257" },
   css: [],
@@ -72,7 +72,7 @@ const config: Configuration = {
     "~/plugins/vue-timeago",
     "~/plugins/meta-ctrl-enter",
     "~/plugins/filters",
-    { src: "~/plugins/vuex-persist", ssr: false }
+    { src: "~/plugins/vuex-persist", ssr: false },
   ],
   modules: [
     "@nuxtjs/dotenv",
@@ -84,17 +84,17 @@ const config: Configuration = {
     [
       "@nuxtjs/google-analytics",
       {
-        id: "UA-79176349-16"
-      }
+        id: "UA-79176349-16",
+      },
     ],
-    "~/modules/ts-fix.ts"
+    "~/modules/ts-fix.ts",
   ],
   buildModules: ["@nuxt/typescript-build"],
   axios: {
     baseURL:
       process.env.NODE_ENV === "production"
         ? "https://staart.dev.oswaldlabs.com/v1"
-        : "http://localhost:7007/v1"
+        : "http://localhost:7007/v1",
   },
   scrollBehavior() {
     return { x: 0, y: 0 };
@@ -108,19 +108,19 @@ const config: Configuration = {
           loader: "eslint-loader",
           exclude: /(node_modules)/,
           options: {
-            fix: true
-          }
+            fix: true,
+          },
         });
       }
-    }
+    },
   },
   typescript: {
     typeCheck: true,
-    ignoreNotFoundWarnings: true
+    ignoreNotFoundWarnings: true,
   },
   sitemap: {
-    hostname: "https://staart-ui.o15y.now.sh"
-  }
+    hostname: "https://staart-ui.o15y.now.sh",
+  },
 };
 
 export default config;

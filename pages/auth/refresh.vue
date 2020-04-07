@@ -21,11 +21,11 @@ import Input from "@/components/form/Input.vue";
   components: {
     Card,
     LargeMessage,
-    Input
+    Input,
   },
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated"
-  })
+    isAuthenticated: "auth/isAuthenticated",
+  }),
 })
 export default class Login extends Vue {
   private mounted() {

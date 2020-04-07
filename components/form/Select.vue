@@ -45,8 +45,8 @@ library.add(faQuestionCircle);
 
 @Component({
   components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+  },
 })
 export default class Input extends Vue {
   @Prop() value;
@@ -59,9 +59,7 @@ export default class Input extends Vue {
   @Prop() labelHelp;
   @Prop() labelHelpTo;
   @Prop() labelHelpHref;
-  labelId = Math.random()
-    .toString(36)
-    .substring(7);
+  labelId = Math.random().toString(36).substring(7);
 }
 </script>
 

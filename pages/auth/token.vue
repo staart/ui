@@ -34,8 +34,8 @@ import LargeMessage from "@/components/LargeMessage.vue";
 
 @Component({
   components: {
-    LargeMessage
-  }
+    LargeMessage,
+  },
 })
 export default class Token extends Vue {
   hasError = false;
@@ -48,13 +48,13 @@ export default class Token extends Vue {
         return {
           heading: "Email verified",
           text:
-            "We've successfully verified your new email and you can login to your account now."
+            "We've successfully verified your new email and you can login to your account now.",
         };
       default:
         return {
           heading: "Success!",
           text:
-            "We've verified this magic link and you can continue to your account now."
+            "We've verified this magic link and you can continue to your account now.",
         };
     }
   }
@@ -80,7 +80,7 @@ export default class Token extends Vue {
     if (!token || !subject) return (this.hasError = true);
     this.$store
       .dispatch(`tokens/${this.tokenAction()}`, { token, subject })
-      .then(result => {
+      .then((result) => {
         this.hasSuccess = true;
       })
       .then(() => {
@@ -94,7 +94,7 @@ export default class Token extends Vue {
         } else if (subject === "auth") {
           this.$store
             .dispatch("auth/loginWithTokens", this.$route.query)
-            .then(response => {
+            .then((response) => {
               if (response === "2fa") {
                 this.$router.push("/auth/2fa");
               } else {
@@ -103,7 +103,7 @@ export default class Token extends Vue {
             });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.hasError = true;
         throw new Error(error);
       });

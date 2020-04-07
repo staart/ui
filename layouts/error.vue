@@ -16,8 +16,8 @@ import LargeMessage from "@/components/LargeMessage.vue";
 
 @Component({
   components: {
-    LargeMessage
-  }
+    LargeMessage,
+  },
 })
 export default class Error extends Vue {
   @Prop() error;

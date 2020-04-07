@@ -5,7 +5,7 @@ import { RootState, emptyPagination } from "~/types/admin";
 export const state = (): RootState => ({
   users: emptyPagination,
   organizations: emptyPagination,
-  serverLogs: emptyPagination
+  serverLogs: emptyPagination,
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -28,7 +28,7 @@ export const mutations: MutationTree<RootState> = {
     if (start) {
       currentOrganizations.data = [
         ...currentOrganizations.data,
-        ...organizations.data
+        ...organizations.data,
       ];
     } else {
       currentOrganizations.data = organizations.data;
@@ -45,49 +45,51 @@ export const mutations: MutationTree<RootState> = {
       currentServerLogs = { ...serverLogs };
     }
     Vue.set(state, "serverLogs", currentServerLogs);
-  }
+  },
 };
 
 export const actions: ActionTree<RootState, RootState> = {
   async getUsers({ commit }, { start = 0 }) {
-    const users: any = (await this.$axios.get(
-      `/admin/users?start=${start}&itemsPerPage=20`
-    )).data;
+    const users: any = (
+      await this.$axios.get(`/admin/users?start=${start}&itemsPerPage=20`)
+    ).data;
     commit("setUsers", {
       users,
       start,
       next: users.next,
-      hasMore: users.hasMore
+      hasMore: users.hasMore,
     });
     return users;
   },
   async getOrganizations({ commit }, { start = 0 }) {
-    const organizations: any = (await this.$axios.get(
-      `/admin/organizations?start=${start}&itemsPerPage=20`
-    )).data;
+    const organizations: any = (
+      await this.$axios.get(
+        `/admin/organizations?start=${start}&itemsPerPage=20`
+      )
+    ).data;
     commit("setOrganizations", {
       organizations,
       start,
       next: organizations.next,
-      hasMore: organizations.hasMore
+      hasMore: organizations.hasMore,
     });
     return organizations;
   },
   async getServerLogs({ commit }, { range, from }) {
-    const serverLogs: any = (await this.$axios.get(
-      `/admin/server-logs?range=${range}&from=${from}`
-    )).data;
+    const serverLogs: any = (
+      await this.$axios.get(`/admin/server-logs?range=${range}&from=${from}`)
+    ).data;
     commit("setServerLogs", {
       serverLogs,
       range,
-      from
+      from,
     });
     return serverLogs;
-  }
+  },
 };
 
 export const getters: GetterTree<RootState, RootState> = {
-  users: state => () => state.users,
-  organizations: state => () => state.organizations,
-  serverLogs: state => () => state.serverLogs
+  users: (state) => () => state.users,
+  organizations: (state) => () => state.organizations,
+  serverLogs: (state) => () => state.serverLogs,
 };

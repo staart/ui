@@ -18,5 +18,5 @@ const incrementVersion = async () => {
 
 incrementVersion()
   .then(() => {})
-  .catch(error => console.log("ERROR", error))
+  .catch((error) => console.log("ERROR", error))
   .then(() => process.exit(0));

@@ -160,7 +160,7 @@ import {
   faPencilAlt,
   faArrowDown,
   faArrowLeft,
-  faSync
+  faSync,
 } from "@fortawesome/free-solid-svg-icons";
 import { subscriptions } from "stripe";
 import Loading from "@/components/Loading.vue";
@@ -185,13 +185,13 @@ library.add(faFileInvoiceDollar, faPencilAlt, faArrowLeft, faArrowDown, faSync);
     FontAwesomeIcon,
     Select,
     LargeMessage,
-    Checkbox
+    Checkbox,
   },
   computed: mapGetters({
     user: "auth/user",
-    pricingPlans: "manage/pricingPlans"
+    pricingPlans: "manage/pricingPlans",
   }),
-  middleware: "auth"
+  middleware: "auth",
 })
 export default class ManageSettings extends Vue {
   subscription?: subscriptions.ISubscription;
@@ -208,7 +208,7 @@ export default class ManageSettings extends Vue {
       ...this.$store.getters["manage/subscription"](
         this.$route.params.team,
         this.$route.params.id
-      )
+      ),
     };
   }
 
@@ -221,9 +221,9 @@ export default class ManageSettings extends Vue {
     this.$store
       .dispatch("manage/getSubscription", {
         team: this.$route.params.team,
-        id: this.$route.params.id
+        id: this.$route.params.id,
       })
-      .then(subscription => {
+      .then((subscription) => {
         this.subscription = { ...subscription };
       })
       .catch(() => {})
@@ -237,9 +237,9 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/editSubscription", {
         team: this.$route.params.team,
         id: this.$route.params.id,
-        cancel_at_period_end: true
+        cancel_at_period_end: true,
       })
-      .then(subscription => {
+      .then((subscription) => {
         this.subscription = { ...subscription };
       })
       .catch(() => {})
@@ -253,9 +253,9 @@ export default class ManageSettings extends Vue {
       .dispatch("manage/editSubscription", {
         team: this.$route.params.team,
         id: this.$route.params.id,
-        cancel_at_period_end: false
+        cancel_at_period_end: false,
       })
-      .then(subscription => {
+      .then((subscription) => {
         this.subscription = { ...subscription };
       })
       .catch(() => {})
