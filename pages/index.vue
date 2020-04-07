@@ -10,7 +10,7 @@
             <p class="lead">
               <Translate t="pages.index.hero.intro" />
             </p>
-            <div v-if="isAuthenticated">
+            <div v-if="isAuthenticated && user">
               <nuxt-link
                 v-if="
                   memberships &&
@@ -20,6 +20,13 @@
                 "
                 class="button button--size-large button--color-primary"
                 :to="`/teams/${memberships.data[0].organization.username}/products`"
+              >
+                <Translate t="buttons.goToDashboard" />
+              </nuxt-link>
+              <nuxt-link
+                v-else
+                class="button button--size-large button--color-primary"
+                :to="`/users/${user.username}/teams`"
               >
                 <Translate t="buttons.goToDashboard" />
               </nuxt-link>
@@ -505,6 +512,7 @@ import {
 import Translate from "@/components/Translate.vue";
 import { Memberships } from "../types/users";
 import { emptyPagination } from "../types/manage";
+import { User } from "../types/auth";
 library.add(
   faSync,
   faMagic,
@@ -540,29 +548,29 @@ library.add(
 export default class Home extends Vue {
   memberships: Memberships = emptyPagination;
   isAuthenticated!: boolean;
+  user!: User;
   private created() {
     if (!this.isAuthenticated) return;
     this.load();
-    const user = this.$store.getters["auth/user"];
-    if (user && user.username) {
+    this.user = this.$store.getters["auth/user"];
+    if (this.user && this.user.username) {
       this.memberships = {
-        ...this.$store.getters["users/memberships"](user.username),
+        ...this.$store.getters["users/memberships"](this.user.username),
       };
     }
   }
 
   private load() {
     if (!this.isAuthenticated) return;
-    const user = this.$store.getters["auth/user"];
     if (
-      user &&
-      user.username &&
+      this.user &&
+      this.user.username &&
       (!this.memberships ||
         !this.memberships.data ||
         !this.memberships.data.length)
     )
       this.$store
-        .dispatch("users/getMemberships", { slug: user.username })
+        .dispatch("users/getMemberships", { slug: this.user.username })
         .then((memberships) => {
           this.memberships = { ...memberships };
         })
