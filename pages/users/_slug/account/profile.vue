@@ -82,14 +82,14 @@
           />
         </div>
         <Select
-          :value="user.preferredLanguage"
+          :value="user.prefersLanguage"
           label="Language"
           placeholder="Select your preferred language"
           :options="{
             'en-us': 'English (US)',
           }"
           required
-          @input="(val) => (user.preferredLanguage = val)"
+          @input="(val) => (user.prefersLanguage = val)"
         />
         <Checkbox
           :value="user.prefersReducedMotion"

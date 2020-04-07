@@ -38,11 +38,11 @@ export default {
     "domain-already-verified": "This domain is already verified",
     "cannot-invite-domain": "You cannot invite a member from this domain",
     "username-exists": "This username is already claimed",
-    "cannot-delete-email": "This email cannot be deleted",
+    "cannot-delete-email": "This email cannot be deleted"
   },
   serviceIdentities: {
     github: "GitHub",
-    microsoft: "Microsoft",
+    microsoft: "Microsoft"
   },
   securityEvents: {
     "user.created": "Created account",
@@ -64,7 +64,7 @@ export default {
     "email.verified": "Verified email",
     "membership.created": "Updated membership",
     "membership.updated": "Updated membership",
-    "membership.deleted": "Updated membership",
+    "membership.deleted": "Updated membership"
   },
   messages: {
     success: "Your changes were saved successfully",
@@ -90,14 +90,14 @@ export default {
     "billing-source-created": "Your payment method has been added",
     "billing-source-updated": "Your payment method has been updated",
     "billing-source-deleted": "Your payment method has been deleted",
-    "domain-unable-to-verify": "We weren't able to verify your domain",
+    "domain-unable-to-verify": "We weren't able to verify your domain"
   },
   membershipRoles: {
     1: "Owner",
     2: "Admin",
     3: "Manager",
     4: "Member",
-    5: "Basic",
+    5: "Basic"
   },
   scopes: {
     "org:read": { text: "Read team details" },
@@ -131,7 +131,7 @@ export default {
     "org:membership:read": { text: "Read memberships" },
     "org:membership:update": { text: "Update memberships" },
     "org:membership:delete": { text: "Delete memberships" },
-    "org:membership:create": { text: "Create memberships" },
+    "org:membership:create": { text: "Create memberships" }
   },
   webhooks: {
     "*": "All events",
@@ -152,60 +152,60 @@ export default {
     "verify-domain": "Verify a domain",
     "update-webhook": "Update a webhook",
     "create-webhook": "Create a webhook",
-    "delete-webhook": "Delete a webhook",
+    "delete-webhook": "Delete a webhook"
   },
   userScopes: {
     "user:read": {
-      text: "Read basic user profile",
+      text: "Read basic user profile"
     },
     "user:update": {
-      text: "Update user profile",
+      text: "Update user profile"
     },
     "user:emails:create": {
-      text: "Add an email address",
+      text: "Add an email address"
     },
     "user:emails:read": {
-      text: "Read email addresses",
+      text: "Read email addresses"
     },
     "user:emails:delete": {
-      text: "Delete an email address",
+      text: "Delete an email address"
     },
     "user:emails:resend-verification": {
-      text: "Resend email verification",
+      text: "Resend email verification"
     },
     "user:change-password": {
-      text: "Change user password",
+      text: "Change user password"
     },
     "user:delete": {
-      text: "Delete user account",
+      text: "Delete user account"
     },
     "user:memberships:read": {
-      text: "Read team memberships",
+      text: "Read team memberships"
     },
     "user:2fa:enable": {
-      text: "Enable two-factor authentication",
+      text: "Enable two-factor authentication"
     },
     "user:2fa:disable": {
-      text: "Disable two-factor authentication",
+      text: "Disable two-factor authentication"
     },
     "user:backup-codes:read": {
-      text: "Read 2FA backup codes",
+      text: "Read 2FA backup codes"
     },
     "user:backup-codes:regenerate": {
-      text: "Regenerate 2FA backup codes",
+      text: "Regenerate 2FA backup codes"
     },
     "user:access-tokens:create": {
-      text: "Create new access tokens",
+      text: "Create new access tokens"
     },
     "user:access-tokens:read": {
-      text: "Read access tokens",
+      text: "Read access tokens"
     },
     "user:access-tokens:update": {
-      text: "Update access tokens",
+      text: "Update access tokens"
     },
     "user:access-tokens:delete": {
-      text: "Delete access tokens",
-    },
+      text: "Delete access tokens"
+    }
   },
   months: {
     1: "January (01)",
@@ -219,46 +219,45 @@ export default {
     9: "September (09)",
     10: "October (10)",
     11: "November (11)",
-    12: "December (12)",
+    12: "December (12)"
   },
   genders: {
-    m: "Male (he/him)",
-    f: "Female (she/her)",
-    n: "Non-binary (them/their)",
-    x: "Prefer not to say (them/their)",
+    MALE: "Male (he/him)",
+    FEMALE: "Female (she/her)",
+    NONBINARY: "Non-binary (them/their)",
+    UNKNOWN: "Prefer not to say (them/their)"
   },
   buttons: {
     getStarted: "Get started for free →",
-    goToDashboard: "Go to your dashboard →",
+    goToDashboard: "Go to your dashboard →"
   },
   pages: {
     index: {
       hero: {
         title: "SaaS starter for your next big idea.",
         intro:
-          "Written in TypeScript and Vue, Staart UI is a PWA that gives you a 6-month headstart in building your SaaS product, and works with Staart API — free and open-source.",
+          "Written in TypeScript and Vue, Staart UI is a PWA that gives you a 6-month headstart in building your SaaS product, and works with Staart API — free and open-source."
       },
       features: {
         1: {
           title: "SaaS Billing",
           intro:
-            "Subscriptions, credit cards, invoices, and more, powered by Stripe",
+            "Subscriptions, credit cards, invoices, and more, powered by Stripe"
         },
         2: {
           title: "Teams",
-          intro:
-            "Users can invite their teams and manage roles and permissions",
+          intro: "Users can invite their teams and manage roles and permissions"
         },
         3: {
           title: "Platform",
           intro:
-            "Authentication, scoped API keys, and more ways to use your SaaS",
+            "Authentication, scoped API keys, and more ways to use your SaaS"
         },
         4: {
           title: "Full-stack",
           intro:
-            "Node.js backend written in TypeScript with a beautiful Vue PWA.",
-        },
+            "Node.js backend written in TypeScript with a beautiful Vue PWA."
+        }
       },
       lists: {
         title: "More than a basic template",
@@ -268,91 +267,90 @@ export default {
           1: {
             title: "Controller-driven",
             intro:
-              "Auto route generation with redirects and static file support.",
+              "Auto route generation with redirects and static file support."
           },
           2: {
             title: "OAuth2 client",
-            intro:
-              "Users can login with email, Apple, Google, Salesforce, etc.",
+            intro: "Users can login with email, Apple, Google, Salesforce, etc."
           },
           3: {
             title: "Smart authentication",
-            intro: "Secure, location-aware logins with TOTP 2FA support.",
+            intro: "Secure, location-aware logins with TOTP 2FA support."
           },
           4: {
             title: "Developer API",
-            intro: "Developers can use your SaaS with API keys and access",
+            intro: "Developers can use your SaaS with API keys and access"
           },
           5: {
             title: "GDPR compliance",
-            intro: "Teams and users can export and delete data transparently.",
+            intro: "Teams and users can export and delete data transparently."
           },
           6: {
             title: "Secure endpoints",
             intro:
-              "Rate limiting, brute force prevention, and IP/CIDR whitelisting.",
+              "Rate limiting, brute force prevention, and IP/CIDR whitelisting."
           },
           7: {
             title: "Modern toolkit",
-            intro: "Powerful middleware, error handling, async functions.",
-          },
+            intro: "Powerful middleware, error handling, async functions."
+          }
         },
         2: {
           title: "Vue.js/Nuxt.js Frontend",
           link: "Staart UI on GitHub →",
           1: {
             title: "Progressive Web App",
-            intro: "Service worker-cached PWA frontend with a modern toolkit.",
+            intro: "Service worker-cached PWA frontend with a modern toolkit."
           },
           2: {
             title: "Lazy loaded routes",
-            intro: "Smart loading of routes for a fast initial load.",
+            intro: "Smart loading of routes for a fast initial load."
           },
           3: {
             title: "Ready-to-use components",
-            intro: "Beautiful forms, cards, dropdowns, and more components.",
+            intro: "Beautiful forms, cards, dropdowns, and more components."
           },
           4: {
             title: "Static pages",
-            intro: "SEO-proof static templates for pricing, policies, and",
+            intro: "SEO-proof static templates for pricing, policies, and"
           },
           5: {
             title: "Internationalization",
-            intro: "Localize your SaaS to as many languages as you like.",
+            intro: "Localize your SaaS to as many languages as you like."
           },
           6: {
             title: "Accessibility",
-            intro: "ARIA, accessible tooltips, dark theme, reduced motion.",
+            intro: "ARIA, accessible tooltips, dark theme, reduced motion."
           },
           7: {
             title: "Deploy anywhere",
             intro:
-              "Works perfectly on Netlify, Firebase, Surge, and GitHub pages.",
-          },
-        },
+              "Works perfectly on Netlify, Firebase, Surge, and GitHub pages."
+          }
+        }
       },
       logos: {
         title: "Coming soon, powered by Staart",
         1: {
           title: "A11Y.co",
-          intro: "End-to-end web accessibility platform from Oswald Labs",
+          intro: "End-to-end web accessibility platform from Oswald Labs"
         },
         2: {
           title: "Ara Assistant",
           intro:
-            "AI-powered assistant for businesses and professionals from O15Y",
+            "AI-powered assistant for businesses and professionals from O15Y"
         },
         3: {
           title: "Dai11y",
           intro:
-            "Automated daily accessibility audits to find issues in your sites",
+            "Automated daily accessibility audits to find issues in your sites"
         },
         4: {
           title: "Glimage",
           intro:
-            "Global CDN for delivering super-fast, optimized images to your sites",
-        },
-      },
-    },
-  },
+            "Global CDN for delivering super-fast, optimized images to your sites"
+        }
+      }
+    }
+  }
 };
