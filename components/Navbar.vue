@@ -309,11 +309,13 @@ export default class Card extends Vue {
           if (path && path.includes(controller)) {
             this.visible = controller.getAttribute("aria-controls");
             setTimeout(() => {
-              const container =
-                this.$refs[`dropdown-${this.visible}`] as HTMLDivElement;
+              const container = this.$refs[
+                `dropdown-${this.visible}`
+              ] as HTMLDivElement;
               if (container) {
-                const firstFocus =
-                  container.querySelector("a, button") as HTMLAnchorElement;
+                const firstFocus = container.querySelector(
+                  "a, button"
+                ) as HTMLAnchorElement;
                 if (firstFocus) firstFocus.focus();
               }
             }, 1);

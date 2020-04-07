@@ -6,7 +6,7 @@
     />
     <div>
       <span>{{ user.name }}</span>
-      <span v-if="self.id === user.id" class="label">You</span>
+      <span v-if="self.id === user.id" class="user-label">You</span>
       <router-link
         v-if="self.role === 3"
         :to="`/users/${user.username}/profile`"

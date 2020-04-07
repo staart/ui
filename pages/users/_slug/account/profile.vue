@@ -55,14 +55,21 @@
           required
           @input="(val) => (user.username = val)"
         />
-        <Select
-          :value="user.gender"
-          label="Gender"
-          placeholder="Select the gender you most identify with"
-          :options="genders"
-          required
-          @input="(val) => (user.gender = val)"
-        />
+        <b-field label="Gender">
+          <b-select
+            v-model="user.gender"
+            placeholder="Select the gender you most identify with"
+            expanded
+          >
+            <option
+              v-for="(option, index) in genders"
+              :key="`gender${index}`"
+              :value="index"
+            >
+              {{ option }}
+            </option>
+          </b-select>
+        </b-field>
         <div class="row">
           <Select
             :value="user.countryCode"
@@ -91,16 +98,38 @@
           required
           @input="(val) => (user.prefersLanguage = val)"
         />
-        <Checkbox
-          :value="user.prefersReducedMotion"
-          label="I prefer reduced motion (minimize animations and movement)"
-          @input="(val) => (user.prefersReducedMotion = val)"
-        />
-        <Checkbox
-          :value="user.prefersColorSchemeDark"
-          label="I prefer a dark color scheme"
-          @input="(val) => (user.prefersColorSchemeDark = val)"
-        />
+        <div class="field">
+          <b-checkbox
+            v-model="user.prefersReducedMotion"
+            true-value="REDUCE"
+            false-value="NO_PREFERENCE"
+          >
+            I prefer reduced motion (minimize animations and movement)
+          </b-checkbox>
+        </div>
+        <div class="form-group">
+          <label>Preferred color scheme</label>
+          <b-field>
+            <b-radio-button
+              v-model="user.prefersColorScheme"
+              native-value="NO_PREFERENCE"
+            >
+              No preference
+            </b-radio-button>
+            <b-radio-button
+              v-model="user.prefersColorScheme"
+              native-value="LIGHT"
+            >
+              Light theme
+            </b-radio-button>
+            <b-radio-button
+              v-model="user.prefersColorScheme"
+              native-value="DARK"
+            >
+              Dark theme
+            </b-radio-button>
+          </b-field>
+        </div>
         <button class="button">Update profile</button>
       </form>
     </main>
