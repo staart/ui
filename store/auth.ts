@@ -88,9 +88,7 @@ export const actions: ActionTree<RootState, RootState> = {
     }
   },
   async register({}, context) {
-    try {
-      return (await this.$axios.post("/auth/register", context)).data;
-    } catch (error) {}
+    return (await this.$axios.post("/auth/register", context)).data;
   },
   async safeRefresh({ state, dispatch }) {
     const token = state.tokens.token;

@@ -1,12 +1,9 @@
 <template>
   <div>
-    <img alt="" :src="`/images/${img}`" />
+    <img alt :src="`/images/${img}`" />
     <h1>{{ heading }}</h1>
     <p>{{ text }}</p>
-    <nuxt-link
-      v-if="ctaText && ctaTo"
-      class="button button--size-large button--color-primary section section--mt-1"
-      :to="ctaTo"
+    <nuxt-link v-if="ctaText && ctaTo" class="button" :to="ctaTo"
       >{{ ctaText }} &rarr;</nuxt-link
     >
   </div>

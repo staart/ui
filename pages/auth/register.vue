@@ -1,131 +1,96 @@
 <template>
-  <main
-    class="container container--size-small container--top-20height container--bottom-20height"
-  >
+  <main class="container" style="max-width: 500px; margin: 10vh auto;">
     <LargeMessage
-      v-if="completedRegistration"
+      v-if="completed"
       heading="Check your email"
       img="undraw_message_sent_1030.svg"
       text="We've sent you a special link to complete your registration and activate your account."
     />
-    <Card v-else>
-      <h1>Register</h1>
-      <Loading v-if="isLoading" message="Creating your account" />
-      <form v-else v-meta-ctrl-enter="register" @submit.prevent="register">
-        <Input
-          v-model="name"
-          type="text"
-          label="Name"
-          placeholder="Enter your full name"
-          autocomplete="name"
-          required
-          autofocus
-        />
-        <Input
-          v-model="email"
-          type="email"
-          label="Email"
-          placeholder="Enter your work email"
-          autocomplete="email"
-          required
-        />
-        <Input
-          v-model="password"
-          type="password"
-          label="Password"
-          placeholder="Enter a secure password"
-          autocomplete="new-password"
-        />
-        <Input
-          v-if="showInviteCode"
-          v-model="invitedByUser"
-          type="text"
-          label="Invitation code"
-          placeholder="Enter an optional invite code"
-          help="If you have an invite code, enter that here"
-        />
-        <button
-          class="button button--width-full button--size-large"
-          type="submit"
+    <div v-else class="card">
+      <form
+        v-meta-ctrl-enter="login"
+        class="card-content"
+        @submit.prevent="login"
+      >
+        <b-field label="Name">
+          <b-input v-model="name" type="text" required />
+        </b-field>
+        <b-field label="Email">
+          <b-input v-model="email" type="email" required />
+        </b-field>
+        <b-field label="Password">
+          <b-input
+            v-model="password"
+            type="password"
+            required
+            password-reveal
+          />
+        </b-field>
+        <div class="field">
+          <b-checkbox v-model="hasInviteCode"
+            >I have an invitation code</b-checkbox
+          >
+        </div>
+        <b-field v-if="hasInviteCode" label="Invitation code">
+          <b-input v-model="invitedByUser" type="text" />
+        </b-field>
+        <b-button type="is-primary" :loading="isLoading" native-type="submit"
+          >Login to your account</b-button
         >
-          Register for an account
-        </button>
-        <button
-          type="button"
-          class="button button--size-small button--width-full button--color-none"
-          @click="showInviteCode = !showInviteCode"
-        >
-          I have an invite code
-        </button>
       </form>
-    </Card>
-    <p v-if="!completedRegistration" class="text text--mt-1">
-      Already have an account?
-      <nuxt-link to="/auth/login">Login to your account</nuxt-link>
-    </p>
+    </div>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Card from "@/components/Card.vue";
 import LargeMessage from "@/components/LargeMessage.vue";
-import Loading from "@/components/Loading.vue";
-import Input from "@/components/form/Input.vue";
-
+import { User } from "../../types/auth";
 @Component({
-  components: {
-    Card,
-    LargeMessage,
-    Loading,
-    Input,
-  },
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
+    user: "auth/user",
   }),
+  components: {
+    LargeMessage,
+  },
 })
 export default class Login extends Vue {
   name = "";
   email = "";
   password = "";
   invitedByUser = "";
+  hasInviteCode = false;
+
   isAuthenticated!: boolean;
-  showInviteCode = false;
+  user!: User;
   isLoading = false;
-  completedRegistration = false;
-  private register() {
+  completed = false;
+
+  async login() {
     this.isLoading = true;
-    this.$store
-      .dispatch("auth/register", {
-        email: this.email,
+    try {
+      const response = await this.$store.dispatch("auth/register", {
         name: this.name,
+        email: this.email,
         password: this.password,
         invitedByUser: this.invitedByUser ? this.invitedByUser : undefined,
-      })
-      .then(() => {
-        this.completedRegistration = true;
-      })
-      .catch((error) => {
-        throw new Error(error);
-      })
-      .finally(() => {
-        this.name = "";
-        this.email = "";
-        this.password = "";
-        this.invitedByUser = "";
-        this.isLoading = false;
       });
+      if (response === "2fa") return this.$router.push("/auth/2fa");
+      this.completed = true;
+    } catch (error) {}
+    this.isLoading = false;
+    this.name = "";
+    this.email = "";
+    this.password = "";
   }
 
-  private created() {
-    if (this.isAuthenticated) return this.$router.replace("/");
+  created() {
+    if (this.isAuthenticated)
+      return this.$router.replace(
+        (this.$route.query.redirect as string) || "/"
+      );
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.button--size-large + .button--size-small {
-  margin-top: 1rem;
-}
-</style>
