@@ -16,7 +16,8 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.0.0",
-    "nuxt-buefy": "^0.3.2"
+    "nuxt-buefy": "^0.3.2",
+    "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
