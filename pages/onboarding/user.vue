@@ -269,7 +269,6 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
-import { mapGetters } from "vuex";
 import axios from "axios";
 import ct from "countries-and-timezones";
 

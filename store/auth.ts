@@ -13,7 +13,7 @@ export interface Tokens {
 }
 export interface User {
   details?: any;
-  memberships?: any[];
+  memberships?: any;
 }
 
 export const state = (): RootState => ({
@@ -24,7 +24,7 @@ export const state = (): RootState => ({
   },
   user: {
     details: {},
-    memberships: []
+    memberships: {}
   }
 });
 
@@ -46,7 +46,7 @@ export const mutations: MutationTree<RootState> = {
   },
   setUserDetails(
     state: RootState,
-    { details, memberships }: { details: any; memberships: any[] }
+    { details, memberships }: { details: any; memberships: any }
   ) {
     Vue.set(state.user, "details", details);
     Vue.set(state.user, "memberships", memberships);
