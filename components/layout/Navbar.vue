@@ -2,6 +2,7 @@
   <b-navbar
     wrapper-class="container"
     :transparent="true"
+    :type="type"
     style="padding: 0.5rem 0"
     v-show="!$route.path.startsWith('/onboarding/')"
   >
@@ -73,10 +74,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { mapGetters } from "vuex";
-import Component from "vue-class-component";
 import { User } from "../../store/auth";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   computed: mapGetters({
@@ -87,6 +87,7 @@ import { User } from "../../store/auth";
 export default class Navbar extends Vue {
   isAuthenticated!: boolean;
   user!: User;
+  @Prop({ default: "is-light" }) readonly type!: string;
 
   get userMemberships() {
     return this.user.memberships?.data;
