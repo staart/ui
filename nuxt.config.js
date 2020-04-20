@@ -27,7 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/axios.ts"],
+  plugins: ["~/plugins/axios.ts", "~/plugins/vuex-persist.ts"],
   /*
    ** Nuxt.js dev-modules
    */

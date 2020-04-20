@@ -49,7 +49,7 @@ export default class Login extends Vue {
         email: this.email,
         password: this.password
       });
-      const result = await this.$store.dispatch("setAuthTokens", data);
+      const result = await this.$store.dispatch("auth/setAuthTokens", data);
       this.$router.replace(result === "2fa" ? "/auth/2fa" : "/");
     } catch (error) {
       this.$buefy.toast.open({
