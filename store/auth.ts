@@ -98,7 +98,6 @@ export const actions: ActionTree<RootState, RootState> = {
       window.location.href = "/";
       return;
     }
-    commit("startLoading");
     try {
       const tokens: Tokens = (
         await this.$axios.post("/auth/refresh", {
@@ -107,10 +106,8 @@ export const actions: ActionTree<RootState, RootState> = {
       ).data;
       this.$axios.setToken(tokens.token, "Bearer");
       commit("setAuthentication", tokens);
-      commit("stopLoading");
       return tokens.token;
     } catch (error) {
-      commit("stopLoading");
       throw new Error(error);
     }
   },

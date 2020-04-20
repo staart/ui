@@ -52,6 +52,9 @@ export default {
         ? "https://staart.dev.oswaldlabs.com/v1"
         : "http://localhost:7007/v1"
   },
+  router: {
+    middleware: "token"
+  },
   /*
    ** Build configuration
    */

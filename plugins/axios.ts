@@ -23,6 +23,7 @@ export default function({
   $axios.interceptors.request.use(
     (config: AxiosRequestConfig) =>
       new Promise((resolve, reject) => {
+        console.log("Axios request starting");
         // config.data = removeNulls(removeReadOnlyValues(config.data));
         $axios.setHeader("X-Requested-With", "XMLHttpRequest");
 
@@ -36,19 +37,26 @@ export default function({
             "Bearer ",
             ""
           );
+          console.log("Got Axios token", token);
           if (
             decode<{ exp: number }>(token).exp * 1000 <
             new Date().getTime()
           ) {
+            console.log("Axios token is expired");
             $axios.setHeader("Authorization", undefined);
             if (
               !store.state.auth.tokens.token ||
               !store.state.auth.tokens.refresh
-            )
+            ) {
+              console.log("Could not get token in store");
               return resolve(config);
+            }
+            console.log("Refreshing token");
             store
               .dispatch("auth/refresh")
               .then((newToken: string) => {
+                console.log("Got new token", newToken);
+                $axios.setHeader("Authorization", newToken);
                 config.headers = {
                   ...config.headers,
                   Authorization: `Bearer ${newToken}`
