@@ -45,11 +45,12 @@ export default class Login extends Vue {
     if (this.loading) return;
     this.loading = true;
     try {
-      const { body } = await this.$axios.post("/auth/login", {
+      const { data }: { data: any } = await this.$axios.post("/auth/login", {
         email: this.email,
         password: this.password
       });
-      console.log(body);
+      const result = await this.$store.dispatch("setAuthTokens", data);
+      this.$router.replace(result === "2fa" ? "/auth/2fa" : "/");
     } catch (error) {
       this.$buefy.toast.open({
         message: error.response.data.error,

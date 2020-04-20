@@ -1,5 +1,9 @@
 <template>
-  <b-navbar wrapper-class="container" :transparent="true">
+  <b-navbar
+    wrapper-class="container"
+    :transparent="true"
+    style="padding: 0.5rem 0"
+  >
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img
