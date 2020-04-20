@@ -14,10 +14,10 @@
         <b-navbar-item href="#">Accessibility</b-navbar-item>
       </b-navbar-dropdown>
     </template>
-    <template slot="end" v-if="isAuthenticated">
-      <b-navbar-dropdown :label="`@${username}`" :right="true" hoverable boxed>
+    <template slot="end" v-if="isAuthenticated && user.details.username">
+      <b-navbar-dropdown :label="user.details.name" :right="true" hoverable boxed>
         <b-navbar-item>
-          <nuxt-link :to="`/auth/login`">Account settings</nuxt-link>
+          <nuxt-link :to="`/users/${user.details.username}`">Account settings</nuxt-link>
         </b-navbar-item>
         <b-navbar-item>
           <b-button @click="logout" type="is-light">Logout</b-button>
@@ -41,16 +41,17 @@
 import Vue from "vue";
 import { mapGetters } from "vuex";
 import Component from "vue-class-component";
+import { User } from "../../store/auth";
 
 @Component({
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
-    username: "auth/username"
+    user: "auth/user"
   })
 })
 export default class Navbar extends Vue {
   isAuthenticated!: boolean;
-  username!: string;
+  user!: User;
 
   async logout() {
     return this.$store.dispatch("auth/logout");

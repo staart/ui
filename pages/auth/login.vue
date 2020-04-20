@@ -50,11 +50,14 @@ export default class Login extends Vue {
         email: this.email,
         password: this.password
       });
-      const result = await this.$store.dispatch("auth/setAuthTokens", data);
-      this.$router.replace(result === "2fa" ? "/auth/2fa" : "/");
+      const result = await this.$store.dispatch("auth/loginWithTokens", data);
+      if (result === "2fa") return this.$router.replace("/auth/2fa");
+      const memberships = this.$store.state.auth.user.memberships;
+      if (!memberships.length) return this.$router.replace("/onboarding/user");
+      this.$router.replace(`/teams/${memberships[0].organization.username}`);
     } catch (error) {
       this.$buefy.toast.open({
-        message: error.response.data.error,
+        message: error?.response?.data?.error,
         type: "is-danger"
       });
     }

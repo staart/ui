@@ -5,11 +5,15 @@ import decode from "jwt-decode";
 interface RootState {
   tokens: Tokens;
   isAuthenticated: boolean;
-  username?: string;
+  user: User;
 }
 export interface Tokens {
   token: string;
   refresh: string;
+}
+export interface User {
+  details?: any;
+  memberships?: any[];
 }
 
 export const state = (): RootState => ({
@@ -17,6 +21,10 @@ export const state = (): RootState => ({
   tokens: {
     token: "",
     refresh: ""
+  },
+  user: {
+    details: {},
+    memberships: []
   }
 });
 
@@ -24,11 +32,6 @@ export const mutations: MutationTree<RootState> = {
   setAuthentication(state: RootState, tokens: Tokens) {
     const currentTokens = state.tokens;
     Vue.set(state, "tokens", { ...currentTokens, ...tokens });
-    Vue.set(
-      state,
-      "username",
-      decode<{ username: string }>(tokens.token).username
-    );
     state.isAuthenticated = true;
   },
   removeAuthentication(state: RootState) {
@@ -40,6 +43,13 @@ export const mutations: MutationTree<RootState> = {
   },
   setActiveOrganization(state: RootState, team: string) {
     Vue.set(state, "activeOrganization", team);
+  },
+  setUserDetails(
+    state: RootState,
+    { details, memberships }: { details: any; memberships: any[] }
+  ) {
+    Vue.set(state.user, "details", details);
+    Vue.set(state.user, "memberships", memberships);
   }
 };
 
@@ -53,13 +63,16 @@ export const actions: ActionTree<RootState, RootState> = {
       commit("setAuthentication", tokens);
     }
   },
-  loginWithTokens({ commit }, tokens) {
+  async loginWithTokens({ commit }, tokens) {
     if (tokens.twoFactorToken) {
       commit("set2FA", tokens.twoFactorToken);
       return "2fa";
     } else {
       this.$axios.setToken(tokens.token, "Bearer");
       commit("setAuthentication", tokens);
+      const details = (await this.$axios.get("/users/me")).data;
+      const memberships = (await this.$axios.get("/users/me/memberships")).data;
+      commit("setUserDetails", { details, memberships });
     }
   },
   async safeRefresh({ state, dispatch }) {
@@ -114,5 +127,5 @@ export const actions: ActionTree<RootState, RootState> = {
 
 export const getters: GetterTree<RootState, RootState> = {
   isAuthenticated: state => state.isAuthenticated,
-  username: state => state.username
+  user: state => state.user
 };
