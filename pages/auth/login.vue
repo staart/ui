@@ -8,12 +8,15 @@
             <div class="content">
               <form @submit.prevent="login">
                 <b-field label="Email">
-                  <b-input type="email" required />
+                  <b-input v-model="email" type="email" required />
                 </b-field>
                 <b-field label="Password">
-                  <b-input type="password" password-reveal />
+                  <b-input v-model="password" type="password" password-reveal />
                 </b-field>
-                <b-button type="is-primary" native-type="submit"
+                <b-button
+                  type="is-primary"
+                  native-type="submit"
+                  :loading="loading"
                   >Login to your account</b-button
                 >
               </form>
@@ -34,8 +37,28 @@ import Component from "vue-class-component";
 
 @Component
 export default class Login extends Vue {
+  email = "";
+  password = "";
+  loading = false;
+
   async login() {
-    console.log(this);
+    if (this.loading) return;
+    this.loading = true;
+    try {
+      const { body } = await this.$axios.post("/auth/login", {
+        email: this.email,
+        password: this.password
+      });
+      console.log(body);
+    } catch (error) {
+      this.$buefy.toast.open({
+        message: error.response.data.error,
+        type: "is-danger"
+      });
+    }
+    this.loading = false;
+    this.email = "";
+    this.password = "";
   }
 }
 </script>

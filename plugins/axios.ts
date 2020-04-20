@@ -6,10 +6,10 @@ import decode from "jwt-decode";
 const redirectErrors = ["unapproved-location", "missing-token"];
 const ignoredErrors = ["no-customer"];
 
-export default function ({
+export default function({
   $axios,
   redirect,
-  store,
+  store
 }: {
   $axios: NuxtAxiosInstance;
   redirect: any;
@@ -32,11 +32,14 @@ export default function ({
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwib3JnYW5pemF0aW9uSWQiOjEsInJlZmVycmVyUmVzdHJpY3Rpb25zIjoic3RhYXJ0LWRlbW8ubzE1eS5jb20sbG9jYWxob3N0LG9zd2FsZGxhYnMuY29tLHN0YWFydC11aS5vMTV5Lm5vdy5zaCIsImlhdCI6MTU2ODM2MjM5MiwiZXhwIjo4ODQ2ODkxNzcwMTMyLCJpc3MiOiJzdGFhcnQiLCJzdWIiOiJhcGkta2V5IiwianRpIjoiZjE2MGRmMDg3NTkyIn0.pGv-H2a87RX5z_6U5ad07Rk7G4rr3W0hvX4BbC3Jg14"
         );
         try {
-          const token = config.headers.common.Authorization.replace(
+          const token: string = config.headers.common.Authorization.replace(
             "Bearer ",
             ""
           );
-          if (decode(token).exp * 1000 < new Date().getTime()) {
+          if (
+            decode<{ exp: number }>(token).exp * 1000 <
+            new Date().getTime()
+          ) {
             $axios.setHeader("Authorization", undefined);
             if (
               !store.state.auth.tokens.token ||
@@ -48,7 +51,7 @@ export default function ({
               .then((newToken: string) => {
                 config.headers = {
                   ...config.headers,
-                  Authorization: `Bearer ${newToken}`,
+                  Authorization: `Bearer ${newToken}`
                 };
               })
               .catch(() => store.dispatch("auth/logout"))
@@ -84,7 +87,7 @@ export default function ({
   //     }
   //   }
   // });
-  $axios.onError((error) => {
+  $axios.onError(error => {
     if (!error.response) return;
     if (
       ["revoked-token", "invalid-token", "expired-token"].includes(
@@ -106,6 +109,7 @@ export default function ({
       return redirect(
         `/errors/${error.response.data.code || error.response.data.error}`
       );
+    }
     // } else if (
     //   Object.keys(errors).includes(
     //     error.response.data.code || error.response.data.error
