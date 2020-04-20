@@ -14,7 +14,7 @@
                   v-model="countrySearchQuery"
                   :data="filteredCountriesArray"
                   placeholder="e.g. United States"
-                  @select="option => (userCountryCode = option)"
+                  @select="country => (userCountryCode = country)"
                   size="is-medium"
                 >
                   <template slot="empty">No results found</template>
@@ -22,8 +22,30 @@
               </b-field>
             </div>
             <div class="column">
-              <b-field label="Username">
-                <b-input v-model="userUsername" size="is-medium"></b-input>
+              <b-field>
+                <template slot="label">
+                  Timezone
+                  <b-tooltip
+                    type="is-dark"
+                    label="We need your timezone to show you local times"
+                  >
+                    <b-icon size="is-small" icon="help-circle-outline"></b-icon>
+                  </b-tooltip>
+                </template>
+                <b-select
+                  placeholder="Select a name"
+                  v-model="userTimezone"
+                  size="is-medium"
+                  expanded
+                >
+                  <option
+                    v-for="(timezone, i) in filteredTimezonesArray"
+                    :value="timezone"
+                    :key="`t${i}${timezone}`"
+                  >
+                    {{ timezone }}
+                  </option>
+                </b-select>
               </b-field>
             </div>
           </div>
@@ -42,9 +64,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue, Component, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Component from "vue-class-component";
 import ct from "countries-and-timezones";
 
 const countries = ct.getAllCountries();
@@ -53,14 +74,30 @@ const countries = ct.getAllCountries();
 export default class OnboardingUser extends Vue {
   userName = "";
   userUsername = "";
-  countrySearchQuery = "";
   userCountryCode = "us";
-  countries = countries;
+  userTimezone = "America/Los_Angeles";
+
+  countrySearchQuery = "";
+  filteredTimezonesArray = ["America/Los_Angeles"];
 
   created() {
     this.userName = this.$store.state.auth.user.details.name;
     this.userUsername = this.$store.state.auth.user.details.username;
     this.userCountryCode = this.$store.state.auth.user.details.countryCode;
+  }
+
+  @Watch("countrySearchQuery")
+  onCountrySearchQueryChanged(value: string) {
+    const filteredCountries = Object.entries(countries).filter(
+      i => i[1].name === value
+    );
+    if (filteredCountries.length)
+      this.userCountryCode = filteredCountries[0][0];
+    this.filteredTimezonesArray = (
+      ct.getTimezonesForCountry(this.userCountryCode) || []
+    ).map(i => i.name);
+    if (this.filteredTimezonesArray.length)
+      this.userTimezone = this.filteredTimezonesArray[0];
   }
 
   get filteredCountriesArray() {
