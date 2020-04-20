@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-steps :value="2" :has-navigation="false">
+    <b-steps :value="0" :has-navigation="false">
       <b-step-item label="Profile" :clickable="true">
         <h1 class="title has-text-centered">Set up your account</h1>
         <form @submit.prevent="goToNextStep">
@@ -51,13 +51,96 @@
               </b-field>
             </div>
           </div>
-          <b-button
-            type="is-primary"
-            native-type="submit"
-            size="is-medium"
-            :loading="loading"
-            >Save and continue</b-button
-          >
+          <b-field>
+            <template slot="label">
+              Gender
+              <b-tooltip
+                type="is-dark"
+                :label="
+                  userGender === 'MALE'
+                    ? `We'll use him/his as your pronoun`
+                    : userGender === 'FEMALE'
+                    ? `We'll use her/her as your pronoun`
+                    : `We'll use they/them as your pronoun`
+                "
+              >
+                <b-icon size="is-small" icon="help-circle-outline"></b-icon>
+              </b-tooltip>
+            </template>
+            <div>
+              <b-radio
+                name="radioGender"
+                native-value="MALE"
+                v-model="userGender"
+              >
+                Male
+              </b-radio>
+              <b-radio
+                name="radioGender"
+                native-value="FEMALE"
+                v-model="userGender"
+              >
+                Female
+              </b-radio>
+              <b-radio
+                name="radioGender"
+                native-value="NONBINARY"
+                v-model="userGender"
+              >
+                Non-binary
+              </b-radio>
+              <b-radio
+                name="radioGender"
+                native-value="UNKNOWN"
+                v-model="userGender"
+              >
+                Prefer not to say
+              </b-radio>
+            </div>
+          </b-field>
+          <div style="margin-bottom: 0.5rem; font-weight: bold;">
+            Accessibility
+          </div>
+          <b-field>
+            <b-checkbox v-model="userPrefersReducedMotion"
+              >I prefer reduced motion</b-checkbox
+            >
+          </b-field>
+          <div style="margin-bottom: 0.5rem; font-weight: bold;">
+            Webapp color scheme
+          </div>
+          <b-field>
+            <b-radio
+              name="radioColorScheme"
+              native-value="NO_PREFERENCE"
+              v-model="userPrefersColorScheme"
+            >
+              Use system settings
+            </b-radio>
+            <b-radio
+              name="radioColorScheme"
+              native-value="LIGHT"
+              v-model="userPrefersColorScheme"
+            >
+              Light theme
+            </b-radio>
+            <b-radio
+              name="radioColorScheme"
+              native-value="DARK"
+              v-model="userPrefersColorScheme"
+            >
+              Dark theme
+            </b-radio>
+          </b-field>
+          <div class="buttons" style="margin-top: 1.5rem">
+            <b-button
+              type="is-primary"
+              native-type="submit"
+              size="is-medium"
+              :loading="loading"
+              >Save and continue</b-button
+            >
+          </div>
         </form>
       </b-step-item>
       <b-step-item label="Security" :clickable="true">
@@ -197,6 +280,9 @@ export default class OnboardingUser extends Vue {
   userName = "";
   userUsername = "";
   userCountryCode = "us";
+  userPrefersColorScheme = "NO_PREFERENCE";
+  userPrefersReducedMotion = "NO_PREFERENCE";
+  userGender = "UNKNOWN";
   userTimezone = "America/Los_Angeles";
 
   loading = false;
@@ -266,7 +352,12 @@ export default class OnboardingUser extends Vue {
       name: this.userName,
       username: this.userUsername,
       countryCode: this.userCountryCode ? this.userCountryCode : undefined,
-      timezone: this.userTimezone
+      timezone: this.userTimezone,
+      gender: this.userGender,
+      prefersColorScheme: this.userPrefersColorScheme,
+      prefersReducedMotion: this.userPrefersReducedMotion
+        ? "REDUCE"
+        : "NO_PREFERENCE"
     });
   }
 }
