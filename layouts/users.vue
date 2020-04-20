@@ -38,7 +38,7 @@
             </b-menu-list>
           </b-menu>
         </aside>
-        <main class="column is-four-fifths card">
+        <main class="column is-three-quarters card">
           <div class="card-content">
             <nuxt />
           </div>
@@ -96,18 +96,19 @@ export default class Default extends Vue {
 
 <style scoped>
 .container {
-  margin-top: -5rem;
+  margin-top: -3rem;
   position: relative;
   z-index: 31;
+  max-width: 1000px;
 }
 aside {
-  margin-top: 8.5rem;
+  margin-top: 4rem;
 }
 .subnavbar {
   padding: 0.5rem 0;
   margin-top: -1.5rem;
   background-color: #210042;
-  padding-bottom: 7.5rem;
+  padding-bottom: 5rem;
 }
 </style>
 

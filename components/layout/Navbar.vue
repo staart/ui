@@ -45,7 +45,7 @@
     </template>
     <template slot="end" v-if="isAuthenticated && user.details.username">
       <b-navbar-dropdown
-        :label="user.details.name"
+        :label="user.details.nickname"
         :right="true"
         hoverable
         boxed

@@ -17,7 +17,8 @@
                   type="is-primary"
                   native-type="submit"
                   :loading="loading"
-                >Login to your account</b-button>
+                  >Login to your account</b-button
+                >
               </form>
               <p style="margin-top: 1rem">
                 <a href="#">Forgot your password?</a>
@@ -53,8 +54,11 @@ export default class Login extends Vue {
       const result = await this.$store.dispatch("auth/loginWithTokens", data);
       if (result === "2fa") return this.$router.replace("/auth/2fa");
       const memberships = this.$store.state.auth.user.memberships;
-      if (!memberships.length) return this.$router.replace("/onboarding/user");
-      this.$router.replace(`/teams/${memberships[0].organization.username}`);
+      if (!memberships?.data?.length)
+        return this.$router.replace("/onboarding/user");
+      this.$router.replace(
+        `/teams/${memberships?.data[0]?.organization?.username}`
+      );
     } catch (error) {
       this.$buefy.toast.open({
         message: error?.response?.data?.error,
