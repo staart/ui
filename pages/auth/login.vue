@@ -17,8 +17,7 @@
                   type="is-primary"
                   native-type="submit"
                   :loading="loading"
-                  >Login to your account</b-button
-                >
+                >Login to your account</b-button>
               </form>
               <p style="margin-top: 1rem">
                 <a href="#">Forgot your password?</a>
@@ -35,7 +34,9 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-@Component
+@Component({
+  middleware: "unauthenticated"
+})
 export default class Login extends Vue {
   email = "";
   password = "";

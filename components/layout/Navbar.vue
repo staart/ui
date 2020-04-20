@@ -17,7 +17,7 @@
     <template slot="end" v-if="isAuthenticated">
       <b-navbar-dropdown :label="`@${username}`" :right="true" hoverable boxed>
         <b-navbar-item>
-          <nuxt-link :to="`/users/${username}`">Account settings</nuxt-link>
+          <nuxt-link :to="`/auth/login`">Account settings</nuxt-link>
         </b-navbar-item>
         <b-navbar-item>
           <b-button @click="logout" type="is-light">Logout</b-button>
