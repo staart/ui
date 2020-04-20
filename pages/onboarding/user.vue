@@ -47,33 +47,30 @@ import { mapGetters } from "vuex";
 import Component from "vue-class-component";
 import ct from "countries-and-timezones";
 
-const countries: string[] = [];
+const countries = ct.getAllCountries();
 
-@Component({
-  computed: {
-    filteredDataArray() {
-      return countries.filter(
-        option =>
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(option.toLowerCase()) >= 0
-      );
-    }
-  }
-})
+@Component
 export default class OnboardingUser extends Vue {
   userName = "";
   userUsername = "";
   countrySearchQuery = "";
   userCountryCode = "us";
-
-  filteredCountriesArray = [""];
+  countries = countries;
 
   created() {
     this.userName = this.$store.state.auth.user.details.name;
     this.userUsername = this.$store.state.auth.user.details.username;
     this.userCountryCode = this.$store.state.auth.user.details.countryCode;
+  }
+
+  get filteredCountriesArray() {
+    return Object.values(countries)
+      .filter(i =>
+        i.name
+          .toLocaleLowerCase()
+          .includes(this.countrySearchQuery.toLocaleLowerCase())
+      )
+      .map(i => i.name);
   }
 }
 </script>

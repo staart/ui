@@ -28,7 +28,7 @@
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
     "ts-jest": "^25.0.0",
-    "vue-class-component": "^7.2.3",
-    "vue-jest": "^4.0.0-0"
+    "vue-jest": "^4.0.0-0",
+    "vue-property-decorator": "^8.4.1"
   }
 }
