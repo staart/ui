@@ -9,7 +9,7 @@
       sort-icon-size="is-small"
     >
       <template slot-scope="props">
-        <b-table-column sortable label="Session">
+        <b-table-column label="Session">
           <b-tooltip
             v-for="(type, i) in ['browser', 'os', 'countryCode']"
             :key="`t${i}${type}`"
@@ -90,10 +90,14 @@ export default class UsersSessions extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        await this.$axios.delete(
+        const { data } = await this.$axios.delete(
           `/users/${this.$route.params.username}/sessions/${id}`
         );
-        return this.get();
+        await this.get();
+        this.$buefy.toast.open({
+          message: data.text,
+          type: "is-success"
+        });
       }
     });
   }

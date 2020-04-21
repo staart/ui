@@ -16,6 +16,7 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "analytics-icons": "^5.5.0",
     "countries-and-timezones": "^2.2.0",
+    "js-file-download": "^0.4.11",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2",
