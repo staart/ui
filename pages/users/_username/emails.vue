@@ -40,7 +40,6 @@
       <b-button type="is-primary" native-type="submit">
         Update settings
       </b-button>
-      <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
     </form>
     <h2 class="is-size-5">Email preferences</h2>
     <p>primary email, notification emails</p>
