@@ -173,7 +173,11 @@
         Accessibility
       </div>
       <b-field>
-        <b-checkbox v-model="user.prefersReducedMotion">
+        <b-checkbox
+          v-model="user.prefersReducedMotion"
+          true-value="REDUCE"
+          false-value="REDUCE"
+        >
           I prefer reduced motion
         </b-checkbox>
       </b-field>
@@ -212,6 +216,7 @@
     </form>
   </div>
 </template>
+
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters } from "vuex";
@@ -270,9 +275,9 @@ export default class UsersProfile extends Vue {
       i => i[1].name === value
     );
     if (filteredCountries.length)
-      this.user.countryCode = filteredCountries[0][0];
+      this.user.countryCode = filteredCountries[0][0].toLocaleLowerCase();
     this.filteredTimezonesArray = (
-      ct.getTimezonesForCountry(this.user.countryCode) || []
+      ct.getTimezonesForCountry(this.user.countryCode.toLocaleUpperCase()) || []
     ).map(i => i.name);
     if (
       !this.filteredTimezonesArray.includes(this.user.timezone) &&
@@ -304,8 +309,17 @@ export default class UsersProfile extends Vue {
       "updatedAt"
     ].forEach(i => delete user[i]);
     this.loading = true;
-    await this.$axios.patch(`/users/${this.$route.params.username}`, user);
-    return this.get();
+    const { data } = await this.$axios.patch(
+      `/users/${this.$route.params.username}`,
+      user
+    );
+    this.user = data.updated;
+    this.loading = false;
+
+    const country = ct.getCountry(
+      (this.user.countryCode ?? "US").toLocaleUpperCase()
+    );
+    if (country) this.countrySearchQuery = country.name;
   }
 }
 </script>

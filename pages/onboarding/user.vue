@@ -16,7 +16,7 @@
                   :keep-first="true"
                   :open-on-focus="true"
                   placeholder="e.g. United States"
-                  @select="country => (userCountryCode = country)"
+                  @select="country => (selectedCountryCode = country)"
                   size="is-medium"
                 >
                   <template slot="empty">No results found</template>
@@ -102,7 +102,10 @@
             Accessibility
           </div>
           <b-field>
-            <b-checkbox v-model="userPrefersReducedMotion"
+            <b-checkbox
+              v-model="userPrefersReducedMotion"
+              true-value="REDUCE"
+              false-value="REDUCE"
               >I prefer reduced motion</b-checkbox
             >
           </b-field>
@@ -316,12 +319,26 @@ export default class OnboardingUser extends Vue {
       i => i[1].name === value
     );
     if (filteredCountries.length)
-      this.userCountryCode = filteredCountries[0][0];
+      this.userCountryCode = filteredCountries[0][0].toLocaleLowerCase();
     this.filteredTimezonesArray = (
-      ct.getTimezonesForCountry(this.userCountryCode) || []
+      ct.getTimezonesForCountry(this.userCountryCode.toLocaleUpperCase()) || []
     ).map(i => i.name);
-    if (this.filteredTimezonesArray.length)
+    if (
+      !this.filteredTimezonesArray.includes(this.userTimezone) &&
+      this.filteredTimezonesArray.length
+    ) {
       this.userTimezone = this.filteredTimezonesArray[0];
+    }
+  }
+
+  @Watch("selectedCountryCode")
+  onCountryCodeChanged(value: string) {
+    console.log(value);
+    const countryCodes = Object.entries(countries).filter(
+      i => i[1].name === value
+    );
+    if (countryCodes.length)
+      this.userCountryCode = countryCodes[0][0].toLocaleLowerCase();
   }
 
   get filteredCountriesArray() {
