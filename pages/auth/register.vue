@@ -1,7 +1,25 @@
 <template>
   <div>
-    <h1 class="title is-4">Register</h1>
-    <div class="content">
+    <h1 class="title is-4 has-text-centered">Register</h1>
+    <div v-if="completed" class="has-text-centered">
+      <img alt="" src="/illustrations/PlantDoodle.svg" />
+      <h2 class="title is-5">Check your email</h2>
+      <p>
+        We've sent you an email to verify your account. Once you've clicked on
+        the magic link, you can log in.
+      </p>
+      <div v-if="emailDomain" style="margin-top: 1rem">
+        <b-button
+          tag="a"
+          target="_blank"
+          :href="`http://${emailDomain}`"
+          type="is-primary"
+        >
+          Go to {{ emailDomain }} &rarr;
+        </b-button>
+      </div>
+    </div>
+    <div class="content" v-else>
       <form @submit.prevent="login">
         <b-field label="Name">
           <b-input v-model="name" type="text" required />
@@ -46,6 +64,7 @@ export default class Register extends Vue {
   password = "";
   invitedByUser = "";
 
+  completed = true;
   loading = false;
   hasPasswordless = false;
   hasInviteCode = false;
@@ -60,6 +79,10 @@ export default class Register extends Vue {
         password: this.password ? this.password : undefined,
         invitedByUser: this.invitedByUser ? this.invitedByUser : undefined
       });
+      this.name = "";
+      this.password = "";
+      this.invitedByUser = "";
+      this.completed = true;
     } catch (error) {
       this.$buefy.toast.open({
         message: error?.response?.data?.error,
@@ -69,6 +92,14 @@ export default class Register extends Vue {
     this.loading = false;
     this.email = "";
     this.password = "";
+  }
+
+  get emailDomain() {
+    try {
+      return this.email.split("@")[1];
+    } catch (error) {
+      return "";
+    }
   }
 }
 </script>

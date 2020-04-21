@@ -57,7 +57,7 @@ export default class UsersSessions extends Vue {
 
   getIcon(row: any, keyName: string) {
     if (keyName === "countryCode") return icon(row.countryCode);
-    const parser = UAParser(row.userAgent);
+    const parser = new UAParser(row.userAgent);
     return icon(parser[keyName]?.name);
   }
   getCaption(row: any, keyName: string) {
@@ -66,7 +66,7 @@ export default class UsersSessions extends Vue {
         .map(i => row[i])
         .filter(i => i)
         .join(", ");
-    const parser = UAParser(row.userAgent);
+    const parser = new UAParser(row.userAgent);
     return parser[keyName]?.name;
   }
 
