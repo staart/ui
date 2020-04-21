@@ -14,6 +14,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "analytics-icons": "^5.5.0",
     "countries-and-timezones": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.0.0",

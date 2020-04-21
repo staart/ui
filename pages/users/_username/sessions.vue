@@ -9,12 +9,20 @@
       sort-icon-size="is-small"
     >
       <template slot-scope="props">
-        <b-table-column sortable label="Session">{{ sessionName(props.row) }}</b-table-column>
-        <b-table-column
-          sortable
-          field="createdAt"
-          label="Logged in"
-        >{{ new Date(props.row.createdAt).toLocaleString() }}</b-table-column>
+        <b-table-column sortable label="Session">
+          <b-tooltip
+            v-for="(type, i) in ['browser', 'os', 'countryCode']"
+            :key="`t${i}${type}`"
+            :label="getCaption(props.row, type)"
+          >
+            <figure class="image is-24x24" v-if="getCaption(props.row, type)">
+              <img class="is-rounded" :src="getIcon(props.row, type)" />
+            </figure>
+          </b-tooltip>
+        </b-table-column>
+        <b-table-column sortable field="createdAt" label="Logged in">{{
+          new Date(props.row.createdAt).toLocaleString()
+        }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Logout">
             <b-button
@@ -31,6 +39,9 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
+import UAParser from "ua-parser-js";
+import icon from "analytics-icons";
+import ct from "countries-and-timezones";
 
 @Component({
   middleware: "authenticated",
@@ -44,8 +55,19 @@ export default class UsersSessions extends Vue {
     return this.get();
   }
 
-  sessionName(session: { city?: string; region?: string }) {
-    return `Chrome 13${session.city ? ` in ${session.city}` : ""}`;
+  getIcon(row: any, keyName: string) {
+    if (keyName === "countryCode") return icon(row.countryCode);
+    const parser = UAParser(row.userAgent);
+    return icon(parser[keyName]?.name);
+  }
+  getCaption(row: any, keyName: string) {
+    if (keyName === "countryCode")
+      return ["city", "region"]
+        .map(i => row[i])
+        .filter(i => i)
+        .join(", ");
+    const parser = UAParser(row.userAgent);
+    return parser[keyName]?.name;
   }
 
   async get() {
@@ -77,3 +99,9 @@ export default class UsersSessions extends Vue {
   }
 }
 </script>
+
+<style scoped>
+figure.image {
+  margin-right: 0.5rem;
+}
+</style>
