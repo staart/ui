@@ -4,7 +4,7 @@
     <h2 class="is-size-5" style="margin-top: 1rem">Change password</h2>
     <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Current password">
-        <b-input type="password" v-model="oldPassword" password-reveal required />
+        <b-input type="password" v-model="oldPassword" password-reveal />
       </b-field>
       <b-field label="New password">
         <b-input type="password" v-model="newPassword" password-reveal required />
@@ -109,9 +109,16 @@ export default class UsersEmails extends Vue {
   async save() {
     this.loading = true;
     try {
-      await this.$axios.put(`/users/${this.$route.params.username}/password`, {
-        oldPassword: this.oldPassword,
-        newPassword: this.newPassword
+      const { data } = await this.$axios.put(
+        `/users/${this.$route.params.username}/password`,
+        {
+          oldPassword: this.oldPassword,
+          newPassword: this.newPassword
+        }
+      );
+      this.$buefy.toast.open({
+        message: data.text,
+        type: "is-success"
       });
     } catch (error) {
       this.$buefy.toast.open({
@@ -119,10 +126,6 @@ export default class UsersEmails extends Vue {
         type: "is-danger"
       });
     }
-    this.$buefy.toast.open({
-      message: "Your password has been changed"
-      // type: "is-danger"
-    });
     this.oldPassword = "";
     this.newPassword = "";
     this.loading = false;

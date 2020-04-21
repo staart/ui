@@ -1,22 +1,11 @@
 <template>
   <div class="has-background-white-bis">
     <Navbar type="is-black" style="background-color: #210042" />
-    <b-navbar
-      wrapper-class="container"
-      type="is-black"
-      :transparent="true"
-      class="subnavbar"
-    >
+    <b-navbar wrapper-class="container" type="is-black" :transparent="true" class="subnavbar">
       <template slot="start">
-        <b-navbar-item href="#">
-          User settings
-        </b-navbar-item>
-        <b-navbar-item href="#">
-          Teams
-        </b-navbar-item>
-        <b-navbar-item href="#">
-          Developer
-        </b-navbar-item>
+        <b-navbar-item href="#">User settings</b-navbar-item>
+        <b-navbar-item href="#">Teams</b-navbar-item>
+        <b-navbar-item href="#">Developer</b-navbar-item>
       </template>
     </b-navbar>
     <div class="container">
@@ -74,11 +63,6 @@ export default class Default extends Vue {
       label: "Passwords & 2FA",
       icon: "information-outline",
       to: "passwords"
-    },
-    {
-      label: "Connected accounts",
-      icon: "information-outline",
-      to: "connected-accounts"
     },
     {
       label: "Sessions",
