@@ -6,12 +6,17 @@
         <b-field label="Email">
           <b-input v-model="email" type="email" required />
         </b-field>
-        <b-field label="Password">
+        <b-field v-show="!hasPasswordless" label="Password">
           <b-input v-model="password" type="password" password-reveal />
         </b-field>
-        <b-button type="is-primary" native-type="submit" :loading="loading"
-          >Login to your account</b-button
-        >
+        <b-field>
+          <b-checkbox v-model="hasPasswordless">
+            Use passwordless login
+          </b-checkbox>
+        </b-field>
+        <b-button type="is-primary" native-type="submit" :loading="loading">
+          Login to your account
+        </b-button>
       </form>
       <p style="margin-top: 1rem">
         <a href="#">Forgot your password?</a>
@@ -30,7 +35,9 @@ import { Vue, Component } from "vue-property-decorator";
 export default class Login extends Vue {
   email = "";
   password = "";
+
   loading = false;
+  hasPasswordless = false;
 
   async login() {
     if (this.loading) return;
