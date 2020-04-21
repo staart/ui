@@ -64,7 +64,7 @@ export default class Register extends Vue {
   password = "";
   invitedByUser = "";
 
-  completed = true;
+  completed = false;
   loading = false;
   hasPasswordless = false;
   hasInviteCode = false;
