@@ -98,3 +98,9 @@ export default class Navbar extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.is-light {
+  background: none;
+}
+</style>
