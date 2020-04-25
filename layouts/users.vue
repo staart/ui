@@ -70,6 +70,11 @@ export default class Default extends Vue {
       to: "sessions"
     },
     {
+      label: "Access tokens",
+      icon: "information-outline",
+      to: "access-tokens"
+    },
+    {
       label: "Data and privacy",
       icon: "information-outline",
       to: "data"
