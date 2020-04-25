@@ -1,5 +1,6 @@
 <template>
   <b-navbar
+    v-if="isAuthenticated"
     wrapper-class="container"
     :transparent="true"
     :type="type"
@@ -16,7 +17,7 @@
     </template>
     <template
       v-if="
-        isAuthenticated && userMemberships && $route.path.startsWith('/teams/')
+        userMemberships && $route.path.startsWith('/teams/')
       "
       slot="start"
     >
@@ -34,16 +35,7 @@
         </b-navbar-item>
       </b-navbar-dropdown>
     </template>
-    <template v-else slot="start">
-      <b-navbar-item href="#">Features</b-navbar-item>
-      <b-navbar-item href="#">Use Cases</b-navbar-item>
-      <b-navbar-item href="#">Pricing</b-navbar-item>
-      <b-navbar-dropdown label="Resources" hoverable boxed>
-        <b-navbar-item href="#">Documentation</b-navbar-item>
-        <b-navbar-item href="#">Accessibility</b-navbar-item>
-      </b-navbar-dropdown>
-    </template>
-    <template slot="end" v-if="isAuthenticated && user.details.username">
+    <template slot="end" v-if="user.details.username">
       <b-navbar-dropdown
         :label="user.details.nickname"
         :right="true"
@@ -59,16 +51,6 @@
           <b-button @click="logout" type="is-light">Logout</b-button>
         </b-navbar-item>
       </b-navbar-dropdown>
-    </template>
-    <template slot="end" v-else>
-      <b-navbar-item tag="div">
-        <div class="buttons">
-          <nuxt-link to="/auth/register" class="button is-primary">
-            <strong>Get started for free</strong>
-          </nuxt-link>
-          <nuxt-link to="/auth/login" class="button is-light">Login</nuxt-link>
-        </div>
-      </b-navbar-item>
     </template>
   </b-navbar>
 </template>
