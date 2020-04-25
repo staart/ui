@@ -93,9 +93,7 @@ const config: Configuration = {
   buildModules: ["@nuxt/typescript-build"],
   axios: {
     baseURL:
-      process.env.NODE_ENV === "production"
-        ? "https://staart.dev.oswaldlabs.com/v1"
-        : "http://localhost:7007/v1",
+      process.env.API_BASE_URL || "https://staart.dev.oswaldlabs.com/v1"
   },
   scrollBehavior() {
     return { x: 0, y: 0 };
