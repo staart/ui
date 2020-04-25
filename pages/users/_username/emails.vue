@@ -37,12 +37,52 @@
       <b-field label="Email">
         <b-input type="email" v-model="newEmail" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit">
-        Update settings
+      <b-button type="is-primary" native-type="submit" :loading="loading">
+        Add email
       </b-button>
     </form>
     <h2 class="is-size-5">Email preferences</h2>
-    <p>primary email, notification emails</p>
+    <form @submit.prevent="save">
+      <b-field label="Primary email" message="We'll send you emails only on your primary email">
+        <b-select v-model="primaryEmailId" expanded>
+          <option
+            v-for="(email, i) in emails.data"
+            :key="`e${email.id}${i}`"
+            :value="email.id"
+          >
+            {{ email.email }}
+          </option>
+        </b-select>
+      </b-field>
+      <b-field label="Notification emails">
+        <div>
+          <b-radio
+            name="radioNotificationEmails"
+            native-value="ACCOUNT"
+            v-model="notificationEmails"
+          >
+            Account and security
+          </b-radio>
+          <b-radio
+            name="radioNotificationEmails"
+            native-value="UPDATES"
+            v-model="notificationEmails"
+          >
+            App updates
+          </b-radio>
+          <b-radio
+            name="radioNotificationEmails"
+            native-value="PROMOTIONS"
+            v-model="notificationEmails"
+          >
+            Promotions
+          </b-radio>
+        </div>
+      </b-field>
+      <b-button type="is-primary" native-type="submit" :loading="loading">
+        Update settings
+      </b-button>
+    </form>
   </div>
 </template>
 
@@ -56,6 +96,8 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 export default class UsersEmails extends Vue {
   newEmail = "";
   loading = false;
+  primaryEmailId = 0;
+  notificationEmails = "ACCOUNT";
   emails: any = { data: [] };
 
   async created() {
@@ -64,10 +106,15 @@ export default class UsersEmails extends Vue {
 
   async get() {
     this.loading = true;
-    const { data }: { data: any } = await this.$axios.get(
+    const { data } = await this.$axios.get(
       `/users/${this.$route.params.username}/emails`
     );
     this.emails = data;
+    const user = await this.$axios.get(
+      `/users/${this.$route.params.username}`
+    );
+    this.notificationEmails = user.data.notificationEmails;
+    this.primaryEmailId = user.data.primaryEmail;
     this.loading = false;
   }
 
@@ -81,6 +128,18 @@ export default class UsersEmails extends Vue {
     );
     this.emails.data.push(data.added);
     this.newEmail = "";
+    this.loading = false;
+  }
+
+  async save() {
+    this.loading = true;
+    await this.$axios.patch(
+      `/users/${this.$route.params.username}`,
+      {
+        primaryEmail: this.primaryEmailId,
+        notificationEmails: this.notificationEmails
+      }
+    );
     this.loading = false;
   }
 
