@@ -48,9 +48,7 @@ export default {
    */
   axios: {
     baseURL:
-      process.env.NODE_ENV === "production"
-        ? "https://staart.dev.oswaldlabs.com/v1"
-        : "http://localhost:7007/v1"
+      process.env.API_BASE_URL || "https://staart.dev.oswaldlabs.com/v1"
   },
   router: {
     middleware: "token"
