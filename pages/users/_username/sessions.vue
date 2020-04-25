@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
-import UAParser from "ua-parser-js";
+const UAParser = require("ua-parser-js");
 import icon from "analytics-icons";
 import ct from "countries-and-timezones";
 
