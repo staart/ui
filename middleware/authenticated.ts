@@ -1,6 +1,6 @@
-import { Context } from "@nuxt/types";
+import { Middleware } from "@nuxt/types";
 
-export default (context: Context) => {
+const authenticated: Middleware = (context) => {
   const { store, redirect } = context;
   if (process.client) {
     if (!store.state.auth.isAuthenticated) {
@@ -8,3 +8,5 @@ export default (context: Context) => {
     }
   }
 };
+
+export default authenticated;
