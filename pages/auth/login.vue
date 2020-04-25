@@ -11,11 +11,15 @@
         </b-field>
         <b-field>
           <b-checkbox v-model="hasPasswordless">
-            Use passwordless login
+            <span>Use passwordless login</span>
+            <b-tooltip label="We'll send you a magic link over email">
+              <b-icon icon="help-circle" size="is-small" />
+            </b-tooltip>
           </b-checkbox>
         </b-field>
         <b-button type="is-primary" native-type="submit" :loading="loading">
-          Login to your account
+          <span v-if="hasPasswordless">Send a login link</span>
+          <span v-else>Login to your account</span>
         </b-button>
       </form>
       <p style="margin-top: 1rem">

@@ -1,12 +1,13 @@
 <template>
   <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>Staart</strong> by
-        <a href="https://anandchowdhary.com">Anand Chowdhary</a> from
-        <a href="https://o15y.com">O15Y</a>. The source code is licensed
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-      </p>
+    <div class="container">
+      <nav class="column bottom-nav">
+        <span>&copy; {{ year }} Staart</span>
+        <a href="#">Home</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#">Terms and Privacy</a>
+      </nav>
     </div>
   </footer>
 </template>
@@ -15,5 +16,18 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class Footer extends Vue {}
+export default class Footer extends Vue {
+  year = new Date().getFullYear();
+}
 </script>
+
+<style>
+.bottom-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.bottom-nav * + * {
+  margin-left: 2rem;
+}
+</style>

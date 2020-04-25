@@ -32,7 +32,10 @@
         </b-field>
         <b-field>
           <b-checkbox v-model="hasPasswordless">
-            Use passwordless login
+            <span>Use passwordless login</span>
+            <b-tooltip label="We'll send you a magic link over email">
+              <b-icon icon="help-circle" size="is-small" />
+            </b-tooltip>
           </b-checkbox>
         </b-field>
         <b-field>
