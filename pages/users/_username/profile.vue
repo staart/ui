@@ -136,31 +136,6 @@
           </b-radio>
         </div>
       </b-field>
-      <b-field label="Notification emails">
-        <div>
-          <b-radio
-            name="radioNotificationEmails"
-            native-value="ACCOUNT"
-            v-model="user.notificationEmails"
-          >
-            Account and security
-          </b-radio>
-          <b-radio
-            name="radioNotificationEmails"
-            native-value="UPDATES"
-            v-model="user.notificationEmails"
-          >
-            App updates
-          </b-radio>
-          <b-radio
-            name="radioNotificationEmails"
-            native-value="PROMOTIONS"
-            v-model="user.notificationEmails"
-          >
-            Promotions
-          </b-radio>
-        </div>
-      </b-field>
       <div style="margin-bottom: 0.5rem; font-weight: bold;">
         Security
       </div>
