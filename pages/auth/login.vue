@@ -22,8 +22,11 @@
           <span v-else>Login to your account</span>
         </b-button>
       </form>
-      <p style="margin-top: 1rem">
-        <a href="#">Forgot your password?</a>
+      <p style="margin-top: 1.5rem">
+        <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
+      </p>
+      <p>
+        <nuxt-link to="/auth/register">Create an account</nuxt-link>
       </p>
     </div>
   </div>
@@ -34,7 +37,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   middleware: "unauthenticated",
-  layout: "auth"
+  layout: "auth",
 })
 export default class Login extends Vue {
   email = "";
@@ -49,7 +52,7 @@ export default class Login extends Vue {
     try {
       const { data }: { data: any } = await this.$axios.post("/auth/login", {
         email: this.email,
-        password: this.password
+        password: this.password,
       });
       const result = await this.$store.dispatch("auth/loginWithTokens", data);
       if (result === "2fa") return this.$router.replace("/auth/2fa");
@@ -62,7 +65,7 @@ export default class Login extends Vue {
     } catch (error) {
       this.$buefy.toast.open({
         message: error?.response?.data?.error,
-        type: "is-danger"
+        type: "is-danger",
       });
     }
     this.loading = false;
