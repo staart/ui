@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
+    "@nuxtjs/dotenv": "^1.4.1",
     "@types/countries-and-timezones": "^2.0.2",
     "@types/jwt-decode": "^2.2.1",
     "@types/ua-parser-js": "^0.7.33",
