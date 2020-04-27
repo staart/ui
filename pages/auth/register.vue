@@ -111,7 +111,7 @@ export default class Register extends Vue {
       this.password = "";
       this.invitedByUser = "";
       this.completed = true;
-      this.resendToken = data.token;
+      this.resendToken = data.resendToken;
       if (this.resendToken) this.resendTime = 120;
     } catch (error) {
       this.$buefy.toast.open({
