@@ -264,7 +264,7 @@
               >Setup individual account</b-button
             >
           </div>
-        </form @submit.prevent="goToNextStep">
+        </form>
       </b-step-item>
     </b-steps>
   </div>
@@ -380,8 +380,11 @@ export default class OnboardingUser extends Vue {
       this.loading = true;
       if (this.value === 2) {
         const { data } = await this.$axios.put("/organizations", {
-          name: this.teamName || this.userName
+          name: this.teamName || this.userName,
         });
+        const memberships = (await this.$axios.get("/users/me/memberships"))
+          .data;
+        this.$store.commit("auth/setUserDetails", { memberships });
         return this.$router.push(`/teams/${data.added.username}`);
       } else {
         await this.$axios.patch(

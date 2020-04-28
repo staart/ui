@@ -20,12 +20,12 @@ export const state = (): RootState => ({
   isAuthenticated: false,
   tokens: {
     token: "",
-    refresh: ""
+    refresh: "",
   },
   user: {
     details: {},
-    memberships: {}
-  }
+    memberships: {},
+  },
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -46,11 +46,11 @@ export const mutations: MutationTree<RootState> = {
   },
   setUserDetails(
     state: RootState,
-    { details, memberships }: { details: any; memberships: any }
+    { details, memberships }: { details?: any; memberships?: any }
   ) {
-    Vue.set(state.user, "details", details);
-    Vue.set(state.user, "memberships", memberships);
-  }
+    if (details) Vue.set(state.user, "details", details);
+    if (memberships) Vue.set(state.user, "memberships", memberships);
+  },
 };
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -101,7 +101,7 @@ export const actions: ActionTree<RootState, RootState> = {
     try {
       const tokens: Tokens = (
         await this.$axios.post("/auth/refresh", {
-          token: refreshToken
+          token: refreshToken,
         })
       ).data;
       this.$axios.setToken(tokens.token, "Bearer");
@@ -119,10 +119,10 @@ export const actions: ActionTree<RootState, RootState> = {
       document.documentElement.classList.remove("prefers-reduced-motion");
       document.documentElement.classList.remove("prefers-color-scheme-dark");
     }
-  }
+  },
 };
 
 export const getters: GetterTree<RootState, RootState> = {
-  isAuthenticated: state => state.isAuthenticated,
-  user: state => state.user
+  isAuthenticated: (state) => state.isAuthenticated,
+  user: (state) => state.user,
 };
