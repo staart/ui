@@ -13,6 +13,8 @@ more.
 Staart UI is built to work with [Staart](https://github.com/o15y/staart), the
 backend starter for SaaS startups.
 
+**⚠️ v2 BETA WARNING:** The master branch and all 2.x releases are currently in beta. For production, use v1.x instead on this commit tree: [`3c8e1e2`](https://github.com/staart/ui/tree/3c8e1e27fd41c7183a5da68f908a457f17ac2a19).
+
 <table>
   <tbody>
     <tr>
