@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-steps :value="0" :has-navigation="false">
+    <b-steps :value="value" :has-navigation="false">
       <b-step-item label="Profile" :clickable="true">
         <h1 class="title has-text-centered">Set up your account</h1>
         <form @submit.prevent="goToNextStep">
@@ -16,7 +16,7 @@
                   :keep-first="true"
                   :open-on-focus="true"
                   placeholder="e.g. United States"
-                  @select="country => (selectedCountryCode = country)"
+                  @select="(country) => (selectedCountryCode = country)"
                   size="is-medium"
                 >
                   <template slot="empty">No results found</template>
@@ -232,7 +232,7 @@
       </b-step-item>
       <b-step-item label="Team" :clickable="true">
         <h1 class="title has-text-centered">Do you have a team?</h1>
-        <div class="columns has-text-centered">
+        <form @submit.prevent="goToNextStep" class="columns has-text-centered">
           <div class="column">
             <div class="is-size-1">🏢</div>
             <h2 class="is-size-4" style="margin-bottom: 0.5rem">
@@ -264,7 +264,7 @@
               >Setup individual account</b-button
             >
           </div>
-        </div>
+        </form @submit.prevent="goToNextStep">
       </b-step-item>
     </b-steps>
   </div>
@@ -287,9 +287,10 @@ export default class OnboardingUser extends Vue {
   userGender = "UNKNOWN";
   userTimezone = "America/Los_Angeles";
 
+  value = 0;
   loading = false;
   countrySearchQuery = "United States";
-  filteredTimezonesArray = ct.getTimezonesForCountry("US").map(i => i.name);
+  filteredTimezonesArray = ct.getTimezonesForCountry("US").map((i) => i.name);
   securityPreset = 1;
 
   created() {
@@ -316,13 +317,13 @@ export default class OnboardingUser extends Vue {
   @Watch("countrySearchQuery")
   onCountrySearchQueryChanged(value: string) {
     const filteredCountries = Object.entries(countries).filter(
-      i => i[1].name === value
+      (i) => i[1].name === value
     );
     if (filteredCountries.length)
       this.userCountryCode = filteredCountries[0][0].toLocaleLowerCase();
     this.filteredTimezonesArray = (
       ct.getTimezonesForCountry(this.userCountryCode.toLocaleUpperCase()) || []
-    ).map(i => i.name);
+    ).map((i) => i.name);
     if (
       !this.filteredTimezonesArray.includes(this.userTimezone) &&
       this.filteredTimezonesArray.length
@@ -335,7 +336,7 @@ export default class OnboardingUser extends Vue {
   onCountryCodeChanged(value: string) {
     console.log(value);
     const countryCodes = Object.entries(countries).filter(
-      i => i[1].name === value
+      (i) => i[1].name === value
     );
     if (countryCodes.length)
       this.userCountryCode = countryCodes[0][0].toLocaleLowerCase();
@@ -343,12 +344,12 @@ export default class OnboardingUser extends Vue {
 
   get filteredCountriesArray() {
     return Object.values(countries)
-      .filter(i =>
+      .filter((i) =>
         i.name
           .toLocaleLowerCase()
           .includes(this.countrySearchQuery.toLocaleLowerCase())
       )
-      .map(i => i.name);
+      .map((i) => i.name);
   }
 
   get teamName() {
@@ -373,8 +374,38 @@ export default class OnboardingUser extends Vue {
       prefersColorScheme: this.userPrefersColorScheme,
       prefersReducedMotion: this.userPrefersReducedMotion
         ? "REDUCE"
-        : "NO_PREFERENCE"
+        : "NO_PREFERENCE",
     });
+    if (this.value < 3) {
+      this.loading = true;
+      if (this.value === 2) {
+        const { data } = await this.$axios.put("/organizations", {
+          name: this.teamName || this.userName
+        });
+        return this.$router.push(`/teams/${data.added.username}`);
+      } else {
+        await this.$axios.patch(
+          "/users/me",
+          this.value === 0
+            ? {
+                name: this.userName,
+                username: this.userUsername,
+                countryCode: this.userCountryCode
+                  ? this.userCountryCode
+                  : undefined,
+                timezone: this.userTimezone,
+                gender: this.userGender,
+                prefersColorScheme: this.userPrefersColorScheme,
+                prefersReducedMotion: this.userPrefersReducedMotion
+                  ? "REDUCE"
+                  : "NO_PREFERENCE",
+              }
+            : { checkLocationOnLogin, notificationEmails }
+        );
+      }
+      this.loading = false;
+      this.value += 1;
+    }
   }
 }
 </script>
