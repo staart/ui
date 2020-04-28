@@ -16,12 +16,10 @@
       </b-navbar-item>
     </template>
     <template
-      v-if="
-        userMemberships && $route.path.startsWith('/teams/')
-      "
+      v-if="userMemberships && $route.path.startsWith('/teams/')"
       slot="start"
     >
-      <b-navbar-dropdown label="Organization name" hoverable boxed>
+      <b-navbar-dropdown :label="teamsLabel" hoverable boxed>
         <b-navbar-item
           v-for="(membership, i) in userMemberships"
           :key="`m${i}${membership.id}`"
@@ -63,8 +61,8 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user"
-  })
+    user: "auth/user",
+  }),
 })
 export default class Navbar extends Vue {
   isAuthenticated!: boolean;
@@ -72,11 +70,20 @@ export default class Navbar extends Vue {
   @Prop({ default: "is-light" }) readonly type!: string;
 
   get userMemberships() {
-    return this.user.memberships?.data;
+    return this.user.memberships?.data || [];
+  }
+
+  get teamsLabel() {
+    const team = this.userMemberships.find(
+      (i: any) => i.organization.username === this.$route.params.username
+    );
+    if (team) return team.organization.name;
+    return "Change team";
   }
 
   async logout() {
-    return this.$store.dispatch("auth/logout");
+    await this.$store.dispatch("auth/logout");
+    this.$router.push("/");
   }
 }
 </script>
