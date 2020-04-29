@@ -32,6 +32,16 @@
         </b-table-column>
       </template>
     </b-table>
+    <div class="has-text-centered">
+      <b-button
+        v-if="emails.hasMore"
+        @click="get"
+        icon-right="arrow-down"
+        :loading="loading"
+      >
+        Load more emails
+      </b-button>
+    </div>
     <h2 class="is-size-5" style="margin-top: 1rem">Add another email</h2>
     <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Email">
@@ -113,8 +123,14 @@ export default class UsersEmails extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${this.$route.params.username}/emails`
+        `/users/${this.$route.params.username}/emails?first=10${
+          this.emails.data.length
+            ? `&after=${this.emails.data[this.emails.data.length - 1].id}`
+            : ""
+        }`
       );
+      this.emails.data.push(...(data.data || []));
+      this.emails.hasMore = data.hasMore;
       this.emails = data;
     } catch (error) {}
     try {

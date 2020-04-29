@@ -69,7 +69,7 @@ export default class Default extends Vue {
     },
     {
       label: "Access tokens",
-      icon: "api",
+      icon: "code-braces",
       to: "access-tokens",
     },
     {

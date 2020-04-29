@@ -4,7 +4,6 @@ import { AxiosRequestConfig } from "axios";
 import decode from "jwt-decode";
 import { ToastProgrammatic as Toast } from "buefy";
 
-const redirectErrors = ["unapproved-location", "missing-token"];
 const ignoredErrors = ["no-customer"];
 
 export default function({
@@ -41,15 +40,12 @@ export default function({
             new Date().getTime()
           ) {
             console.log("Axios token is expired");
-            $axios.setHeader("Authorization", undefined);
-            if (
-              !store.state.auth.tokens.token ||
-              !store.state.auth.tokens.refresh
-            ) {
-              console.log("Could not get token in store");
+            if (!store.state.auth.tokens.refresh) {
+              console.log("Could not get refresh token in store");
               return resolve(config);
             }
             console.log("Refreshing token");
+            $axios.setHeader("Authorization", undefined);
             store
               .dispatch("auth/refresh")
               .then((newToken: string) => {
@@ -82,9 +78,12 @@ export default function({
     if (!error.response) return;
 
     if (
-      ["revoked-token", "invalid-token", "expired-token"].includes(
-        error.response.data.code || error.response.data.error
-      )
+      [
+        "revoked-token",
+        "invalid-token",
+        "expired-token",
+        "missing-token",
+      ].includes(error.response.data.code || error.response.data.error)
     ) {
       return redirect("/auth/refresh");
     }
@@ -94,14 +93,6 @@ export default function({
         error.response.data.code || error.response.data.error
       )
     ) {
-    } else if (
-      redirectErrors.includes(
-        error.response.data.code || error.response.data.error
-      )
-    ) {
-      return redirect(
-        `/errors/${error.response.data.code || error.response.data.error}`
-      );
     } else if (typeof error.response.data?.error === "string") {
       Toast.open({
         message: error?.response?.data?.error,
