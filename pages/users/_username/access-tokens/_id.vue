@@ -1,12 +1,18 @@
 <template>
   <div>
-    <h1 class="is-size-4">
-      <span>Access Tokens</span>
+    <h1 class="is-size-4" style="margin-bottom: 1rem">
+      <b-button
+        tag="nuxt-link"
+        :to="`/users/${$route.params.username}/access-tokens`"
+        icon-right="arrow-left"
+        style="margin-right: 1rem"
+      />
+      <span>Access Token</span>
+      <code v-if="accessToken.jwtAccessToken">
+        {{ accessToken.jwtAccessToken }}
+      </code>
     </h1>
     <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
-      <b-field label="Access token">
-        <b-input type="text" v-model="accessToken.jwtAccessToken" disabled />
-      </b-field>
       <b-field label="Name">
         <b-input type="text" v-model="accessToken.name" />
       </b-field>
@@ -66,15 +72,19 @@
           v-model="expiresAt"
         />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loading">
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">
         Update access token
       </b-button>
     </form>
-    <h2>Danger zone</h2>
+    <h2 class="is-size-5">Danger zone</h2>
+    <p style="margin: 1rem 0">
+      If your access token was compromized or you don't need it anymore, you can
+      delete it.
+    </p>
     <b-button
       type="is-danger"
       @click="deleteAccessToken(accessToken.id, accessToken.name)"
-      :loading="loading"
+      :loading="loadingDelete"
     >
       Delete access token
     </b-button>
@@ -91,6 +101,8 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
+  loadingUpdate = false;
+  loadingDelete = false;
   accessToken: any = {};
   scopes: string[] = [];
   expiresAt = new Date();
@@ -115,7 +127,8 @@ export default class UsersAccessTokens extends Vue {
   }
 
   async save() {
-    this.loading = true;
+    if (this.loadingUpdate) return;
+    this.loadingUpdate = true;
     try {
       const { data } = await this.$axios.patch(
         `/users/${this.$route.params.username}/access-tokens/${this.$route.params.id}`,
@@ -128,10 +141,11 @@ export default class UsersAccessTokens extends Vue {
       );
       this.accessToken = data.updated;
     } catch (error) {}
-    this.loading = false;
+    this.loadingUpdate = false;
   }
 
   async deleteAccessToken(id: number, accessToken: string) {
+    if (this.loadingDelete) return;
     this.$buefy.dialog.confirm({
       title: "Deleting accessToken",
       message: `Are you sure you want to delete your access token <strong>${accessToken}</strong>? This action is not reversible, and this access token will immediately stop working.`,
@@ -141,7 +155,7 @@ export default class UsersAccessTokens extends Vue {
       hasIcon: true,
       trapFocus: true,
       onConfirm: async () => {
-        this.loading = true;
+        this.loadingDelete = true;
         try {
           await this.$axios.delete(
             `/users/${this.$route.params.username}/access-tokens/${id}`

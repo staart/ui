@@ -37,7 +37,7 @@
       <b-field label="Email">
         <b-input type="email" v-model="newEmail" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loading">
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">
         Add email
       </b-button>
     </form>
@@ -82,7 +82,7 @@
           </b-radio>
         </div>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loading">
+      <b-button type="is-primary" native-type="submit" :loading="loadingSave">
         Update settings
       </b-button>
     </form>
@@ -99,6 +99,8 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 export default class UsersEmails extends Vue {
   newEmail = "";
   loading = false;
+  loadingAdd = false;
+  loadingSave = false;
   primaryEmailId = 0;
   notificationEmails = "ACCOUNT";
   emails: any = { data: [] };
@@ -126,7 +128,7 @@ export default class UsersEmails extends Vue {
   }
 
   async add() {
-    this.loading = true;
+    this.loadingAdd = true;
     try {
       const { data } = await this.$axios.put(
         `/users/${this.$route.params.username}/emails`,
@@ -137,24 +139,24 @@ export default class UsersEmails extends Vue {
       this.emails.data.push(data.added);
       this.newEmail = "";
     } catch (error) {}
-    this.loading = false;
+    this.loadingAdd = false;
   }
 
   async save() {
-    this.loading = true;
+    this.loadingSave = true;
     try {
       await this.$axios.patch(`/users/${this.$route.params.username}`, {
         primaryEmail: this.primaryEmailId,
         notificationEmails: this.notificationEmails,
       });
     } catch (error) {}
-    this.loading = false;
+    this.loadingSave = false;
   }
 
   async deleteEmail(id: number, email: string) {
     this.$buefy.dialog.confirm({
       title: "Deleting email",
-      message: `Are you sure you want to delete your email <code>${email}</code>? This action is not reversible, and you'll have to verify this email again if you change your mind.`,
+      message: `Are you sure you want to delete your email <strong>${email}</strong>? This action is not reversible, and you'll have to verify this email again if you change your mind.`,
       confirmText: "Yes, delete email",
       cancelText: "No, don't delete",
       type: "is-danger",

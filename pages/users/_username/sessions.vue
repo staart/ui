@@ -98,10 +98,6 @@ export default class UsersSessions extends Vue {
           );
         } catch (error) {}
         await this.get();
-        this.$buefy.toast.open({
-          message: data.text,
-          type: "is-success",
-        });
       },
     });
   }

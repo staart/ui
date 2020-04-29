@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h1 class="is-size-4">Access Tokens</h1>
+    <h1 class="is-size-4" style="margin-bottom: 1rem">Access Tokens</h1>
+    <b-message type="is-warning" has-icon>
+      This feature is for developers only. Your access tokens are like your
+      password, and anyone with access to them can change your account settings,
+      including billing information. Make sure you keep them safe!
+    </b-message>
     <b-table
       :loading="loading"
       :data="accessTokens.data"
@@ -35,7 +40,12 @@
               type="is-danger"
               icon-right="delete"
               outlined
-              @click="deleteAccessToken(props.row.id, props.row.accessToken)"
+              @click="
+                deleteAccessToken(
+                  props.row.id,
+                  props.row.name || 'Unnamed token'
+                )
+              "
             />
           </b-tooltip>
         </b-table-column>
@@ -46,7 +56,7 @@
       <b-field label="Name">
         <b-input type="text" v-model="accessTokenName" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loading">
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">
         Create access token
       </b-button>
     </form>
@@ -62,6 +72,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
+  loadingCreate = false;
   accessTokenName = "";
   accessTokens: any = { data: [] };
 
@@ -81,24 +92,24 @@ export default class UsersAccessTokens extends Vue {
   }
 
   async add() {
-    this.loading = true;
+    this.loadingCreate = true;
     try {
       const { data } = await this.$axios.put(
         `/users/${this.$route.params.username}/access-tokens`,
         {
-          name: this.accessTokenName,
+          name: this.accessTokenName ? this.accessTokenName : undefined,
         }
       );
       this.accessTokens.data.push(data.added);
     } catch (error) {}
     this.accessTokenName = "";
-    this.loading = false;
+    this.loadingCreate = false;
   }
 
   async deleteAccessToken(id: number, accessToken: string) {
     this.$buefy.dialog.confirm({
       title: "Deleting accessToken",
-      message: `Are you sure you want to delete your accessToken <code>${accessToken}</code>? This action is not reversible, and you'll have to verify this accessToken again if you change your mind.`,
+      message: `Are you sure you want to delete your access token <strong>${accessToken}</strong>? This action is not reversible, and you'll have to verify this accessToken again if you change your mind.`,
       confirmText: "Yes, delete accessToken",
       cancelText: "No, don't delete",
       type: "is-danger",
