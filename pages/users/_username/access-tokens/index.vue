@@ -71,22 +71,26 @@ export default class UsersAccessTokens extends Vue {
 
   async get() {
     this.loading = true;
-    const { data } = await this.$axios.get(
-      `/users/${this.$route.params.username}/access-tokens`
-    );
-    this.accessTokens = data;
+    try {
+      const { data } = await this.$axios.get(
+        `/users/${this.$route.params.username}/access-tokens`
+      );
+      this.accessTokens = data;
+    } catch (error) {}
     this.loading = false;
   }
 
   async add() {
     this.loading = true;
-    const { data } = await this.$axios.put(
-      `/users/${this.$route.params.username}/access-tokens`,
-      {
-        name: this.accessTokenName,
-      }
-    );
-    this.accessTokens.data.push(data.added);
+    try {
+      const { data } = await this.$axios.put(
+        `/users/${this.$route.params.username}/access-tokens`,
+        {
+          name: this.accessTokenName,
+        }
+      );
+      this.accessTokens.data.push(data.added);
+    } catch (error) {}
     this.accessTokenName = "";
     this.loading = false;
   }
@@ -102,9 +106,11 @@ export default class UsersAccessTokens extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        await this.$axios.delete(
-          `/users/${this.$route.params.username}/access-tokens/${id}`
-        );
+        try {
+          await this.$axios.delete(
+            `/users/${this.$route.params.username}/access-tokens/${id}`
+          );
+        } catch (error) {}
         return this.get();
       },
     });

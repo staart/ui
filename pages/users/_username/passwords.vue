@@ -7,7 +7,12 @@
         <b-input type="password" v-model="oldPassword" password-reveal />
       </b-field>
       <b-field label="New password">
-        <b-input type="password" v-model="newPassword" password-reveal required />
+        <b-input
+          type="password"
+          v-model="newPassword"
+          password-reveal
+          required
+        />
       </b-field>
       <div class="password-strength">
         <div>Password strength</div>
@@ -24,29 +29,43 @@
         />
       </div>
       <div style="margin-top: 0.5rem">
-        <b-button type="is-primary" native-type="submit">Change password</b-button>
+        <b-button type="is-primary" native-type="submit"
+          >Change password</b-button
+        >
       </div>
       <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
     </form>
     <h2 class="is-size-5">Two-factor authentication</h2>
     <div v-if="user.twoFactorEnabled">
       <p>
-        2FA adds an additional layer of protection in your account. You'll
-        need to have a TOTP app like Google Authenticator or a password
-        manager like 1Password to use 2FA.
+        2FA adds an additional layer of protection in your account. You'll need
+        to have a TOTP app like Google Authenticator or a password manager like
+        1Password to use 2FA.
       </p>
       <div class="buttons" style="margin-top: 1rem">
-        <b-button type="is-danger" @click="disable" size="is-medium" :loading="loading">Disable 2FA</b-button>
+        <b-button
+          type="is-danger"
+          @click="disable"
+          size="is-medium"
+          :loading="loading"
+          >Disable 2FA</b-button
+        >
       </div>
     </div>
     <div v-else>
       <p>
-        2FA adds an additional layer of protection in your account. You'll
-        need to have a TOTP app like Google Authenticator or a password
-        manager like 1Password to use 2FA.
+        2FA adds an additional layer of protection in your account. You'll need
+        to have a TOTP app like Google Authenticator or a password manager like
+        1Password to use 2FA.
       </p>
       <div class="buttons" style="margin-top: 1rem">
-        <b-button type="is-success" @click="enable" size="is-medium" :loading="loading">Enable 2FA</b-button>
+        <b-button
+          type="is-success"
+          @click="enable"
+          size="is-medium"
+          :loading="loading"
+          >Enable 2FA</b-button
+        >
       </div>
     </div>
     <b-modal :width="300" :active.sync="showQrCode">
@@ -55,7 +74,10 @@
           <p class="image is-square">
             <img :src="qrCode" />
           </p>
-          <p>Scan this QR code in your authenticator app and enter the one-time password (OTP).</p>
+          <p>
+            Scan this QR code in your authenticator app and enter the one-time
+            password (OTP).
+          </p>
           <form @submit.prevent="verify" style="margin-top: 2rem">
             <b-field label="One-time password">
               <b-input
@@ -67,7 +89,12 @@
               />
             </b-field>
             <div class="buttons" style="margin-top: 1rem">
-              <b-button type="is-primary" native-type="submit" :loading="loading">Enable 2FA</b-button>
+              <b-button
+                type="is-primary"
+                native-type="submit"
+                :loading="loading"
+                >Enable 2FA</b-button
+              >
             </div>
           </form>
         </div>
@@ -81,7 +108,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersEmails extends Vue {
   oldPassword = "";
@@ -99,10 +126,12 @@ export default class UsersEmails extends Vue {
 
   async get() {
     this.loading = true;
-    const { data }: { data: any } = await this.$axios.get(
-      `/users/${this.$route.params.username}?select=twoFactorEnabled`
-    );
-    this.user = data;
+    try {
+      const { data }: { data: any } = await this.$axios.get(
+        `/users/${this.$route.params.username}?select=twoFactorEnabled`
+      );
+      this.user = data;
+    } catch (error) {}
     this.loading = false;
   }
 
@@ -113,19 +142,14 @@ export default class UsersEmails extends Vue {
         `/users/${this.$route.params.username}/password`,
         {
           oldPassword: this.oldPassword,
-          newPassword: this.newPassword
+          newPassword: this.newPassword,
         }
       );
       this.$buefy.toast.open({
         message: data.text,
-        type: "is-success"
+        type: "is-success",
       });
-    } catch (error) {
-      this.$buefy.toast.open({
-        message: error?.response?.data?.error,
-        type: "is-danger"
-      });
-    }
+    } catch (error) {}
     this.oldPassword = "";
     this.newPassword = "";
     this.loading = false;
@@ -139,12 +163,7 @@ export default class UsersEmails extends Vue {
       );
       this.qrCode = data.qrCode;
       this.showQrCode = true;
-    } catch (error) {
-      this.$buefy.toast.open({
-        message: error?.response?.data?.error,
-        type: "is-danger"
-      });
-    }
+    } catch (error) {}
     this.loading = false;
   }
   async verify() {
@@ -153,7 +172,7 @@ export default class UsersEmails extends Vue {
       const { data } = await this.$axios.post(
         `/users/${this.$route.params.username}/2fa/verify`,
         {
-          code: this.verificationCode
+          code: this.verificationCode,
         }
       );
       this.showQrCode = false;
@@ -161,14 +180,9 @@ export default class UsersEmails extends Vue {
       this.$buefy.dialog.alert({
         title: "Backup codes",
         message: `You won't see these backup codes again:<br>${data.backupCodes}`,
-        confirmText: "Confirm"
+        confirmText: "Confirm",
       });
-    } catch (error) {
-      this.$buefy.toast.open({
-        message: error?.response?.data?.error,
-        type: "is-danger"
-      });
-    }
+    } catch (error) {}
     this.verificationCode = "";
     this.loading = false;
   }
@@ -190,11 +204,13 @@ export default class UsersEmails extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        const { data } = await this.$axios.delete(
-          `/users/${this.$route.params.username}/2fa`
-        );
-        this.user.twoFactorEnabled = false;
-      }
+        try {
+          const { data } = await this.$axios.delete(
+            `/users/${this.$route.params.username}/2fa`
+          );
+          this.user.twoFactorEnabled = false;
+        } catch (error) {}
+      },
     });
   }
 }

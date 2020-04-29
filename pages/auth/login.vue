@@ -62,12 +62,7 @@ export default class Login extends Vue {
       this.$router.replace(
         `/teams/${memberships?.data[0]?.organization?.username}`
       );
-    } catch (error) {
-      this.$buefy.toast.open({
-        message: error?.response?.data?.error,
-        type: "is-danger",
-      });
-    }
+    } catch (error) {}
     this.loading = false;
     this.email = "";
     this.password = "";

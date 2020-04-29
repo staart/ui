@@ -101,27 +101,33 @@ export default class UsersAccessTokens extends Vue {
 
   async get() {
     this.loading = true;
-    const { data } = await this.$axios.get(
-      `/users/${this.$route.params.username}/access-tokens/${this.$route.params.id}`
-    );
-    this.accessToken = data;
-    this.scopes = (data.scopes || "").split(",").map((i: string) => i.trim());
-    this.expiresAt = new Date(data.expiresAt);
+    try {
+      const { data } = await this.$axios.get(
+        `/users/${this.$route.params.username}/access-tokens/${this.$route.params.id}`
+      );
+      this.accessToken = data;
+      this.scopes = (data.scopes || "").split(",").map((i: string) => i.trim());
+      this.expiresAt = new Date(data.expiresAt);
+    } catch (error) {
+      this.$router.push(`/users/${this.$route.params.username}/access-tokens`);
+    }
     this.loading = false;
   }
 
   async save() {
     this.loading = true;
-    const { data } = await this.$axios.patch(
-      `/users/${this.$route.params.username}/access-tokens/${this.$route.params.id}`,
-      {
-        name: this.accessToken.name,
-        description: this.accessToken.description,
-        scopes: this.scopes.join(", "),
-        expiresAt: this.expiresAt,
-      }
-    );
-    this.accessToken = data.updated;
+    try {
+      const { data } = await this.$axios.patch(
+        `/users/${this.$route.params.username}/access-tokens/${this.$route.params.id}`,
+        {
+          name: this.accessToken.name,
+          description: this.accessToken.description,
+          scopes: this.scopes.join(", "),
+          expiresAt: this.expiresAt,
+        }
+      );
+      this.accessToken = data.updated;
+    } catch (error) {}
     this.loading = false;
   }
 
@@ -136,9 +142,11 @@ export default class UsersAccessTokens extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        await this.$axios.delete(
-          `/users/${this.$route.params.username}/access-tokens/${id}`
-        );
+        try {
+          await this.$axios.delete(
+            `/users/${this.$route.params.username}/access-tokens/${id}`
+          );
+        } catch (error) {}
         this.$router.push(
           `/users/${this.$route.params.username}/access-tokens`
         );

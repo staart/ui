@@ -113,20 +113,17 @@ export default class Register extends Vue {
       this.completed = true;
       this.resendToken = data.resendToken;
       if (this.resendToken) this.resendTime = 120;
-    } catch (error) {
-      this.$buefy.toast.open({
-        message: error?.response?.data?.error,
-        type: "is-danger",
-      });
-    }
+    } catch (error) {}
     this.loading = false;
     this.password = "";
   }
 
   async resend() {
-    await this.$axios.post("/auth/resend-verification", {
-      email: this.email,
-    });
+    try {
+      await this.$axios.post("/auth/resend-verification", {
+        email: this.email,
+      });
+    } catch (error) {}
     this.resendTime = -1;
   }
 

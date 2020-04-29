@@ -42,7 +42,7 @@
               :keep-first="true"
               :open-on-focus="true"
               placeholder="e.g. United States"
-              @select="country => (selectedCountryCode = country)"
+              @select="(country) => (selectedCountryCode = country)"
               size="is-medium"
             >
               <template slot="empty">No results found</template>
@@ -203,7 +203,7 @@ const countries = ct.getAllCountries();
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersProfile extends Vue {
   loading = false;
@@ -212,9 +212,9 @@ export default class UsersProfile extends Vue {
   countrySearchQuery = "United States";
   languages = {
     "en-us": "English (United States)",
-    "en-in": "English (India)"
+    "en-in": "English (India)",
   };
-  filteredTimezonesArray = ct.getTimezonesForCountry("US").map(i => i.name);
+  filteredTimezonesArray = ct.getTimezonesForCountry("US").map((i) => i.name);
 
   async created() {
     return this.get();
@@ -222,10 +222,12 @@ export default class UsersProfile extends Vue {
 
   async get() {
     this.loading = true;
-    const { data }: { data: any } = await this.$axios.get(
-      `/users/${this.$route.params.username}`
-    );
-    this.user = data;
+    try {
+      const { data }: { data: any } = await this.$axios.get(
+        `/users/${this.$route.params.username}`
+      );
+      this.user = data;
+    } catch (error) {}
     this.loading = false;
 
     const country = ct.getCountry(
@@ -238,7 +240,7 @@ export default class UsersProfile extends Vue {
   onCountryCodeChanged(value: string) {
     console.log(value);
     const countryCodes = Object.entries(countries).filter(
-      i => i[1].name === value
+      (i) => i[1].name === value
     );
     if (countryCodes.length)
       this.user.countryCode = countryCodes[0][0].toLocaleLowerCase();
@@ -247,13 +249,13 @@ export default class UsersProfile extends Vue {
   @Watch("countrySearchQuery")
   onCountrySearchQueryChanged(value: string) {
     const filteredCountries = Object.entries(countries).filter(
-      i => i[1].name === value
+      (i) => i[1].name === value
     );
     if (filteredCountries.length)
       this.user.countryCode = filteredCountries[0][0].toLocaleLowerCase();
     this.filteredTimezonesArray = (
       ct.getTimezonesForCountry(this.user.countryCode.toLocaleUpperCase()) || []
-    ).map(i => i.name);
+    ).map((i) => i.name);
     if (
       !this.filteredTimezonesArray.includes(this.user.timezone) &&
       this.filteredTimezonesArray.length
@@ -264,12 +266,12 @@ export default class UsersProfile extends Vue {
 
   get filteredCountriesArray() {
     return Object.values(countries)
-      .filter(i =>
+      .filter((i) =>
         i.name
           .toLocaleLowerCase()
           .includes(this.countrySearchQuery.toLocaleLowerCase())
       )
-      .map(i => i.name);
+      .map((i) => i.name);
   }
 
   async save() {
@@ -281,14 +283,16 @@ export default class UsersProfile extends Vue {
       "role",
       "twoFactorEnabled",
       "twoFactorSecret",
-      "updatedAt"
-    ].forEach(i => delete user[i]);
+      "updatedAt",
+    ].forEach((i) => delete user[i]);
     this.loading = true;
-    const { data } = await this.$axios.patch(
-      `/users/${this.$route.params.username}`,
-      user
-    );
-    this.user = data.updated;
+    try {
+      const { data } = await this.$axios.patch(
+        `/users/${this.$route.params.username}`,
+        user
+      );
+      this.user = data.updated;
+    } catch (error) {}
     this.loading = false;
 
     const country = ct.getCountry(

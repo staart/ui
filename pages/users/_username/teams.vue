@@ -66,23 +66,27 @@ export default class UsersTeams extends Vue {
 
   async get() {
     this.loading = true;
-    const { data } = await this.$axios.get(
-      `/users/${this.$route.params.username}/memberships`
-    );
-    this.teams = data;
+    try {
+      const { data } = await this.$axios.get(
+        `/users/${this.$route.params.username}/memberships`
+      );
+      this.teams = data;
+    } catch (error) {}
     this.loading = false;
   }
 
   async add() {
     this.loading = true;
-    const { data } = await this.$axios.put(
-      `/users/${this.$route.params.username}/organizations`,
-      {
-        team: this.newTeam,
-      }
-    );
-    this.teams.data.push(data.added);
-    this.newTeam = "";
+    try {
+      const { data } = await this.$axios.put(
+        `/users/${this.$route.params.username}/organizations`,
+        {
+          team: this.newTeam,
+        }
+      );
+      this.teams.data.push(data.added);
+      this.newTeam = "";
+    } catch (error) {}
     this.loading = false;
   }
 
@@ -97,9 +101,11 @@ export default class UsersTeams extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        await this.$axios.delete(
-          `/users/${this.$route.params.username}/memberships/${id}`
-        );
+        try {
+          await this.$axios.delete(
+            `/users/${this.$route.params.username}/memberships/${id}`
+          );
+        } catch (error) {}
         return this.get();
       },
     });

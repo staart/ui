@@ -21,20 +21,22 @@ import download from "js-file-download";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersProfile extends Vue {
   loading = false;
 
   async get() {
     this.loading = true;
-    const { data }: { data: any } = await this.$axios.get(
-      `/users/${this.$route.params.username}/data`
-    );
-    download(
-      JSON.stringify(data, null, 2),
-      `${data.username}-${new Date().toISOString()}.json`
-    );
+    try {
+      const { data }: { data: any } = await this.$axios.get(
+        `/users/${this.$route.params.username}/data`
+      );
+      download(
+        JSON.stringify(data, null, 2),
+        `${data.username}-${new Date().toISOString()}.json`
+      );
+    } catch (error) {}
     this.loading = false;
   }
 
@@ -50,16 +52,14 @@ export default class UsersProfile extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        const { data } = await this.$axios.delete(
-          `/users/${this.$route.params.username}`
-        );
-        this.$store.dispatch("auth/logout");
-        this.$buefy.toast.open({
-          message: data.text,
-          type: "is-success"
-        });
-        this.$router.push("/");
-      }
+        try {
+          const { data } = await this.$axios.delete(
+            `/users/${this.$route.params.username}`
+          );
+          this.$store.dispatch("auth/logout");
+          this.$router.push("/");
+        } catch (error) {}
+      },
     });
   }
 }

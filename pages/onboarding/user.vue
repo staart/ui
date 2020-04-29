@@ -379,32 +379,38 @@ export default class OnboardingUser extends Vue {
     if (this.value < 3) {
       this.loading = true;
       if (this.value === 2) {
-        const { data } = await this.$axios.put("/organizations", {
-          name: this.teamName || this.userName,
-        });
-        const memberships = (await this.$axios.get("/users/me/memberships"))
-          .data;
-        this.$store.commit("auth/setUserDetails", { memberships });
-        return this.$router.push(`/teams/${data.added.username}`);
+        try {
+          const { data } = await this.$axios.put("/organizations", {
+            name: this.teamName || this.userName,
+          });
+          const memberships = (await this.$axios.get("/users/me/memberships"))
+            .data;
+          this.$store.commit("auth/setUserDetails", { memberships });
+          return this.$router.push(`/teams/${data.added.username}`);
+        } catch (error) {
+          return this.$router.push("/");
+        }
       } else {
-        await this.$axios.patch(
-          "/users/me",
-          this.value === 0
-            ? {
-                name: this.userName,
-                username: this.userUsername,
-                countryCode: this.userCountryCode
-                  ? this.userCountryCode
-                  : undefined,
-                timezone: this.userTimezone,
-                gender: this.userGender,
-                prefersColorScheme: this.userPrefersColorScheme,
-                prefersReducedMotion: this.userPrefersReducedMotion
-                  ? "REDUCE"
-                  : "NO_PREFERENCE",
-              }
-            : { checkLocationOnLogin, notificationEmails }
-        );
+        try {
+          await this.$axios.patch(
+            "/users/me",
+            this.value === 0
+              ? {
+                  name: this.userName,
+                  username: this.userUsername,
+                  countryCode: this.userCountryCode
+                    ? this.userCountryCode
+                    : undefined,
+                  timezone: this.userTimezone,
+                  gender: this.userGender,
+                  prefersColorScheme: this.userPrefersColorScheme,
+                  prefersReducedMotion: this.userPrefersReducedMotion
+                    ? "REDUCE"
+                    : "NO_PREFERENCE",
+                }
+              : { checkLocationOnLogin, notificationEmails }
+          );
+        } catch (error) {}
       }
       this.loading = false;
       this.value += 1;

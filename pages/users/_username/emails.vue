@@ -43,7 +43,10 @@
     </form>
     <h2 class="is-size-5">Email preferences</h2>
     <form @submit.prevent="save">
-      <b-field label="Primary email" message="We'll send you emails only on your primary email">
+      <b-field
+        label="Primary email"
+        message="We'll send you emails only on your primary email"
+      >
         <b-select v-model="primaryEmailId" expanded>
           <option
             v-for="(email, i) in emails.data"
@@ -91,7 +94,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersEmails extends Vue {
   newEmail = "";
@@ -106,40 +109,45 @@ export default class UsersEmails extends Vue {
 
   async get() {
     this.loading = true;
-    const { data } = await this.$axios.get(
-      `/users/${this.$route.params.username}/emails`
-    );
-    this.emails = data;
-    const user = await this.$axios.get(
-      `/users/${this.$route.params.username}`
-    );
-    this.notificationEmails = user.data.notificationEmails;
-    this.primaryEmailId = user.data.primaryEmail;
+    try {
+      const { data } = await this.$axios.get(
+        `/users/${this.$route.params.username}/emails`
+      );
+      this.emails = data;
+    } catch (error) {}
+    try {
+      const user = await this.$axios.get(
+        `/users/${this.$route.params.username}`
+      );
+      this.notificationEmails = user.data.notificationEmails;
+      this.primaryEmailId = user.data.primaryEmail;
+    } catch (error) {}
     this.loading = false;
   }
 
   async add() {
     this.loading = true;
-    const { data } = await this.$axios.put(
-      `/users/${this.$route.params.username}/emails`,
-      {
-        email: this.newEmail
-      }
-    );
-    this.emails.data.push(data.added);
-    this.newEmail = "";
+    try {
+      const { data } = await this.$axios.put(
+        `/users/${this.$route.params.username}/emails`,
+        {
+          email: this.newEmail,
+        }
+      );
+      this.emails.data.push(data.added);
+      this.newEmail = "";
+    } catch (error) {}
     this.loading = false;
   }
 
   async save() {
     this.loading = true;
-    await this.$axios.patch(
-      `/users/${this.$route.params.username}`,
-      {
+    try {
+      await this.$axios.patch(`/users/${this.$route.params.username}`, {
         primaryEmail: this.primaryEmailId,
-        notificationEmails: this.notificationEmails
-      }
-    );
+        notificationEmails: this.notificationEmails,
+      });
+    } catch (error) {}
     this.loading = false;
   }
 
@@ -154,11 +162,13 @@ export default class UsersEmails extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        await this.$axios.delete(
-          `/users/${this.$route.params.username}/emails/${id}`
-        );
+        try {
+          await this.$axios.delete(
+            `/users/${this.$route.params.username}/emails/${id}`
+          );
+        } catch (error) {}
         return this.get();
-      }
+      },
     });
   }
 }

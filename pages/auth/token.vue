@@ -69,9 +69,7 @@ export default class Login extends Vue {
       if (this.subject === "password-reset")
         return this.$router.replace(`/auth/recover?token=${token}`);
       this.state = "success";
-    } catch (error) {
-      console.log("ERROR", error);
-    }
+    } catch (error) {}
   }
 }
 </script>

@@ -45,7 +45,7 @@ import ct from "countries-and-timezones";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersSessions extends Vue {
   loading = false;
@@ -63,8 +63,8 @@ export default class UsersSessions extends Vue {
   getCaption(row: any, keyName: string) {
     if (keyName === "countryCode")
       return ["city", "region"]
-        .map(i => row[i])
-        .filter(i => i)
+        .map((i) => row[i])
+        .filter((i) => i)
         .join(", ");
     const parser = new UAParser(row.userAgent);
     return parser[keyName]?.name;
@@ -72,10 +72,12 @@ export default class UsersSessions extends Vue {
 
   async get() {
     this.loading = true;
-    const { data }: { data: any } = await this.$axios.get(
-      `/users/${this.$route.params.username}/sessions`
-    );
-    this.sessions = data;
+    try {
+      const { data }: { data: any } = await this.$axios.get(
+        `/users/${this.$route.params.username}/sessions`
+      );
+      this.sessions = data;
+    } catch (error) {}
     this.loading = false;
   }
 
@@ -90,15 +92,17 @@ export default class UsersSessions extends Vue {
       trapFocus: true,
       onConfirm: async () => {
         this.loading = true;
-        const { data } = await this.$axios.delete(
-          `/users/${this.$route.params.username}/sessions/${id}`
-        );
+        try {
+          const { data } = await this.$axios.delete(
+            `/users/${this.$route.params.username}/sessions/${id}`
+          );
+        } catch (error) {}
         await this.get();
         this.$buefy.toast.open({
           message: data.text,
-          type: "is-success"
+          type: "is-success",
         });
-      }
+      },
     });
   }
 }
