@@ -2,6 +2,7 @@ import Vue from "vue";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { AxiosRequestConfig } from "axios";
 import decode from "jwt-decode";
+import { ToastProgrammatic as Toast } from "buefy";
 
 const redirectErrors = ["unapproved-location", "missing-token"];
 const ignoredErrors = ["no-customer"];
@@ -9,9 +10,11 @@ const ignoredErrors = ["no-customer"];
 export default function({
   $axios,
   redirect,
-  store
+  store,
+  app,
 }: {
   $axios: NuxtAxiosInstance;
+  app: any;
   redirect: any;
   store: {
     state: {
@@ -24,18 +27,15 @@ export default function({
     (config: AxiosRequestConfig) =>
       new Promise((resolve, reject) => {
         console.log("Axios request starting");
-        // config.data = removeNulls(removeReadOnlyValues(config.data));
         $axios.setHeader("X-Requested-With", "XMLHttpRequest");
-
-        // This is the Staart public API key
         if (process.env.API_KEY)
-          $axios.setHeader("X-Api-Key",process.env.API_KEY);
+          $axios.setHeader("X-Api-Key", process.env.API_KEY);
+
         try {
           const token: string = config.headers.common.Authorization.replace(
             "Bearer ",
             ""
           );
-          console.log("Got Axios token", token);
           if (
             decode<{ exp: number }>(token).exp * 1000 <
             new Date().getTime()
@@ -57,7 +57,7 @@ export default function({
                 $axios.setHeader("Authorization", newToken);
                 config.headers = {
                   ...config.headers,
-                  Authorization: `Bearer ${newToken}`
+                  Authorization: `Bearer ${newToken}`,
                 };
               })
               .catch(() => store.dispatch("auth/logout"))
@@ -70,31 +70,17 @@ export default function({
         }
       })
   );
-  // $axios.onResponse((response) => {
-  //   if (response.data.success === true) {
-  //     if (response.data.text) {
-  //       Vue.notify({
-  //         group: "auth",
-  //         text: response.data.text,
-  //         type: "notification notification--color-success",
-  //       });
-  //     } else if (response.data.message) {
-  //       Vue.notify({
-  //         group: "auth",
-  //         text: messages[response.data.message] || messages.success,
-  //         type: "notification notification--color-success",
-  //       });
-  //     } else {
-  //       Vue.notify({
-  //         group: "auth",
-  //         text: messages.success,
-  //         type: "notification notification--color-success",
-  //       });
-  //     }
-  //   }
-  // });
-  $axios.onError(error => {
+  $axios.onResponse((response) => {
+    if (typeof response.data?.text === "string") {
+      Toast.open({
+        message: response?.data?.text,
+        type: "is-success",
+      });
+    }
+  });
+  $axios.onError((error) => {
     if (!error.response) return;
+
     if (
       ["revoked-token", "invalid-token", "expired-token"].includes(
         error.response.data.code || error.response.data.error
@@ -102,6 +88,7 @@ export default function({
     ) {
       return redirect("/auth/refresh");
     }
+
     if (
       ignoredErrors.includes(
         error.response.data.code || error.response.data.error
@@ -115,24 +102,11 @@ export default function({
       return redirect(
         `/errors/${error.response.data.code || error.response.data.error}`
       );
+    } else if (typeof error.response.data?.error === "string") {
+      Toast.open({
+        message: error?.response?.data?.error,
+        type: "is-danger",
+      });
     }
-    // } else if (
-    //   Object.keys(errors).includes(
-    //     error.response.data.code || error.response.data.error
-    //   )
-    // ) {
-    //   Vue.notify({
-    //     group: "auth",
-    //     text: errors[error.response.data.code || error.response.data.error],
-    //     duration: 5000,
-    //     type: "notification notification--color-danger",
-    //   });
-    // } else {
-    //   Vue.notify({
-    //     group: "auth",
-    //     text: error.response.data.code || error.response.data.error,
-    //     type: "notification notification--color-danger",
-    //   });
-    // }
   });
 }
