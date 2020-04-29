@@ -24,12 +24,13 @@
           v-for="(membership, i) in userMemberships"
           :key="`m${i}${membership.id}`"
           href="#"
-          >{{ membership.organization.name }}</b-navbar-item
         >
+          {{ membership.organization.name }}
+        </b-navbar-item>
         <b-navbar-item class="has-text-weight-bold">
-          <nuxt-link :to="`/users/${user.details.username}/teams`"
-            >Create a new team</nuxt-link
-          >
+          <nuxt-link :to="`/users/${user.details.username}/teams`">
+            Create a new team
+          </nuxt-link>
         </b-navbar-item>
       </b-navbar-dropdown>
     </template>
@@ -41,12 +42,16 @@
         boxed
       >
         <b-navbar-item>
-          <nuxt-link :to="`/users/${user.details.username}/profile`"
-            >Account settings</nuxt-link
-          >
+          <nuxt-link :to="`/users/${user.details.username}/profile`">
+            Account settings
+          </nuxt-link>
         </b-navbar-item>
-        <b-navbar-item>
-          <b-button @click="logout" type="is-light">Logout</b-button>
+        <b-navbar-item
+          tag="button"
+          class="button is-white is-fullwidth has-text-left"
+          @click="logout"
+        >
+          Logout
         </b-navbar-item>
       </b-navbar-dropdown>
     </template>

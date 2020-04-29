@@ -1,18 +1,11 @@
 <template>
   <div class="has-background-white-bis">
     <Navbar type="is-black" style="background-color: #210042" />
-    <b-navbar wrapper-class="container" type="is-black" :transparent="true" class="subnavbar">
-      <template slot="start">
-        <b-navbar-item href="#">User settings</b-navbar-item>
-        <b-navbar-item href="#">Teams</b-navbar-item>
-        <b-navbar-item href="#">Developer</b-navbar-item>
-      </template>
-    </b-navbar>
     <div class="container">
       <div class="columns">
         <aside class="column">
           <b-menu :activable="false">
-            <b-menu-list label="User">
+            <b-menu-list>
               <b-menu-item
                 v-for="(item, i) in items"
                 :key="`i${i}${item.to}`"
@@ -45,40 +38,45 @@ import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, Footer }
+  components: { Navbar, Footer },
 })
 export default class Default extends Vue {
   items = [
     {
       label: "Profile",
-      icon: "information-outline",
-      to: "profile"
+      icon: "face-profile-woman",
+      to: "profile",
+    },
+    {
+      label: "Teams",
+      icon: "account-group",
+      to: "teams",
     },
     {
       label: "Emails",
-      icon: "email-outline",
-      to: "emails"
+      icon: "email",
+      to: "emails",
     },
     {
       label: "Passwords & 2FA",
-      icon: "information-outline",
-      to: "passwords"
+      icon: "security",
+      to: "passwords",
     },
     {
       label: "Sessions",
-      icon: "information-outline",
-      to: "sessions"
+      icon: "login",
+      to: "sessions",
     },
     {
       label: "Access tokens",
-      icon: "information-outline",
-      to: "access-tokens"
+      icon: "api",
+      to: "access-tokens",
     },
     {
       label: "Data and privacy",
-      icon: "information-outline",
-      to: "data"
-    }
+      icon: "database",
+      to: "data",
+    },
   ];
 }
 </script>
