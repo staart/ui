@@ -36,6 +36,7 @@ export const mutations: MutationTree<RootState> = {
   },
   removeAuthentication(state: RootState) {
     Vue.set(state, "tokens", { token: "", refresh: "" });
+    Vue.set(state, "user", { details: {}, memberships: {} });
     state.isAuthenticated = false;
   },
   set2FA(state: RootState, twoFactorToken: string) {

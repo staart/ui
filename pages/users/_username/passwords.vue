@@ -39,10 +39,13 @@
       </div>
     </form>
     <h2 class="is-size-5">Two-factor authentication</h2>
-    <div v-if="user.twoFactorEnabled" style="margin-top: 1rem">
+    <div v-if="twoFactorEnabled" style="margin-top: 1rem">
       <b-message type="is-success" has-icon>
         2FA adds an additional layer of protection in your account. You have 2FA
-        <strong>enabled</strong>.
+        <strong>enabled</strong> and have used {{ backupCodesUsed }}/{{
+          backupCodesAll
+        }}
+        backup codes.
       </b-message>
       <div class="buttons" style="margin-top: 1rem">
         <b-button
@@ -53,7 +56,7 @@
         >
           Disable 2FA
         </b-button>
-        <b-button @click="regenerate" :loading="loading">
+        <b-button @click="regenerate" :loading="loadingRegenerate">
           Regenerate backup codes
         </b-button>
       </div>
@@ -120,9 +123,18 @@ export default class UsersEmails extends Vue {
 
   qrCode = "";
   loadingPassword = false;
+  loadingRegenerate = false;
   loading = false;
   showQrCode = false;
-  user: { twoFactorEnabled: boolean } = { twoFactorEnabled: false };
+  backupCodesAll = 0;
+  backupCodesUsed = 0;
+  twoFactorEnabled = false;
+
+  backupCodesHtml(backupCodes: number[]) {
+    return `In case you lose access to your authenticator device, you can use these backup codes to login. Make sure you keep them someplace safe. <strong>You won't see these backup codes again.</strong><div style="margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center">${backupCodes
+      .map((i: number) => `<div style="margin: 0.5rem"><code>${i}</code></div>`)
+      .join("\n")}</div>`;
+  }
 
   async created() {
     return this.get();
@@ -132,9 +144,13 @@ export default class UsersEmails extends Vue {
     this.loading = true;
     try {
       const { data }: { data: any } = await this.$axios.get(
-        `/users/${this.$route.params.username}?select=twoFactorEnabled`
+        `/users/${this.$route.params.username}?select=twoFactorEnabled,backup_codes`
       );
-      this.user = data;
+      this.twoFactorEnabled = data.twoFactorEnabled;
+      this.backupCodesAll = (data.backup_codes || []).length;
+      this.backupCodesUsed = (
+        data.backup_codes.filter((i: any) => i.isUsed).length || []
+      ).length;
     } catch (error) {}
     this.loading = false;
   }
@@ -180,12 +196,10 @@ export default class UsersEmails extends Vue {
         }
       );
       this.showQrCode = false;
-      this.user.twoFactorEnabled = true;
+      this.twoFactorEnabled = true;
       this.$buefy.dialog.alert({
         title: "Backup codes",
-        message: `In case you lose access to your authenticator device, you can use these backup codes to login. Make sure you keep them someplace safe. <strong>You won't see these backup codes again.</strong><div style="margin-top: 1rem; display: flex; flex-wrap: wrap">${data.backupCodes
-          .map((i) => `<div style="margin: 0.5rem"><code>${i}</code></div>`)
-          .join("\n")}</div>`,
+        message: this.backupCodesHtml(data.backupCodes),
         confirmText: "Yes, I've copied them",
       });
     } catch (error) {}
@@ -193,18 +207,28 @@ export default class UsersEmails extends Vue {
     this.loading = false;
   }
   async regenerate() {
-    this.loading = true;
-    const { data } = await this.$axios.post(
-      `/users/${this.$route.params.username}/security/backup-codes/regenerate`
-    );
-    this.$buefy.dialog.alert({
-      title: "Backup codes",
-      message: `In case you lose access to your authenticator device, you can use these backup codes to login. Make sure you keep them someplace safe. <strong>You won't see these backup codes again.</strong><div style="margin-top: 1rem; display: flex; flex-wrap: wrap">${data.backupCodes
-        .map((i) => `<div style="margin: 0.5rem"><code>${i}</code></div>`)
-        .join("\n")}</div>`,
-      confirmText: "Yes, I've copied them",
+    this.$buefy.dialog.confirm({
+      title: "Regenerate backup codes",
+      message: `Are you sure you want to regenerate your backup codes? The current codes will stop working immediately.`,
+      confirmText: "Yes, regenerate",
+      cancelText: "No, don't regenerate",
+      hasIcon: true,
+      trapFocus: true,
+      onConfirm: async () => {
+        this.loadingRegenerate = true;
+        try {
+          const { data } = await this.$axios.get(
+            `/users/${this.$route.params.username}/security/backup-codes/regenerate`
+          );
+          this.$buefy.dialog.alert({
+            title: "Backup codes",
+            message: this.backupCodesHtml(data.backupCodes),
+            confirmText: "Yes, I've copied them",
+          });
+        } catch (error) {}
+        this.loadingRegenerate = false;
+      },
     });
-    this.loading = false;
   }
   async disable(id: number, email: string) {
     this.$buefy.dialog.confirm({
@@ -221,7 +245,7 @@ export default class UsersEmails extends Vue {
           const { data } = await this.$axios.delete(
             `/users/${this.$route.params.username}/security/2fa`
           );
-          this.user.twoFactorEnabled = false;
+          this.twoFactorEnabled = false;
         } catch (error) {}
         this.loading = false;
       },

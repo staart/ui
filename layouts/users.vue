@@ -83,19 +83,13 @@ export default class Default extends Vue {
 
 <style scoped>
 .container {
-  margin-top: -3rem;
+  margin-top: -2rem;
   position: relative;
   z-index: 31;
   max-width: 1000px;
 }
 aside {
-  margin-top: 4rem;
-}
-.subnavbar {
-  padding: 0.5rem 0;
-  margin-top: -1.5rem;
-  background-color: #210042;
-  padding-bottom: 5rem;
+  margin-top: 2.5rem;
 }
 </style>
 

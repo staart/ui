@@ -2,7 +2,7 @@
   <div>
     <h1 class="is-size-4">Sessions</h1>
     <b-table
-      :loading="loading"
+      :loading="loading && !sessions.data.length"
       :data="sessions.data"
       default-sort-direction="asc"
       sort-icon="arrow-up"
@@ -11,7 +11,7 @@
       <template slot-scope="props">
         <b-table-column label="Session">
           <b-tooltip
-            v-for="(type, i) in ['browser', 'os', 'countryCode']"
+            v-for="(type, i) in ['Browser', 'OS', 'CountryCode']"
             :key="`t${i}${type}`"
             :label="getCaption(props.row, type)"
           >
@@ -34,6 +34,16 @@
         </b-table-column>
       </template>
     </b-table>
+    <div class="has-text-centered">
+      <b-button
+        v-if="sessions.hasMore"
+        @click="get"
+        icon-right="arrow-down"
+        :loading="loading"
+      >
+        Load more sessions
+      </b-button>
+    </div>
   </div>
 </template>
 
@@ -49,6 +59,7 @@ import ct from "countries-and-timezones";
 })
 export default class UsersSessions extends Vue {
   loading = false;
+  loadingMore = false;
   sessions: any = { data: [] };
 
   async created() {
@@ -56,27 +67,34 @@ export default class UsersSessions extends Vue {
   }
 
   getIcon(row: any, keyName: string) {
-    if (keyName === "countryCode") return icon(row.countryCode);
+    if (keyName === "CountryCode") return icon(row.countryCode);
     const parser = new UAParser(row.userAgent);
-    return icon(parser[keyName]?.name);
+    return icon(parser[`get${keyName}`]?.call()?.name);
   }
   getCaption(row: any, keyName: string) {
-    if (keyName === "countryCode")
+    if (keyName === "CountryCode")
       return ["city", "region"]
         .map((i) => row[i])
         .filter((i) => i)
         .join(", ");
     const parser = new UAParser(row.userAgent);
-    return parser[keyName]?.name;
+    return parser[`get${keyName}`]?.call()?.name;
   }
 
   async get() {
     this.loading = true;
     try {
-      const { data }: { data: any } = await this.$axios.get(
-        `/users/${this.$route.params.username}/sessions`
+      const { data } = await this.$axios.get(
+        `/users/${
+          this.$route.params.username
+        }/sessions?first=10&orderBy=id:desc${
+          this.sessions.data.length
+            ? `&after=${this.sessions.data[this.sessions.data.length - 1].id}`
+            : ""
+        }`
       );
-      this.sessions = data;
+      this.sessions.data.push(...(data.data || []));
+      this.sessions.hasMore = data.hasMore;
     } catch (error) {}
     this.loading = false;
   }
