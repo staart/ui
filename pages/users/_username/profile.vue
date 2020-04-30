@@ -193,11 +193,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapGetters } from "vuex";
-import Component from "vue-class-component";
 import ct from "countries-and-timezones";
-import { Watch } from "vue-property-decorator";
+import { mapGetters } from "vuex";
+import { Vue, Component, Watch } from "vue-property-decorator";
 
 const countries = ct.getAllCountries();
 

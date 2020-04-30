@@ -1,10 +1,13 @@
 <template>
   <div class="has-background-white-bis">
-    <Navbar type="is-black" style="background-color: #210042" />
+    <Navbar />
     <div class="container">
       <div class="columns">
         <aside class="column">
-          <b-menu :activable="false">
+          <b-button tag="nuxt-link" to="/" icon-left="arrow-left">
+            Go back to app
+          </b-button>
+          <b-menu :activable="false" style="margin-top: 1rem">
             <b-menu-list>
               <b-menu-item
                 v-for="(item, i) in items"
@@ -12,9 +15,9 @@
                 :icon="item.icon"
                 :label="item.label"
                 tag="router-link"
-                :to="`/users/${$route.params.username}/${item.to}`"
+                :to="`/users/${$route.params.username}${item.to}`"
                 :active="
-                  $route.path === `/users/${$route.params.username}/${item.to}`
+                  $route.path === `/users/${$route.params.username}${item.to}`
                 "
               />
             </b-menu-list>
@@ -45,37 +48,37 @@ export default class Default extends Vue {
     {
       label: "Profile",
       icon: "face-profile-woman",
-      to: "profile",
+      to: "/profile",
     },
     {
       label: "Teams",
       icon: "account-group",
-      to: "teams",
+      to: "/teams",
     },
     {
       label: "Emails",
       icon: "email",
-      to: "emails",
+      to: "/emails",
     },
     {
       label: "Passwords & 2FA",
       icon: "security",
-      to: "passwords",
+      to: "/passwords",
     },
     {
       label: "Sessions",
       icon: "login",
-      to: "sessions",
+      to: "/sessions",
     },
     {
       label: "Access tokens",
       icon: "code-braces",
-      to: "access-tokens",
+      to: "/access-tokens",
     },
     {
       label: "Data and privacy",
       icon: "database",
-      to: "data",
+      to: "/data",
     },
   ];
 }
@@ -83,10 +86,12 @@ export default class Default extends Vue {
 
 <style scoped>
 .container {
-  margin-top: -2rem;
   position: relative;
   z-index: 31;
   max-width: 1000px;
+}
+main {
+  transform: translateY(-1.25rem);
 }
 aside {
   margin-top: 2.5rem;

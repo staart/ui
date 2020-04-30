@@ -3,8 +3,8 @@
     v-if="isAuthenticated"
     wrapper-class="container"
     :transparent="true"
-    :type="type"
-    style="padding: 0.5rem 0"
+    type="is-black"
+    style="background-color: #210042; padding: 0.5rem 0; position: relative; z-index: 100"
     v-show="!$route.path.startsWith('/onboarding/')"
   >
     <template slot="brand">
@@ -72,7 +72,6 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export default class Navbar extends Vue {
   isAuthenticated!: boolean;
   user!: User;
-  @Prop({ default: "is-light" }) readonly type!: string;
 
   get userMemberships() {
     return this.user.memberships?.data || [];
@@ -93,8 +92,11 @@ export default class Navbar extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
 .is-light {
   background: none;
+}
+.container {
+  max-width: 1000px;
 }
 </style>
