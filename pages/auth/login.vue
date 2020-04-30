@@ -52,7 +52,7 @@ export default class Login extends Vue {
     try {
       const { data }: { data: any } = await this.$axios.post("/auth/login", {
         email: this.email,
-        password: this.password,
+        password: this.hasPasswordless ? undefined : this.password,
       });
       const result = await this.$store.dispatch("auth/loginWithTokens", data);
       if (result === "2fa") return this.$router.replace("/auth/2fa");

@@ -1,10 +1,9 @@
 <template>
   <b-navbar
-    v-if="isAuthenticated"
     wrapper-class="container"
     :transparent="true"
-    type="is-black"
-    style="background-color: #210042; padding: 0.5rem 0; position: relative; z-index: 100"
+    type="is-white"
+    style="box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1); padding: 0.5rem 0; position: relative; z-index: 100"
     v-show="!$route.path.startsWith('/onboarding/')"
   >
     <template slot="brand">

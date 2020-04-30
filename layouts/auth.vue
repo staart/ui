@@ -5,7 +5,7 @@
       <template>
         <div class="container">
           <div class="columns is-centered">
-            <div class="column is-one-third">
+            <div class="column is-two-fifths">
               <div class="card" style="margin: 7.5vh 0">
                 <div class="card-content">
                   <nuxt />
@@ -27,7 +27,7 @@ import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, Footer }
+  components: { Navbar, Footer },
 })
 export default class Auth extends Vue {}
 </script>
