@@ -277,7 +277,9 @@ import ct from "countries-and-timezones";
 
 const countries = ct.getAllCountries();
 
-@Component
+@Component({
+  middleware: "authenticated",
+})
 export default class OnboardingUser extends Vue {
   userName = "";
   userUsername = "";
@@ -353,7 +355,7 @@ export default class OnboardingUser extends Vue {
   }
 
   get teamName() {
-    return `${this.userName.split(" ")[0]}'s Team`;
+    return `${(this.userName || "").split(" ")[0]}'s Team`;
   }
 
   async goToNextStep() {

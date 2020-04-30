@@ -21,8 +21,14 @@
       <b-navbar-dropdown :label="teamsLabel" hoverable boxed>
         <b-navbar-item
           v-for="(membership, i) in userMemberships"
+          tag="nuxt-link"
           :key="`m${i}${membership.id}`"
-          href="#"
+          :to="
+            $route.path.replace(
+              $route.params.username,
+              membership.organization.username
+            )
+          "
         >
           {{ membership.organization.name }}
         </b-navbar-item>
@@ -34,12 +40,13 @@
       </b-navbar-dropdown>
     </template>
     <template slot="end" v-if="user.details.username">
-      <b-navbar-dropdown
-        :label="user.details.nickname"
-        :right="true"
-        hoverable
-        boxed
-      >
+      <b-navbar-dropdown :right="true" hoverable boxed>
+        <template slot="label">
+          <figure class="image">
+            <img class="is-rounded" :src="user.details.profilePicture" />
+          </figure>
+          <span>{{ user.details.nickname }}</span>
+        </template>
         <b-navbar-item>
           <nuxt-link :to="`/users/${user.details.username}/profile`">
             Account settings
@@ -90,6 +97,14 @@ export default class Navbar extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.image img {
+  margin-right: 1rem;
+  width: 1.5rem;
+  transform: scale(1.5);
+}
+</style>
 
 <style>
 .is-light {

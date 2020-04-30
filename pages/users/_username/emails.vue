@@ -42,7 +42,7 @@
         Load more emails
       </b-button>
     </div>
-    <h2 class="is-size-5" style="margin-top: 1rem">Add another email</h2>
+    <h2 class="is-size-5" style="margin-top: 1rem">Add email</h2>
     <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Email">
         <b-input type="email" v-model="newEmail" required />
