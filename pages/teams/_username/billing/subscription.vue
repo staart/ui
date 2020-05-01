@@ -24,7 +24,9 @@
             :type="getColor(subscription.status)"
             style="margin-left: 0.5rem; text-transform: capitalize"
           >
-            {{ subscription.status }}
+            {{
+              subscription.status === "trialing" ? "Trial" : subscription.status
+            }}
           </b-tag>
         </h2>
         <table class="table">
@@ -72,19 +74,73 @@
             </tr>
           </tbody>
         </table>
-        <h2 class="is-size-5" style="margin: 1rem 0">Danger zone</h2>
-        <p>
-          After you've canceled your subscription, you can continue to use it
-          until the end of this billing cycle, but we won't charge you again.
-        </p>
-        <b-button
-          type="is-danger"
-          :loading="loadingDelete"
-          icon-left="cancel"
-          style="margin-top: 1rem"
+        <form
+          @submit.prevent="
+            update(subscription.id, subscription.items.data[0].id)
+          "
+          v-if="availablePlans(subscription.plan.id).length"
         >
-          Cancel subscription
-        </b-button>
+          <h2 class="is-size-5" style="margin: 1rem 0">Change subscription</h2>
+          <div
+            v-for="plan in availablePlans(subscription.plan.id)"
+            :key="`p${plan.id}`"
+            class="field"
+          >
+            <b-radio v-model="selectedPlan" :native-value="plan.id">
+              <span>{{ plan.nickname }}</span>
+              (<span>
+                <span
+                  >{{ currencies[plan.currency] || plan.currency
+                  }}{{ plan.amount / 100 }}</span
+                ><span v-if="plan.interval_count !== 1">
+                  every {{ plan.interval_count }}
+                </span>
+                <span v-else
+                  >/{{ (plan.interval || "").charAt(0) }}</span
+                > </span
+              >)
+            </b-radio>
+          </div>
+          <b-button
+            native-type="submit"
+            icon-left="pencil"
+            :loading="loadingSave"
+            style="margin-bottom: 1rem"
+          >
+            Change plan
+          </b-button>
+        </form>
+        <div v-if="subscription.status !== 'canceled'">
+          <h2 class="is-size-5" style="margin: 1rem 0">Danger zone</h2>
+          <p>
+            After you've canceled your subscription, you can continue to use it
+            until the end of this billing cycle, but we won't charge you again.
+          </p>
+          <b-button
+            type="is-danger"
+            :loading="loadingDelete"
+            icon-left="cancel"
+            style="margin-top: 1rem"
+          >
+            Cancel subscription
+          </b-button>
+        </div>
+        <div v-else>
+          <h2 class="is-size-5" style="margin: 1rem 0">
+            Continue subscription
+          </h2>
+          <p>
+            If you've changed your mind, you can continue your subscription.
+          </p>
+          <b-button
+            type="is-success"
+            :loading="loadingDelete"
+            icon-left="check"
+            style="margin-top: 1rem"
+          >
+            Keep subscription
+          </b-button>
+        </div>
       </div>
       <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
     </div>
@@ -190,9 +246,34 @@ export default class BillingDetails extends Vue {
     this.loadingSave = false;
   }
 
+  async update(id: string, currentId: string) {
+    this.loadingSave = true;
+    try {
+      const { data } = await this.$axios.patch(
+        `/organizations/${this.$route.params.username}/subscriptions/${id}`,
+        {
+          cancel_at_period_end: false,
+          proration_behavior: "create_prorations",
+          items: [
+            {
+              id: currentId,
+              plan: this.selectedPlan,
+            },
+          ],
+        }
+      );
+      this.get();
+    } catch (error) {}
+    this.loadingSave = false;
+  }
+
   get hasFreeTrial() {
     return !!this.plans.data.find((i) => i.id === this.selectedPlan)
       ?.trial_period_days;
+  }
+
+  availablePlans(id: string) {
+    return this.plans.data.filter((i) => i.id !== id);
   }
 
   getColor(status: string) {
