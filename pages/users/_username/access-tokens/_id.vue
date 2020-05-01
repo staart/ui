@@ -83,7 +83,12 @@
     </p>
     <b-button
       type="is-danger"
-      @click="deleteAccessToken(accessToken.id, accessToken.name)"
+      @click="
+        deleteAccessToken(
+          accessToken.id,
+          accessToken.name || 'Unnamed access token'
+        )
+      "
       :loading="loadingDelete"
     >
       Delete access token
@@ -148,7 +153,7 @@ export default class UsersAccessTokens extends Vue {
     if (this.loadingDelete) return;
     this.$buefy.dialog.confirm({
       title: "Deleting accessToken",
-      message: `Are you sure you want to delete your access token <strong>${accessToken}</strong>? This action is not reversible, and this access token will immediately stop working.`,
+      message: `Are you sure you want to delete your access token <strong>${accessToken}</strong>? This action is not reversible, and this access token will stop working immediately.`,
       confirmText: "Yes, delete accessToken",
       cancelText: "No, don't delete",
       type: "is-danger",

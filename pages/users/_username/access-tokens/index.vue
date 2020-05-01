@@ -109,7 +109,7 @@ export default class UsersAccessTokens extends Vue {
   async deleteAccessToken(id: number, accessToken: string) {
     this.$buefy.dialog.confirm({
       title: "Deleting accessToken",
-      message: `Are you sure you want to delete your access token <strong>${accessToken}</strong>? This action is not reversible, and you'll have to verify this accessToken again if you change your mind.`,
+      message: `Are you sure you want to delete your access token <strong>${accessToken}</strong>? This action is not reversible, and this access token will stop working immediately.`,
       confirmText: "Yes, delete accessToken",
       cancelText: "No, don't delete",
       type: "is-danger",
