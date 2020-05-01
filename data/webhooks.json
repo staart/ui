@@ -1,0 +1,22 @@
+{
+  "*": "All events",
+  "update-organization": "Update team",
+  "delete-organization": "Delete team",
+  "update-organization-billing": "Update team billing",
+  "update-organization-subscription": "Update team subscription",
+  "create-organization-subscription": "Create team subscription",
+  "delete-organization-source": "Delete team source",
+  "update-organization-source": "Update team source",
+  "create-organization-source": "Create team source",
+  "update-api-key": "Update api key",
+  "create-api-key": "Create api key",
+  "delete-api-key": "Delete api key",
+  "update-domain": "Update domain",
+  "create-domain": "Create domain",
+  "delete-domain": "Delete domain",
+  "verify-domain": "Verify domain",
+  "test-webhook": "Test webhook",
+  "update-webhook": "Update webhook",
+  "create-webhook": "Create webhook",
+  "delete-webhook": "Delete webhook"
+}
