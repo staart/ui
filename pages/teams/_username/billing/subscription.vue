@@ -217,8 +217,8 @@ export default class BillingDetails extends Vue {
   loadingSave = false;
   loadingDelete = false;
 
-  subscriptions = { data: [] };
-  plans = { data: [] };
+  subscriptions: any = { data: [] };
+  plans: any = { data: [] };
   selectedPlan = "";
   currencies = {
     usd: "$",
@@ -346,12 +346,12 @@ export default class BillingDetails extends Vue {
   }
 
   get hasFreeTrial() {
-    return !!this.plans.data.find((i) => i.id === this.selectedPlan)
+    return !!this.plans.data.find((i: any) => i.id === this.selectedPlan)
       ?.trial_period_days;
   }
 
   availablePlans(id: string) {
-    const plans = this.plans.data.filter((i) => i.id !== id);
+    const plans: any = this.plans.data.filter((i: any) => i.id !== id);
     if (plans.length) this.selectedPlan = plans[0].id;
     return plans;
   }

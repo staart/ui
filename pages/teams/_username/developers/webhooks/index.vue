@@ -90,7 +90,7 @@
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
 import webhooksData from "../../../../../data/webhooks.json";
-import { truncate } from "../../../../../util/string.ts";
+import { truncate } from "../../../../../util/string";
 
 @Component({
   middleware: "authenticated",
