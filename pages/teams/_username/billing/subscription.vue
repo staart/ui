@@ -28,6 +28,14 @@
               subscription.status === "trialing" ? "Trial" : subscription.status
             }}
           </b-tag>
+          <b-tag
+            size="is-medium"
+            type="is-danger"
+            style="margin-left: 0.5rem"
+            v-if="subscription.cancel_at_period_end"
+          >
+            Scheduled for cancelation
+          </b-tag>
         </h2>
         <table class="table">
           <tbody>
@@ -59,6 +67,14 @@
               <td>
                 {{
                   new Date(subscription.trial_end * 1000).toLocaleDateString()
+                }}
+              </td>
+            </tr>
+            <tr v-if="subscription.cancel_at">
+              <td>Cancels</td>
+              <td>
+                {{
+                  new Date(subscription.cancel_at * 1000).toLocaleDateString()
                 }}
               </td>
             </tr>
@@ -110,7 +126,12 @@
             Change plan
           </b-button>
         </form>
-        <div v-if="subscription.status !== 'canceled'">
+        <div
+          v-if="
+            subscription.status !== 'canceled' &&
+              !subscription.cancel_at_period_end
+          "
+        >
           <h2 class="is-size-5" style="margin: 1rem 0">Danger zone</h2>
           <p>
             After you've canceled your subscription, you can continue to use it
@@ -119,6 +140,7 @@
           <b-button
             type="is-danger"
             :loading="loadingDelete"
+            @click="cancel(subscription.id)"
             icon-left="cancel"
             style="margin-top: 1rem"
           >
@@ -130,12 +152,14 @@
             Continue subscription
           </h2>
           <p>
-            If you've changed your mind, you can continue your subscription.
+            Your subscription has been canceled. If you've changed your mind,
+            you can continue your subscription.
           </p>
           <b-button
             type="is-success"
             :loading="loadingDelete"
             icon-left="check"
+            @click="keep(subscription.id)"
             style="margin-top: 1rem"
           >
             Keep subscription
@@ -144,7 +168,10 @@
       </div>
       <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
     </div>
-    <form @submit.prevent="save" v-if="!subscriptions.data.length">
+    <form
+      @submit.prevent="save"
+      v-if="plans.data.length && !subscriptions.data.length"
+    >
       <h2 class="is-size-5">Change your plan</h2>
       <div
         v-for="plan in plans.data"
@@ -247,24 +274,75 @@ export default class BillingDetails extends Vue {
   }
 
   async update(id: string, currentId: string) {
-    this.loadingSave = true;
+    this.$buefy.dialog.confirm({
+      title: "Changing your subscription",
+      message: "Are you sure you want to change your subscription?",
+      confirmText: "Yes, change subscription",
+      cancelText: "No, don't change",
+      type: "is-warning",
+      hasIcon: true,
+      trapFocus: true,
+      onConfirm: async () => {
+        this.loadingSave = true;
+        try {
+          const { data } = await this.$axios.patch(
+            `/organizations/${this.$route.params.username}/subscriptions/${id}`,
+            {
+              cancel_at_period_end: false,
+              proration_behavior: "create_prorations",
+              items: [
+                {
+                  id: currentId,
+                  plan: this.selectedPlan,
+                },
+              ],
+            }
+          );
+          this.get();
+        } catch (error) {}
+        this.loadingSave = false;
+      },
+    });
+  }
+
+  async keep(id: string) {
+    this.loadingDelete = true;
     try {
       const { data } = await this.$axios.patch(
         `/organizations/${this.$route.params.username}/subscriptions/${id}`,
         {
           cancel_at_period_end: false,
-          proration_behavior: "create_prorations",
-          items: [
-            {
-              id: currentId,
-              plan: this.selectedPlan,
-            },
-          ],
         }
       );
       this.get();
     } catch (error) {}
-    this.loadingSave = false;
+    this.loadingDelete = false;
+  }
+
+  async cancel(id: string) {
+    this.$buefy.dialog.confirm({
+      title: "Canceling your subscription",
+      message:
+        "Are you sure you want to cancel your subscription? You'll still be able to use it until the end of this billing period.",
+      confirmText: "Yes, cancel subscription",
+      cancelText: "No, don't cancel",
+      type: "is-danger",
+      hasIcon: true,
+      trapFocus: true,
+      onConfirm: async () => {
+        this.loadingDelete = true;
+        try {
+          const { data } = await this.$axios.patch(
+            `/organizations/${this.$route.params.username}/subscriptions/${id}`,
+            {
+              cancel_at_period_end: true,
+            }
+          );
+          this.get();
+        } catch (error) {}
+        this.loadingDelete = false;
+      },
+    });
   }
 
   get hasFreeTrial() {
@@ -273,7 +351,9 @@ export default class BillingDetails extends Vue {
   }
 
   availablePlans(id: string) {
-    return this.plans.data.filter((i) => i.id !== id);
+    const plans = this.plans.data.filter((i) => i.id !== id);
+    if (plans.length) this.selectedPlan = plans[0].id;
+    return plans;
   }
 
   getColor(status: string) {
