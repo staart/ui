@@ -1,0 +1,261 @@
+<template>
+  <div>
+    <h1 class="is-size-4">Coupon codes</h1>
+    <b-table
+      :loading="loading"
+      :data="coupons.data"
+      default-sort-direction="asc"
+      sort-icon="arrow-up"
+      sort-icon-size="is-small"
+    >
+      <template slot-scope="props">
+        <b-table-column sortable field="code" label="Coupon code">
+          <code>{{ props.row.code }}</code>
+          <b-tooltip
+            v-if="props.row.maxUses === props.row.usedCount"
+            label="Used"
+          >
+            <b-icon icon="credit-card-off" type="is-danger" />
+          </b-tooltip>
+        </b-table-column>
+        <b-table-column label="Amount">
+          {{ currencies[props.row.currency] || props.row.currency
+          }}{{ props.row.amount / 100 }}
+        </b-table-column>
+        <b-table-column sortable field="expiresAt" label="Expires">
+          <span v-if="props.row.expiresAt">
+            {{ new Date(props.row.expiresAt).toLocaleDateString() }}
+          </span>
+          <span v-else><em>Never</em></span>
+        </b-table-column>
+        <b-table-column class="has-text-right">
+          <b-tooltip label="Delete">
+            <b-button
+              type="is-danger"
+              icon-right="delete"
+              @click="deleteCoupon(props.row.id, props.row.code)"
+            />
+          </b-tooltip>
+        </b-table-column>
+      </template>
+    </b-table>
+    <div class="has-text-centered">
+      <b-button
+        v-if="coupons.hasMore"
+        @click="get"
+        icon-right="arrow-down"
+        :loading="loading"
+      >
+        Load more coupons
+      </b-button>
+    </div>
+    <h2 class="is-size-5" style="margin-top: 1rem">Add coupon</h2>
+    <p>
+      Generate a new coupon code to share with teams. Make sure the amount is in
+      basic monetary units like cents or paise (multiply by 100).
+    </p>
+    <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
+      <div class="columns">
+        <b-field
+          label="Currency"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
+          <div class="field">
+            <b-radio
+              v-for="(symbol, value) in currencies"
+              :key="`c${value}`"
+              v-model="currency"
+              name="name"
+              :native-value="value"
+            >
+              {{ value.toUpperCase() }}
+            </b-radio>
+          </div>
+        </b-field>
+        <b-field
+          label="Amount"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
+          <b-input type="number" v-model="amount" required />
+        </b-field>
+      </div>
+      <div class="columns">
+        <b-field
+          label="Team restriction"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
+          <b-select v-model="teamRestrictions" :loading="loadingTeams" expanded>
+            <option :value="null">All teams can use</option>
+            <option
+              v-for="team in teams.data"
+              :value="team.id"
+              :key="`t${team.id}`"
+            >
+              {{ team.name }}
+            </option>
+          </b-select>
+        </b-field>
+        <b-field
+          label="Max uses"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
+          <b-input type="number" v-model="maxUses" />
+        </b-field>
+      </div>
+      <b-field>
+        <b-checkbox v-model="jwt">
+          Create JWT coupon code
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="expires">
+          Add coupon expiry time
+        </b-checkbox>
+      </b-field>
+      <b-field label="Expiry" v-if="expires">
+        <b-datepicker
+          placeholder="Click to select..."
+          icon="calendar-today"
+          trap-focus
+          v-model="expiresAt"
+        />
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="hasCode">
+          Add coupon code
+        </b-checkbox>
+      </b-field>
+      <b-field label="Coupon code" v-if="hasCode">
+        <b-input type="text" v-model="code" />
+      </b-field>
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">
+        Add coupon for {{ currencies[currency] || currency }}{{ amount / 100 }}
+      </b-button>
+    </form>
+  </div>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+
+@Component({
+  middleware: "authenticated",
+  layout: "admin",
+})
+export default class AdminHome extends Vue {
+  loading = false;
+  loadingAdd = false;
+  loadingTeams = false;
+  expires = false;
+  hasCode = false;
+  teams: any = { data: [] };
+  coupons: any = { data: [] };
+
+  amount = "100";
+  code = "";
+  maxUses = "";
+  teamRestrictions = null;
+  currency = "usd";
+  expiresAt = new Date();
+  jwt = false;
+  description = "";
+
+  currencies = {
+    usd: "$",
+    eur: "€",
+    inr: "₹",
+  };
+
+  async mounted() {
+    this.getTeams();
+    return this.get();
+  }
+
+  async get() {
+    this.loading = true;
+    try {
+      const { data } = await this.$axios.get(
+        `/admin/coupons?first=10${
+          this.coupons.data.length
+            ? `&after=${this.coupons.data[this.coupons.data.length - 1].id}`
+            : ""
+        }`
+      );
+      this.coupons.data.push(...(data.data || []));
+      this.coupons.hasMore = data.hasMore;
+      this.coupons = data;
+    } catch (error) {}
+    this.loading = false;
+  }
+
+  async getTeams() {
+    this.loadingTeams = true;
+    try {
+      const { data } = await this.$axios.get(
+        `/admin/organizations?first=100${
+          this.teams.data.length
+            ? `&after=${this.teams.data[this.teams.data.length - 1].id}`
+            : ""
+        }`
+      );
+      this.teams.data.push(...(data.data || []));
+      this.teams.hasMore = data.hasMore;
+      this.teams = data;
+    } catch (error) {}
+    this.loadingTeams = false;
+  }
+
+  async add() {
+    this.loadingAdd = true;
+    try {
+      const { data } = await this.$axios.put("/admin/coupons", {
+        amount: parseInt(this.amount),
+        maxUses: this.maxUses ? parseInt(this.maxUses) : undefined,
+        teamRestrictions: this.teamRestrictions
+          ? String(this.teamRestrictions)
+          : undefined,
+        code: this.code || undefined,
+        currency: this.currency,
+        jwt: this.jwt,
+        expiresAt: this.expires ? this.expiresAt : undefined,
+        description: this.description || undefined,
+      });
+      this.coupons.data.push(data.added);
+      this.code = "";
+      this.amount = "100";
+      this.maxUses = "";
+      this.teamRestrictions = null;
+      this.currency = "usd";
+      this.jwt = false;
+      this.expires = false;
+      this.hasCode = false;
+      this.description = "";
+      this.expiresAt = new Date();
+    } catch (error) {}
+    this.loadingAdd = false;
+  }
+
+  async deleteCoupon(id: number, code: string) {
+    this.$buefy.dialog.confirm({
+      title: "Deleting coupon",
+      message: `Are you sure you want to delete the coupon with code <code>${code}</code>? This action is not reversible, and this coupon will stop working immediately.`,
+      confirmText: "Yes, delete coupon",
+      cancelText: "No, don't coupon",
+      type: "is-danger",
+      hasIcon: true,
+      trapFocus: true,
+      onConfirm: async () => {
+        this.loading = true;
+        try {
+          await this.$axios.delete(`/admin/coupons/${id}`);
+        } catch (error) {}
+        return this.get();
+      },
+    });
+  }
+}
+</script>

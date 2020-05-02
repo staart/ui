@@ -14,11 +14,13 @@
         />
       </b-navbar-item>
     </template>
-    <template
-      v-if="userMemberships && $route.path.startsWith('/teams/')"
-      slot="start"
-    >
-      <b-navbar-dropdown :label="teamsLabel" hoverable boxed>
+    <template slot="start">
+      <b-navbar-dropdown
+        v-if="userMemberships && $route.path.startsWith('/teams/')"
+        :label="teamsLabel"
+        hoverable
+        boxed
+      >
         <b-navbar-item
           v-for="(membership, i) in userMemberships"
           tag="nuxt-link"
@@ -38,6 +40,13 @@
           </nuxt-link>
         </b-navbar-item>
       </b-navbar-dropdown>
+      <b-navbar-item
+        tag="nuxt-link"
+        to="/admin"
+        v-if="user.details.role === 'SUDO'"
+      >
+        Admin
+      </b-navbar-item>
     </template>
     <template slot="end" v-if="user.details.username">
       <b-navbar-dropdown :right="true" hoverable boxed>
