@@ -375,7 +375,7 @@ export default class AdminHome extends Vue {
   }
 
   updateValue(id: number, key: string, value: any) {
-    this.coupons.data = this.coupons.data.map((i) => {
+    this.coupons.data = this.coupons.data.map((i: any) => {
       if (i.id === id) {
         i[key] = value;
       }
