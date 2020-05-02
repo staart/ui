@@ -4,6 +4,9 @@
     <b-table
       :loading="loading"
       :data="coupons.data"
+      :opened-detailed="opened"
+      detailed
+      detail-key="id"
       default-sort-direction="asc"
       sort-icon="arrow-up"
       sort-icon-size="is-small"
@@ -29,6 +32,13 @@
           <span v-else><em>Never</em></span>
         </b-table-column>
         <b-table-column class="has-text-right">
+          <b-tooltip label="Edit">
+            <b-button
+              type="is-primary"
+              icon-right="pencil"
+              @click="addToOpened(props.row.id)"
+            />
+          </b-tooltip>
           <b-tooltip label="Delete">
             <b-button
               type="is-danger"
@@ -37,6 +47,75 @@
             />
           </b-tooltip>
         </b-table-column>
+      </template>
+      <template slot="detail" slot-scope="props">
+        <form @submit.prevent="save(props.row)">
+          <b-field label="Currency">
+            <div class="field">
+              <b-radio
+                v-for="(symbol, value) in currencies"
+                :key="`c${value}`"
+                @input="(val) => updateValue(props.row.id, 'currency', val)"
+                name="name"
+                :native-value="value"
+              >
+                {{ value.toUpperCase() }}
+              </b-radio>
+            </div>
+          </b-field>
+          <b-field label="Amount">
+            <b-input
+              type="number"
+              :value="props.row.amount"
+              @input="(val) => updateValue(props.row.id, 'amount', val)"
+            />
+          </b-field>
+          <b-field label="Coupon code">
+            <b-input
+              type="text"
+              :value="props.row.code"
+              @input="(val) => updateValue(props.row.id, 'code', val)"
+            />
+          </b-field>
+          <b-field label="Description">
+            <b-input
+              type="text"
+              :value="props.row.description"
+              @input="(val) => updateValue(props.row.id, 'description', val)"
+            />
+          </b-field>
+          <b-field label="Max uses">
+            <b-input
+              type="number"
+              :value="props.row.maxUses"
+              @input="(val) => updateValue(props.row.id, 'maxUses', val)"
+            />
+          </b-field>
+          <b-field label="Team restriction">
+            <b-select
+              :value="props.row.maxUses"
+              @input="(val) => updateValue(props.row.id, 'maxUses', val)"
+              :loading="loadingTeams"
+              expanded
+            >
+              <option :value="null">All teams can use</option>
+              <option
+                v-for="team in teams.data"
+                :value="team.id"
+                :key="`t${team.id}`"
+              >
+                {{ team.name }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-button
+            type="is-primary"
+            native-type="submit"
+            :loading="loadingSave"
+          >
+            Update coupon
+          </b-button>
+        </form>
       </template>
     </b-table>
     <div class="has-text-centered">
@@ -148,10 +227,12 @@ import { Vue, Component } from "vue-property-decorator";
 })
 export default class AdminHome extends Vue {
   loading = false;
+  loadingSave = false;
   loadingAdd = false;
   loadingTeams = false;
   expires = false;
   hasCode = false;
+  opened: number[] = [];
   teams: any = { data: [] };
   coupons: any = { data: [] };
 
@@ -224,7 +305,11 @@ export default class AdminHome extends Vue {
         expiresAt: this.expires ? this.expiresAt : undefined,
         description: this.description || undefined,
       });
-      this.coupons.data.push(data.added);
+      if (typeof data.added === "string") {
+        alert(data.added);
+      } else {
+        this.coupons.data.push(data.added);
+      }
       this.code = "";
       this.amount = "100";
       this.maxUses = "";
@@ -244,7 +329,7 @@ export default class AdminHome extends Vue {
       title: "Deleting coupon",
       message: `Are you sure you want to delete the coupon with code <code>${code}</code>? This action is not reversible, and this coupon will stop working immediately.`,
       confirmText: "Yes, delete coupon",
-      cancelText: "No, don't coupon",
+      cancelText: "No, don't delete",
       type: "is-danger",
       hasIcon: true,
       trapFocus: true,
@@ -255,6 +340,37 @@ export default class AdminHome extends Vue {
         } catch (error) {}
         return this.get();
       },
+    });
+  }
+
+  async save(data: any) {
+    this.loadingSave = true;
+    try {
+      await this.$axios.patch(`/admin/coupons/${data.id}`, {
+        currency: data.currency,
+        amount: data.amount ? parseInt(data.amount) : undefined,
+        code: data.code,
+        description: data.description,
+        maxUses: data.maxUses ? parseInt(data.maxUses) : undefined,
+        teamRestrictions: data.teamRestrictions,
+      });
+      this.opened = this.opened.filter((i) => i !== data.id);
+    } catch (error) {}
+    this.loadingSave = false;
+    this.coupons = { data: [] };
+    return this.get();
+  }
+
+  addToOpened(id: number) {
+    if (!this.opened.includes(id)) this.opened.push(id);
+  }
+
+  updateValue(id: number, key: string, value: any) {
+    this.coupons.data = this.coupons.data.map((i) => {
+      if (i.id === id) {
+        i[key] = value;
+      }
+      return i;
     });
   }
 }

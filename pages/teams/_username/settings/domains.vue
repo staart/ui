@@ -34,7 +34,7 @@
           {{ new Date(props.row.createdAt).toLocaleDateString() }}
         </b-table-column>
         <b-table-column class="has-text-right">
-          <b-button type="is-primary" @click="opened.push(props.row.id)">
+          <b-button type="is-primary" @click="addToOpened(props.row.id)">
             Verify domain
           </b-button>
           <b-tooltip label="Delete">
@@ -291,6 +291,10 @@ export default class UsersProfile extends Vue {
 
   get hasUnverifiedDomain() {
     return !!this.domains.data.find((i: any) => !i.isVerified);
+  }
+
+  addToOpened(id: number) {
+    if (!this.opened.includes(id)) this.opened.push(id);
   }
 }
 </script>
