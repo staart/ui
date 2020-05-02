@@ -42,7 +42,7 @@
           Create a new team
         </b-navbar-item>
       </b-navbar-dropdown>
-      <b-navbar-item v-else tag="nuxt-link" to="/">
+      <b-navbar-item v-else-if="isAuthenticated" tag="nuxt-link" to="/">
         Dashboard
       </b-navbar-item>
       <b-navbar-item
