@@ -56,7 +56,7 @@
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { stripeKey, stripeOptions } from "../../../../../data/stripe.json";
-import { Card, createToken } from "vue-stripe-elements-plus";
+const { Card, createToken } = require("vue-stripe-elements-plus");
 
 @Component({
   middleware: "authenticated",
