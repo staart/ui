@@ -61,11 +61,7 @@
             Account settings
           </nuxt-link>
         </b-navbar-item>
-        <b-navbar-item
-          tag="button"
-          class="button is-white is-fullwidth has-text-left"
-          @click="logout"
-        >
+        <b-navbar-item role="button" @click="logout">
           Logout
         </b-navbar-item>
       </b-navbar-dropdown>

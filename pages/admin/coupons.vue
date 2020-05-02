@@ -93,8 +93,10 @@
           </b-field>
           <b-field label="Team restriction">
             <b-select
-              :value="props.row.maxUses"
-              @input="(val) => updateValue(props.row.id, 'maxUses', val)"
+              :value="props.row.teamRestrictions"
+              @input="
+                (val) => updateValue(props.row.id, 'teamRestrictions', val)
+              "
               :loading="loadingTeams"
               expanded
             >
@@ -115,6 +117,9 @@
           >
             Update coupon
           </b-button>
+          <b-button @click.prevent="removeFromOpened(props.row.id)">
+            Cancel
+          </b-button>
         </form>
       </template>
     </b-table>
@@ -129,7 +134,7 @@
       </b-button>
     </div>
     <h2 class="is-size-5" style="margin-top: 1rem">Add coupon</h2>
-    <p>
+    <p style="margin-top: 0.5rem">
       Generate a new coupon code to share with teams. Make sure the amount is in
       basic monetary units like cents or paise (multiply by 100).
     </p>
@@ -354,7 +359,7 @@ export default class AdminHome extends Vue {
         maxUses: data.maxUses ? parseInt(data.maxUses) : undefined,
         teamRestrictions: data.teamRestrictions,
       });
-      this.opened = this.opened.filter((i) => i !== data.id);
+      this.removeFromOpened(data.id);
     } catch (error) {}
     this.loadingSave = false;
     this.coupons = { data: [] };
@@ -363,6 +368,10 @@ export default class AdminHome extends Vue {
 
   addToOpened(id: number) {
     if (!this.opened.includes(id)) this.opened.push(id);
+  }
+
+  removeFromOpened(id: number) {
+    this.opened = this.opened.filter((i) => i !== id);
   }
 
   updateValue(id: number, key: string, value: any) {

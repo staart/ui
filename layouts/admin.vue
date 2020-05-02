@@ -57,6 +57,21 @@ export default class Default extends Vue {
       to: "",
     },
     {
+      label: "Payments",
+      icon: "cash-multiple",
+      to: "/payments",
+    },
+    {
+      label: "Teams",
+      icon: "account-group",
+      to: "/teams",
+    },
+    {
+      label: "Users",
+      icon: "account",
+      to: "/users",
+    },
+    {
       label: "Coupon codes",
       icon: "credit-card-plus",
       to: "/coupons",
