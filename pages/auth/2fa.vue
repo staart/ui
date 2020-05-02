@@ -16,6 +16,7 @@
           minlength="6"
           maxlength="6"
           placeholder="••••••"
+          autofocus
           required
         />
       </b-field>
