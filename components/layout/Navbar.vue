@@ -34,10 +34,12 @@
         >
           {{ membership.organization.name }}
         </b-navbar-item>
-        <b-navbar-item class="has-text-weight-bold">
-          <nuxt-link :to="`/users/${user.details.username}/teams`">
-            Create a new team
-          </nuxt-link>
+        <b-navbar-item
+          class="has-text-weight-bold"
+          tag="nuxt-link"
+          :to="`/users/${user.details.username}/teams`"
+        >
+          Create a new team
         </b-navbar-item>
       </b-navbar-dropdown>
       <b-navbar-item
@@ -56,10 +58,11 @@
           </figure>
           <span>{{ user.details.nickname }}</span>
         </template>
-        <b-navbar-item>
-          <nuxt-link :to="`/users/${user.details.username}/profile`">
-            Account settings
-          </nuxt-link>
+        <b-navbar-item
+          tag="nuxt-link"
+          :to="`/users/${user.details.username}/profile`"
+        >
+          Account settings
         </b-navbar-item>
         <b-navbar-item role="button" @click="logout">
           Logout
