@@ -1,6 +1,6 @@
 [build]
 	command = "npm run generate"
-	publish = "public"
+	publish = "dist"
 
 [[redirects]]
   from = "/*"
