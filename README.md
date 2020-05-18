@@ -19,42 +19,42 @@ backend starter for SaaS startups.
   <tbody>
     <tr>
       <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/home.png">
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/home.png">
       </td>
       <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/login.png">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/pricing.png">
-      </td>
-      <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/profile.png">
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/login.png">
       </td>
     </tr>
     <tr>
       <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/members.png">
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/pricing.png">
       </td>
       <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/settings.png">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/feedback.png">
-      </td>
-      <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/billing.png">
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/profile.png">
       </td>
     </tr>
     <tr>
       <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/2fa.png">
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/members.png">
       </td>
       <td>
-        <img alt="" src="https://raw.githubusercontent.com/o15y/staart-ui/master/static/screenshots/api-key.png">
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/settings.png">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/feedback.png">
+      </td>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/billing.png">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/2fa.png">
+      </td>
+      <td>
+        <img alt="" src="https://raw.githubusercontent.com/staart/ui/3c8e1e27fd41c7183a5da68f908a457f17ac2a19/static/screenshots/api-key.png">
       </td>
     </tr>
   </tbody>
