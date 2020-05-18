@@ -1,41 +1,38 @@
 <template>
-  <main
-    class="container container--size-small container--top-20height container--bottom-20height"
-  >
-    <LargeMessage
-      img="undraw_loading_frh4.svg"
-      heading="Just a moment"
-      text="It's been a while since you used StartupName, so we're refreshing data for you"
-    />
-  </main>
+  <div v-if="state === 'loading'">
+    <h1 class="title is-4">Loading...</h1>
+    <div class="content"></div>
+  </div>
+  <div v-else>
+    <h1 class="title is-4">Error</h1>
+    <div class="content"></div>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Card from "@/components/Card.vue";
-import LargeMessage from "@/components/LargeMessage.vue";
-import Input from "@/components/form/Input.vue";
 
 @Component({
-  components: {
-    Card,
-    LargeMessage,
-    Input,
-  },
+  layout: "auth",
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
   }),
 })
 export default class Login extends Vue {
-  private mounted() {
-    this.$store
-      .dispatch("auth/refresh")
-      .then(() => this.$router.back())
-      .catch(() => {
-        this.$store.dispatch("auth/logout");
-        this.$router.push("/auth/login");
-      });
+  state = "loading";
+
+  async mounted() {
+    try {
+      const newToken: string = await this.$store.dispatch("auth/refresh");
+      this.$axios.setHeader("Authorization", newToken);
+      console.log("Updated new token", newToken);
+      this.$router.go(-1);
+    } catch (error) {
+      console.log("Got error, logging out");
+      this.$store.dispatch("auth/logout");
+      this.$router.replace("/");
+    }
   }
 }
 </script>

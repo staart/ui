@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2018",
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["esnext", "esnext.asynciterable", "dom"],
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "sourceMap": true,
     "strict": true,
-    "noImplicitAny": false,
     "noEmit": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
@@ -21,8 +20,9 @@
       "@types/node",
       "@nuxt/types",
       "@nuxtjs/axios/types",
-      "vue-notification",
-      "jest"
+      "jest",
+      "buefy/types"
     ]
-  }
+  },
+  "exclude": ["node_modules", ".nuxt", "dist"]
 }

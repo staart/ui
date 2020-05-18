@@ -1,96 +1,143 @@
 <template>
-  <main class="container" style="max-width: 500px; margin: 10vh auto;">
-    <LargeMessage
-      v-if="completed"
-      heading="Check your email"
-      img="undraw_message_sent_1030.svg"
-      text="We've sent you a special link to complete your registration and activate your account."
-    />
-    <div v-else class="card">
-      <form
-        v-meta-ctrl-enter="login"
-        class="card-content"
-        @submit.prevent="login"
-      >
+  <div>
+    <h1 class="title is-4">Register</h1>
+    <div v-if="completed">
+      <img alt="" src="/illustrations/PlantDoodle.svg" />
+      <h2 class="title is-5" style="margin-top: 1rem">Check your email</h2>
+      <p>
+        We've sent you a link to verify your email. Once you've clicked on the
+        link, you'll be able to log in.
+      </p>
+      <div v-if="emailDomain" style="margin-top: 1rem">
+        <b-button
+          tag="a"
+          target="_blank"
+          :href="`http://${emailDomain}`"
+          type="is-primary"
+        >
+          Go to {{ emailDomain }} &rarr;
+        </b-button>
+      </div>
+      <div v-if="resendTime > -2" style="margin-top: 1rem">
+        <p v-if="resendTime !== -1">
+          Didn't receive the email? Check your spam folder or resend in
+          {{ resendTime }}
+          seconds.
+        </p>
+        <p v-else>Didn't receive the email? We've sent it again.</p>
+        <b-button
+          @click.prevent="resend"
+          :disabled="resendTime !== 0"
+          style="margin-top: 0.5rem"
+        >
+          <span v-if="resendTime === -1">Resent</span>
+          <span v-else>Resend</span>
+        </b-button>
+      </div>
+    </div>
+    <div class="content" v-else>
+      <form @submit.prevent="register">
         <b-field label="Name">
           <b-input v-model="name" type="text" required />
         </b-field>
         <b-field label="Email">
           <b-input v-model="email" type="email" required />
         </b-field>
-        <b-field label="Password">
-          <b-input
-            v-model="password"
-            type="password"
-            required
-            password-reveal
-          />
+        <b-field v-show="!hasPasswordless" label="Password">
+          <b-input v-model="password" type="password" password-reveal />
         </b-field>
-        <div class="field">
-          <b-checkbox v-model="hasInviteCode"
-            >I have an invitation code</b-checkbox
-          >
-        </div>
-        <b-field v-if="hasInviteCode" label="Invitation code">
+        <b-field>
+          <b-checkbox v-model="hasPasswordless">
+            <span>Use passwordless login</span>
+            <b-tooltip label="We'll send you a magic link over email">
+              <b-icon icon="help-circle" size="is-small" />
+            </b-tooltip>
+          </b-checkbox>
+        </b-field>
+        <b-field>
+          <b-checkbox v-model="hasInviteCode">
+            I have an invitation code
+          </b-checkbox>
+        </b-field>
+        <b-field v-show="hasInviteCode" label="Invitation code">
           <b-input v-model="invitedByUser" type="text" />
         </b-field>
-        <b-button type="is-primary" :loading="isLoading" native-type="submit"
-          >Login to your account</b-button
-        >
+        <b-button type="is-primary" native-type="submit" :loading="loading">
+          Create an account
+        </b-button>
       </form>
     </div>
-  </main>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapGetters } from "vuex";
-import LargeMessage from "@/components/LargeMessage.vue";
-import { User } from "../../types/auth";
+import { Vue, Component } from "vue-property-decorator";
+
 @Component({
-  computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user",
-  }),
-  components: {
-    LargeMessage,
-  },
+  middleware: "unauthenticated",
+  layout: "auth",
 })
-export default class Login extends Vue {
+export default class Register extends Vue {
   name = "";
-  email = "";
+  email = "anandchowdhary@gmail.com";
   password = "";
   invitedByUser = "";
-  hasInviteCode = false;
 
-  isAuthenticated!: boolean;
-  user!: User;
-  isLoading = false;
   completed = false;
+  loading = false;
+  hasPasswordless = false;
+  hasInviteCode = false;
+  resendTime = -2;
+  resendToken = "";
+  timer: any = undefined;
 
-  async login() {
-    this.isLoading = true;
+  mounted() {
+    this.timer = window.setInterval(() => {
+      if (this.resendTime > 0) this.resendTime -= 1;
+    }, 1000);
+  }
+
+  async register() {
+    if (this.loading) return;
+    this.loading = true;
     try {
-      const response = await this.$store.dispatch("auth/register", {
+      const { data } = await this.$axios.post("/auth/register", {
         name: this.name,
         email: this.email,
-        password: this.password,
+        password: this.password ? this.password : undefined,
         invitedByUser: this.invitedByUser ? this.invitedByUser : undefined,
       });
-      if (response === "2fa") return this.$router.push("/auth/2fa");
+      this.name = "";
+      this.password = "";
+      this.invitedByUser = "";
       this.completed = true;
+      this.resendToken = data.resendToken;
+      if (this.resendToken) this.resendTime = 120;
     } catch (error) {}
-    this.isLoading = false;
-    this.name = "";
-    this.email = "";
+    this.loading = false;
     this.password = "";
   }
 
-  created() {
-    if (this.isAuthenticated)
-      return this.$router.replace(
-        (this.$route.query.redirect as string) || "/"
-      );
+  async resend() {
+    try {
+      await this.$axios.post("/auth/resend-verification", {
+        email: this.email,
+      });
+    } catch (error) {}
+    this.resendTime = -1;
+  }
+
+  get emailDomain() {
+    try {
+      return this.email.split("@")[1];
+    } catch (error) {
+      return "";
+    }
+  }
+
+  beforeDestroy() {
+    window.clearInterval(this.timer);
+    this.timer = undefined;
   }
 }
 </script>

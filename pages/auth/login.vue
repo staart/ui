@@ -1,65 +1,71 @@
 <template>
-  <main class="container" style="max-width: 500px; margin: 10vh auto;">
-    <div class="card">
-      <form
-        v-meta-ctrl-enter="login"
-        class="card-content"
-        @submit.prevent="login"
-      >
+  <div>
+    <h1 class="title is-4">Login</h1>
+    <div class="content">
+      <form @submit.prevent="login">
         <b-field label="Email">
           <b-input v-model="email" type="email" required />
         </b-field>
-        <b-field label="Password">
-          <b-input v-model="password" type="password" required />
+        <b-field v-show="!hasPasswordless" label="Password">
+          <b-input v-model="password" type="password" password-reveal />
         </b-field>
-        <b-button type="is-primary" :loading="isLoading" native-type="submit"
-          >Login to your account</b-button
-        >
+        <b-field>
+          <b-checkbox v-model="hasPasswordless">
+            <span>Use passwordless login</span>
+            <b-tooltip label="We'll send you a magic link over email">
+              <b-icon icon="help-circle" size="is-small" />
+            </b-tooltip>
+          </b-checkbox>
+        </b-field>
+        <b-button type="is-primary" native-type="submit" :loading="loading">
+          <span v-if="hasPasswordless">Send a login link</span>
+          <span v-else>Login to your account</span>
+        </b-button>
       </form>
+      <p style="margin-top: 1.5rem">
+        <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
+      </p>
+      <p>
+        <nuxt-link to="/auth/register">Create an account</nuxt-link>
+      </p>
     </div>
-    <div class="row text text--mt-1">
-      <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
-      <nuxt-link to="/auth/register" style="text-align: right;"
-        >Create an account</nuxt-link
-      >
-    </div>
-  </main>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapGetters } from "vuex";
-import { User } from "../../types/auth";
+import { Vue, Component } from "vue-property-decorator";
+
 @Component({
-  computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user",
-  }),
+  middleware: "unauthenticated",
+  layout: "auth",
 })
 export default class Login extends Vue {
   email = "";
   password = "";
-  isAuthenticated!: boolean;
-  user!: User;
-  isLoading = false;
+
+  loading = false;
+  hasPasswordless = false;
 
   async login() {
-    this.isLoading = true;
-    const response = await this.$store.dispatch("auth/loginWithEmailPassword", {
-      email: this.email,
-      password: this.password,
-    });
-    if (response === "2fa") return this.$router.push("/auth/2fa");
-    this.isLoading = false;
+    if (this.loading) return;
+    this.loading = true;
+    try {
+      const { data }: { data: any } = await this.$axios.post("/auth/login", {
+        email: this.email,
+        password: this.hasPasswordless ? undefined : this.password,
+      });
+      const result = await this.$store.dispatch("auth/loginWithTokens", data);
+      if (result === "2fa") return this.$router.replace("/auth/2fa");
+      const memberships = this.$store.state.auth.user.memberships;
+      if (!memberships?.data?.length)
+        return this.$router.replace("/onboarding/user");
+      this.$router.replace(
+        `/teams/${memberships?.data[0]?.organization?.username}`
+      );
+    } catch (error) {}
+    this.loading = false;
     this.email = "";
     this.password = "";
-  }
-
-  created() {
-    if (this.isAuthenticated)
-      return this.$router.replace(
-        (this.$route.query.redirect as string) || "/"
-      );
   }
 }
 </script>

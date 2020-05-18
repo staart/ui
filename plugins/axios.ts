@@ -2,25 +2,22 @@ import Vue from "vue";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { AxiosRequestConfig } from "axios";
 import decode from "jwt-decode";
-import en from "@/locales/en";
-import { removeNulls, removeReadOnlyValues } from "~/helpers/crud";
-import { RootState } from "~/types/auth";
-const messages = en.messages;
-const errors = en.errors;
+import { ToastProgrammatic as Toast } from "buefy";
 
-const redirectErrors = ["unapproved-location", "missing-token"];
 const ignoredErrors = ["no-customer"];
 
-export default function ({
+export default function({
   $axios,
   redirect,
   store,
+  app,
 }: {
   $axios: NuxtAxiosInstance;
+  app: any;
   redirect: any;
   store: {
     state: {
-      auth: RootState;
+      auth: any;
     };
     dispatch: any;
   };
@@ -28,29 +25,32 @@ export default function ({
   $axios.interceptors.request.use(
     (config: AxiosRequestConfig) =>
       new Promise((resolve, reject) => {
-        config.data = removeNulls(removeReadOnlyValues(config.data));
+        console.log("Axios request starting");
         $axios.setHeader("X-Requested-With", "XMLHttpRequest");
+        if (process.env.API_KEY)
+          $axios.setHeader("X-Api-Key", process.env.API_KEY);
 
-        // This is the Staart public API key
-        $axios.setHeader(
-          "X-Api-Key",
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwib3JnYW5pemF0aW9uSWQiOjEsInJlZmVycmVyUmVzdHJpY3Rpb25zIjoic3RhYXJ0LWRlbW8ubzE1eS5jb20sbG9jYWxob3N0LG9zd2FsZGxhYnMuY29tLHN0YWFydC11aS5vMTV5Lm5vdy5zaCIsImlhdCI6MTU2ODM2MjM5MiwiZXhwIjo4ODQ2ODkxNzcwMTMyLCJpc3MiOiJzdGFhcnQiLCJzdWIiOiJhcGkta2V5IiwianRpIjoiZjE2MGRmMDg3NTkyIn0.pGv-H2a87RX5z_6U5ad07Rk7G4rr3W0hvX4BbC3Jg14"
-        );
         try {
-          const token = config.headers.common.Authorization.replace(
+          const token: string = config.headers.common.Authorization.replace(
             "Bearer ",
             ""
           );
-          if (decode(token).exp * 1000 < new Date().getTime()) {
-            $axios.setHeader("Authorization", undefined);
-            if (
-              !store.state.auth.tokens.token ||
-              !store.state.auth.tokens.refresh
-            )
+          if (
+            decode<{ exp: number }>(token).exp * 1000 <
+            new Date().getTime()
+          ) {
+            console.log("Axios token is expired");
+            if (!store.state.auth.tokens.refresh) {
+              console.log("Could not get refresh token in store");
               return resolve(config);
+            }
+            console.log("Refreshing token");
+            $axios.setHeader("Authorization", undefined);
             store
               .dispatch("auth/refresh")
               .then((newToken: string) => {
+                console.log("Got new token", newToken);
+                $axios.setHeader("Authorization", newToken);
                 config.headers = {
                   ...config.headers,
                   Authorization: `Bearer ${newToken}`,
@@ -67,66 +67,36 @@ export default function ({
       })
   );
   $axios.onResponse((response) => {
-    if (response.data.success === true) {
-      if (response.data.text) {
-        Vue.notify({
-          group: "auth",
-          text: response.data.text,
-          type: "notification notification--color-success",
-        });
-      } else if (response.data.message) {
-        Vue.notify({
-          group: "auth",
-          text: messages[response.data.message] || messages.success,
-          type: "notification notification--color-success",
-        });
-      } else {
-        Vue.notify({
-          group: "auth",
-          text: messages.success,
-          type: "notification notification--color-success",
-        });
-      }
+    if (typeof response.data?.text === "string") {
+      Toast.open({
+        message: response?.data?.text,
+        type: "is-success",
+      });
     }
   });
   $axios.onError((error) => {
     if (!error.response) return;
+
     if (
-      ["revoked-token", "invalid-token", "expired-token"].includes(
-        error.response.data.code || error.response.data.error
-      )
+      [
+        "revoked-token",
+        "invalid-token",
+        "expired-token",
+        "missing-token",
+      ].includes(error.response.data.code || error.response.data.error)
     ) {
       return redirect("/auth/refresh");
     }
+
     if (
       ignoredErrors.includes(
         error.response.data.code || error.response.data.error
       )
     ) {
-    } else if (
-      redirectErrors.includes(
-        error.response.data.code || error.response.data.error
-      )
-    ) {
-      return redirect(
-        `/errors/${error.response.data.code || error.response.data.error}`
-      );
-    } else if (
-      Object.keys(errors).includes(
-        error.response.data.code || error.response.data.error
-      )
-    ) {
-      Vue.notify({
-        group: "auth",
-        text: errors[error.response.data.code || error.response.data.error],
-        duration: 5000,
-        type: "notification notification--color-danger",
-      });
-    } else {
-      Vue.notify({
-        group: "auth",
-        text: error.response.data.code || error.response.data.error,
-        type: "notification notification--color-danger",
+    } else if (typeof error.response.data?.error === "string") {
+      Toast.open({
+        message: error?.response?.data?.error,
+        type: "is-danger",
       });
     }
   });

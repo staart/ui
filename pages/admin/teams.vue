@@ -1,156 +1,80 @@
 <template>
-  <main>
-    <div class="row">
-      <h1>Organizations</h1>
-      <div class="text text--align-right">
-        <button
-          aria-label="Refresh"
-          data-balloon-pos="down"
-          class="button button--type-icon"
-          @click="load"
-        >
-          <font-awesome-icon
-            class="icon"
-            icon="sync"
-            :spin="!!loading"
-            fixed-width
-          />
-        </button>
-      </div>
-    </div>
-    <div v-if="organizations && organizations.data">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Created</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(organization, index) in organizations.data"
-            :key="`${organization.id}_${index}`"
+  <div>
+    <h1 class="is-size-4" style="margin-bottom: 1rem">Teams</h1>
+    <b-table
+      :loading="loading"
+      :data="teams.data"
+      default-sort-direction="asc"
+      sort-icon="arrow-up"
+      sort-icon-size="is-small"
+    >
+      <template slot-scope="props">
+        <b-table-column sortable field="name" label="Name">
+          {{ props.row.name }}
+        </b-table-column>
+        <b-table-column sortable field="stripeCustomerId" label="Stripe ID">
+          <code v-if="props.row.stripeCustomerId">
+            {{ props.row.stripeCustomerId }}
+          </code>
+          <span v-else><em>None</em></span>
+        </b-table-column>
+        <b-table-column sortable field="createdAt" label="Created">
+          {{ new Date(props.row.createdAt).toLocaleDateString() }}
+        </b-table-column>
+        <b-table-column class="has-text-right">
+          <b-button
+            type="is-primary"
+            tag="nuxt-link"
+            :to="`/teams/${props.row.username}`"
           >
-            <td><Team :team="organization" /></td>
-            <td><TimeAgo :date="organization.createdAt" /></td>
-            <td class="text text--align-right">
-              <router-link
-                :to="`/teams/${
-                  organization.username || organization.id
-                }/products`"
-                aria-label="View"
-                data-balloon-pos="up"
-                class="button button--type-icon"
-              >
-                <font-awesome-icon class="icon" icon="eye" fixed-width />
-              </router-link>
-              <router-link
-                :to="`/teams/${
-                  organization.username || organization.id
-                }/settings/general`"
-                aria-label="Edit"
-                data-balloon-pos="up"
-                class="button button--type-icon"
-              >
-                <font-awesome-icon class="icon" icon="cog" fixed-width />
-              </router-link>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="pagination text text--align-center">
-        <button
-          v-if="organizations && organizations.hasMore"
-          class="button"
-          :disabled="loadingMore"
-          @click="loadMore"
-        >
-          <span>Load more organizations</span>
-          <font-awesome-icon
-            v-if="!loadingMore"
-            class="icon"
-            icon="arrow-down"
-          />
-          <font-awesome-icon
-            v-else
-            class="icon icon--ml-2 icon--color-light"
-            icon="sync"
-            spin
-          />
-        </button>
-      </div>
+            Go to team
+          </b-button>
+        </b-table-column>
+      </template>
+    </b-table>
+    <div class="has-text-centered">
+      <b-button
+        v-if="teams.hasMore"
+        @click="get"
+        icon-right="arrow-down"
+        :loading="loading"
+      >
+        Load more teams
+      </b-button>
     </div>
-  </main>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import {
-  faArrowDown,
-  faSync,
-  faEye,
-  faCog,
-} from "@fortawesome/free-solid-svg-icons";
-import Loading from "@/components/Loading.vue";
-import TimeAgo from "@/components/TimeAgo.vue";
-import Team from "@/components/Team.vue";
-import { emptyPagination } from "../../types/admin";
-library.add(faArrowDown, faSync, faEye, faCog);
+import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
-  components: {
-    Loading,
-    TimeAgo,
-    Team,
-    FontAwesomeIcon,
-  },
+  middleware: "authenticated",
+  layout: "admin",
 })
-export default class AdminOrganizations extends Vue {
-  organizations = emptyPagination;
-  loading = "";
-  loadingMore = false;
+export default class AdminTeams extends Vue {
+  loading = false;
+  teams: any = { data: [] };
 
-  private created() {
-    this.organizations = { ...this.$store.getters["admin/organizations"]() };
+  async created() {
+    return this.get();
   }
 
-  private mounted() {
-    this.load();
-  }
-
-  private load() {
-    this.loading = "Loading your organizations";
-    this.$store
-      .dispatch("admin/getOrganizations", {})
-      .then((organizations) => {
-        this.organizations = { ...organizations };
-      })
-      .catch((error) => {
-        throw new Error(error);
-      })
-      .then(() => (this.loading = ""));
-  }
-
-  private loadMore() {
-    this.loadingMore = true;
-    this.$store
-      .dispatch("admin/getOrganizations", {
-        start: this.$store.state.admin.organizations.next,
-      })
-      .then(() => {
-        this.organizations = {
-          ...this.$store.getters["admin/organizations"](),
-        };
-      })
-      .catch((error) => {
-        throw new Error(error);
-      })
-      .finally(() => (this.loadingMore = false));
+  async get() {
+    this.loading = true;
+    try {
+      const { data } = await this.$axios.get(
+        `/admin/organizations?first=10&orderBy=id:desc${
+          this.teams.data.length
+            ? `&after=${this.teams.data[this.teams.data.length - 1].id}`
+            : ""
+        }`
+      );
+      this.teams.data.push(...(data.data || []));
+      this.teams.hasMore = data.hasMore;
+      this.teams = data;
+    } catch (error) {}
+    this.loading = false;
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
