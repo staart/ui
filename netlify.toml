@@ -1,0 +1,8 @@
+[build]
+	command = "npm run generate"
+	publish = "public"
+
+[[redirects]]
+  from = "/*"
+  to = "/200.html"
+  status = 200
