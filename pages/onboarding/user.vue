@@ -310,7 +310,7 @@ export default class OnboardingUser extends Vue {
       this.userCountryCode = (data.country ?? "US").toLocaleLowerCase();
       this.userTimezone = data.timezone ?? "America/Los_Angeles";
       if (data.country) {
-        const country = ct.getCountry(data.country.toLocaleLowerCase());
+        const country = ct.getCountry(data.country.toLocaleUpperCase());
         if (country) this.countrySearchQuery = country.name;
       }
     } catch (error) {}
