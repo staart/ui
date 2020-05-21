@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-steps :value="value" :has-navigation="false">
+    <b-steps v-model="value" :has-navigation="false">
       <b-step-item label="Profile" :clickable="true">
         <h1 class="title has-text-centered">Set up your account</h1>
         <form @submit.prevent="goToNextStep">
