@@ -11,11 +11,12 @@
             "include": [":construction:"]
           },
           "minor": {
+            "include": [":sparkles:", ":lipstick:", ":art:"]
+          },
+          "patch": {
             "include": [
               ":zap:",
               ":fire:",
-              ":sparkles:",
-              ":lipstick:",
               ":arrow_down:",
               ":arrow_up:",
               ":chart_with_upwards_trend:",
@@ -23,7 +24,6 @@
               ":whale:",
               ":heavy_plus_sign:",
               ":heavy_minus_sign:",
-              ":globe_with_meridians:",
               ":rewind:",
               ":twisted_rightwards_arrows:",
               ":package:",
@@ -42,12 +42,7 @@
               ":wheel_of_dharma:",
               ":label:",
               ":seedling:",
-              ":triangular_flag_on_post:"
-            ]
-          },
-          "patch": {
-            "include": [
-              ":art:",
+              ":triangular_flag_on_post:",
               ":bug:",
               ":pencil:",
               ":white_check_mark:",
