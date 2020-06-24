@@ -13,33 +13,34 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
-    "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
     "analytics-icons": "^5.5.0",
     "countries-and-timezones": "^2.2.0",
     "js-file-download": "^0.4.12",
     "jwt-decode": "^2.2.0",
-    "nuxt": "^2.12.2",
+    "nuxt": "^2.13.1",
     "nuxt-buefy": "^0.3.31",
     "ua-parser-js": "^0.7.21",
     "vue-stripe-elements-plus": "^0.3.2",
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
-    "@nuxt/typescript-build": "^1.0.2",
+    "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/dotenv": "^1.4.1",
     "@semantic-release/git": "^9.0.0",
     "@types/countries-and-timezones": "^2.0.3",
     "@types/jwt-decode": "^2.2.1",
     "@types/ua-parser-js": "^0.7.33",
     "@vue/test-utils": "^1.0.3",
-    "babel-jest": "^26.0.1",
-    "jest": "^26.0.1",
+    "babel-jest": "^26.1.0",
+    "jest": "^26.1.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
-    "semantic-release": "^17.0.8",
+    "semantic-release": "^17.1.0",
     "semantic-release-gitmoji": "^1.3.4",
-    "ts-jest": "^26.1.0",
+    "ts-jest": "^26.1.1",
+    "vue-class-component": "^7.2.3",
     "vue-jest": "^4.0.0-beta.3",
-    "vue-property-decorator": "^8.4.2"
+    "vue-property-decorator": "^9.0.0"
   }
 }
