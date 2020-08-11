@@ -11,11 +11,10 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: process.env.npm_package_description || "",
-      },
+        content: process.env.npm_package_description || ""
+      }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-    script: [{ src: "https://js.stripe.com/v3/" }],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
   /*
    ** Customize the progress-bar color
@@ -40,7 +39,7 @@ export default {
     ["nuxt-buefy", { css: false }],
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    "@nuxtjs/pwa",
+    "@nuxtjs/pwa"
   ],
   /*
    ** Axios module configuration
@@ -50,10 +49,10 @@ export default {
     baseURL:
       process.env.NODE_ENV === "production"
         ? "https://staart.dev.oswaldlabs.com/v1"
-        : "http://localhost:7007/v1",
+        : "http://localhost:7007/v1"
   },
   router: {
-    middleware: "token",
+    middleware: "token"
   },
   /*
    ** Build configuration
@@ -62,6 +61,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {},
-  },
+    extend(config, ctx) {}
+  }
 };
