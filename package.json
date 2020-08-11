@@ -32,7 +32,7 @@
     "@types/jwt-decode": "^2.2.1",
     "@types/ua-parser-js": "^0.7.33",
     "@vue/test-utils": "^1.0.3",
-    "babel-jest": "^26.2.2",
+    "babel-jest": "^26.3.0",
     "jest": "^26.3.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^9.0.3",
