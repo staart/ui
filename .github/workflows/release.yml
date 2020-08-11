@@ -19,6 +19,11 @@ jobs:
         run: npm ci
       - name: Build TypeScript
         run: npm run build
+      - name: Build GitHub Pages
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          BUILD_DIR: "dist/"
+          GH_PAT: ${{ secrets.GH_PAT }}
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
