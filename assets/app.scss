@@ -1,8 +1,12 @@
 @import "~bulma/sass/utilities/_all";
 @import "overwrites.scss";
 
-$primary: darkgreen;
+$primary: #8c1d74;
 $primary-invert: findColorInvert($primary);
+
+::selection {
+  background-color: lighten($color: $primary, $amount: 60);
+}
 
 $colors: (
   "white": (
