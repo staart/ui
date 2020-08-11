@@ -54,14 +54,21 @@ export default class Login extends Vue {
         email: this.email,
         password: this.hasPasswordless ? undefined : this.password,
       });
-      const result = await this.$store.dispatch("auth/loginWithTokens", data);
-      if (result === "2fa") return this.$router.replace("/auth/2fa");
-      const memberships = this.$store.state.auth.user.memberships;
-      if (!memberships?.data?.length)
-        return this.$router.replace("/onboarding/user");
-      this.$router.replace(
-        `/teams/${memberships?.data[0]?.organization?.username}`
-      );
+      if (data.message === "login-link-sent") {
+        this.$buefy.toast.open({
+          message: "We've sent you a login link on your email",
+          type: "is-success",
+        });
+      } else {
+        const result = await this.$store.dispatch("auth/loginWithTokens", data);
+        if (result === "2fa") return this.$router.replace("/auth/2fa");
+        const memberships = this.$store.state.auth.user.memberships;
+        if (!memberships?.data?.length)
+          return this.$router.replace("/onboarding/user");
+        this.$router.replace(
+          `/teams/${memberships?.data[0]?.organization?.username}`
+        );
+      }
     } catch (error) {}
     this.loading = false;
     this.email = "";
