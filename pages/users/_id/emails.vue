@@ -18,11 +18,9 @@
             <b-icon icon="alert" type="is-warning" />
           </b-tooltip>
         </b-table-column>
-        <b-table-column
-          sortable
-          field="createdAt"
-          label="Added"
-        >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
+        <b-table-column sortable field="createdAt" label="Added">{{
+          new Date(props.row.createdAt).toLocaleDateString()
+        }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Delete">
             <b-button
@@ -40,24 +38,32 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-      >Load more emails</b-button>
+        >Load more emails</b-button
+      >
     </div>
     <h2 class="is-size-5" style="margin-top: 1rem">Add email</h2>
     <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Email">
         <b-input type="email" v-model="newEmail" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">Add email</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd"
+        >Add email</b-button
+      >
     </form>
     <h2 class="is-size-5">Email preferences</h2>
     <form @submit.prevent="save">
-      <b-field label="Primary email" message="We'll send you emails only on your primary email">
-        <b-select v-model="primaryEmailId" expanded>
+      <b-field
+        label="Primary email"
+        message="We'll send you emails only on your primary email"
+      >
+        <b-select v-model="prefersEmailId" expanded>
           <option
             v-for="(email, i) in emails.data"
             :key="`e${email.id}${i}`"
             :value="email.id"
-          >{{ email.email }}</option>
+          >
+            {{ email.email }}
+          </option>
         </b-select>
       </b-field>
       <b-field label="Notification emails">
@@ -66,20 +72,25 @@
             name="radioNotificationEmails"
             native-value="ACCOUNT"
             v-model="notificationEmails"
-          >Account and security</b-radio>
+            >Account and security</b-radio
+          >
           <b-radio
             name="radioNotificationEmails"
             native-value="UPDATES"
             v-model="notificationEmails"
-          >App updates</b-radio>
+            >App updates</b-radio
+          >
           <b-radio
             name="radioNotificationEmails"
             native-value="PROMOTIONS"
             v-model="notificationEmails"
-          >Promotions</b-radio>
+            >Promotions</b-radio
+          >
         </div>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingSave">Update settings</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingSave"
+        >Update settings</b-button
+      >
     </form>
   </div>
 </template>
@@ -89,14 +100,14 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersEmails extends Vue {
   newEmail = "";
   loading = false;
   loadingAdd = false;
   loadingSave = false;
-  primaryEmailId = 0;
+  prefersEmailId = 0;
   notificationEmails = "ACCOUNT";
   emails: any = { data: [] };
 
@@ -121,7 +132,7 @@ export default class UsersEmails extends Vue {
     try {
       const user = await this.$axios.get(`/users/${this.$route.params.id}`);
       this.notificationEmails = user.data.notificationEmails;
-      this.primaryEmailId = user.data.primaryEmail;
+      this.prefersEmailId = user.data.prefersEmailId;
     } catch (error) {}
     this.loading = false;
   }
@@ -132,7 +143,7 @@ export default class UsersEmails extends Vue {
       const { data } = await this.$axios.put(
         `/users/${this.$route.params.id}/emails`,
         {
-          email: this.newEmail,
+          email: this.newEmail
         }
       );
       this.emails.data.push(data.added);
@@ -145,8 +156,8 @@ export default class UsersEmails extends Vue {
     this.loadingSave = true;
     try {
       await this.$axios.patch(`/users/${this.$route.params.id}`, {
-        primaryEmail: this.primaryEmailId,
-        notificationEmails: this.notificationEmails,
+        primaryEmail: this.prefersEmailId,
+        notificationEmails: this.notificationEmails
       });
     } catch (error) {}
     this.loadingSave = false;
@@ -169,7 +180,7 @@ export default class UsersEmails extends Vue {
           );
         } catch (error) {}
         return this.get();
-      },
+      }
     });
   }
 }
