@@ -7,7 +7,12 @@
         <b-input type="password" v-model="oldPassword" password-reveal />
       </b-field>
       <b-field label="New password">
-        <b-input type="password" v-model="newPassword" password-reveal required />
+        <b-input
+          type="password"
+          v-model="newPassword"
+          password-reveal
+          required
+        />
       </b-field>
       <div class="password-strength">
         <div>Password strength</div>
@@ -24,7 +29,12 @@
         />
       </div>
       <div style="margin-top: 0.5rem">
-        <b-button type="is-primary" native-type="submit" :loading="loadingPassword">Change password</b-button>
+        <b-button
+          type="is-primary"
+          native-type="submit"
+          :loading="loadingPassword"
+          >Change password</b-button
+        >
       </div>
     </form>
     <h2 class="is-size-5">Two-factor authentication</h2>
@@ -32,9 +42,7 @@
       <b-message type="is-success" has-icon>
         2FA adds an additional layer of protection in your account. You have 2FA
         <strong>enabled</strong>
-        and have used {{ backupCodesUsed }}/{{
-        backupCodesAll
-        }}
+        and have used {{ backupCodesUsed }}/{{ backupCodesAll }}
         backup codes.
       </b-message>
       <div class="buttons" style="margin-top: 1rem">
@@ -43,8 +51,11 @@
           icon-left="lock-open"
           @click="disable"
           :loading="loading"
-        >Disable 2FA</b-button>
-        <b-button @click="regenerate" :loading="loadingRegenerate">Regenerate backup codes</b-button>
+          >Disable 2FA</b-button
+        >
+        <b-button @click="regenerate" :loading="loadingRegenerate"
+          >Regenerate backup codes</b-button
+        >
       </div>
     </div>
     <div v-else>
@@ -54,7 +65,9 @@
         1Password to use 2FA.
       </p>
       <div class="buttons" style="margin-top: 1rem">
-        <b-button type="is-success" @click="enable" :loading="loading">Enable 2FA</b-button>
+        <b-button type="is-success" @click="enable" :loading="loading"
+          >Enable 2FA</b-button
+        >
       </div>
     </div>
     <b-modal :width="300" :active.sync="showQrCode">
@@ -78,7 +91,12 @@
               />
             </b-field>
             <div class="buttons" style="margin-top: 1rem">
-              <b-button type="is-primary" native-type="submit" :loading="loading">Enable 2FA</b-button>
+              <b-button
+                type="is-primary"
+                native-type="submit"
+                :loading="loading"
+                >Enable 2FA</b-button
+              >
             </div>
           </form>
         </div>
@@ -92,7 +110,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersEmails extends Vue {
   oldPassword = "";
@@ -122,12 +140,12 @@ export default class UsersEmails extends Vue {
     this.loading = true;
     try {
       const { data }: { data: any } = await this.$axios.get(
-        `/users/${this.$route.params.id}?select=twoFactorEnabled,backup_codes`
+        `/users/${this.$route.params.id}?select=twoFactorEnabled,backupCodes`
       );
       this.twoFactorEnabled = data.twoFactorEnabled;
-      this.backupCodesAll = (data.backup_codes || []).length;
+      this.backupCodesAll = (data.backupCodes || []).length;
       this.backupCodesUsed = (
-        data.backup_codes.filter((i: any) => i.isUsed).length || []
+        data.backupCodes.filter((i: any) => i.isUsed).length || []
       ).length;
     } catch (error) {}
     this.loading = false;
@@ -140,12 +158,12 @@ export default class UsersEmails extends Vue {
         `/users/${this.$route.params.id}/security/password`,
         {
           oldPassword: this.oldPassword,
-          newPassword: this.newPassword,
+          newPassword: this.newPassword
         }
       );
       this.$buefy.toast.open({
         message: data.text,
-        type: "is-success",
+        type: "is-success"
       });
     } catch (error) {}
     this.oldPassword = "";
@@ -170,7 +188,7 @@ export default class UsersEmails extends Vue {
       const { data } = await this.$axios.post(
         `/users/${this.$route.params.id}/security/2fa/verify`,
         {
-          code: this.verificationCode,
+          code: this.verificationCode
         }
       );
       this.showQrCode = false;
@@ -178,7 +196,7 @@ export default class UsersEmails extends Vue {
       this.$buefy.dialog.alert({
         title: "Backup codes",
         message: this.backupCodesHtml(data.backupCodes),
-        confirmText: "Yes, I've copied them",
+        confirmText: "Yes, I've copied them"
       });
     } catch (error) {}
     this.verificationCode = "";
@@ -201,11 +219,11 @@ export default class UsersEmails extends Vue {
           this.$buefy.dialog.alert({
             title: "Backup codes",
             message: this.backupCodesHtml(data.backupCodes),
-            confirmText: "Yes, I've copied them",
+            confirmText: "Yes, I've copied them"
           });
         } catch (error) {}
         this.loadingRegenerate = false;
-      },
+      }
     });
   }
   async disable(id: number, email: string) {
@@ -226,7 +244,7 @@ export default class UsersEmails extends Vue {
           this.twoFactorEnabled = false;
         } catch (error) {}
         this.loading = false;
-      },
+      }
     });
   }
 }
