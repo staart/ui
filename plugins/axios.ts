@@ -10,7 +10,7 @@ export default function({
   $axios,
   redirect,
   store,
-  app,
+  app
 }: {
   $axios: NuxtAxiosInstance;
   app: any;
@@ -25,7 +25,6 @@ export default function({
   $axios.interceptors.request.use(
     (config: AxiosRequestConfig) =>
       new Promise((resolve, reject) => {
-        console.log("Axios request starting");
         $axios.setHeader("X-Requested-With", "XMLHttpRequest");
         if (process.env.API_KEY)
           $axios.setHeader("X-Api-Key", process.env.API_KEY);
@@ -39,21 +38,17 @@ export default function({
             decode<{ exp: number }>(token).exp * 1000 <
             new Date().getTime()
           ) {
-            console.log("Axios token is expired");
             if (!store.state.auth.tokens.refresh) {
-              console.log("Could not get refresh token in store");
               return resolve(config);
             }
-            console.log("Refreshing token");
             $axios.setHeader("Authorization", undefined);
             store
               .dispatch("auth/refresh")
               .then((newToken: string) => {
-                console.log("Got new token", newToken);
                 $axios.setHeader("Authorization", newToken);
                 config.headers = {
                   ...config.headers,
-                  Authorization: `Bearer ${newToken}`,
+                  Authorization: `Bearer ${newToken}`
                 };
               })
               .catch(() => store.dispatch("auth/logout"))
@@ -66,15 +61,15 @@ export default function({
         }
       })
   );
-  $axios.onResponse((response) => {
+  $axios.onResponse(response => {
     if (typeof response.data?.text === "string") {
       Toast.open({
         message: response?.data?.text,
-        type: "is-success",
+        type: "is-success"
       });
     }
   });
-  $axios.onError((error) => {
+  $axios.onError(error => {
     if (!error.response) return;
 
     if (
@@ -82,7 +77,7 @@ export default function({
         "revoked-token",
         "invalid-token",
         "expired-token",
-        "missing-token",
+        "missing-token"
       ].includes(error.response.data.code || error.response.data.error)
     ) {
       return redirect("/auth/refresh");
@@ -96,7 +91,7 @@ export default function({
     } else if (typeof error.response.data?.error === "string") {
       Toast.open({
         message: error?.response?.data?.error,
-        type: "is-danger",
+        type: "is-danger"
       });
     }
   });
