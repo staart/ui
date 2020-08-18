@@ -25,31 +25,37 @@
           v-for="(membership, i) in userMemberships"
           tag="nuxt-link"
           :key="`m${i}${membership.id}`"
-          :to="
-            $route.path.replace(
-              $route.params.id,
-              membership.groupId
-            )
-          "
-        >{{ membership.group.name }}</b-navbar-item>
+          :to="$route.path.replace($route.params.id, membership.groupId)"
+          >{{ membership.group.name }}</b-navbar-item
+        >
         <b-navbar-item
           class="has-text-weight-bold"
           tag="nuxt-link"
           :to="`/users/${user.details.id}/teams`"
-        >Create a new team</b-navbar-item>
+          >Create a new team</b-navbar-item
+        >
       </b-navbar-dropdown>
-      <b-navbar-item v-else-if="isAuthenticated" tag="nuxt-link" to="/">Dashboard</b-navbar-item>
-      <b-navbar-item tag="nuxt-link" to="/admin" v-if="user.details.role === 'SUDO'">Admin</b-navbar-item>
+      <b-navbar-item v-else-if="isAuthenticated" tag="nuxt-link" to="/"
+        >Dashboard</b-navbar-item
+      >
+      <b-navbar-item
+        tag="nuxt-link"
+        to="/admin"
+        v-if="user.details.role === 'SUDO'"
+        >Admin</b-navbar-item
+      >
     </template>
     <template slot="end" v-if="user.details.id">
       <b-navbar-dropdown :right="true" hoverable boxed>
         <template slot="label">
           <figure class="image">
-            <img class="is-rounded" :src="user.details.profilePicture" />
+            <img class="is-rounded" :src="user.details.profilePictureUrl" />
           </figure>
           <span>{{ user.details.nickname }}</span>
         </template>
-        <b-navbar-item tag="nuxt-link" :to="`/users/${user.details.id}/profile`">Account settings</b-navbar-item>
+        <b-navbar-item tag="nuxt-link" :to="`/users/${user.details.id}/profile`"
+          >Account settings</b-navbar-item
+        >
         <b-navbar-item role="button" @click="logout">Logout</b-navbar-item>
       </b-navbar-dropdown>
     </template>
@@ -64,8 +70,8 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user",
-  }),
+    user: "auth/user"
+  })
 })
 export default class Navbar extends Vue {
   isAuthenticated!: boolean;
