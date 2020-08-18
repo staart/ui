@@ -7,24 +7,6 @@
       </b-field>
       <div class="columns">
         <div class="column">
-          <b-field label="Username">
-            <b-input type="text" v-model="user.id" size="is-medium" required />
-          </b-field>
-        </div>
-        <div class="column">
-          <b-field>
-            <template slot="label">
-              Nickname
-              <b-tooltip type="is-dark" label="We'll call you by your nickname">
-                <b-icon size="is-small" icon="help-circle-outline"></b-icon>
-              </b-tooltip>
-            </template>
-            <b-input type="text" v-model="user.nickname" size="is-medium" required />
-          </b-field>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column">
           <b-field label="Country">
             <b-autocomplete
               v-model="countrySearchQuery"
