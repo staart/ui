@@ -9,7 +9,7 @@
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img
-          src="https://raw.githubusercontent.com/staart/api/master/assets/logo.png"
+          src="https://raw.githubusercontent.com/staart/staart.js.org/master/assets/svg/ui.svg?sanitize=true"
           alt="Staart"
         />
       </b-navbar-item>
@@ -31,27 +31,15 @@
               membership.organization.username
             )
           "
-        >
-          {{ membership.organization.name }}
-        </b-navbar-item>
+        >{{ membership.organization.name }}</b-navbar-item>
         <b-navbar-item
           class="has-text-weight-bold"
           tag="nuxt-link"
           :to="`/users/${user.details.username}/teams`"
-        >
-          Create a new team
-        </b-navbar-item>
+        >Create a new team</b-navbar-item>
       </b-navbar-dropdown>
-      <b-navbar-item v-else-if="isAuthenticated" tag="nuxt-link" to="/">
-        Dashboard
-      </b-navbar-item>
-      <b-navbar-item
-        tag="nuxt-link"
-        to="/admin"
-        v-if="user.details.role === 'SUDO'"
-      >
-        Admin
-      </b-navbar-item>
+      <b-navbar-item v-else-if="isAuthenticated" tag="nuxt-link" to="/">Dashboard</b-navbar-item>
+      <b-navbar-item tag="nuxt-link" to="/admin" v-if="user.details.role === 'SUDO'">Admin</b-navbar-item>
     </template>
     <template slot="end" v-if="user.details.username">
       <b-navbar-dropdown :right="true" hoverable boxed>
@@ -64,12 +52,8 @@
         <b-navbar-item
           tag="nuxt-link"
           :to="`/users/${user.details.username}/profile`"
-        >
-          Account settings
-        </b-navbar-item>
-        <b-navbar-item role="button" @click="logout">
-          Logout
-        </b-navbar-item>
+        >Account settings</b-navbar-item>
+        <b-navbar-item role="button" @click="logout">Logout</b-navbar-item>
       </b-navbar-dropdown>
     </template>
   </b-navbar>
