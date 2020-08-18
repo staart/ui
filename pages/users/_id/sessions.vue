@@ -85,7 +85,7 @@ export default class UsersSessions extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${this.$route.params.id}/sessions?first=10&orderBy=id:desc${
+        `/users/${this.$route.params.id}/sessions?take=10&orderBy=id:desc${
           this.sessions.data.length
             ? `&after=${this.sessions.data[this.sessions.data.length - 1].id}`
             : ""

@@ -108,7 +108,7 @@ export default class UsersEmails extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${this.$route.params.id}/emails?first=10${
+        `/users/${this.$route.params.id}/emails?take=10${
           this.emails.data.length
             ? `&after=${this.emails.data[this.emails.data.length - 1].id}`
             : ""

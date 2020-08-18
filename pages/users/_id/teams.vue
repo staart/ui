@@ -79,7 +79,7 @@ export default class UsersTeams extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${this.$route.params.id}/memberships?first=10${
+        `/users/${this.$route.params.id}/memberships?take=10${
           this.teams.data.length
             ? `&after=${this.teams.data[this.teams.data.length - 1].id}`
             : ""

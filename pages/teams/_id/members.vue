@@ -119,7 +119,7 @@ export default class UsersProfile extends Vue {
       const { data } = await this.$axios.get(
         `/organizations/${
           this.$route.params.id
-        }/memberships?first=10&include=user${
+        }/memberships?take=10&include=user${
           this.members.data.length
             ? `&after=${this.members.data[this.members.data.length - 1].id}`
             : ""

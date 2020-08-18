@@ -56,7 +56,7 @@ export default class AdminUsers extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/admin/users?first=10&orderBy=id:desc${
+        `/admin/users?take=10&orderBy=id:desc${
           this.users.data.length
             ? `&after=${this.users.data[this.users.data.length - 1].id}`
             : ""

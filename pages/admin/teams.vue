@@ -56,7 +56,7 @@ export default class AdminTeams extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/admin/organizations?first=10&orderBy=id:desc${
+        `/admin/organizations?take=10&orderBy=id:desc${
           this.teams.data.length
             ? `&after=${this.teams.data[this.teams.data.length - 1].id}`
             : ""

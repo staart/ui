@@ -14,10 +14,7 @@
       <template slot-scope="props">
         <b-table-column sortable field="code" label="Coupon code">
           <code>{{ props.row.code }}</code>
-          <b-tooltip
-            v-if="props.row.maxUses === props.row.usedCount"
-            label="Used"
-          >
+          <b-tooltip v-if="props.row.maxUses === props.row.usedCount" label="Used">
             <b-icon icon="credit-card-off" type="is-danger" />
           </b-tooltip>
         </b-table-column>
@@ -26,18 +23,14 @@
           }}{{ props.row.amount / 100 }}
         </b-table-column>
         <b-table-column sortable field="expiresAt" label="Expires">
-          <span v-if="props.row.expiresAt">
-            {{ new Date(props.row.expiresAt).toLocaleDateString() }}
+          <span v-if="props.row.expiresAt">{{ new Date(props.row.expiresAt).toLocaleDateString() }}</span>
+          <span v-else>
+            <em>Never</em>
           </span>
-          <span v-else><em>Never</em></span>
         </b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Edit">
-            <b-button
-              type="is-primary"
-              icon-right="pencil"
-              @click="addToOpened(props.row.id)"
-            />
+            <b-button type="is-primary" icon-right="pencil" @click="addToOpened(props.row.id)" />
           </b-tooltip>
           <b-tooltip label="Delete">
             <b-button
@@ -58,9 +51,7 @@
                 @input="(val) => updateValue(props.row.id, 'currency', val)"
                 name="name"
                 :native-value="value"
-              >
-                {{ value.toUpperCase() }}
-              </b-radio>
+              >{{ value.toUpperCase() }}</b-radio>
             </div>
           </b-field>
           <b-field label="Amount">
@@ -105,21 +96,11 @@
                 v-for="team in teams.data"
                 :value="team.id"
                 :key="`t${team.id}`"
-              >
-                {{ team.name }}
-              </option>
+              >{{ team.name }}</option>
             </b-select>
           </b-field>
-          <b-button
-            type="is-primary"
-            native-type="submit"
-            :loading="loadingSave"
-          >
-            Update coupon
-          </b-button>
-          <b-button @click.prevent="removeFromOpened(props.row.id)">
-            Cancel
-          </b-button>
+          <b-button type="is-primary" native-type="submit" :loading="loadingSave">Update coupon</b-button>
+          <b-button @click.prevent="removeFromOpened(props.row.id)">Cancel</b-button>
         </form>
       </template>
     </b-table>
@@ -129,9 +110,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-      >
-        Load more coupons
-      </b-button>
+      >Load more coupons</b-button>
     </div>
     <h2 class="is-size-5" style="margin-top: 1rem">Add coupon</h2>
     <p style="margin-top: 0.5rem">
@@ -140,11 +119,7 @@
     </p>
     <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
       <div class="columns">
-        <b-field
-          label="Currency"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Currency" class="column" style="margin-bottom: 0; padding-bottom: 0">
           <div class="field">
             <b-radio
               v-for="(symbol, value) in currencies"
@@ -152,16 +127,10 @@
               v-model="currency"
               name="name"
               :native-value="value"
-            >
-              {{ value.toUpperCase() }}
-            </b-radio>
+            >{{ value.toUpperCase() }}</b-radio>
           </div>
         </b-field>
-        <b-field
-          label="Amount"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Amount" class="column" style="margin-bottom: 0; padding-bottom: 0">
           <b-input type="number" v-model="amount" required />
         </b-field>
       </div>
@@ -173,32 +142,18 @@
         >
           <b-select v-model="teamRestrictions" :loading="loadingTeams" expanded>
             <option :value="null">All teams can use</option>
-            <option
-              v-for="team in teams.data"
-              :value="team.id"
-              :key="`t${team.id}`"
-            >
-              {{ team.name }}
-            </option>
+            <option v-for="team in teams.data" :value="team.id" :key="`t${team.id}`">{{ team.name }}</option>
           </b-select>
         </b-field>
-        <b-field
-          label="Max uses"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Max uses" class="column" style="margin-bottom: 0; padding-bottom: 0">
           <b-input type="number" v-model="maxUses" />
         </b-field>
       </div>
       <b-field>
-        <b-checkbox v-model="jwt">
-          Create JWT coupon code
-        </b-checkbox>
+        <b-checkbox v-model="jwt">Create JWT coupon code</b-checkbox>
       </b-field>
       <b-field>
-        <b-checkbox v-model="expires">
-          Add coupon expiry time
-        </b-checkbox>
+        <b-checkbox v-model="expires">Add coupon expiry time</b-checkbox>
       </b-field>
       <b-field label="Expiry" v-if="expires">
         <b-datepicker
@@ -209,16 +164,16 @@
         />
       </b-field>
       <b-field>
-        <b-checkbox v-model="hasCode">
-          Add coupon code
-        </b-checkbox>
+        <b-checkbox v-model="hasCode">Add coupon code</b-checkbox>
       </b-field>
       <b-field label="Coupon code" v-if="hasCode">
         <b-input type="text" v-model="code" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">
-        Add coupon for {{ currencies[currency] || currency }}{{ amount / 100 }}
-      </b-button>
+      <b-button
+        type="is-primary"
+        native-type="submit"
+        :loading="loadingAdd"
+      >Add coupon for {{ currencies[currency] || currency }}{{ amount / 100 }}</b-button>
     </form>
   </div>
 </template>
@@ -265,7 +220,7 @@ export default class AdminHome extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/admin/coupons?first=10${
+        `/admin/coupons?take=10${
           this.coupons.data.length
             ? `&after=${this.coupons.data[this.coupons.data.length - 1].id}`
             : ""
@@ -282,7 +237,7 @@ export default class AdminHome extends Vue {
     this.loadingTeams = true;
     try {
       const { data } = await this.$axios.get(
-        `/admin/organizations?first=100${
+        `/admin/organizations?take=100${
           this.teams.data.length
             ? `&after=${this.teams.data[this.teams.data.length - 1].id}`
             : ""
