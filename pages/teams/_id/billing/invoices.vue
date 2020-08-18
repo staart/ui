@@ -11,7 +11,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class UsersProfile extends Vue {
   loading = false;
@@ -25,7 +25,7 @@ export default class UsersProfile extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.id}/invoices`
+        `/groups/${this.$route.params.id}/invoices`
       );
       this.invoices = data;
     } catch (error) {}

@@ -18,11 +18,9 @@
             <b-icon icon="calendar-remove" type="is-danger" />
           </b-tooltip>
         </b-table-column>
-        <b-table-column
-          sortable
-          field="createdAt"
-          label="Event"
-        >{{ webhooksData[props.row.event] || props.row.event }}</b-table-column>
+        <b-table-column sortable field="createdAt" label="Event">{{
+          webhooksData[props.row.event] || props.row.event
+        }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Edit">
             <b-button
@@ -65,17 +63,25 @@
         </div>
         <div class="column">
           <b-field label="Event">
-            <b-select placeholder="Select an event" v-model="webhookEvent" expanded required>
+            <b-select
+              placeholder="Select an event"
+              v-model="webhookEvent"
+              expanded
+              required
+            >
               <option
                 v-for="(name, value) in webhooksData"
                 :value="value"
                 :key="`t${value}${name}`"
-              >{{ name }}</option>
+                >{{ name }}</option
+              >
             </b-select>
           </b-field>
         </div>
       </div>
-      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">Create webhook</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate"
+        >Create webhook</b-button
+      >
     </form>
   </div>
 </template>
@@ -87,7 +93,7 @@ import { truncate } from "../../../../../util/string";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class UsersWebhooks extends Vue {
   loading = false;
@@ -106,7 +112,7 @@ export default class UsersWebhooks extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.id}/webhooks`
+        `/groups/${this.$route.params.id}/webhooks`
       );
       this.webhooks = data;
     } catch (error) {}
@@ -117,10 +123,10 @@ export default class UsersWebhooks extends Vue {
     this.loadingCreate = true;
     try {
       const { data } = await this.$axios.put(
-        `/organizations/${this.$route.params.id}/webhooks`,
+        `/groups/${this.$route.params.id}/webhooks`,
         {
           url: this.webhookUrl,
-          event: this.webhookEvent,
+          event: this.webhookEvent
         }
       );
       this.webhooks.data.push(data.added);
@@ -143,11 +149,11 @@ export default class UsersWebhooks extends Vue {
         this.loading = true;
         try {
           await this.$axios.delete(
-            `/organizations/${this.$route.params.id}/webhooks/${id}`
+            `/groups/${this.$route.params.id}/webhooks/${id}`
           );
         } catch (error) {}
         return this.get();
-      },
+      }
     });
   }
 }

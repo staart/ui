@@ -6,10 +6,18 @@
         <b-input type="text" v-model="customer.name" required />
       </b-field>
       <div class="columns">
-        <b-field label="Email" class="column" style="margin-bottom: 0; padding-bottom: 0">
+        <b-field
+          label="Email"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
           <b-input type="email" v-model="customer.email" required />
         </b-field>
-        <b-field label="Phone" class="column" style="margin-bottom: 0; padding-bottom: 0">
+        <b-field
+          label="Phone"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
           <b-input type="text" v-model="customer.phone" />
         </b-field>
       </div>
@@ -17,22 +25,40 @@
         <b-input type="text" v-model="customer.address.line1" />
       </b-field>
       <div class="columns">
-        <b-field label="Postal code" class="column" style="margin-bottom: 0; padding-bottom: 0">
+        <b-field
+          label="Postal code"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
           <b-input type="text" v-model="customer.address.postal_code" />
         </b-field>
-        <b-field label="City" class="column" style="margin-bottom: 0; padding-bottom: 0">
+        <b-field
+          label="City"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
           <b-input type="text" v-model="customer.address.city" />
         </b-field>
       </div>
       <div class="columns">
-        <b-field label="State" class="column" style="margin-bottom: 0; padding-bottom: 0">
+        <b-field
+          label="State"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
           <b-input type="text" v-model="customer.address.state" />
         </b-field>
-        <b-field label="Country" class="column" style="margin-bottom: 0; padding-bottom: 0">
+        <b-field
+          label="Country"
+          class="column"
+          style="margin-bottom: 0; padding-bottom: 0"
+        >
           <b-input type="text" v-model="customer.address.country" />
         </b-field>
       </div>
-      <b-button type="is-primary" native-type="submit" :loading="loadingSave">Update details</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingSave"
+        >Update details</b-button
+      >
       <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
     </form>
   </div>
@@ -43,7 +69,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class BillingDetails extends Vue {
   customer = {
@@ -56,8 +82,8 @@ export default class BillingDetails extends Vue {
       line1: "",
       line2: "",
       postal_code: "",
-      state: "",
-    },
+      state: ""
+    }
   };
   loading = false;
   loadingSave = false;
@@ -70,7 +96,7 @@ export default class BillingDetails extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.id}/billing`
+        `/groups/${this.$route.params.id}/billing`
       );
       if (!data.address)
         data.address = {
@@ -79,7 +105,7 @@ export default class BillingDetails extends Vue {
           line1: "",
           line2: "",
           postal_code: "",
-          state: "",
+          state: ""
         };
       this.customer = data;
     } catch (error) {}
@@ -90,12 +116,12 @@ export default class BillingDetails extends Vue {
     this.loadingSave = true;
     try {
       const { data } = await this.$axios.patch(
-        `/organizations/${this.$route.params.id}/billing`,
+        `/groups/${this.$route.params.id}/billing`,
         {
           name: this.customer.name,
           email: this.customer.email,
           phone: this.customer.phone,
-          address: this.customer.address,
+          address: this.customer.address
         }
       );
     } catch (error) {}

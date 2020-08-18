@@ -30,8 +30,12 @@
           <option value="org:sources:update">org:sources:update</option>
           <option value="org:sources:delete">org:sources:delete</option>
           <option value="org:subscriptions:read">org:subscriptions:read</option>
-          <option value="org:subscriptions:update">org:subscriptions:update</option>
-          <option value="org:subscriptions:create">org:subscriptions:create</option>
+          <option value="org:subscriptions:update"
+            >org:subscriptions:update</option
+          >
+          <option value="org:subscriptions:create"
+            >org:subscriptions:create</option
+          >
           <option value="org:plans:read">org:plans:read</option>
           <option value="org:api-key:read">org:api-key:read</option>
           <option value="org:api-key-logs:read">org:api-key-logs:read</option>
@@ -52,13 +56,23 @@
           <option value="org:membership:delete">org:membership:delete</option>
           <option value="org:membership:create">org:membership:create</option>
           <option value="org:transactions:read">org:transactions:read</option>
-          <option value="org:transactions:update">org:transactions:update</option>
-          <option value="org:transactions:delete">org:transactions:delete</option>
-          <option value="org:transactions:create">org:transactions:create</option>
+          <option value="org:transactions:update"
+            >org:transactions:update</option
+          >
+          <option value="org:transactions:delete"
+            >org:transactions:delete</option
+          >
+          <option value="org:transactions:create"
+            >org:transactions:create</option
+          >
         </b-select>
       </b-field>
       <b-field label="IP address restrictions">
-        <b-taginput v-model="ipRestrictions" icon="ip-network" placeholder="Add an IP CIDR"></b-taginput>
+        <b-taginput
+          v-model="ipRestrictions"
+          icon="ip-network"
+          placeholder="Add an IP CIDR"
+        ></b-taginput>
       </b-field>
       <b-field label="Referrer restrictions">
         <b-taginput
@@ -75,7 +89,9 @@
           v-model="expiresAt"
         />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update API key</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
+        >Update API key</b-button
+      >
     </form>
     <h2 class="is-size-5">Danger zone</h2>
     <p style="margin: 1rem 0">
@@ -86,7 +102,8 @@
       type="is-danger"
       @click="deleteApiKey(apiKey.id, apiKey.name || 'Unnamed API key')"
       :loading="loadingDelete"
-    >Delete API key</b-button>
+      >Delete API key</b-button
+    >
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -96,7 +113,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class UsersApiKeys extends Vue {
   loading = false;
@@ -116,7 +133,7 @@ export default class UsersApiKeys extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.id}/api-keys/${this.$route.params.id}`
+        `/groups/${this.$route.params.id}/api-keys/${this.$route.params.id}`
       );
       this.apiKey = data;
       this.scopes = (data.scopes || "").split(",").map((i: string) => i.trim());
@@ -130,9 +147,7 @@ export default class UsersApiKeys extends Vue {
           .split(",")
           .map((i: string) => i.trim());
     } catch (error) {
-      this.$router.push(
-        `/organizations/${this.$route.params.id}/developers/api-keys`
-      );
+      this.$router.push(`/groups/${this.$route.params.id}/developers/api-keys`);
     }
     this.loading = false;
   }
@@ -142,7 +157,7 @@ export default class UsersApiKeys extends Vue {
     this.loadingUpdate = true;
     try {
       const { data } = await this.$axios.patch(
-        `/organizations/${this.$route.params.id}/api-keys/${this.$route.params.id}`,
+        `/groups/${this.$route.params.id}/api-keys/${this.$route.params.id}`,
         {
           name: this.apiKey.name,
           description: this.apiKey.description,
@@ -150,7 +165,7 @@ export default class UsersApiKeys extends Vue {
           ipRestrictions: this.ipRestrictions.join(", ") || undefined,
           referrerRestrictions:
             this.referrerRestrictions.join(", ") || undefined,
-          expiresAt: this.expiresAt,
+          expiresAt: this.expiresAt
         }
       );
       this.apiKey = data.updated;
@@ -172,13 +187,13 @@ export default class UsersApiKeys extends Vue {
         this.loadingDelete = true;
         try {
           await this.$axios.delete(
-            `/organizations/${this.$route.params.id}/api-keys/${id}`
+            `/groups/${this.$route.params.id}/api-keys/${id}`
           );
         } catch (error) {}
         this.$router.push(
           `/teams/${this.$route.params.id}/developers/api-keys`
         );
-      },
+      }
     });
   }
 }

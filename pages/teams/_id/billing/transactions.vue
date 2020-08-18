@@ -7,7 +7,9 @@
       <b-field label="Coupon code">
         <b-input type="text" v-model="couponCode" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">Avail credits</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd"
+        >Avail credits</b-button
+      >
     </form>
   </div>
 </template>
@@ -18,7 +20,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class UsersProfile extends Vue {
   loading = false;
@@ -34,7 +36,7 @@ export default class UsersProfile extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.id}/transactions`
+        `/groups/${this.$route.params.id}/transactions`
       );
       this.transactions = data;
     } catch (error) {}
@@ -45,9 +47,9 @@ export default class UsersProfile extends Vue {
     this.loadingAdd = true;
     try {
       const { data } = await this.$axios.put(
-        `/organizations/${this.$route.params.id}/transactions`,
+        `/groups/${this.$route.params.id}/transactions`,
         {
-          couponCode: this.couponCode,
+          couponCode: this.couponCode
         }
       );
     } catch (error) {}

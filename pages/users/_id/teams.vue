@@ -11,26 +11,27 @@
       hoverable
     >
       <template slot-scope="props">
-        <b-table-column
-          sortable
-          field="organization.name"
-          label="Team name"
-        >{{ props.row.group.name }}</b-table-column>
-        <b-table-column sortable field="role" label="Role">{{ props.row.role }}</b-table-column>
-        <b-table-column
-          sortable
-          field="createdAt"
-          label="Joined"
-        >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
+        <b-table-column sortable field="organization.name" label="Team name">{{
+          props.row.group.name
+        }}</b-table-column>
+        <b-table-column sortable field="role" label="Role">{{
+          props.row.role
+        }}</b-table-column>
+        <b-table-column sortable field="createdAt" label="Joined">{{
+          new Date(props.row.createdAt).toLocaleDateString()
+        }}</b-table-column>
         <b-table-column class="has-text-right">
-          <b-button type="is-primary" tag="nuxt-link" :to="`/teams/${props.row.groupId}`">Go to team</b-button>
+          <b-button
+            type="is-primary"
+            tag="nuxt-link"
+            :to="`/teams/${props.row.groupId}`"
+            >Go to team</b-button
+          >
           <b-tooltip label="Leave team">
             <b-button
               type="is-danger"
               icon-right="logout"
-              @click="
-                deleteMembership(props.row.id, props.row.group.name)
-              "
+              @click="deleteMembership(props.row.id, props.row.group.name)"
             />
           </b-tooltip>
         </b-table-column>
@@ -42,14 +43,17 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-      >Load more teams</b-button>
+        >Load more teams</b-button
+      >
     </div>
     <h2 class="is-size-5" style="margin-top: 1rem">Create another team</h2>
     <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Team name">
         <b-input type="team" v-model="newTeam" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">Create team</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd"
+        >Create team</b-button
+      >
     </form>
   </div>
 </template>
@@ -59,7 +63,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersTeams extends Vue {
   newTeam = "";
@@ -90,8 +94,8 @@ export default class UsersTeams extends Vue {
   async add() {
     this.loadingAdd = true;
     try {
-      const { data } = await this.$axios.put(`/organizations`, {
-        name: this.newTeam,
+      const { data } = await this.$axios.put(`/groups`, {
+        name: this.newTeam
       });
       this.newTeam = "";
     } catch (error) {}
@@ -116,7 +120,7 @@ export default class UsersTeams extends Vue {
           );
         } catch (error) {}
         return this.get();
-      },
+      }
     });
   }
 }

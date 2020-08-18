@@ -19,7 +19,8 @@
             v-for="(name, value) in webhooksData"
             :value="value"
             :key="`t${value}${name}`"
-          >{{ name }}</option>
+            >{{ name }}</option
+          >
         </b-select>
       </b-field>
       <b-field label="Content type">
@@ -34,17 +35,22 @@
       <b-field>
         <b-checkbox v-model="webhook.isActive">Active</b-checkbox>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update webhook</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
+        >Update webhook</b-button
+      >
     </form>
     <h2 class="is-size-5">Danger zone</h2>
-    <p style="margin: 1rem 0">If you don't want this webhook to trigger anymore, you can delete it.</p>
+    <p style="margin: 1rem 0">
+      If you don't want this webhook to trigger anymore, you can delete it.
+    </p>
     <b-button
       type="is-danger"
       @click="
         deleteWebhook(webhook.id, webhooksData[webhook.event] || webhook.event)
       "
       :loading="loadingDelete"
-    >Delete webhook</b-button>
+      >Delete webhook</b-button
+    >
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -55,7 +61,7 @@ import webhooksData from "../../../../../data/webhooks.json";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class UsersWebhooks extends Vue {
   loading = false;
@@ -72,13 +78,11 @@ export default class UsersWebhooks extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.id}/webhooks/${this.$route.params.id}`
+        `/groups/${this.$route.params.id}/webhooks/${this.$route.params.id}`
       );
       this.webhook = data;
     } catch (error) {
-      this.$router.push(
-        `/organizations/${this.$route.params.id}/developers/webhooks`
-      );
+      this.$router.push(`/groups/${this.$route.params.id}/developers/webhooks`);
     }
     this.loading = false;
   }
@@ -88,10 +92,10 @@ export default class UsersWebhooks extends Vue {
     this.loadingUpdate = true;
     try {
       const { data } = await this.$axios.patch(
-        `/organizations/${this.$route.params.id}/webhooks/${this.$route.params.id}`,
+        `/groups/${this.$route.params.id}/webhooks/${this.$route.params.id}`,
         {
           url: this.webhook.url,
-          isActive: this.webhook.isActive,
+          isActive: this.webhook.isActive
         }
       );
       this.webhook = data.updated;
@@ -113,13 +117,13 @@ export default class UsersWebhooks extends Vue {
         this.loadingDelete = true;
         try {
           await this.$axios.delete(
-            `/organizations/${this.$route.params.id}/webhooks/${id}`
+            `/groups/${this.$route.params.id}/webhooks/${id}`
           );
         } catch (error) {}
         this.$router.push(
           `/teams/${this.$route.params.id}/developers/webhooks`
         );
-      },
+      }
     });
   }
 }
