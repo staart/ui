@@ -220,8 +220,8 @@ const countries = ct.getAllCountries();
   middleware: "authenticated",
 })
 export default class OnboardingUser extends Vue {
+  id = 0;
   userName = "";
-  userUsername = "";
   userCountryCode = "us";
   userPrefersColorScheme = "NO_PREFERENCE";
   userPrefersReducedMotion = "NO_PREFERENCE";
@@ -235,8 +235,8 @@ export default class OnboardingUser extends Vue {
   securityPreset = 1;
 
   created() {
-    this.id = this.$store.state.auth.user.details.name;
-    this.userUsername = this.$store.state.auth.user.details.id;
+    this.id = this.$store.state.auth.user.details.id;
+    this.userName = this.$store.state.auth.user.details.name;
     this.userCountryCode = this.$store.state.auth.user.details.countryCode;
   }
 
@@ -294,7 +294,7 @@ export default class OnboardingUser extends Vue {
   }
 
   get teamName() {
-    return `${(this.id || "").split(" ")[0]}'s Team`;
+    return `${(this.userName || "").split(" ")[0]}'s Team`;
   }
 
   async goToNextStep() {
@@ -307,8 +307,7 @@ export default class OnboardingUser extends Vue {
         : "PROMOTIONS";
     console.log({ checkLocationOnLogin, notificationEmails });
     console.log({
-      name: this.id,
-      username: this.userUsername,
+      name: this.userName,
       countryCode: this.userCountryCode ? this.userCountryCode : undefined,
       timezone: this.userTimezone,
       gender: this.userGender,
@@ -322,7 +321,7 @@ export default class OnboardingUser extends Vue {
       if (this.value === 2) {
         try {
           const { data } = await this.$axios.put("/organizations", {
-            name: this.teamName || this.id,
+            name: this.teamName || this.userName,
           });
           const memberships = (await this.$axios.get("/users/me/memberships"))
             .data;
@@ -337,8 +336,7 @@ export default class OnboardingUser extends Vue {
             "/users/me",
             this.value === 0
               ? {
-                  name: this.id,
-                  username: this.userUsername,
+                  name: this.userName,
                   countryCode: this.userCountryCode
                     ? this.userCountryCode
                     : undefined,
