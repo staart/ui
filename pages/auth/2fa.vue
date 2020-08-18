@@ -50,7 +50,7 @@ export default class Login extends Vue {
       const memberships = this.$store.state.auth.user.memberships;
       if (!memberships?.data?.length)
         return this.$router.replace("/onboarding/user");
-      this.$router.replace(`/teams/${memberships?.data[0]?.organization?.id}`);
+      this.$router.replace(`/teams/${memberships?.data[0]?.group?.id}`);
     } catch (error) {
       console.log(error);
     }

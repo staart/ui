@@ -21,15 +21,13 @@ export default class Homepage extends Vue {
   async mounted() {
     const memberships = this.user.memberships?.data || [];
     if (memberships.length) {
-      return this.$router.replace(`/teams/${memberships[0].organization.id}`);
+      return this.$router.replace(`/teams/${memberships[0].groupId}`);
     } else {
       try {
         const memberships = (await this.$axios.get("/users/me/memberships"))
           .data;
         if (memberships.length)
-          return this.$router.replace(
-            `/teams/${memberships[0].organization.id}`
-          );
+          return this.$router.replace(`/teams/${memberships[0].groupId}`);
       } catch (error) {}
       return this.$router.replace("/onboarding/user");
     }

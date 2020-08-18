@@ -15,7 +15,7 @@
           sortable
           field="organization.name"
           label="Team name"
-        >{{ props.row.organization.name }}</b-table-column>
+        >{{ props.row.group.name }}</b-table-column>
         <b-table-column sortable field="role" label="Role">{{ props.row.role }}</b-table-column>
         <b-table-column
           sortable
@@ -23,17 +23,13 @@
           label="Joined"
         >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
         <b-table-column class="has-text-right">
-          <b-button
-            type="is-primary"
-            tag="nuxt-link"
-            :to="`/teams/${props.row.organization.id}`"
-          >Go to team</b-button>
+          <b-button type="is-primary" tag="nuxt-link" :to="`/teams/${props.row.groupId}`">Go to team</b-button>
           <b-tooltip label="Leave team">
             <b-button
               type="is-danger"
               icon-right="logout"
               @click="
-                deleteMembership(props.row.id, props.row.organization.name)
+                deleteMembership(props.row.id, props.row.group.name)
               "
             />
           </b-tooltip>

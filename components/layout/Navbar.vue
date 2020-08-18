@@ -28,10 +28,10 @@
           :to="
             $route.path.replace(
               $route.params.id,
-              membership.organization.id
+              membership.groupId
             )
           "
-        >{{ membership.organization.name }}</b-navbar-item>
+        >{{ membership.group.name }}</b-navbar-item>
         <b-navbar-item
           class="has-text-weight-bold"
           tag="nuxt-link"
@@ -77,9 +77,9 @@ export default class Navbar extends Vue {
 
   get teamsLabel() {
     const team = this.userMemberships.find(
-      (i: any) => i.organization.id === this.$route.params.id
+      (i: any) => i.groupId === this.$route.params.id
     );
-    if (team) return team.organization.name;
+    if (team) return team.group.name;
     return "Change team";
   }
 
