@@ -25,7 +25,7 @@ export default class UsersProfile extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.username}/invoices`
+        `/organizations/${this.$route.params.id}/invoices`
       );
       this.invoices = data;
     } catch (error) {}

@@ -11,23 +11,23 @@
       hoverable
     >
       <template slot-scope="props">
-        <b-table-column sortable field="organization.name" label="Team name">
-          {{ props.row.organization.name }}
-        </b-table-column>
-        <b-table-column sortable field="role" label="Role">
-          {{ props.row.role }}
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Joined">
-          {{ new Date(props.row.createdAt).toLocaleDateString() }}
-        </b-table-column>
+        <b-table-column
+          sortable
+          field="organization.name"
+          label="Team name"
+        >{{ props.row.organization.name }}</b-table-column>
+        <b-table-column sortable field="role" label="Role">{{ props.row.role }}</b-table-column>
+        <b-table-column
+          sortable
+          field="createdAt"
+          label="Joined"
+        >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-button
             type="is-primary"
             tag="nuxt-link"
-            :to="`/teams/${props.row.organization.username}`"
-          >
-            Go to team
-          </b-button>
+            :to="`/teams/${props.row.organization.id}`"
+          >Go to team</b-button>
           <b-tooltip label="Leave team">
             <b-button
               type="is-danger"
@@ -46,18 +46,14 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-      >
-        Load more teams
-      </b-button>
+      >Load more teams</b-button>
     </div>
     <h2 class="is-size-5" style="margin-top: 1rem">Create another team</h2>
     <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Team name">
         <b-input type="team" v-model="newTeam" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">
-        Create team
-      </b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">Create team</b-button>
     </form>
   </div>
 </template>
@@ -83,7 +79,7 @@ export default class UsersTeams extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${this.$route.params.username}/memberships?first=10${
+        `/users/${this.$route.params.id}/memberships?first=10${
           this.teams.data.length
             ? `&after=${this.teams.data[this.teams.data.length - 1].id}`
             : ""
@@ -120,7 +116,7 @@ export default class UsersTeams extends Vue {
         this.loading = true;
         try {
           await this.$axios.delete(
-            `/users/${this.$route.params.username}/memberships/${id}`
+            `/users/${this.$route.params.id}/memberships/${id}`
           );
         } catch (error) {}
         return this.get();

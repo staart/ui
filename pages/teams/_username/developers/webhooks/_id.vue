@@ -3,7 +3,7 @@
     <h1 class="is-size-4" style="margin-bottom: 1rem">
       <b-button
         tag="nuxt-link"
-        :to="`/teams/${$route.params.username}/developers/webhooks`"
+        :to="`/teams/${$route.params.id}/developers/webhooks`"
         icon-right="arrow-left"
         style="margin-right: 1rem"
       />
@@ -19,9 +19,7 @@
             v-for="(name, value) in webhooksData"
             :value="value"
             :key="`t${value}${name}`"
-          >
-            {{ name }}
-          </option>
+          >{{ name }}</option>
         </b-select>
       </b-field>
       <b-field label="Content type">
@@ -34,27 +32,19 @@
         <b-input type="text" v-model="webhook.secret" />
       </b-field>
       <b-field>
-        <b-checkbox v-model="webhook.isActive">
-          Active
-        </b-checkbox>
+        <b-checkbox v-model="webhook.isActive">Active</b-checkbox>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">
-        Update webhook
-      </b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update webhook</b-button>
     </form>
     <h2 class="is-size-5">Danger zone</h2>
-    <p style="margin: 1rem 0">
-      If you don't want this webhook to trigger anymore, you can delete it.
-    </p>
+    <p style="margin: 1rem 0">If you don't want this webhook to trigger anymore, you can delete it.</p>
     <b-button
       type="is-danger"
       @click="
         deleteWebhook(webhook.id, webhooksData[webhook.event] || webhook.event)
       "
       :loading="loadingDelete"
-    >
-      Delete webhook
-    </b-button>
+    >Delete webhook</b-button>
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -82,12 +72,12 @@ export default class UsersWebhooks extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.username}/webhooks/${this.$route.params.id}`
+        `/organizations/${this.$route.params.id}/webhooks/${this.$route.params.id}`
       );
       this.webhook = data;
     } catch (error) {
       this.$router.push(
-        `/organizations/${this.$route.params.username}/developers/webhooks`
+        `/organizations/${this.$route.params.id}/developers/webhooks`
       );
     }
     this.loading = false;
@@ -98,7 +88,7 @@ export default class UsersWebhooks extends Vue {
     this.loadingUpdate = true;
     try {
       const { data } = await this.$axios.patch(
-        `/organizations/${this.$route.params.username}/webhooks/${this.$route.params.id}`,
+        `/organizations/${this.$route.params.id}/webhooks/${this.$route.params.id}`,
         {
           url: this.webhook.url,
           isActive: this.webhook.isActive,
@@ -123,11 +113,11 @@ export default class UsersWebhooks extends Vue {
         this.loadingDelete = true;
         try {
           await this.$axios.delete(
-            `/organizations/${this.$route.params.username}/webhooks/${id}`
+            `/organizations/${this.$route.params.id}/webhooks/${id}`
           );
         } catch (error) {}
         this.$router.push(
-          `/teams/${this.$route.params.username}/developers/webhooks`
+          `/teams/${this.$route.params.id}/developers/webhooks`
         );
       },
     });

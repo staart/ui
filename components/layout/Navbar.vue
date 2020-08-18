@@ -27,21 +27,21 @@
           :key="`m${i}${membership.id}`"
           :to="
             $route.path.replace(
-              $route.params.username,
-              membership.organization.username
+              $route.params.id,
+              membership.organization.id
             )
           "
         >{{ membership.organization.name }}</b-navbar-item>
         <b-navbar-item
           class="has-text-weight-bold"
           tag="nuxt-link"
-          :to="`/users/${user.details.username}/teams`"
+          :to="`/users/${user.details.id}/teams`"
         >Create a new team</b-navbar-item>
       </b-navbar-dropdown>
       <b-navbar-item v-else-if="isAuthenticated" tag="nuxt-link" to="/">Dashboard</b-navbar-item>
       <b-navbar-item tag="nuxt-link" to="/admin" v-if="user.details.role === 'SUDO'">Admin</b-navbar-item>
     </template>
-    <template slot="end" v-if="user.details.username">
+    <template slot="end" v-if="user.details.id">
       <b-navbar-dropdown :right="true" hoverable boxed>
         <template slot="label">
           <figure class="image">
@@ -49,10 +49,7 @@
           </figure>
           <span>{{ user.details.nickname }}</span>
         </template>
-        <b-navbar-item
-          tag="nuxt-link"
-          :to="`/users/${user.details.username}/profile`"
-        >Account settings</b-navbar-item>
+        <b-navbar-item tag="nuxt-link" :to="`/users/${user.details.id}/profile`">Account settings</b-navbar-item>
         <b-navbar-item role="button" @click="logout">Logout</b-navbar-item>
       </b-navbar-dropdown>
     </template>
@@ -80,7 +77,7 @@ export default class Navbar extends Vue {
 
   get teamsLabel() {
     const team = this.userMemberships.find(
-      (i: any) => i.organization.username === this.$route.params.username
+      (i: any) => i.organization.id === this.$route.params.id
     );
     if (team) return team.organization.name;
     return "Change team";

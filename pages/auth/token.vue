@@ -75,7 +75,7 @@ export default class Login extends Vue {
         if (!memberships?.data?.length)
           return this.$router.replace("/onboarding/user");
         this.$router.replace(
-          `/teams/${memberships?.data[0]?.organization?.username}`
+          `/teams/${memberships?.data[0]?.organization?.id}`
         );
       }
       this.state = "success";

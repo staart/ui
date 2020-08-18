@@ -27,10 +27,7 @@
               <b-field>
                 <template slot="label">
                   Timezone
-                  <b-tooltip
-                    type="is-dark"
-                    label="We need your timezone to show you local times"
-                  >
+                  <b-tooltip type="is-dark" label="We need your timezone to show you local times">
                     <b-icon size="is-small" icon="help-circle-outline"></b-icon>
                   </b-tooltip>
                 </template>
@@ -44,9 +41,7 @@
                     v-for="(timezone, i) in filteredTimezonesArray"
                     :value="timezone"
                     :key="`t${i}${timezone}`"
-                  >
-                    {{ timezone }}
-                  </option>
+                  >{{ timezone }}</option>
                 </b-select>
               </b-field>
             </div>
@@ -68,72 +63,41 @@
               </b-tooltip>
             </template>
             <div>
-              <b-radio
-                name="radioGender"
-                native-value="MALE"
-                v-model="userGender"
-              >
-                Male
-              </b-radio>
-              <b-radio
-                name="radioGender"
-                native-value="FEMALE"
-                v-model="userGender"
-              >
-                Female
-              </b-radio>
-              <b-radio
-                name="radioGender"
-                native-value="NONBINARY"
-                v-model="userGender"
-              >
-                Non-binary
-              </b-radio>
+              <b-radio name="radioGender" native-value="MALE" v-model="userGender">Male</b-radio>
+              <b-radio name="radioGender" native-value="FEMALE" v-model="userGender">Female</b-radio>
+              <b-radio name="radioGender" native-value="NONBINARY" v-model="userGender">Non-binary</b-radio>
               <b-radio
                 name="radioGender"
                 native-value="UNKNOWN"
                 v-model="userGender"
-              >
-                Prefer not to say
-              </b-radio>
+              >Prefer not to say</b-radio>
             </div>
           </b-field>
-          <div style="margin-bottom: 0.5rem; font-weight: bold;">
-            Accessibility
-          </div>
+          <div style="margin-bottom: 0.5rem; font-weight: bold;">Accessibility</div>
           <b-field>
             <b-checkbox
               v-model="userPrefersReducedMotion"
               true-value="REDUCE"
               false-value="REDUCE"
-              >I prefer reduced motion</b-checkbox
-            >
+            >I prefer reduced motion</b-checkbox>
           </b-field>
-          <div style="margin-bottom: 0.5rem; font-weight: bold;">
-            Webapp color scheme
-          </div>
+          <div style="margin-bottom: 0.5rem; font-weight: bold;">Webapp color scheme</div>
           <b-field>
             <b-radio
               name="radioColorScheme"
               native-value="NO_PREFERENCE"
               v-model="userPrefersColorScheme"
-            >
-              Use system settings
-            </b-radio>
+            >Use system settings</b-radio>
             <b-radio
               name="radioColorScheme"
               native-value="LIGHT"
               v-model="userPrefersColorScheme"
-            >
-              Light theme
-            </b-radio>
+            >Light theme</b-radio>
             <b-radio
               name="radioColorScheme"
               native-value="DARK"
               v-model="userPrefersColorScheme"
-            >
-              Dark theme
-            </b-radio>
+            >Dark theme</b-radio>
           </b-field>
           <div class="buttons" style="margin-top: 1.5rem">
             <b-button
@@ -141,8 +105,7 @@
               native-type="submit"
               size="is-medium"
               :loading="loading"
-              >Save and continue</b-button
-            >
+            >Save and continue</b-button>
           </div>
         </form>
       </b-step-item>
@@ -170,12 +133,8 @@
               <ul>
                 <li>We won't verify your logins based on your location</li>
                 <li>We'll log you in for up to 365 days</li>
-                <li>
-                  You'll receive security emails and updates
-                </li>
-                <li>
-                  You won't have to re-enter your password for secure actions
-                </li>
+                <li>You'll receive security emails and updates</li>
+                <li>You won't have to re-enter your password for secure actions</li>
                 <li>You can download or delete your data at any time</li>
               </ul>
             </div>
@@ -184,12 +143,8 @@
               <ul>
                 <li>We won't verify your logins based on your location</li>
                 <li>We'll log you in for up to 30 days</li>
-                <li>
-                  You'll receive account and security emails, no promotions
-                </li>
-                <li>
-                  You'll have to re-enter your password for secure actions
-                </li>
+                <li>You'll receive account and security emails, no promotions</li>
+                <li>You'll have to re-enter your password for secure actions</li>
                 <li>You can download or delete your data at any time</li>
               </ul>
             </div>
@@ -198,36 +153,27 @@
               <ul>
                 <li>We'll verify your logins based on your location</li>
                 <li>We'll log you in for up to 7 days</li>
-                <li>
-                  You'll receive only security emails
-                </li>
-                <li>
-                  You'll have to re-enter your password for secure actions
-                </li>
+                <li>You'll receive only security emails</li>
+                <li>You'll have to re-enter your password for secure actions</li>
                 <li>You can download or delete your data at any time</li>
               </ul>
             </div>
           </div>
-          <h2 class="is-size-4" style="margin-bottom: 0.5rem">
-            Two-factor authentication
-          </h2>
+          <h2 class="is-size-4" style="margin-bottom: 0.5rem">Two-factor authentication</h2>
           <p>
             2FA adds an additional layer of protection in your account. You'll
             need to have a TOTP app like Google Authenticator or a password
             manager like 1Password to use 2FA.
           </p>
           <div class="buttons" style="margin-top: 1rem">
-            <b-button type="is-success" size="is-medium" :loading="loading"
-              >Enable 2FA</b-button
-            >
+            <b-button type="is-success" size="is-medium" :loading="loading">Enable 2FA</b-button>
           </div>
           <b-button
             type="is-primary"
             native-type="submit"
             size="is-medium"
             :loading="loading"
-            >Save and continue</b-button
-          >
+          >Save and continue</b-button>
         </form>
       </b-step-item>
       <b-step-item label="Team" :clickable="true">
@@ -235,12 +181,8 @@
         <form @submit.prevent="goToNextStep" class="columns has-text-centered">
           <div class="column">
             <div class="is-size-1">🏢</div>
-            <h2 class="is-size-4" style="margin-bottom: 0.5rem">
-              Yes, I have a team
-            </h2>
-            <p style="margin-bottom: 1rem">
-              You can invite your team members in the next step.
-            </p>
+            <h2 class="is-size-4" style="margin-bottom: 0.5rem">Yes, I have a team</h2>
+            <p style="margin-bottom: 1rem">You can invite your team members in the next step.</p>
             <b-field label="Team name">
               <b-input v-model="teamName" size="is-medium" />
             </b-field>
@@ -249,20 +191,17 @@
               native-type="submit"
               size="is-medium"
               :loading="loading"
-              >Setup team account</b-button
-            >
+            >Setup team account</b-button>
           </div>
           <div class="column">
             <div class="is-size-1">👩‍🚀</div>
-            <h2 class="is-size-4" style="margin-bottom: 0.5rem">
-              No, I'm flying solo
-            </h2>
-            <p style="margin-bottom: 1rem">
-              You can still add team members later as you grow.
-            </p>
-            <b-button native-type="submit" size="is-medium" :loading="loading"
-              >Setup individual account</b-button
-            >
+            <h2 class="is-size-4" style="margin-bottom: 0.5rem">No, I'm flying solo</h2>
+            <p style="margin-bottom: 1rem">You can still add team members later as you grow.</p>
+            <b-button
+              native-type="submit"
+              size="is-medium"
+              :loading="loading"
+            >Setup individual account</b-button>
           </div>
         </form>
       </b-step-item>
@@ -296,8 +235,8 @@ export default class OnboardingUser extends Vue {
   securityPreset = 1;
 
   created() {
-    this.userName = this.$store.state.auth.user.details.name;
-    this.userUsername = this.$store.state.auth.user.details.username;
+    this.id = this.$store.state.auth.user.details.name;
+    this.userUsername = this.$store.state.auth.user.details.id;
     this.userCountryCode = this.$store.state.auth.user.details.countryCode;
   }
 
@@ -355,7 +294,7 @@ export default class OnboardingUser extends Vue {
   }
 
   get teamName() {
-    return `${(this.userName || "").split(" ")[0]}'s Team`;
+    return `${(this.id || "").split(" ")[0]}'s Team`;
   }
 
   async goToNextStep() {
@@ -368,7 +307,7 @@ export default class OnboardingUser extends Vue {
         : "PROMOTIONS";
     console.log({ checkLocationOnLogin, notificationEmails });
     console.log({
-      name: this.userName,
+      name: this.id,
       username: this.userUsername,
       countryCode: this.userCountryCode ? this.userCountryCode : undefined,
       timezone: this.userTimezone,
@@ -383,12 +322,12 @@ export default class OnboardingUser extends Vue {
       if (this.value === 2) {
         try {
           const { data } = await this.$axios.put("/organizations", {
-            name: this.teamName || this.userName,
+            name: this.teamName || this.id,
           });
           const memberships = (await this.$axios.get("/users/me/memberships"))
             .data;
           this.$store.commit("auth/setUserDetails", { memberships });
-          return this.$router.push(`/teams/${data.added.username}`);
+          return this.$router.push(`/teams/${data.added.id}`);
         } catch (error) {
           return this.$router.push("/");
         }
@@ -398,7 +337,7 @@ export default class OnboardingUser extends Vue {
             "/users/me",
             this.value === 0
               ? {
-                  name: this.userName,
+                  name: this.id,
                   username: this.userUsername,
                   countryCode: this.userCountryCode
                     ? this.userCountryCode

@@ -20,9 +20,11 @@
             </figure>
           </b-tooltip>
         </b-table-column>
-        <b-table-column sortable field="createdAt" label="Logged in">{{
+        <b-table-column sortable field="createdAt" label="Logged in">
+          {{
           new Date(props.row.createdAt).toLocaleString()
-        }}</b-table-column>
+          }}
+        </b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Logout">
             <b-button
@@ -40,9 +42,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-      >
-        Load more sessions
-      </b-button>
+      >Load more sessions</b-button>
     </div>
   </div>
 </template>
@@ -85,9 +85,7 @@ export default class UsersSessions extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${
-          this.$route.params.username
-        }/sessions?first=10&orderBy=id:desc${
+        `/users/${this.$route.params.id}/sessions?first=10&orderBy=id:desc${
           this.sessions.data.length
             ? `&after=${this.sessions.data[this.sessions.data.length - 1].id}`
             : ""
@@ -112,7 +110,7 @@ export default class UsersSessions extends Vue {
         this.loading = true;
         try {
           const { data } = await this.$axios.delete(
-            `/users/${this.$route.params.username}/sessions/${id}`
+            `/users/${this.$route.params.id}/sessions/${id}`
           );
         } catch (error) {}
         await this.get();

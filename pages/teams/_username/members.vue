@@ -9,9 +9,7 @@
       sort-icon-size="is-small"
     >
       <template slot-scope="props">
-        <b-table-column sortable field="member" label="Name">
-          {{ props.row.user.name }}
-        </b-table-column>
+        <b-table-column sortable field="member" label="Name">{{ props.row.user.name }}</b-table-column>
         <b-table-column sortable field="role" label="Role">
           <b-select
             :value="props.row.role"
@@ -24,9 +22,11 @@
             <option value="MEMBER">Member</option>
           </b-select>
         </b-table-column>
-        <b-table-column sortable field="createdAt" label="Added">
-          {{ new Date(props.row.createdAt).toLocaleDateString() }}
-        </b-table-column>
+        <b-table-column
+          sortable
+          field="createdAt"
+          label="Added"
+        >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Remove">
             <b-button
@@ -44,9 +44,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-      >
-        Load more members
-      </b-button>
+      >Load more members</b-button>
     </div>
     <h2 class="is-size-5" style="margin-top: 1rem">Add member</h2>
     <form @submit.prevent="add" style="margin-top: 0.5rem">
@@ -71,9 +69,7 @@
           </b-field>
         </div>
       </div>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">
-        Invite member
-      </b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">Invite member</b-button>
     </form>
   </div>
 </template>
@@ -105,7 +101,7 @@ export default class UsersProfile extends Vue {
     this.loadingId = id;
     try {
       const { data } = await this.$axios.patch(
-        `/organizations/${this.$route.params.username}/memberships/${id}`,
+        `/organizations/${this.$route.params.id}/memberships/${id}`,
         {
           role,
         }
@@ -122,7 +118,7 @@ export default class UsersProfile extends Vue {
     try {
       const { data } = await this.$axios.get(
         `/organizations/${
-          this.$route.params.username
+          this.$route.params.id
         }/memberships?first=10&include=user${
           this.members.data.length
             ? `&after=${this.members.data[this.members.data.length - 1].id}`
@@ -140,7 +136,7 @@ export default class UsersProfile extends Vue {
     this.loadingAdd = true;
     try {
       const { data } = await this.$axios.put(
-        `/organizations/${this.$route.params.username}/memberships`,
+        `/organizations/${this.$route.params.id}/memberships`,
         {
           name: this.newMemberName,
           email: this.newMemberEmail,
@@ -168,7 +164,7 @@ export default class UsersProfile extends Vue {
         this.loading = true;
         try {
           await this.$axios.delete(
-            `/organizations/${this.$route.params.username}/memberships/${id}`
+            `/organizations/${this.$route.params.id}/memberships/${id}`
           );
         } catch (error) {}
         return this.get();
@@ -180,7 +176,7 @@ export default class UsersProfile extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.post(
-        `/organizations/${this.$route.params.username}/memberships/${id}/verify`,
+        `/organizations/${this.$route.params.id}/memberships/${id}/verify`,
         {
           method,
         }

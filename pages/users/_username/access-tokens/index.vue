@@ -14,21 +14,21 @@
       sort-icon-size="is-small"
     >
       <template slot-scope="props">
-        <b-table-column sortable field="name" label="Name">
-          {{ props.row.name || "Unnamed token" }}
-        </b-table-column>
+        <b-table-column sortable field="name" label="Name">{{ props.row.name || "Unnamed token" }}</b-table-column>
         <b-table-column sortable field="jwtAccessToken" label="Access Token">
           <code>{{ props.row.jwtAccessToken }}</code>
         </b-table-column>
-        <b-table-column sortable field="createdAt" label="Added">
-          {{ new Date(props.row.createdAt).toLocaleDateString() }}
-        </b-table-column>
+        <b-table-column
+          sortable
+          field="createdAt"
+          label="Added"
+        >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Edit">
             <b-button
               tag="nuxt-link"
               :to="
-                `/users/${$route.params.username}/access-tokens/${props.row.id}`
+                `/users/${$route.params.id}/access-tokens/${props.row.id}`
               "
               type="is-primary"
               icon-right="pencil"
@@ -56,9 +56,7 @@
       <b-field label="Name">
         <b-input type="text" v-model="accessTokenName" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">
-        Create access token
-      </b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">Create access token</b-button>
     </form>
   </div>
 </template>
@@ -84,7 +82,7 @@ export default class UsersAccessTokens extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${this.$route.params.username}/access-tokens`
+        `/users/${this.$route.params.id}/access-tokens`
       );
       this.accessTokens = data;
     } catch (error) {}
@@ -95,7 +93,7 @@ export default class UsersAccessTokens extends Vue {
     this.loadingCreate = true;
     try {
       const { data } = await this.$axios.put(
-        `/users/${this.$route.params.username}/access-tokens`,
+        `/users/${this.$route.params.id}/access-tokens`,
         {
           name: this.accessTokenName ? this.accessTokenName : undefined,
         }
@@ -119,7 +117,7 @@ export default class UsersAccessTokens extends Vue {
         this.loading = true;
         try {
           await this.$axios.delete(
-            `/users/${this.$route.params.username}/access-tokens/${id}`
+            `/users/${this.$route.params.id}/access-tokens/${id}`
           );
         } catch (error) {}
         return this.get();

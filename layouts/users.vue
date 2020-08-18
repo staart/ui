@@ -4,9 +4,7 @@
     <div class="container">
       <div class="columns">
         <aside class="column">
-          <b-button tag="nuxt-link" to="/" icon-left="arrow-left">
-            Go back to app
-          </b-button>
+          <b-button tag="nuxt-link" to="/" icon-left="arrow-left">Go back to app</b-button>
           <b-menu :activable="false" style="margin-top: 1rem">
             <b-menu-list>
               <b-menu-item
@@ -15,9 +13,9 @@
                 :icon="item.icon"
                 :label="item.label"
                 tag="router-link"
-                :to="`/users/${$route.params.username}${item.to}`"
+                :to="`/users/${$route.params.id}${item.to}`"
                 :active="
-                  $route.path === `/users/${$route.params.username}${item.to}`
+                  $route.path === `/users/${$route.params.id}${item.to}`
                 "
               />
             </b-menu-list>

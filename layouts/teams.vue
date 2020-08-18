@@ -12,13 +12,13 @@
                 :icon="item.icon"
                 :label="item.label"
                 tag="router-link"
-                :to="`/teams/${$route.params.username}${item.to}`"
+                :to="`/teams/${$route.params.id}${item.to}`"
                 :active="
-                  $route.path === `/teams/${$route.params.username}${item.to}`
+                  $route.path === `/teams/${$route.params.id}${item.to}`
                 "
                 :expanded="
                   $route.path.includes(
-                    `/teams/${$route.params.username}${item.to}`
+                    `/teams/${$route.params.id}${item.to}`
                   )
                 "
               >
@@ -28,9 +28,9 @@
                   :icon="item.icon"
                   :label="item.label"
                   tag="router-link"
-                  :to="`/teams/${$route.params.username}${item.to}`"
+                  :to="`/teams/${$route.params.id}${item.to}`"
                   :active="
-                    $route.path === `/teams/${$route.params.username}${item.to}`
+                    $route.path === `/teams/${$route.params.id}${item.to}`
                   "
                 />
               </b-menu-item>

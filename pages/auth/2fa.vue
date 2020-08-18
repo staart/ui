@@ -20,12 +20,8 @@
           required
         />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loading">
-        Login to your account
-      </b-button>
-      <b-button tag="nuxt-link" to="/">
-        Cancel
-      </b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loading">Login to your account</b-button>
+      <b-button tag="nuxt-link" to="/">Cancel</b-button>
     </form>
   </div>
 </template>
@@ -54,9 +50,7 @@ export default class Login extends Vue {
       const memberships = this.$store.state.auth.user.memberships;
       if (!memberships?.data?.length)
         return this.$router.replace("/onboarding/user");
-      this.$router.replace(
-        `/teams/${memberships?.data[0]?.organization?.username}`
-      );
+      this.$router.replace(`/teams/${memberships?.data[0]?.organization?.id}`);
     } catch (error) {
       console.log(error);
     }

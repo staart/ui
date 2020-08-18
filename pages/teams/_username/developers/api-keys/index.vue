@@ -1,12 +1,7 @@
 <template>
   <div>
     <h1 class="is-size-4" style="margin-bottom: 1rem">API keys</h1>
-    <b-message
-      v-if="hasUnrestrictedApiKey"
-      type="is-warning"
-      style="margin-top: 1rem"
-      has-icon
-    >
+    <b-message v-if="hasUnrestrictedApiKey" type="is-warning" style="margin-top: 1rem" has-icon>
       You have one or more unrestricted API keys in your team. It's recommended
       to add scope, referrer, or IP address restrictions.
     </b-message>
@@ -36,15 +31,17 @@
         <b-table-column sortable field="jwtApiKey" label="API key">
           <code>{{ props.row.jwtApiKey }}</code>
         </b-table-column>
-        <b-table-column sortable field="createdAt" label="Added">
-          {{ new Date(props.row.createdAt).toLocaleDateString() }}
-        </b-table-column>
+        <b-table-column
+          sortable
+          field="createdAt"
+          label="Added"
+        >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Edit">
             <b-button
               tag="nuxt-link"
               :to="
-                `/teams/${$route.params.username}/developers/api-keys/${props.row.id}`
+                `/teams/${$route.params.id}/developers/api-keys/${props.row.id}`
               "
               type="is-primary"
               icon-right="pencil"
@@ -73,9 +70,7 @@
       <b-field label="Name">
         <b-input type="text" v-model="apiKeyName" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">
-        Create API key
-      </b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">Create API key</b-button>
     </form>
   </div>
 </template>
@@ -101,7 +96,7 @@ export default class UsersApiKeys extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/organizations/${this.$route.params.username}/api-keys`
+        `/organizations/${this.$route.params.id}/api-keys`
       );
       this.apiKeys = data;
     } catch (error) {}
@@ -112,7 +107,7 @@ export default class UsersApiKeys extends Vue {
     this.loadingCreate = true;
     try {
       const { data } = await this.$axios.put(
-        `/organizations/${this.$route.params.username}/api-keys`,
+        `/organizations/${this.$route.params.id}/api-keys`,
         {
           name: this.apiKeyName ? this.apiKeyName : undefined,
         }
@@ -136,7 +131,7 @@ export default class UsersApiKeys extends Vue {
         this.loading = true;
         try {
           await this.$axios.delete(
-            `/organizations/${this.$route.params.username}/api-keys/${id}`
+            `/organizations/${this.$route.params.id}/api-keys/${id}`
           );
         } catch (error) {}
         return this.get();
