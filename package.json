@@ -12,7 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.1",
+    "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "analytics-icons": "^5.5.0",
     "countries-and-timezones": "^2.2.0",
