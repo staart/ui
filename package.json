@@ -18,7 +18,7 @@
     "countries-and-timezones": "^2.3.0",
     "js-file-download": "^0.4.12",
     "jwt-decode": "^2.2.0",
-    "nuxt": "^2.14.3",
+    "nuxt": "^2.14.4",
     "nuxt-buefy": "^0.3.31",
     "ua-parser-js": "^0.7.21",
     "vuex-persist": "^2.2.0"
