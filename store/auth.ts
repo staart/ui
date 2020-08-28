@@ -20,12 +20,12 @@ export const state = (): RootState => ({
   isAuthenticated: false,
   tokens: {
     token: "",
-    refresh: "",
+    refresh: ""
   },
   user: {
     details: {},
-    memberships: {},
-  },
+    memberships: {}
+  }
 });
 
 export const mutations: MutationTree<RootState> = {
@@ -51,7 +51,7 @@ export const mutations: MutationTree<RootState> = {
   ) {
     if (details) Vue.set(state.user, "details", details);
     if (memberships) Vue.set(state.user, "memberships", memberships);
-  },
+  }
 };
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -79,12 +79,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async safeRefresh({ state, dispatch }) {
     const token = state.tokens.token;
     if (!token) return;
-    console.log(
-      "Safe refresh: Token expires at",
-      new Date(decode<{ exp: number }>(token).exp * 1000)
-    );
     if (decode<{ exp: number }>(token).exp * 1000 < new Date().getTime()) {
-      console.log("Safe refreshing...");
       return dispatch("refresh");
     }
   },
@@ -102,7 +97,7 @@ export const actions: ActionTree<RootState, RootState> = {
     try {
       const tokens: Tokens = (
         await this.$axios.post("/auth/refresh", {
-          token: refreshToken,
+          token: refreshToken
         })
       ).data;
       this.$axios.setToken(tokens.token, "Bearer");
@@ -120,10 +115,10 @@ export const actions: ActionTree<RootState, RootState> = {
       document.documentElement.classList.remove("prefers-reduced-motion");
       document.documentElement.classList.remove("prefers-color-scheme-dark");
     }
-  },
+  }
 };
 
 export const getters: GetterTree<RootState, RootState> = {
-  isAuthenticated: (state) => state.isAuthenticated,
-  user: (state) => state.user,
+  isAuthenticated: state => state.isAuthenticated,
+  user: state => state.user
 };
