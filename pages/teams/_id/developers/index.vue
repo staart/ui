@@ -9,5 +9,9 @@ import { Vue, Component, Watch } from "vue-property-decorator";
   middleware: "authenticated",
   layout: "teams",
 })
-export default class TeamsHome extends Vue {}
+export default class TeamsHome extends Vue {
+  created() {
+    this.$router.replace(`/teams/${this.$route.params.id}/developers/api-keys`);
+  }
+}
 </script>
