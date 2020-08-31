@@ -109,6 +109,10 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   logout({ commit }) {
     commit("removeAuthentication");
+    this.$axios
+      .post("/auth/logout")
+      .then(() => {})
+      .catch(() => {});
     // commit("manage/clearAll", undefined, { root: true });
     // commit("users/clearAll", undefined, { root: true });
     if (process.client) {
