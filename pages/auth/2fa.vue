@@ -51,9 +51,7 @@ export default class Login extends Vue {
       if (!memberships?.data?.length)
         return this.$router.replace("/onboarding/user");
       this.$router.replace(`/teams/${memberships?.data[0]?.group?.id}`);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     this.loading = false;
     this.code = "";
   }

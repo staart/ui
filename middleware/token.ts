@@ -5,7 +5,6 @@ export default (context: Context) => {
 
   if (store.state.auth.isAuthenticated) {
     $axios.setToken(store.state.auth.tokens.token, "Bearer");
-    console.log("Set token");
   }
 
   if (store.state.auth?.user?.prefersReducedMotion === "REDUCE")

@@ -26,10 +26,8 @@ export default class Login extends Vue {
     try {
       const newToken: string = await this.$store.dispatch("auth/refresh");
       this.$axios.setHeader("Authorization", newToken);
-      console.log("Updated new token", newToken);
       this.$router.go(-1);
     } catch (error) {
-      console.log("Got error, logging out");
       this.$store.dispatch("auth/logout");
       this.$router.replace("/");
     }

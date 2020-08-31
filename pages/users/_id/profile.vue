@@ -158,7 +158,6 @@ export default class UsersProfile extends Vue {
 
   @Watch("selectedCountryCode")
   onCountryCodeChanged(value: string) {
-    console.log(value);
     const countryCodes = Object.entries(countries).filter(
       (i) => i[1].name === value
     );
