@@ -20,7 +20,9 @@
           required
         />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loading">Login to your account</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loading"
+        >Login to your account</b-button
+      >
       <b-button tag="nuxt-link" to="/">Cancel</b-button>
     </form>
   </div>
@@ -32,7 +34,7 @@ import { mapGetters } from "vuex";
 
 @Component({
   middleware: "unauthenticated",
-  layout: "auth",
+  layout: "auth"
 })
 export default class Login extends Vue {
   code = "";
@@ -44,13 +46,13 @@ export default class Login extends Vue {
     try {
       const { data } = await this.$axios.post("/auth/2fa", {
         token: this.$store.state.auth.tokens.twoFactorToken,
-        code: this.code,
+        code: this.code
       });
       const result = await this.$store.dispatch("auth/loginWithTokens", data);
       const memberships = this.$store.state.auth.user.memberships;
       if (!memberships?.data?.length)
         return this.$router.replace("/onboarding/user");
-      this.$router.replace(`/teams/${memberships?.data[0]?.group?.id}`);
+      this.$router.replace(`/teams/${memberships?.data[0]?.groupId}`);
     } catch (error) {}
     this.loading = false;
     this.code = "";

@@ -37,7 +37,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   middleware: "unauthenticated",
-  layout: "auth",
+  layout: "auth"
 })
 export default class Login extends Vue {
   email = "";
@@ -52,12 +52,12 @@ export default class Login extends Vue {
     try {
       const { data }: { data: any } = await this.$axios.post("/auth/login", {
         email: this.email,
-        password: this.hasPasswordless ? undefined : this.password,
+        password: this.hasPasswordless ? undefined : this.password
       });
       if (data.message === "login-link-sent") {
         this.$buefy.toast.open({
           message: "We've sent you a login link on your email",
-          type: "is-success",
+          type: "is-success"
         });
       } else {
         const result = await this.$store.dispatch("auth/loginWithTokens", data);
@@ -65,7 +65,7 @@ export default class Login extends Vue {
         const memberships = this.$store.state.auth.user.memberships;
         if (!memberships?.data?.length)
           return this.$router.replace("/onboarding/user");
-        this.$router.replace(`/teams/${memberships?.data[0]?.group?.id}`);
+        this.$router.replace(`/teams/${memberships?.data[0]?.groupId}`);
       }
     } catch (error) {}
     this.loading = false;

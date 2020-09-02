@@ -7,14 +7,15 @@
     <h1 v-if="subject === 'email-verify'" class="title is-4">Email verified</h1>
     <h1 v-else class="title is-4">Success</h1>
     <div class="content">
-      <p v-if="subject === 'email-verify'">Your email was successfully verified.</p>
-      <b-button
-        v-if="isAuthenticated"
-        tag="nuxt-link"
-        to="/"
-        type="is-primary"
-      >Go to dashboard &rarr;</b-button>
-      <b-button v-else tag="nuxt-link" to="/auth/login" type="is-primary">Go to login &rarr;</b-button>
+      <p v-if="subject === 'email-verify'">
+        Your email was successfully verified.
+      </p>
+      <b-button v-if="isAuthenticated" tag="nuxt-link" to="/" type="is-primary"
+        >Go to dashboard &rarr;</b-button
+      >
+      <b-button v-else tag="nuxt-link" to="/auth/login" type="is-primary"
+        >Go to login &rarr;</b-button
+      >
     </div>
   </div>
   <div v-else>
@@ -31,8 +32,8 @@ import { mapGetters } from "vuex";
   middleware: "unauthenticated",
   layout: "auth",
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated",
-  }),
+    isAuthenticated: "auth/isAuthenticated"
+  })
 })
 export default class Login extends Vue {
   state = "loading";
@@ -64,7 +65,7 @@ export default class Login extends Vue {
       const { data }: { data: any } = await this.$axios.post(
         this.tokenEndpoint,
         {
-          token,
+          token
         }
       );
       if (this.subject === "password-reset")
@@ -74,7 +75,7 @@ export default class Login extends Vue {
         const memberships = this.$store.state.auth.user.memberships;
         if (!memberships?.data?.length)
           return this.$router.replace("/onboarding/user");
-        this.$router.replace(`/teams/${memberships?.data[0]?.group?.id}`);
+        this.$router.replace(`/teams/${memberships?.data[0]?.groupId}`);
       }
       this.state = "success";
     } catch (error) {}
