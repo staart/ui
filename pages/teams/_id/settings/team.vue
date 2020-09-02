@@ -5,9 +5,6 @@
       <b-field label="Name">
         <b-input type="text" v-model="team.name" required />
       </b-field>
-      <b-field label="Username">
-        <b-input type="text" v-model="team.id" required />
-      </b-field>
       <h1 class="is-size-5" style="margin: 1rem 0">Security settings</h1>
       <b-field label="IP address restrictions">
         <b-taginput

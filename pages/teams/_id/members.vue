@@ -15,6 +15,7 @@
         <b-table-column sortable field="role" label="Role">
           <b-select
             :value="props.row.role"
+            :disabled="props.row.userId === userId"
             @input="val => updateRole(props.row.id, val)"
             :loading="loadingId === props.row.id"
             placeholder="Update role"
@@ -32,6 +33,7 @@
             <b-button
               type="is-danger"
               icon-right="delete"
+              :disabled="props.row.userId === userId"
               @click="deleteMember(props.row.id, props.row.user.name)"
             />
           </b-tooltip>
@@ -92,11 +94,15 @@ export default class UsersProfile extends Vue {
   loadingId = 0;
   team: any = {};
   members: any = { data: [] };
+  userId = "";
   newMemberName = "";
   newMemberEmail = "";
   newMemberRole = "MEMBER";
 
   async created() {
+    try {
+      this.userId = this.$store.state.auth.user.details.id;
+    } catch (error) {}
     return this.get();
   }
 

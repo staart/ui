@@ -156,10 +156,6 @@
           >Update domain settings</b-button
         >
       </div>
-      <b-loading
-        :is-full-page="false"
-        :active.sync="loadingSettings"
-      ></b-loading>
     </form>
   </div>
 </template>

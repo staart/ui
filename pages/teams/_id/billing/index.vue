@@ -1,5 +1,8 @@
 <template>
   <div>
+    <b-message v-if="'no-billing-account' in $route.query" type="is-danger">
+      Add your billing details to continue.
+    </b-message>
     <h1 class="is-size-4">Customer details</h1>
     <form @submit.prevent="save" style="margin-top: 1rem">
       <b-field label="Name">
@@ -7,7 +10,7 @@
       </b-field>
       <div class="columns">
         <b-field
-          label="Email"
+          label="Billing email"
           class="column"
           style="margin-bottom: 0; padding-bottom: 0"
         >
@@ -56,9 +59,9 @@
           <b-input type="text" v-model="customer.address.country" />
         </b-field>
       </div>
-      <b-button type="is-primary" native-type="submit" :loading="loadingSave"
-        >Update details</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingSave">
+        <span>Update details</span>
+      </b-button>
       <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
     </form>
   </div>

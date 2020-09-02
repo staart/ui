@@ -241,7 +241,9 @@ export default class BillingDetails extends Vue {
       this.subscriptions = data;
     } catch (error) {
       if (error.response?.data?.error === "no-customer")
-        return this.$router.replace(`/teams/${this.$route.params.id}/billing`);
+        return this.$router.replace(
+          `/teams/${this.$route.params.id}/billing?no-billing-account`
+        );
     }
     this.loading = false;
   }
