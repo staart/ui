@@ -18,61 +18,22 @@
         <b-input type="textarea" v-model="accessToken.description" />
       </b-field>
       <b-field label="Scopes">
-        <b-select multiple v-model="scopes" expanded>
-          <option value="user:read">user:read</option>
-          <option value="user:update">user:update</option>
-          <option value="user:change-password">user:change-password</option>
-          <option value="user:delete">user:delete</option>
-          <option value="user:memberships:read">user:memberships:read</option>
-          <option value="user:memberships:delete"
-            >user:memberships:delete</option
-          >
-          <option value="user:memberships:update"
-            >user:memberships:update</option
-          >
-          <option value="user:2fa:enable">user:2fa:enable</option>
-          <option value="user:2fa:disable">user:2fa:disable</option>
-          <option value="user:backup-codes:read">user:backup-codes:read</option>
-          <option value="user:backup-codes:regenerate"
-            >user:backup-codes:regenerate</option
-          >
-          <option value="user:access-tokens:create"
-            >user:access-tokens:create</option
-          >
-          <option value="user:access-tokens:read"
-            >user:access-tokens:read</option
-          >
-          <option value="user:access-tokens:update"
-            >user:access-tokens:update</option
-          >
-          <option value="user:access-tokens:delete"
-            >user:access-tokens:delete</option
-          >
-          <option value="user:emails:create">user:emails:create</option>
-          <option value="user:emails:read">user:emails:read</option>
-          <option value="user:emails:delete">user:emails:delete</option>
-          <option value="user:emails:resend-verification"
-            >user:emails:resend-verification</option
-          >
-          <option value="user:sessions:create">user:sessions:create</option>
-          <option value="user:sessions:read">user:sessions:read</option>
-          <option value="user:sessions:delete">user:sessions:delete</option>
-          <option value="user:identities:create">user:identities:create</option>
-          <option value="user:identities:read">user:identities:read</option>
-          <option value="user:identities:delete">user:identities:delete</option>
-        </b-select>
+        <dl>
+          <span v-for="key in Object.keys(scopeOptions)" :key="`s${key}`">
+            <dt>
+              <b-checkbox
+                :indeterminate="scopes.some(r => scopeOptions[key].includes(r)) && !scopeOptions[key].every(r => scopes.includes(r))"
+                :value="scopeOptions[key].every(r => scopes.includes(r))"
+                @input="val => val ? (scopes.push(...scopeOptions[key])) : (scopes = scopes.filter(r => !scopeOptions[key].includes(r)))"
+              >{{key}}</b-checkbox>
+            </dt>
+            <dd v-for="key2 in scopeOptions[key]" :key="`s${key}${key2}`">
+              <b-checkbox v-model="scopes" :native-value="key2">{{key2}}</b-checkbox>
+            </dd>
+          </span>
+        </dl>
       </b-field>
-      <b-field label="Expiry">
-        <b-datepicker
-          placeholder="Click to select..."
-          icon="calendar-today"
-          trap-focus
-          v-model="expiresAt"
-        />
-      </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
-        >Update access token</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update access token</b-button>
     </form>
     <h2 class="is-size-5">Danger zone</h2>
     <p style="margin: 1rem 0">
@@ -88,8 +49,7 @@
         )
       "
       :loading="loadingDelete"
-      >Delete access token</b-button
-    >
+    >Delete access token</b-button>
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -99,7 +59,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
@@ -107,10 +67,18 @@ export default class UsersAccessTokens extends Vue {
   loadingDelete = false;
   accessToken: any = {};
   scopes: string[] = [];
-  expiresAt = new Date();
+  scopeOptions: any = {};
 
   async created() {
+    this.getScopeOptions();
     return this.get();
+  }
+
+  async getScopeOptions() {
+    const { data } = await this.$axios.get(
+      `/users/${this.$route.params.id}/security/access-token-scopes`
+    );
+    this.scopeOptions = data;
   }
 
   async get() {
@@ -120,8 +88,6 @@ export default class UsersAccessTokens extends Vue {
         `/users/${this.$route.params.id}/access-tokens/${this.$route.params.id}`
       );
       this.accessToken = data;
-      this.scopes = (data.scopes || "").split(",").map((i: string) => i.trim());
-      this.expiresAt = new Date(data.expiresAt);
     } catch (error) {
       this.$router.push(`/users/${this.$route.params.id}/access-tokens`);
     }
@@ -136,9 +102,8 @@ export default class UsersAccessTokens extends Vue {
         `/users/${this.$route.params.id}/access-tokens/${this.$route.params.id}`,
         {
           name: this.accessToken.name,
+          scopes: [...new Set(this.accessToken.scopes)],
           description: this.accessToken.description,
-          scopes: this.scopes.join(", "),
-          expiresAt: this.expiresAt
         }
       );
       this.accessToken = data.updated;
@@ -164,8 +129,17 @@ export default class UsersAccessTokens extends Vue {
           );
         } catch (error) {}
         this.$router.push(`/users/${this.$route.params.id}/access-tokens`);
-      }
+      },
     });
   }
 }
 </script>
+
+<style scoped>
+dd {
+  margin-left: 0.5rem;
+}
+dd + dt {
+  margin-top: 1rem;
+}
+</style>
