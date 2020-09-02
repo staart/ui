@@ -33,8 +33,8 @@
             <b-icon icon="alert" type="is-warning" />
           </b-tooltip>
         </b-table-column>
-        <b-table-column sortable field="jwtApiKey" label="API key">
-          <code>{{ props.row.jwtApiKey }}</code>
+        <b-table-column sortable field="apiKey" label="API key">
+          <code>{{ props.row.apiKey }}</code>
         </b-table-column>
         <b-table-column sortable field="createdAt" label="Added">{{
           new Date(props.row.createdAt).toLocaleDateString()

@@ -8,7 +8,7 @@
         style="margin-right: 1rem"
       />
       <span>API key</span>
-      <code v-if="apiKey.jwtApiKey">{{ apiKey.jwtApiKey }}</code>
+      <code v-if="apiKey.apiKey">{{ apiKey.apiKey }}</code>
     </h1>
     <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Name">

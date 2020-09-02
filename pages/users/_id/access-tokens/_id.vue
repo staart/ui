@@ -8,7 +8,7 @@
         style="margin-right: 1rem"
       />
       <span>Access Token</span>
-      <code v-if="accessToken.jwtAccessToken">{{ accessToken.jwtAccessToken }}</code>
+      <code v-if="accessToken.accessToken">{{ accessToken.accessToken }}</code>
     </h1>
     <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Name">
@@ -24,20 +24,36 @@
           <option value="user:change-password">user:change-password</option>
           <option value="user:delete">user:delete</option>
           <option value="user:memberships:read">user:memberships:read</option>
-          <option value="user:memberships:delete">user:memberships:delete</option>
-          <option value="user:memberships:update">user:memberships:update</option>
+          <option value="user:memberships:delete"
+            >user:memberships:delete</option
+          >
+          <option value="user:memberships:update"
+            >user:memberships:update</option
+          >
           <option value="user:2fa:enable">user:2fa:enable</option>
           <option value="user:2fa:disable">user:2fa:disable</option>
           <option value="user:backup-codes:read">user:backup-codes:read</option>
-          <option value="user:backup-codes:regenerate">user:backup-codes:regenerate</option>
-          <option value="user:access-tokens:create">user:access-tokens:create</option>
-          <option value="user:access-tokens:read">user:access-tokens:read</option>
-          <option value="user:access-tokens:update">user:access-tokens:update</option>
-          <option value="user:access-tokens:delete">user:access-tokens:delete</option>
+          <option value="user:backup-codes:regenerate"
+            >user:backup-codes:regenerate</option
+          >
+          <option value="user:access-tokens:create"
+            >user:access-tokens:create</option
+          >
+          <option value="user:access-tokens:read"
+            >user:access-tokens:read</option
+          >
+          <option value="user:access-tokens:update"
+            >user:access-tokens:update</option
+          >
+          <option value="user:access-tokens:delete"
+            >user:access-tokens:delete</option
+          >
           <option value="user:emails:create">user:emails:create</option>
           <option value="user:emails:read">user:emails:read</option>
           <option value="user:emails:delete">user:emails:delete</option>
-          <option value="user:emails:resend-verification">user:emails:resend-verification</option>
+          <option value="user:emails:resend-verification"
+            >user:emails:resend-verification</option
+          >
           <option value="user:sessions:create">user:sessions:create</option>
           <option value="user:sessions:read">user:sessions:read</option>
           <option value="user:sessions:delete">user:sessions:delete</option>
@@ -54,7 +70,9 @@
           v-model="expiresAt"
         />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update access token</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
+        >Update access token</b-button
+      >
     </form>
     <h2 class="is-size-5">Danger zone</h2>
     <p style="margin: 1rem 0">
@@ -70,7 +88,8 @@
         )
       "
       :loading="loadingDelete"
-    >Delete access token</b-button>
+      >Delete access token</b-button
+    >
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -80,7 +99,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
@@ -119,7 +138,7 @@ export default class UsersAccessTokens extends Vue {
           name: this.accessToken.name,
           description: this.accessToken.description,
           scopes: this.scopes.join(", "),
-          expiresAt: this.expiresAt,
+          expiresAt: this.expiresAt
         }
       );
       this.accessToken = data.updated;
@@ -145,7 +164,7 @@ export default class UsersAccessTokens extends Vue {
           );
         } catch (error) {}
         this.$router.push(`/users/${this.$route.params.id}/access-tokens`);
-      },
+      }
     });
   }
 }

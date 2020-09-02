@@ -14,22 +14,20 @@
       sort-icon-size="is-small"
     >
       <template slot-scope="props">
-        <b-table-column sortable field="name" label="Name">{{ props.row.name || "Unnamed token" }}</b-table-column>
-        <b-table-column sortable field="jwtAccessToken" label="Access Token">
-          <code>{{ props.row.jwtAccessToken }}</code>
+        <b-table-column sortable field="name" label="Name">{{
+          props.row.name || "Unnamed token"
+        }}</b-table-column>
+        <b-table-column sortable field="accessToken" label="Access Token">
+          <code>{{ props.row.accessToken }}</code>
         </b-table-column>
-        <b-table-column
-          sortable
-          field="createdAt"
-          label="Added"
-        >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
+        <b-table-column sortable field="createdAt" label="Added">{{
+          new Date(props.row.createdAt).toLocaleDateString()
+        }}</b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Edit">
             <b-button
               tag="nuxt-link"
-              :to="
-                `/users/${$route.params.id}/access-tokens/${props.row.id}`
-              "
+              :to="`/users/${$route.params.id}/access-tokens/${props.row.id}`"
               type="is-primary"
               icon-right="pencil"
               outlined
@@ -56,7 +54,9 @@
       <b-field label="Name">
         <b-input type="text" v-model="accessTokenName" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">Create access token</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate"
+        >Create access token</b-button
+      >
     </form>
   </div>
 </template>
@@ -66,7 +66,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
@@ -95,7 +95,7 @@ export default class UsersAccessTokens extends Vue {
       const { data } = await this.$axios.put(
         `/users/${this.$route.params.id}/access-tokens`,
         {
-          name: this.accessTokenName ? this.accessTokenName : undefined,
+          name: this.accessTokenName ? this.accessTokenName : undefined
         }
       );
       this.accessTokens.data.push(data.added);
@@ -121,7 +121,7 @@ export default class UsersAccessTokens extends Vue {
           );
         } catch (error) {}
         return this.get();
-      },
+      }
     });
   }
 }
