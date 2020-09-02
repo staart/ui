@@ -90,7 +90,6 @@ export default class Navbar extends Vue {
   }
 
   async logout() {
-    await this.$store.dispatch("auth/logout");
     this.$router.push("/");
   }
 }
