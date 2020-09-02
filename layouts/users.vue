@@ -4,7 +4,9 @@
     <div class="container">
       <div class="columns">
         <aside class="column">
-          <b-button tag="nuxt-link" to="/" icon-left="arrow-left">Go back to app</b-button>
+          <b-button tag="nuxt-link" to="/" icon-left="arrow-left"
+            >Go back to app</b-button
+          >
           <b-menu :activable="false" style="margin-top: 1rem">
             <b-menu-list>
               <b-menu-item
@@ -14,9 +16,7 @@
                 :label="item.label"
                 tag="router-link"
                 :to="`/users/${$route.params.id}${item.to}`"
-                :active="
-                  $route.path === `/users/${$route.params.id}${item.to}`
-                "
+                :active="$route.path === `/users/${$route.params.id}${item.to}`"
               />
             </b-menu-list>
           </b-menu>
@@ -39,45 +39,45 @@ import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, Footer },
+  components: { Navbar, Footer }
 })
 export default class Default extends Vue {
   items = [
     {
       label: "Profile",
       icon: "face-profile-woman",
-      to: "/profile",
+      to: "/profile"
     },
     {
       label: "Teams",
       icon: "account-group",
-      to: "/teams",
+      to: "/teams"
     },
     {
       label: "Emails",
       icon: "email",
-      to: "/emails",
+      to: "/emails"
     },
     {
       label: "Passwords & 2FA",
       icon: "security",
-      to: "/passwords",
+      to: "/passwords"
     },
     {
       label: "Sessions",
       icon: "login",
-      to: "/sessions",
+      to: "/sessions"
     },
     {
       label: "Access tokens",
       icon: "code-braces",
-      to: "/access-tokens",
+      to: "/access-tokens"
     },
     {
       label: "Data and privacy",
       icon: "database",
-      to: "/data",
-    },
+      to: "/data"
+    }
   ];
 }
 </script>
@@ -85,14 +85,9 @@ export default class Default extends Vue {
 <style scoped>
 .container {
   position: relative;
+  margin-top: 2rem;
   z-index: 31;
   max-width: 1000px;
-}
-main {
-  transform: translateY(-1.25rem);
-}
-aside {
-  margin-top: 2.5rem;
 }
 </style>
 

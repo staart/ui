@@ -20,7 +20,6 @@
         <h2 class="is-size-5" style="margin: 1rem 0">
           <span>{{ subscription.plan.nickname }}</span>
           <b-tag
-            size="is-medium"
             :type="getColor(subscription.status)"
             style="margin-left: 0.5rem; text-transform: capitalize"
           >
@@ -29,7 +28,6 @@
             }}
           </b-tag>
           <b-tag
-            size="is-medium"
             type="is-danger"
             style="margin-left: 0.5rem"
             v-if="subscription.cancel_at_period_end"
