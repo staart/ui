@@ -136,10 +136,11 @@ export default class UsersAccessTokens extends Vue {
 </script>
 
 <style scoped>
-dd {
-  margin-left: 0.5rem;
+dl {
+  columns: 300px 2;
+  line-height: 1.8;
 }
-dd + dt {
-  margin-top: 1rem;
+dd {
+  margin-left: 1rem;
 }
 </style>
