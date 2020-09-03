@@ -8,11 +8,13 @@
         style="margin-right: 1rem"
       />
       <span>Access Token</span>
-      <code v-if="accessToken.accessToken">{{ accessToken.accessToken }}</code>
     </h1>
     <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Name">
         <b-input type="text" v-model="accessToken.name" />
+      </b-field>
+      <b-field label="Access token">
+        <b-input type="text" v-model="accessToken.accessToken" readonly />
       </b-field>
       <b-field label="Description">
         <b-input type="textarea" v-model="accessToken.description" />
@@ -22,13 +24,13 @@
           <span v-for="key in Object.keys(scopeOptions)" :key="`s${key}`">
             <dt>
               <b-checkbox
-                :indeterminate="scopes.some(r => scopeOptions[key].includes(r)) && !scopeOptions[key].every(r => scopes.includes(r))"
-                :value="scopeOptions[key].every(r => scopes.includes(r))"
-                @input="val => val ? (scopes.push(...scopeOptions[key])) : (scopes = scopes.filter(r => !scopeOptions[key].includes(r)))"
+                :indeterminate="scopes.some(r => scopeOptions[key].map(i => i.value).includes(r)) && !scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
+                :value="scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
+                @input="val => val ? (scopes.push(...scopeOptions[key].map(i => i.value))) : (scopes = scopes.filter(r => !scopeOptions[key].map(i => i.value).includes(r)))"
               >{{key}}</b-checkbox>
             </dt>
-            <dd v-for="key2 in scopeOptions[key]" :key="`s${key}${key2}`">
-              <b-checkbox v-model="scopes" :native-value="key2">{{key2}}</b-checkbox>
+            <dd v-for="key2 in scopeOptions[key]" :key="`s${key}${key2.value}`">
+              <b-checkbox v-model="scopes" :native-value="key2.value">{{key2.name}}</b-checkbox>
             </dd>
           </span>
         </dl>
@@ -102,7 +104,7 @@ export default class UsersAccessTokens extends Vue {
         `/users/${this.$route.params.id}/access-tokens/${this.$route.params.accessTokenId}`,
         {
           name: this.accessToken.name,
-          scopes: [...new Set(this.accessToken.scopes)],
+          scopes: [...new Set(this.scopes)],
           description: this.accessToken.description,
         }
       );
