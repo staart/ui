@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Webhooks</h1>
+    <h1 class="is-size-4 mb-4">Webhooks</h1>
     <b-table
       :loading="loading"
       :data="webhooks.data"
@@ -49,7 +49,7 @@
         </b-table-column>
       </template>
     </b-table>
-    <h2 class="is-size-5">Create a webhook</h2>
+    <h2 class="is-size-5 mb-3">Create a webhook</h2>
     <p>
       You'll be able to add event restrictions and a secret key after creating
       the webhook.

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">API keys</h1>
+    <h1 class="is-size-4 mb-4">API keys</h1>
     <b-message v-if="hasUnrestrictedApiKey" type="is-warning" has-icon>
       You have one or more unrestricted API keys in your team. It's recommended
       to add scope, referrer, or IP address restrictions.
@@ -76,7 +76,7 @@
         <code>{{ props.row.apiKey }}</code>
       </template>
     </b-table>
-    <h2 class="is-size-5">Create an API key</h2>
+    <h2 class="is-size-5 mb-3">Create an API key</h2>
     <p>
       You'll be able to add restrictions such as scopes, referrers, IP
       addresses, and expiry after creating the API key.

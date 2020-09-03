@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 class="is-size-4">Subscription</h1>
+      <h1 class="is-size-4 mb-4">Subscription</h1>
       <div
         v-for="subscription in subscriptions.data"
         :key="`s${subscription.id}`"
@@ -17,7 +17,7 @@
             >Add payment method</nuxt-link
           >
         </b-message>
-        <h2 class="is-size-5">
+        <h2 class="is-size-5 mb-3">
           <span>{{ subscription.plan.nickname }}</span>
           <b-tag :type="getColor(subscription.status)">
             {{
@@ -88,7 +88,7 @@
           "
           v-if="availablePlans(subscription.plan.id).length"
         >
-          <h2 class="is-size-5">Change subscription</h2>
+          <h2 class="is-size-5 mb-3">Change subscription</h2>
           <div
             v-for="plan in availablePlans(subscription.plan.id)"
             :key="`p${plan.id}`"
@@ -124,7 +124,7 @@
               !subscription.cancel_at_period_end
           "
         >
-          <h2 class="is-size-5">Danger zone</h2>
+          <h2 class="is-size-5 mb-3">Danger zone</h2>
           <p>
             After you've canceled your subscription, you can continue to use it
             until the end of this billing cycle, but we won't charge you again.
@@ -138,7 +138,7 @@
           >
         </div>
         <div v-else>
-          <h2 class="is-size-5">
+          <h2 class="is-size-5 mb-3">
             Continue subscription
           </h2>
           <p>
@@ -160,7 +160,7 @@
       @submit.prevent="save"
       v-if="plans.data.length && !subscriptions.data.length"
     >
-      <h2 class="is-size-5">Change your plan</h2>
+      <h2 class="is-size-5 mb-3">Change your plan</h2>
       <div v-for="plan in plans.data" :key="`p${plan.id}`" class="field">
         <b-radio v-model="selectedPlan" :native-value="plan.id">
           <span>{{ plan.nickname }}</span>

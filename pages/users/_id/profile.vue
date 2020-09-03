@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Account settings</h1>
+    <h1 class="is-size-4 mb-4">Account settings</h1>
     <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="user.name" required />
@@ -100,13 +100,13 @@
           >
         </div>
       </b-field>
-      <div>Security</div>
+      <label class="label">Security</label>
       <b-field>
         <b-checkbox v-model="user.checkLocationOnLogin"
           >Verify my location when I login</b-checkbox
         >
       </b-field>
-      <div>Accessibility</div>
+      <label class="label">Accessibility</label>
       <b-field>
         <b-checkbox
           v-model="user.prefersReducedMotion"
@@ -115,9 +115,7 @@
           >I prefer reduced motion</b-checkbox
         >
       </b-field>
-      <div>
-        Webapp color scheme
-      </div>
+      <label class="label">Webapp color scheme</label>
       <b-field>
         <b-radio
           name="radioColorScheme"

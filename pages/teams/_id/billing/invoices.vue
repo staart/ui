@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Invoices</h1>
+    <h1 class="is-size-4 mb-4">Invoices</h1>
     {{ invoices }}
   </div>
 </template>

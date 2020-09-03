@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Coupon codes</h1>
+    <h1 class="is-size-4 mb-4">Coupon codes</h1>
     <b-table
       :loading="loading"
       :data="coupons.data"
@@ -129,7 +129,7 @@
         >Load more coupons</b-button
       >
     </div>
-    <h2 class="is-size-5">Add coupon</h2>
+    <h2 class="is-size-5 mb-3">Add coupon</h2>
     <p>
       Generate a new coupon code to share with teams. Make sure the amount is in
       basic monetary units like cents or paise (multiply by 100).

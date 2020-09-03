@@ -30,4 +30,8 @@ export default class Footer extends Vue {
 .bottom-nav * + * {
   margin-left: 2rem;
 }
+footer.footer {
+  padding: 4rem 0 2.5rem 0;
+  font-size: 90%;
+}
 </style>

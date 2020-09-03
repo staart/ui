@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Team members</h1>
+    <h1 class="is-size-4 mb-4">Team members</h1>
     <b-table
       :loading="loading"
       :data="members.data"
@@ -49,7 +49,7 @@
         >Load more members</b-button
       >
     </div>
-    <h2 class="is-size-5">Add member</h2>
+    <h2 class="is-size-5 mb-3">Add member</h2>
     <form @submit.prevent="add">
       <div class="columns">
         <div class="column">

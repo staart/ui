@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Access Tokens</h1>
+    <h1 class="is-size-4 mb-4">Access Tokens</h1>
     <b-table
       :loading="loading"
       :data="accessTokens.data"
@@ -73,7 +73,7 @@
         <code>{{ props.row.accessToken }}</code>
       </template>
     </b-table>
-    <h2 class="is-size-5">Create an access token</h2>
+    <h2 class="is-size-5 mb-3">Create an access token</h2>
     <form @submit.prevent="add">
       <b-field label="Name">
         <b-input type="text" v-model="accessTokenName" />

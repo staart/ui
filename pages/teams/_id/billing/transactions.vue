@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="is-size-4">Credits &amp; history</h1>
+    <h1 class="is-size-4 mb-4">Credits &amp; history</h1>
     {{ transactions }}
-    <h2 class="is-size-5">Add credits</h2>
+    <h2 class="is-size-5 mb-3">Add credits</h2>
     <form @submit.prevent="add">
       <b-field label="Coupon code">
         <b-input type="text" v-model="couponCode" required />

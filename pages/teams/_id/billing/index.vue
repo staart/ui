@@ -3,7 +3,7 @@
     <b-message v-if="'no-billing-account' in $route.query" type="is-danger">
       Add your billing details to continue.
     </b-message>
-    <h1 class="is-size-4">Customer details</h1>
+    <h1 class="is-size-4 mb-4">Customer details</h1>
     <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="customer.name" required />

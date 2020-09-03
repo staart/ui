@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Emails</h1>
+    <h1 class="is-size-4 mb-4">Emails</h1>
     <b-table
       :loading="loading"
       :data="emails.data"
@@ -41,7 +41,7 @@
         >Load more emails</b-button
       >
     </div>
-    <h2 class="is-size-5">Add email</h2>
+    <h2 class="is-size-5 mb-3">Add email</h2>
     <form @submit.prevent="add">
       <b-field label="Email">
         <b-input type="email" v-model="newEmail" required />
@@ -50,7 +50,7 @@
         >Add email</b-button
       >
     </form>
-    <h2 class="is-size-5">Email preferences</h2>
+    <h2 class="is-size-5 mb-3">Email preferences</h2>
     <form @submit.prevent="save">
       <b-field
         label="Primary email"

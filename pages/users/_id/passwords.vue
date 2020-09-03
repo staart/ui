@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="is-size-4">Passwords &amp; 2FA</h1>
-    <h2 class="is-size-5">Change password</h2>
+    <h1 class="is-size-4 mb-4">Passwords &amp; 2FA</h1>
+    <h2 class="is-size-5 mb-3">Change password</h2>
     <form @submit.prevent="save">
       <b-field label="Current password" v-if="hasPassword">
         <b-input type="password" v-model="oldPassword" password-reveal />
@@ -37,7 +37,7 @@
         >
       </div>
     </form>
-    <h2 class="is-size-5">Two-factor authentication</h2>
+    <h2 class="is-size-5 mb-3">Two-factor authentication</h2>
     <div v-if="twoFactorEnabled">
       <b-message type="is-success" has-icon>
         2FA adds an additional layer of protection in your account. You have 2FA

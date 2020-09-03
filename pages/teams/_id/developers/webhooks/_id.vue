@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">
+    <h1 class="is-size-4 mb-4">
       <b-button
         tag="nuxt-link"
         :to="`/teams/${$route.params.id}/developers/webhooks`"
@@ -38,7 +38,7 @@
         >Update webhook</b-button
       >
     </form>
-    <h2 class="is-size-5">Danger zone</h2>
+    <h2 class="is-size-5 mb-3">Danger zone</h2>
     <p>
       If you don't want this webhook to trigger anymore, you can delete it.
     </p>

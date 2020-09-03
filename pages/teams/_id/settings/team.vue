@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Team settings</h1>
+    <h1 class="is-size-4 mb-4">Team settings</h1>
     <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="team.name" required />

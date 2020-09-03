@@ -4,9 +4,6 @@
     <div class="container">
       <div class="columns">
         <aside class="column">
-          <b-button tag="nuxt-link" to="/" icon-left="arrow-left"
-            >Go back to app</b-button
-          >
           <b-menu :activable="false">
             <b-menu-list>
               <b-menu-item
@@ -81,3 +78,9 @@ export default class Default extends Vue {
   ];
 }
 </script>
+
+<style scoped>
+aside.column {
+  margin-top: 7rem;
+}
+</style>

@@ -196,7 +196,7 @@
               </ul>
             </div>
           </div>
-          <h2 class="is-size-4">
+          <h2 class="is-size-4 mb-4">
             Two-factor authentication
           </h2>
           <p>
@@ -223,7 +223,7 @@
         <form @submit.prevent="goToNextStep" class="columns has-text-centered">
           <div class="column">
             <div class="is-size-1">🏢</div>
-            <h2 class="is-size-4">
+            <h2 class="is-size-4 mb-4">
               Yes, I have a team
             </h2>
             <p>
@@ -242,7 +242,7 @@
           </div>
           <div class="column">
             <div class="is-size-1">👩‍🚀</div>
-            <h2 class="is-size-4">
+            <h2 class="is-size-4 mb-4">
               No, I'm flying solo
             </h2>
             <p>

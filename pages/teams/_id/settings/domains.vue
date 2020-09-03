@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Domains</h1>
+    <h1 class="is-size-4 mb-4">Domains</h1>
     <b-message v-if="hasUnverifiedDomain" type="is-warning" has-icon>
       You have one or more unverified domains in your team. The domain settings
       will not be actived until you verify the domain.
@@ -119,7 +119,7 @@
         >Load more domains</b-button
       >
     </div>
-    <h2 class="is-size-5">Add domain</h2>
+    <h2 class="is-size-5 mb-3">Add domain</h2>
     <form @submit.prevent="add">
       <b-field label="Domain">
         <b-input type="text" v-model="newDomain" required />

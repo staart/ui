@@ -86,3 +86,21 @@ aside {
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 @import "overwrites.scss";
+
+aside.column .icon {
+  transform: scale(1.5);
+  margin-right: 0.75rem;
+  color: darken($color: $primary, $amount: 20);
+  opacity: 0.5;
+}
+aside.column .menu-list a.is-active .icon {
+  opacity: 1;
+  color: #fff;
+}
+aside.column .menu-list a {
+  margin: 0.25rem 0;
+  transition: 0.3s;
+}
+aside.column .menu-list a:not(.is-active):hover {
+  background-color: #fff;
+}

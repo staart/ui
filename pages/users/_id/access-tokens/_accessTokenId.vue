@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">
+    <h1 class="is-size-4 mb-4">
       <b-button
         tag="nuxt-link"
         :to="`/users/${$route.params.id}/access-tokens`"
@@ -73,7 +73,7 @@
         >Update access token</b-button
       >
     </form>
-    <h2 class="is-size-5">Danger zone</h2>
+    <h2 class="is-size-5 mb-3">Danger zone</h2>
     <p>
       If your access token was compromized or you don't need it anymore, you can
       delete it.

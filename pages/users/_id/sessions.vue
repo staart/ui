@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Sessions</h1>
+    <h1 class="is-size-4 mb-4">Sessions</h1>
     <b-table
       :loading="loading && !sessions.data.length"
       :data="sessions.data"
@@ -21,9 +21,7 @@
           </b-tooltip>
         </b-table-column>
         <b-table-column sortable field="createdAt" label="Logged in">
-          {{
-          new Date(props.row.createdAt).toLocaleString()
-          }}
+          {{ new Date(props.row.createdAt).toLocaleString() }}
         </b-table-column>
         <b-table-column class="has-text-right">
           <b-tooltip label="Logout">
@@ -42,7 +40,8 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-      >Load more sessions</b-button>
+        >Load more sessions</b-button
+      >
     </div>
   </div>
 </template>
@@ -55,7 +54,7 @@ import ct from "countries-and-timezones";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersSessions extends Vue {
   loading = false;
@@ -74,8 +73,8 @@ export default class UsersSessions extends Vue {
   getCaption(row: any, keyName: string) {
     if (keyName === "CountryCode")
       return ["city", "region"]
-        .map((i) => row[i])
-        .filter((i) => i)
+        .map(i => row[i])
+        .filter(i => i)
         .join(", ");
     const parser = new UAParser(row.userAgent);
     return parser[`get${keyName}`]?.call()?.name;
@@ -114,7 +113,7 @@ export default class UsersSessions extends Vue {
           );
         } catch (error) {}
         await this.get();
-      },
+      }
     });
   }
 }

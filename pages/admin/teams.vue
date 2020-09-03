@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4">Teams</h1>
+    <h1 class="is-size-4 mb-4">Teams</h1>
     <b-table
       :loading="loading"
       :data="teams.data"
