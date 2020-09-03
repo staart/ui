@@ -19,7 +19,7 @@
     "js-file-download": "^0.4.12",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.14.4",
-    "nuxt-buefy": "^0.3.31",
+    "nuxt-buefy": "^0.4.2",
     "ua-parser-js": "^0.7.21",
     "vuex-persist": "^2.2.0"
   },
