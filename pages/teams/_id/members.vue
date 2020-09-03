@@ -65,7 +65,6 @@
         <div class="column">
           <b-field label="Role">
             <b-select v-model="newMemberRole" expanded>
-              <option value="OWNER">Owner</option>
               <option value="ADMIN">Admin</option>
               <option value="MEMBER">Member</option>
             </b-select>
@@ -150,10 +149,7 @@ export default class UsersProfile extends Vue {
           role: this.newMemberRole
         }
       );
-      this.members.data.push(data.added);
-      this.newMemberName = "";
-      this.newMemberEmail = "";
-      this.newMemberRole = "";
+      this.get();
     } catch (error) {}
     this.loadingAdd = false;
   }
