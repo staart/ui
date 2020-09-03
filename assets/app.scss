@@ -1,5 +1,4 @@
 @import "~bulma/sass/utilities/_all";
-@import "overwrites.scss";
 
 $primary: #16a085;
 $primary-invert: findColorInvert($primary);
@@ -53,3 +52,4 @@ $link-focus-border: $primary;
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+@import "overwrites.scss";

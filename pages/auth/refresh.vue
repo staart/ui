@@ -1,7 +1,6 @@
 <template>
   <div v-if="state === 'loading'">
-    <h1 class="title is-4">Loading...</h1>
-    <div class="content"></div>
+    <b-loading :is-full-page="true" :active="true" />
   </div>
   <div v-else>
     <h1 class="title is-4">Error</h1>
@@ -16,8 +15,8 @@ import { mapGetters } from "vuex";
 @Component({
   layout: "auth",
   computed: mapGetters({
-    isAuthenticated: "auth/isAuthenticated",
-  }),
+    isAuthenticated: "auth/isAuthenticated"
+  })
 })
 export default class Login extends Vue {
   state = "loading";

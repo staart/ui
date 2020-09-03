@@ -2,16 +2,17 @@
   <b-navbar
     wrapper-class="container"
     :transparent="true"
-    type="is-white"
-    style="box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1); padding: 0.5rem 0; position: relative; z-index: 100"
+    type="is-dark"
+    class="nav"
     v-show="!$route.path.startsWith('/onboarding/')"
   >
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+      <b-navbar-item tag="router-link" class="logo" :to="{ path: '/' }">
         <img
-          src="https://raw.githubusercontent.com/staart/staart.js.org/master/assets/svg/ui.svg?sanitize=true"
-          alt="Staart"
+          src="https://raw.githubusercontent.com/staart/staart.js.org/master/assets/icon-white.svg"
+          alt=""
         />
+        <span>Staart</span>
       </b-navbar-item>
     </template>
     <template slot="start">
@@ -109,5 +110,18 @@ export default class Navbar extends Vue {
 }
 .container {
   max-width: 1000px;
+}
+.navbar.is-dark.nav {
+  background-color: #16063e;
+  padding: 0.5rem 0;
+}
+.logo {
+  margin-right: 1rem;
+}
+.logo img {
+  margin-right: 0.75rem;
+}
+.logo span {
+  font-size: 107%;
 }
 </style>
