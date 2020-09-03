@@ -279,7 +279,7 @@ export default class OnboardingUser extends Vue {
 
   value = 0;
   loading = false;
-  countrySearchQuery = "United States";
+  countrySearchQuery = "";
   filteredTimezonesArray = ct.getTimezonesForCountry("US").map(i => i.name);
   securityPreset = 1;
 

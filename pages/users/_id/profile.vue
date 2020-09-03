@@ -161,7 +161,7 @@ export default class UsersProfile extends Vue {
   loading = false;
   user: any = {};
 
-  countrySearchQuery = "United States";
+  countrySearchQuery = "";
   languages = {
     "en-us": "English (United States)",
     "en-in": "English (India)"

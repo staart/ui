@@ -50,7 +50,7 @@
         >Add email</b-button
       >
     </form>
-    <h2 class="is-size-5 mb-3">Email preferences</h2>
+    <h2 class="is-size-5 mb-3 mt-5">Email preferences</h2>
     <form @submit.prevent="save">
       <b-field
         label="Primary email"

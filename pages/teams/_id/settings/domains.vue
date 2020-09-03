@@ -129,7 +129,7 @@
       >
     </form>
     <form @submit.prevent="save">
-      <h1 class="is-size-5">Domain settings</h1>
+      <h2 class="is-size-5 mt-5 mb-3">Domain settings</h2>
       <b-field>
         <b-checkbox v-model="team.onlyAllowDomain">
           Managers can only invite users with emails on our domains to join this

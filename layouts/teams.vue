@@ -90,7 +90,7 @@ export default class Default extends Vue {
       to: "/billing",
       items: [
         {
-          label: "Customer details",
+          label: "Details",
           icon: "office-building",
           to: "/billing"
         },
@@ -110,7 +110,7 @@ export default class Default extends Vue {
           to: "/billing/invoices"
         },
         {
-          label: "Credits & history",
+          label: "Credits",
           icon: "cash-plus",
           to: "/billing/transactions"
         }
