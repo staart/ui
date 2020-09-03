@@ -8,54 +8,32 @@
         style="margin-right: 1rem"
       />
       <span>API key</span>
-      <code v-if="apiKey.apiKey">{{ apiKey.apiKey }}</code>
     </h1>
     <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
       <b-field label="Name">
         <b-input type="text" v-model="apiKey.name" />
       </b-field>
+      <b-field label="API key">
+        <b-input type="text" v-model="apiKey.apiKey" readonly />
+      </b-field>
       <b-field label="Description">
         <b-input type="textarea" v-model="apiKey.description" />
       </b-field>
       <b-field label="Scopes">
-        <b-select multiple v-model="scopes" expanded>
-          <option value="org:read">org:read</option>
-          <option value="org:update">org:update</option>
-          <option value="org:delete">org:delete</option>
-          <option value="org:billing:read">org:billing:read</option>
-          <option value="org:billing:update">org:billing:update</option>
-          <option value="org:invoices:read">org:invoices:read</option>
-          <option value="org:sources:read">org:sources:read</option>
-          <option value="org:sources:create">org:sources:create</option>
-          <option value="org:sources:update">org:sources:update</option>
-          <option value="org:sources:delete">org:sources:delete</option>
-          <option value="org:subscriptions:read">org:subscriptions:read</option>
-          <option value="org:subscriptions:update">org:subscriptions:update</option>
-          <option value="org:subscriptions:create">org:subscriptions:create</option>
-          <option value="org:plans:read">org:plans:read</option>
-          <option value="org:api-key:read">org:api-key:read</option>
-          <option value="org:api-key-logs:read">org:api-key-logs:read</option>
-          <option value="org:api-key:update">org:api-key:update</option>
-          <option value="org:api-key:delete">org:api-key:delete</option>
-          <option value="org:api-key:create">org:api-key:create</option>
-          <option value="org:domain:read">org:domain:read</option>
-          <option value="org:domain:update">org:domain:update</option>
-          <option value="org:domain:delete">org:domain:delete</option>
-          <option value="org:domain:create">org:domain:create</option>
-          <option value="org:domain:verify">org:domain:verify</option>
-          <option value="org:webhook:read">org:webhook:read</option>
-          <option value="org:webhook:update">org:webhook:update</option>
-          <option value="org:webhook:delete">org:webhook:delete</option>
-          <option value="org:webhook:create">org:webhook:create</option>
-          <option value="org:membership:read">org:membership:read</option>
-          <option value="org:membership:update">org:membership:update</option>
-          <option value="org:membership:delete">org:membership:delete</option>
-          <option value="org:membership:create">org:membership:create</option>
-          <option value="org:transactions:read">org:transactions:read</option>
-          <option value="org:transactions:update">org:transactions:update</option>
-          <option value="org:transactions:delete">org:transactions:delete</option>
-          <option value="org:transactions:create">org:transactions:create</option>
-        </b-select>
+        <dl>
+          <span v-for="key in Object.keys(scopeOptions)" :key="`s${key}`">
+            <dt>
+              <b-checkbox
+                :indeterminate="scopes.some(r => scopeOptions[key].map(i => i.value).includes(r)) && !scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
+                :value="scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
+                @input="val => val ? (scopes.push(...scopeOptions[key].map(i => i.value))) : (scopes = scopes.filter(r => !scopeOptions[key].map(i => i.value).includes(r)))"
+              >{{key}}</b-checkbox>
+            </dt>
+            <dd v-for="key2 in scopeOptions[key]" :key="`s${key}${key2.value}`">
+              <b-checkbox v-model="scopes" :native-value="key2.value">{{key2.name}}</b-checkbox>
+            </dd>
+          </span>
+        </dl>
       </b-field>
       <b-field label="IP address restrictions">
         <b-taginput v-model="ipRestrictions" icon="ip-network" placeholder="Add an IP CIDR"></b-taginput>
@@ -66,14 +44,6 @@
           icon="domain-plus"
           placeholder="Add a domain name"
         ></b-taginput>
-      </b-field>
-      <b-field label="Expiry">
-        <b-datepicker
-          placeholder="Click to select..."
-          icon="calendar-today"
-          trap-focus
-          v-model="expiresAt"
-        />
       </b-field>
       <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update API key</b-button>
     </form>
@@ -106,10 +76,18 @@ export default class UsersApiKeys extends Vue {
   scopes: string[] = [];
   ipRestrictions: string[] = [];
   referrerRestrictions: string[] = [];
-  expiresAt = new Date();
+  scopeOptions: any = {};
 
   async created() {
+    this.getScopeOptions();
     return this.get();
+  }
+
+  async getScopeOptions() {
+    const { data } = await this.$axios.get(
+      `/groups/${this.$route.params.id}/api-keys/scopes`
+    );
+    this.scopeOptions = data;
   }
 
   async get() {
@@ -120,7 +98,6 @@ export default class UsersApiKeys extends Vue {
       );
       this.apiKey = data;
       this.scopes = (data.scopes || "").split(",").map((i: string) => i.trim());
-      this.expiresAt = new Date(data.expiresAt);
       if (data.ipRestrictions)
         this.ipRestrictions = (data.ipRestrictions || [])
           .split(",")
@@ -148,7 +125,6 @@ export default class UsersApiKeys extends Vue {
           ipRestrictions: this.ipRestrictions.join(", ") || undefined,
           referrerRestrictions:
             this.referrerRestrictions.join(", ") || undefined,
-          expiresAt: this.expiresAt,
         }
       );
       this.apiKey = data.updated;
@@ -181,3 +157,13 @@ export default class UsersApiKeys extends Vue {
   }
 }
 </script>
+
+<style scoped>
+dl {
+  columns: 300px 2;
+  line-height: 1.8;
+}
+dd {
+  margin-left: 1rem;
+}
+</style>
