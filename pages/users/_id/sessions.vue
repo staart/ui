@@ -8,7 +8,7 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props">
+      <template slot-scope="props" v-if="props.row">
         <b-table-column label="Session">
           <b-tooltip
             v-for="(type, i) in ['Browser', 'OS', 'CountryCode']"

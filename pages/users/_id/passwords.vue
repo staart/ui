@@ -14,7 +14,7 @@
           required
         />
       </b-field>
-      <div class="password-strength">
+      <div class="password-strength mt-3 mb-3">
         <div>Password strength</div>
         <b-progress
           :value="100 * (newPassword.length / 25)"
@@ -37,7 +37,7 @@
         >
       </div>
     </form>
-    <h2 class="is-size-5 mb-3">Two-factor authentication</h2>
+    <h2 class="is-size-5 mb-3 mt-5">Two-factor authentication</h2>
     <div v-if="twoFactorEnabled">
       <b-message type="is-success" has-icon>
         2FA adds an additional layer of protection in your account. You have 2FA
@@ -45,7 +45,7 @@
         and have used {{ backupCodesUsed }}/{{ backupCodesAll }}
         backup codes.
       </b-message>
-      <div class="buttons">
+      <div class="buttons mt-3">
         <b-button
           type="is-danger"
           icon-left="lock-open"
@@ -64,7 +64,7 @@
         to have a TOTP app like Google Authenticator or a password manager like
         1Password to use 2FA.
       </p>
-      <div class="buttons">
+      <div class="buttons mt-3">
         <b-button type="is-success" @click="enable" :loading="loading"
           >Enable 2FA</b-button
         >

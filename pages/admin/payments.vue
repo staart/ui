@@ -8,7 +8,7 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props">
+      <template slot-scope="props" v-if="props.row">
         <b-table-column label="Category">
           {{ props.row.data.object.object }}
         </b-table-column>

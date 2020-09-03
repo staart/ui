@@ -15,7 +15,7 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props">
+      <template slot-scope="props" v-if="props.row">
         <b-table-column sortable field="domain" label="Domain">
           {{ props.row.domain }}
           <b-tooltip v-if="props.row.isVerified" label="Verified">
@@ -41,7 +41,7 @@
           </b-tooltip>
         </b-table-column>
       </template>
-      <template slot="detail" slot-scope="props">
+      <template slot="detail" slot-scope="props" v-if="props.row">
         <div v-if="props.row.isVerified">
           <p>
             <b-icon type="is-success" icon="check-circle" size="is-small" />This

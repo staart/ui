@@ -16,7 +16,7 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props">
+      <template slot-scope="props" v-if="props.row">
         <b-table-column sortable field="name" label="Name">
           {{ props.row.name || "Unnamed API key" }}
         </b-table-column>
@@ -71,7 +71,7 @@
           </b-tooltip>
         </b-table-column>
       </template>
-      <template slot="detail" slot-scope="props">
+      <template slot="detail" slot-scope="props" v-if="props.row">
         API key:
         <code>{{ props.row.apiKey }}</code>
       </template>

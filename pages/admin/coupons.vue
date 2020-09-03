@@ -11,7 +11,7 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props">
+      <template slot-scope="props" v-if="props.row">
         <b-table-column sortable field="code" label="Coupon code">
           <code>{{ props.row.code }}</code>
           <b-tooltip
@@ -50,7 +50,7 @@
           </b-tooltip>
         </b-table-column>
       </template>
-      <template slot="detail" slot-scope="props">
+      <template slot="detail" slot-scope="props" v-if="props.row">
         <form @submit.prevent="save(props.row)">
           <b-field label="Currency">
             <div class="field">

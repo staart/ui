@@ -8,7 +8,7 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props">
+      <template slot-scope="props" v-if="props.row">
         <b-table-column sortable field="url" label="URL">
           <span>{{ truncate(props.row.url) }}</span>
           <b-tooltip v-if="props.row.isActive" label="Active">

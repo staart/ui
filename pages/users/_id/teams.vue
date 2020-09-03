@@ -10,7 +10,7 @@
       sort-icon-size="is-small"
       hoverable
     >
-      <template slot-scope="props">
+      <template slot-scope="props" v-if="props.row">
         <b-table-column sortable field="organization.name" label="Team name">{{
           props.row.group.name
         }}</b-table-column>
