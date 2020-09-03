@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navbar />
+    <TeamsNavbar />
     <div class="container">
       <div class="columns">
         <aside class="column">
@@ -48,10 +49,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import Navbar from "@/components/layout/Navbar.vue";
+import TeamsNavbar from "@/components/layout/TeamsNavbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, Footer }
+  components: { Navbar, TeamsNavbar, Footer }
 })
 export default class Default extends Vue {
   items = [
