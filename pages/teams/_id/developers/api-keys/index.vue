@@ -13,6 +13,10 @@
     <b-table
       :loading="loading"
       :data="apiKeys.data"
+      :opened-detailed="defaultOpenedDetails"
+      detailed
+      detail-key="id"
+      :show-detail-icon="false"
       default-sort-direction="asc"
       sort-icon="arrow-up"
       sort-icon-size="is-small"
@@ -20,26 +24,35 @@
       <template slot-scope="props">
         <b-table-column sortable field="name" label="Name">
           {{ props.row.name || "Unnamed API key" }}
-          <b-tooltip
-            v-if="
-              !(
-                props.row.ipRestrictions ||
-                props.row.referrerRestrictions ||
-                props.row.scopes
-              )
-            "
-            label="Unrestricted"
-          >
-            <b-icon icon="alert" type="is-warning" />
-          </b-tooltip>
         </b-table-column>
-        <b-table-column sortable field="apiKey" label="API key">
-          <code>{{ props.row.apiKey }}</code>
+        <b-table-column sortable field="createdAt" label="Added">
+          {{ new Date(props.row.createdAt).toLocaleDateString() }}
         </b-table-column>
-        <b-table-column sortable field="createdAt" label="Added">{{
-          new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column>
         <b-table-column class="has-text-right">
+          <b-tooltip
+            :label="
+              defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'
+            "
+          >
+            <b-button
+              icon-right="eye"
+              type="is-primary"
+              outlined
+              v-if="!defaultOpenedDetails.includes(props.row.id)"
+              @click="defaultOpenedDetails.push(props.row.id)"
+            />
+            <b-button
+              icon-right="eye-off"
+              type="is-primary"
+              outlined
+              @click="
+                defaultOpenedDetails = defaultOpenedDetails.filter(
+                  i => i !== props.row.id
+                )
+              "
+              v-else
+            />
+          </b-tooltip>
           <b-tooltip label="Edit">
             <b-button
               tag="nuxt-link"
@@ -62,6 +75,10 @@
             />
           </b-tooltip>
         </b-table-column>
+      </template>
+      <template slot="detail" slot-scope="props">
+        API key:
+        <code>{{ props.row.apiKey }}</code>
       </template>
     </b-table>
     <h2 class="is-size-5" style="margin-top: 1rem">Create an API key</h2>
@@ -92,6 +109,7 @@ export default class UsersApiKeys extends Vue {
   loadingCreate = false;
   apiKeyName = "";
   apiKeys: any = { data: [] };
+  defaultOpenedDetails = [];
 
   async created() {
     return this.get();
