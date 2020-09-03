@@ -7,7 +7,12 @@
       format to transfer it to other tools. This does not include an export of
       your teams' data.
     </p>
-    <b-button type="is-primary" @click="get" :loading="loadingDownload">
+    <b-button
+      type="is-primary"
+      @click="get"
+      :loading="loadingDownload"
+      icon-left="cloud-download"
+    >
       Download your data
     </b-button>
     <h2 class="is-size-5 mb-3 mt-5">Delete your data</h2>
@@ -16,7 +21,12 @@
       teams has multiple users, it won't be deleted, and any paid subscriptions
       will remain.
     </p>
-    <b-button type="is-danger" @click="deleteAccount" :loading="loadingDelete">
+    <b-button
+      type="is-danger"
+      @click="deleteAccount"
+      :loading="loadingDelete"
+      icon-left="delete"
+    >
       Delete your account
     </b-button>
   </div>

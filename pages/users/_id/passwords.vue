@@ -33,8 +33,10 @@
           type="is-primary"
           native-type="submit"
           :loading="loadingPassword"
-          >Change password</b-button
+          icon-left="key-variant"
         >
+          Change password
+        </b-button>
       </div>
     </form>
     <h2 class="is-size-5 mb-3 mt-5">Two-factor authentication</h2>
@@ -48,14 +50,19 @@
       <div class="buttons mt-3">
         <b-button
           type="is-danger"
-          icon-left="lock-open"
           @click="disable"
           :loading="loading"
-          >Disable 2FA</b-button
+          icon-left="lock-open"
         >
-        <b-button @click="regenerate" :loading="loadingRegenerate"
-          >Regenerate backup codes</b-button
+          Disable 2FA
+        </b-button>
+        <b-button
+          @click="regenerate"
+          :loading="loadingRegenerate"
+          icon-left="backup-restore"
         >
+          Regenerate backup codes
+        </b-button>
       </div>
     </div>
     <div v-else>
@@ -65,9 +72,14 @@
         1Password to use 2FA.
       </p>
       <div class="buttons mt-3">
-        <b-button type="is-success" @click="enable" :loading="loading"
-          >Enable 2FA</b-button
+        <b-button
+          type="is-success"
+          @click="enable"
+          :loading="loading"
+          icon-left="lock"
         >
+          Enable 2FA
+        </b-button>
       </div>
     </div>
     <b-modal :width="300" :active.sync="showQrCode">
@@ -76,11 +88,11 @@
           <p class="image is-square">
             <img :src="qrCode" />
           </p>
-          <p>
+          <p class="mt-3">
             Scan this QR code in your authenticator app and enter the one-time
             password (OTP).
           </p>
-          <form @submit.prevent="verify">
+          <form @submit.prevent="verify" class="mt-4">
             <b-field label="One-time password">
               <b-input
                 type="text"
@@ -95,8 +107,10 @@
                 type="is-primary"
                 native-type="submit"
                 :loading="loading"
-                >Enable 2FA</b-button
+                icon-left="lock-open"
               >
+                Enable 2FA
+              </b-button>
             </div>
           </form>
         </div>

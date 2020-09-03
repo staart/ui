@@ -46,9 +46,14 @@
       <b-field label="Email">
         <b-input type="email" v-model="newEmail" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd"
-        >Add email</b-button
+      <b-button
+        type="is-primary"
+        native-type="submit"
+        :loading="loadingAdd"
+        icon-left="email-plus"
       >
+        Add email
+      </b-button>
     </form>
     <h2 class="is-size-5 mb-3 mt-5">Email preferences</h2>
     <form @submit.prevent="save">
@@ -72,25 +77,33 @@
             name="radioNotificationEmails"
             native-value="ACCOUNT"
             v-model="notificationEmails"
-            >Account and security</b-radio
           >
+            Account and security
+          </b-radio>
           <b-radio
             name="radioNotificationEmails"
             native-value="UPDATES"
             v-model="notificationEmails"
-            >App updates</b-radio
           >
+            App updates
+          </b-radio>
           <b-radio
             name="radioNotificationEmails"
             native-value="PROMOTIONS"
             v-model="notificationEmails"
-            >Promotions</b-radio
           >
+            Promotions
+          </b-radio>
         </div>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingSave"
-        >Update settings</b-button
+      <b-button
+        type="is-primary"
+        native-type="submit"
+        :loading="loadingSave"
+        icon-left="email-check"
       >
+        Update settings
+      </b-button>
     </form>
   </div>
 </template>

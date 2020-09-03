@@ -51,9 +51,14 @@
       <b-field label="Team name">
         <b-input type="team" v-model="newTeam" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd"
-        >Create team</b-button
+      <b-button
+        type="is-primary"
+        native-type="submit"
+        :loading="loadingAdd"
+        icon-left="account-multiple-plus"
       >
+        Create team
+      </b-button>
     </form>
   </div>
 </template>
