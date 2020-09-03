@@ -85,7 +85,7 @@ export default class UsersAccessTokens extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/users/${this.$route.params.id}/access-tokens/${this.$route.params.id}`
+        `/users/${this.$route.params.id}/access-tokens/${this.$route.params.accessTokenId}`
       );
       this.accessToken = data;
     } catch (error) {
@@ -99,7 +99,7 @@ export default class UsersAccessTokens extends Vue {
     this.loadingUpdate = true;
     try {
       const { data } = await this.$axios.patch(
-        `/users/${this.$route.params.id}/access-tokens/${this.$route.params.id}`,
+        `/users/${this.$route.params.id}/access-tokens/${this.$route.params.accessTokenId}`,
         {
           name: this.accessToken.name,
           scopes: [...new Set(this.accessToken.scopes)],
