@@ -52,7 +52,7 @@
           <figure class="image">
             <img class="is-rounded" :src="user.details.profilePictureUrl" />
           </figure>
-          <span>{{ user.details.nickname }}</span>
+          <span>{{ user.details.name }}</span>
         </template>
         <b-navbar-item tag="nuxt-link" :to="`/users/${user.details.id}/profile`"
           >Account settings</b-navbar-item
@@ -98,7 +98,7 @@ export default class Navbar extends Vue {
 
 <style scoped>
 .image img {
-  margin-right: 1rem;
+  margin-right: 1.5rem;
   width: 1.5rem;
   transform: scale(1.5);
 }

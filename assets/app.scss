@@ -56,14 +56,21 @@ $link-focus-border: $primary;
     background-color: darken($color: $primary, $amount: 20);
   }
 }
-body::after {
-  content: "";
-  height: 10rem;
-  width: 100%;
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  background-color: darken($color: $primary, $amount: 20);
+
+body {
+  background-color: desaturate(
+    $color: lighten($color: $primary, $amount: 60),
+    $amount: 50
+  );
+  min-height: 100vh;
+  &::after {
+    content: "";
+    height: 10rem;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-color: darken($color: $primary, $amount: 20);
+  }
 }
 
 aside {
@@ -71,6 +78,8 @@ aside {
 }
 
 .navbar + .container {
+  z-index: 1;
+  position: relative;
   margin-top: 2rem;
 }
 
