@@ -1,5 +1,5 @@
 <template>
-  <div class="has-background-white-bis">
+  <div>
     <Navbar />
     <div class="container">
       <div class="columns">
@@ -81,18 +81,3 @@ export default class Default extends Vue {
   ];
 }
 </script>
-
-<style scoped>
-.container {
-  position: relative;
-  margin-top: 2rem;
-  z-index: 31;
-  max-width: 1000px;
-}
-</style>
-
-<style>
-.is-transparent {
-  background-color: transparent;
-}
-</style>

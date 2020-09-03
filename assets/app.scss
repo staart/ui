@@ -50,6 +50,30 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
+.navbar.is-dark.nav {
+  background-color: darken($color: $primary, $amount: 20);
+  &::after {
+    background-color: darken($color: $primary, $amount: 20);
+  }
+}
+body::after {
+  content: "";
+  height: 10rem;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  background-color: darken($color: $primary, $amount: 20);
+}
+
+aside {
+  margin-top: 5rem;
+}
+
+.navbar + .container {
+  margin-top: 2rem;
+}
+
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 @import "overwrites.scss";

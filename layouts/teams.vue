@@ -1,5 +1,5 @@
 <template>
-  <div class="has-background-white-bis">
+  <div>
     <Navbar />
     <div class="container">
       <div class="columns">
@@ -13,13 +13,9 @@
                 :label="item.label"
                 tag="router-link"
                 :to="`/teams/${$route.params.id}${item.to}`"
-                :active="
-                  $route.path === `/teams/${$route.params.id}${item.to}`
-                "
+                :active="$route.path === `/teams/${$route.params.id}${item.to}`"
                 :expanded="
-                  $route.path.includes(
-                    `/teams/${$route.params.id}${item.to}`
-                  )
+                  $route.path.includes(`/teams/${$route.params.id}${item.to}`)
                 "
               >
                 <b-menu-item
@@ -55,14 +51,14 @@ import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, Footer },
+  components: { Navbar, Footer }
 })
 export default class Default extends Vue {
   items = [
     {
       label: "Dashboard",
       icon: "shape",
-      to: "",
+      to: ""
     },
     {
       label: "Settings",
@@ -72,19 +68,19 @@ export default class Default extends Vue {
         {
           label: "Team settings",
           icon: "account-cog",
-          to: "/settings/team",
+          to: "/settings/team"
         },
         {
           label: "Domains",
           icon: "web",
-          to: "/settings/domains",
-        },
-      ],
+          to: "/settings/domains"
+        }
+      ]
     },
     {
       label: "Team members",
       icon: "account-group",
-      to: "/members",
+      to: "/members"
     },
     {
       label: "Billing",
@@ -94,29 +90,29 @@ export default class Default extends Vue {
         {
           label: "Customer details",
           icon: "office-building",
-          to: "/billing",
+          to: "/billing"
         },
         {
           label: "Subscription",
           icon: "history",
-          to: "/billing/subscription",
+          to: "/billing/subscription"
         },
         {
           label: "Payment methods",
           icon: "credit-card",
-          to: "/billing/sources",
+          to: "/billing/sources"
         },
         {
           label: "Invoices",
           icon: "book-multiple",
-          to: "/billing/invoices",
+          to: "/billing/invoices"
         },
         {
           label: "Credits & history",
           icon: "cash-plus",
-          to: "/billing/transactions",
-        },
-      ],
+          to: "/billing/transactions"
+        }
+      ]
     },
     {
       label: "Developers",
@@ -126,40 +122,25 @@ export default class Default extends Vue {
         {
           label: "API keys",
           icon: "api",
-          to: "/developers/api-keys",
+          to: "/developers/api-keys"
         },
         {
           label: "Logs",
           icon: "chart-areaspline-variant",
-          to: "/developers/api-logs",
+          to: "/developers/api-logs"
         },
         {
           label: "Webhooks",
           icon: "webhook",
-          to: "/developers/webhooks",
-        },
-      ],
+          to: "/developers/webhooks"
+        }
+      ]
     },
     {
       label: "Data and security",
       icon: "database",
-      to: "/security",
-    },
+      to: "/security"
+    }
   ];
 }
 </script>
-
-<style scoped>
-.container {
-  position: relative;
-  margin-top: 2rem;
-  z-index: 31;
-  max-width: 1000px;
-}
-</style>
-
-<style>
-.is-transparent {
-  background-color: transparent;
-}
-</style>

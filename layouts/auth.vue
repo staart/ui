@@ -1,5 +1,5 @@
 <template>
-  <div class="has-background-white-bis">
+  <div>
     <Navbar />
     <main>
       <template>
@@ -27,7 +27,7 @@ import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, Footer },
+  components: { Navbar, Footer }
 })
 export default class Auth extends Vue {}
 </script>

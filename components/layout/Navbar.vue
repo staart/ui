@@ -112,8 +112,9 @@ export default class Navbar extends Vue {
   max-width: 1000px;
 }
 .navbar.is-dark.nav {
-  background-color: #16063e;
+  position: relative;
   padding: 0.5rem 0;
+  z-index: 100;
 }
 .logo {
   margin-right: 1rem;

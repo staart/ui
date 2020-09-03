@@ -1,5 +1,5 @@
 <template>
-  <div class="has-background-white-bis">
+  <div>
     <Navbar />
     <div class="container">
       <div class="columns">
@@ -47,55 +47,40 @@ import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, Footer },
+  components: { Navbar, Footer }
 })
 export default class Default extends Vue {
   items = [
     {
       label: "Dashboard",
       icon: "server-security",
-      to: "",
+      to: ""
     },
     {
       label: "Payments",
       icon: "cash-multiple",
-      to: "/payments",
+      to: "/payments"
     },
     {
       label: "Teams",
       icon: "account-group",
-      to: "/teams",
+      to: "/teams"
     },
     {
       label: "Users",
       icon: "account",
-      to: "/users",
+      to: "/users"
     },
     {
       label: "Coupon codes",
       icon: "credit-card-plus",
-      to: "/coupons",
+      to: "/coupons"
     },
     {
       label: "Server logs",
       icon: "chart-areaspline-variant",
-      to: "/server-logs",
-    },
+      to: "/server-logs"
+    }
   ];
 }
 </script>
-
-<style scoped>
-.container {
-  position: relative;
-  margin-top: 2rem;
-  z-index: 31;
-  max-width: 1000px;
-}
-</style>
-
-<style>
-.is-transparent {
-  background-color: transparent;
-}
-</style>
