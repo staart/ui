@@ -3,12 +3,12 @@
     <h1 class="title is-4">Register</h1>
     <div v-if="completed">
       <img alt="" src="/illustrations/PlantDoodle.svg" />
-      <h2 class="title is-5" style="margin-top: 1rem">Check your email</h2>
+      <h2 class="title is-5">Check your email</h2>
       <p>
         We've sent you a link to verify your email. Once you've clicked on the
         link, you'll be able to log in.
       </p>
-      <div v-if="emailDomain" style="margin-top: 1rem">
+      <div v-if="emailDomain">
         <b-button
           tag="a"
           target="_blank"
@@ -18,18 +18,14 @@
           Go to {{ emailDomain }} &rarr;
         </b-button>
       </div>
-      <div v-if="resendTime > -2" style="margin-top: 1rem">
+      <div v-if="resendTime > -2">
         <p v-if="resendTime !== -1">
           Didn't receive the email? Check your spam folder or resend in
           {{ resendTime }}
           seconds.
         </p>
         <p v-else>Didn't receive the email? We've sent it again.</p>
-        <b-button
-          @click.prevent="resend"
-          :disabled="resendTime !== 0"
-          style="margin-top: 0.5rem"
-        >
+        <b-button @click.prevent="resend" :disabled="resendTime !== 0">
           <span v-if="resendTime === -1">Resent</span>
           <span v-else>Resend</span>
         </b-button>
@@ -75,7 +71,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   middleware: "unauthenticated",
-  layout: "auth",
+  layout: "auth"
 })
 export default class Register extends Vue {
   name = "";
@@ -105,7 +101,7 @@ export default class Register extends Vue {
         name: this.name,
         email: this.email,
         password: this.password ? this.password : undefined,
-        invitedByUser: this.invitedByUser ? this.invitedByUser : undefined,
+        invitedByUser: this.invitedByUser ? this.invitedByUser : undefined
       });
       this.name = "";
       this.password = "";
@@ -121,7 +117,7 @@ export default class Register extends Vue {
   async resend() {
     try {
       await this.$axios.post("/auth/resend-verification", {
-        email: this.email,
+        email: this.email
       });
     } catch (error) {}
     this.resendTime = -1;

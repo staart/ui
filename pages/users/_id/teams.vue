@@ -46,8 +46,8 @@
         >Load more teams</b-button
       >
     </div>
-    <h2 class="is-size-5" style="margin-top: 1rem">Create another team</h2>
-    <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
+    <h2 class="is-size-5">Create another team</h2>
+    <form @submit.prevent="add">
       <b-field label="Team name">
         <b-input type="team" v-model="newTeam" required />
       </b-field>

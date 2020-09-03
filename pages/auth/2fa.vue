@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title is-4">Two factor authentication</h1>
-    <p style="margin-bottom: 1rem">
+    <p>
       Enter the one-time password from your authenticator app. If you don't have
       access to it, you can use a backup code instead.
     </p>

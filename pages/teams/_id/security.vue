@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">Data and security</h1>
+    <h1 class="is-size-4">Data and security</h1>
     <h2 class="is-size-5">Download your data</h2>
-    <p style="margin: 1rem 0">
+    <p>
       You have the right to export all your data. You can download it in JSON
       format to transfer it to other tools. This does not include an export of
       your members' data.
@@ -10,8 +10,8 @@
     <b-button type="is-primary" @click="get" :loading="loadingDownload"
       >Download your data</b-button
     >
-    <h2 style="margin-top: 2rem" class="is-size-5">Delete your data</h2>
-    <p style="margin: 1rem 0">
+    <h2 class="is-size-5">Delete your data</h2>
+    <p>
       You can delete your account and all its data permanently. If any of your
       teams has multiple teams, it won't be deleted, and any paid subscriptions
       will remain.

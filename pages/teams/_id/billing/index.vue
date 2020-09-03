@@ -4,23 +4,15 @@
       Add your billing details to continue.
     </b-message>
     <h1 class="is-size-4">Customer details</h1>
-    <form @submit.prevent="save" style="margin-top: 1rem">
+    <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="customer.name" required />
       </b-field>
       <div class="columns">
-        <b-field
-          label="Billing email"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Billing email" class="column">
           <b-input type="email" v-model="customer.email" required />
         </b-field>
-        <b-field
-          label="Phone"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Phone" class="column">
           <b-input type="text" v-model="customer.phone" />
         </b-field>
       </div>
@@ -28,34 +20,18 @@
         <b-input type="text" v-model="customer.address.line1" />
       </b-field>
       <div class="columns">
-        <b-field
-          label="Postal code"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Postal code" class="column">
           <b-input type="text" v-model="customer.address.postal_code" />
         </b-field>
-        <b-field
-          label="City"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="City" class="column">
           <b-input type="text" v-model="customer.address.city" />
         </b-field>
       </div>
       <div class="columns">
-        <b-field
-          label="State"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="State" class="column">
           <b-input type="text" v-model="customer.address.state" />
         </b-field>
-        <b-field
-          label="Country"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Country" class="column">
           <b-input type="text" v-model="customer.address.country" />
         </b-field>
       </div>

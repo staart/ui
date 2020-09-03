@@ -1,15 +1,14 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">
+    <h1 class="is-size-4">
       <b-button
         tag="nuxt-link"
         :to="`/users/${$route.params.id}/access-tokens`"
         icon-right="arrow-left"
-        style="margin-right: 1rem"
       />
       <span>Access Token</span>
     </h1>
-    <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
+    <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="accessToken.name" />
       </b-field>
@@ -24,13 +23,34 @@
           <span v-for="key in Object.keys(scopeOptions)" :key="`s${key}`">
             <dt>
               <b-checkbox
-                :indeterminate="scopes.some(r => scopeOptions[key].map(i => i.value).includes(r)) && !scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
-                :value="scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
-                @input="val => val ? (scopes.push(...scopeOptions[key].map(i => i.value))) : (scopes = scopes.filter(r => !scopeOptions[key].map(i => i.value).includes(r)))"
-              >{{key}}</b-checkbox>
+                :indeterminate="
+                  scopes.some(r =>
+                    scopeOptions[key].map(i => i.value).includes(r)
+                  ) &&
+                    !scopeOptions[key]
+                      .map(i => i.value)
+                      .every(r => scopes.includes(r))
+                "
+                :value="
+                  scopeOptions[key]
+                    .map(i => i.value)
+                    .every(r => scopes.includes(r))
+                "
+                @input="
+                  val =>
+                    val
+                      ? scopes.push(...scopeOptions[key].map(i => i.value))
+                      : (scopes = scopes.filter(
+                          r => !scopeOptions[key].map(i => i.value).includes(r)
+                        ))
+                "
+                >{{ key }}</b-checkbox
+              >
             </dt>
             <dd v-for="key2 in scopeOptions[key]" :key="`s${key}${key2.value}`">
-              <b-checkbox v-model="scopes" :native-value="key2.value">{{key2.name}}</b-checkbox>
+              <b-checkbox v-model="scopes" :native-value="key2.value">{{
+                key2.name
+              }}</b-checkbox>
             </dd>
           </span>
         </dl>
@@ -49,10 +69,12 @@
           placeholder="Add a domain name"
         ></b-taginput>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update access token</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
+        >Update access token</b-button
+      >
     </form>
     <h2 class="is-size-5">Danger zone</h2>
-    <p style="margin: 1rem 0">
+    <p>
       If your access token was compromized or you don't need it anymore, you can
       delete it.
     </p>
@@ -65,7 +87,8 @@
         )
       "
       :loading="loadingDelete"
-    >Delete access token</b-button>
+      >Delete access token</b-button
+    >
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -75,7 +98,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
@@ -121,7 +144,7 @@ export default class UsersAccessTokens extends Vue {
           scopes: [...new Set(this.scopes)],
           description: this.accessToken.description,
           ipRestrictions: this.accessToken.ipRestrictions,
-          referrerRestrictions: this.accessToken.referrerRestrictions,
+          referrerRestrictions: this.accessToken.referrerRestrictions
         }
       );
       this.accessToken = data.updated;
@@ -147,7 +170,7 @@ export default class UsersAccessTokens extends Vue {
           );
         } catch (error) {}
         this.$router.push(`/users/${this.$route.params.id}/access-tokens`);
-      },
+      }
     });
   }
 }

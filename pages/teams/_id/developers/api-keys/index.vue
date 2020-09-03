@@ -1,12 +1,7 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">API keys</h1>
-    <b-message
-      v-if="hasUnrestrictedApiKey"
-      type="is-warning"
-      style="margin-top: 1rem"
-      has-icon
-    >
+    <h1 class="is-size-4">API keys</h1>
+    <b-message v-if="hasUnrestrictedApiKey" type="is-warning" has-icon>
       You have one or more unrestricted API keys in your team. It's recommended
       to add scope, referrer, or IP address restrictions.
     </b-message>
@@ -81,12 +76,12 @@
         <code>{{ props.row.apiKey }}</code>
       </template>
     </b-table>
-    <h2 class="is-size-5" style="margin-top: 1rem">Create an API key</h2>
+    <h2 class="is-size-5">Create an API key</h2>
     <p>
       You'll be able to add restrictions such as scopes, referrers, IP
       addresses, and expiry after creating the API key.
     </p>
-    <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
+    <form @submit.prevent="add">
       <b-field label="Name">
         <b-input type="text" v-model="apiKeyName" />
       </b-field>

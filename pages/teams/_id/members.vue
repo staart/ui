@@ -49,8 +49,8 @@
         >Load more members</b-button
       >
     </div>
-    <h2 class="is-size-5" style="margin-top: 1rem">Add member</h2>
-    <form @submit.prevent="add" style="margin-top: 0.5rem">
+    <h2 class="is-size-5">Add member</h2>
+    <form @submit.prevent="add">
       <div class="columns">
         <div class="column">
           <b-field label="Name">

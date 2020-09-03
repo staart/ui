@@ -7,7 +7,7 @@
           <b-button tag="nuxt-link" to="/" icon-left="arrow-left"
             >Go back to app</b-button
           >
-          <b-menu :activable="false" style="margin-top: 1rem">
+          <b-menu :activable="false">
             <b-menu-list>
               <b-menu-item
                 v-for="(item, i) in items"

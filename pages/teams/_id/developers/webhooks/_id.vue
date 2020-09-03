@@ -1,15 +1,14 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">
+    <h1 class="is-size-4">
       <b-button
         tag="nuxt-link"
         :to="`/teams/${$route.params.id}/developers/webhooks`"
         icon-right="arrow-left"
-        style="margin-right: 1rem"
       />
       <span>Webhook</span>
     </h1>
-    <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
+    <form @submit.prevent="save">
       <b-field label="URL">
         <b-input type="url" v-model="webhook.url" required />
       </b-field>
@@ -40,7 +39,7 @@
       >
     </form>
     <h2 class="is-size-5">Danger zone</h2>
-    <p style="margin: 1rem 0">
+    <p>
       If you don't want this webhook to trigger anymore, you can delete it.
     </p>
     <b-button

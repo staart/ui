@@ -22,7 +22,7 @@
           <span v-else>Login to your account</span>
         </b-button>
       </form>
-      <p style="margin-top: 1.5rem">
+      <p>
         <nuxt-link to="/auth/forgot">Forgot your password?</nuxt-link>
       </p>
       <p>

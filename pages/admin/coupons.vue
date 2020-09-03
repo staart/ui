@@ -129,18 +129,14 @@
         >Load more coupons</b-button
       >
     </div>
-    <h2 class="is-size-5" style="margin-top: 1rem">Add coupon</h2>
-    <p style="margin-top: 0.5rem">
+    <h2 class="is-size-5">Add coupon</h2>
+    <p>
       Generate a new coupon code to share with teams. Make sure the amount is in
       basic monetary units like cents or paise (multiply by 100).
     </p>
-    <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
+    <form @submit.prevent="add">
       <div class="columns">
-        <b-field
-          label="Currency"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Currency" class="column">
           <div class="field">
             <b-radio
               v-for="(symbol, value) in currencies"
@@ -152,20 +148,12 @@
             >
           </div>
         </b-field>
-        <b-field
-          label="Amount"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Amount" class="column">
           <b-input type="number" v-model="amount" required />
         </b-field>
       </div>
       <div class="columns">
-        <b-field
-          label="Team restriction"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Team restriction" class="column">
           <b-select v-model="teamRestrictions" :loading="loadingTeams" expanded>
             <option :value="null">All teams can use</option>
             <option
@@ -176,11 +164,7 @@
             >
           </b-select>
         </b-field>
-        <b-field
-          label="Max uses"
-          class="column"
-          style="margin-bottom: 0; padding-bottom: 0"
-        >
+        <b-field label="Max uses" class="column">
           <b-input type="number" v-model="maxUses" />
         </b-field>
       </div>

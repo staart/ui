@@ -1,15 +1,14 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">
+    <h1 class="is-size-4">
       <b-button
         tag="nuxt-link"
         :to="`/teams/${$route.params.id}/developers/api-keys`"
         icon-right="arrow-left"
-        style="margin-right: 1rem"
       />
       <span>API key</span>
     </h1>
-    <form @submit.prevent="save" style="margin: 0.5rem 0 1.5rem">
+    <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="apiKey.name" />
       </b-field>
@@ -24,19 +23,44 @@
           <span v-for="key in Object.keys(scopeOptions)" :key="`s${key}`">
             <dt>
               <b-checkbox
-                :indeterminate="scopes.some(r => scopeOptions[key].map(i => i.value).includes(r)) && !scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
-                :value="scopeOptions[key].map(i => i.value).every(r => scopes.includes(r))"
-                @input="val => val ? (scopes.push(...scopeOptions[key].map(i => i.value))) : (scopes = scopes.filter(r => !scopeOptions[key].map(i => i.value).includes(r)))"
-              >{{key}}</b-checkbox>
+                :indeterminate="
+                  scopes.some(r =>
+                    scopeOptions[key].map(i => i.value).includes(r)
+                  ) &&
+                    !scopeOptions[key]
+                      .map(i => i.value)
+                      .every(r => scopes.includes(r))
+                "
+                :value="
+                  scopeOptions[key]
+                    .map(i => i.value)
+                    .every(r => scopes.includes(r))
+                "
+                @input="
+                  val =>
+                    val
+                      ? scopes.push(...scopeOptions[key].map(i => i.value))
+                      : (scopes = scopes.filter(
+                          r => !scopeOptions[key].map(i => i.value).includes(r)
+                        ))
+                "
+                >{{ key }}</b-checkbox
+              >
             </dt>
             <dd v-for="key2 in scopeOptions[key]" :key="`s${key}${key2.value}`">
-              <b-checkbox v-model="scopes" :native-value="key2.value">{{key2.name}}</b-checkbox>
+              <b-checkbox v-model="scopes" :native-value="key2.value">{{
+                key2.name
+              }}</b-checkbox>
             </dd>
           </span>
         </dl>
       </b-field>
       <b-field label="IP address restrictions">
-        <b-taginput v-model="ipRestrictions" icon="ip-network" placeholder="Add an IP CIDR"></b-taginput>
+        <b-taginput
+          v-model="ipRestrictions"
+          icon="ip-network"
+          placeholder="Add an IP CIDR"
+        ></b-taginput>
       </b-field>
       <b-field label="Referrer restrictions">
         <b-taginput
@@ -45,10 +69,12 @@
           placeholder="Add a domain name"
         ></b-taginput>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update API key</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
+        >Update API key</b-button
+      >
     </form>
     <h2 class="is-size-5">Danger zone</h2>
-    <p style="margin: 1rem 0">
+    <p>
       If your API key was compromized or you don't need it anymore, you can
       delete it.
     </p>
@@ -56,7 +82,8 @@
       type="is-danger"
       @click="deleteApiKey(apiKey.id, apiKey.name || 'Unnamed API key')"
       :loading="loadingDelete"
-    >Delete API key</b-button>
+      >Delete API key</b-button
+    >
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -66,7 +93,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class UsersApiKeys extends Vue {
   loading = false;
@@ -124,7 +151,7 @@ export default class UsersApiKeys extends Vue {
           scopes: this.scopes.join(", "),
           ipRestrictions: this.ipRestrictions.join(", ") || undefined,
           referrerRestrictions:
-            this.referrerRestrictions.join(", ") || undefined,
+            this.referrerRestrictions.join(", ") || undefined
         }
       );
       this.apiKey = data.updated;
@@ -152,7 +179,7 @@ export default class UsersApiKeys extends Vue {
         this.$router.push(
           `/teams/${this.$route.params.id}/developers/api-keys`
         );
-      },
+      }
     });
   }
 }

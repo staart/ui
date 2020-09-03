@@ -1,21 +1,27 @@
 <template>
   <div>
     <h1 class="is-size-4">Team settings</h1>
-    <form @submit.prevent="save" style="margin-top: 1rem">
+    <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="team.name" required />
       </b-field>
-      <h1 class="is-size-5" style="margin: 1rem 0">Security settings</h1>
+      <h1 class="is-size-5">Security settings</h1>
       <b-field label="IP address restrictions">
-        <b-taginput v-model="ipRestrictions" icon="ip-network" placeholder="Add an IP CIDR"></b-taginput>
+        <b-taginput
+          v-model="ipRestrictions"
+          icon="ip-network"
+          placeholder="Add an IP CIDR"
+        ></b-taginput>
       </b-field>
       <b-field>
-        <b-checkbox
-          v-model="team.forceTwoFactor"
-        >Force team members to enable two-factor authentication</b-checkbox>
+        <b-checkbox v-model="team.forceTwoFactor"
+          >Force team members to enable two-factor authentication</b-checkbox
+        >
       </b-field>
-      <div style="margin-top: 1rem">
-        <b-button type="is-primary" native-type="submit" :loading="loadingSave">Update team settings</b-button>
+      <div>
+        <b-button type="is-primary" native-type="submit" :loading="loadingSave"
+          >Update team settings</b-button
+        >
       </div>
       <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
     </form>
@@ -28,7 +34,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams",
+  layout: "teams"
 })
 export default class UsersProfile extends Vue {
   loading = false;
@@ -63,7 +69,7 @@ export default class UsersProfile extends Vue {
         {
           name: this.team.name,
           ipRestrictions: this.ipRestrictions.join(", ") || undefined,
-          forceTwoFactor: this.team.forceTwoFactor,
+          forceTwoFactor: this.team.forceTwoFactor
         }
       );
       this.team = data.updated;

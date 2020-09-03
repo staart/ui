@@ -1,12 +1,7 @@
 <template>
   <div>
     <h1 class="is-size-4">Domains</h1>
-    <b-message
-      v-if="hasUnverifiedDomain"
-      type="is-warning"
-      style="margin-top: 1rem"
-      has-icon
-    >
+    <b-message v-if="hasUnverifiedDomain" type="is-warning" has-icon>
       You have one or more unverified domains in your team. The domain settings
       will not be actived until you verify the domain.
     </b-message>
@@ -49,12 +44,8 @@
       <template slot="detail" slot-scope="props">
         <div v-if="props.row.isVerified">
           <p>
-            <b-icon
-              type="is-success"
-              icon="check-circle"
-              size="is-small"
-              style="margin-right: 0.5rem"
-            />This domain is successfully verified.
+            <b-icon type="is-success" icon="check-circle" size="is-small" />This
+            domain is successfully verified.
           </p>
         </div>
         <div v-else>
@@ -62,13 +53,13 @@
             To verify your domain, you can either set a DNS TXT record or update
             a text file.
           </p>
-          <h3 class="is-size-5" style="margin-top: 1rem">
+          <h3 class="is-size-5">
             DNS TXT record (recommended)
           </h3>
-          <p style="margin-bottom: 1rem">
+          <p>
             Add a new DNS record with the following values:
           </p>
-          <table class="table" style="margin-bottom: 1rem">
+          <table class="table">
             <thead>
               <tr>
                 <td>Type</td>
@@ -93,8 +84,8 @@
           <b-button type="is-primary" @click="verifyDomain('dns', props.row.id)"
             >Verify DNS record</b-button
           >
-          <h3 class="is-size-5" style="margin-top: 1rem">File upload</h3>
-          <p style="margin-bottom: 0.5rem">
+          <h3 class="is-size-5">File upload</h3>
+          <p>
             Alternately, upload a file to your domain:
             <code>/.well-known/staart-verify.txt</code>. Once completed, this
             URL should have the contents
@@ -128,8 +119,8 @@
         >Load more domains</b-button
       >
     </div>
-    <h2 class="is-size-5" style="margin-top: 1rem">Add domain</h2>
-    <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
+    <h2 class="is-size-5">Add domain</h2>
+    <form @submit.prevent="add">
       <b-field label="Domain">
         <b-input type="text" v-model="newDomain" required />
       </b-field>
@@ -137,8 +128,8 @@
         >Add domain</b-button
       >
     </form>
-    <form @submit.prevent="save" style="margin-top: 1rem">
-      <h1 class="is-size-5" style="margin: 1rem 0">Domain settings</h1>
+    <form @submit.prevent="save">
+      <h1 class="is-size-5">Domain settings</h1>
       <b-field>
         <b-checkbox v-model="team.onlyAllowDomain">
           Managers can only invite users with emails on our domains to join this
@@ -151,7 +142,7 @@
           team
         </b-checkbox>
       </b-field>
-      <div style="margin-top: 1rem">
+      <div>
         <b-button type="is-primary" native-type="submit" :loading="loadingSave"
           >Update domain settings</b-button
         >

@@ -6,7 +6,7 @@
         <div class="container">
           <div class="columns is-centered">
             <div class="column is-two-fifths">
-              <div class="card" style="margin: 7.5vh 0">
+              <div class="card">
                 <div class="card-content">
                   <nuxt />
                 </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 class="is-size-4" style="margin-bottom: 1rem">Subscription</h1>
+      <h1 class="is-size-4">Subscription</h1>
       <div
         v-for="subscription in subscriptions.data"
         :key="`s${subscription.id}`"
@@ -17,20 +17,14 @@
             >Add payment method</nuxt-link
           >
         </b-message>
-        <h2 class="is-size-5" style="margin: 1rem 0">
+        <h2 class="is-size-5">
           <span>{{ subscription.plan.nickname }}</span>
-          <b-tag
-            :type="getColor(subscription.status)"
-            style="margin-left: 0.5rem; text-transform: capitalize"
-          >
+          <b-tag :type="getColor(subscription.status)">
             {{
               subscription.status === "trialing" ? "Trial" : subscription.status
             }}
           </b-tag>
-          <b-tag
-            type="is-danger"
-            style="margin-left: 0.5rem"
-            v-if="subscription.cancel_at_period_end"
+          <b-tag type="is-danger" v-if="subscription.cancel_at_period_end"
             >Scheduled for cancelation</b-tag
           >
         </h2>
@@ -94,7 +88,7 @@
           "
           v-if="availablePlans(subscription.plan.id).length"
         >
-          <h2 class="is-size-5" style="margin: 1rem 0">Change subscription</h2>
+          <h2 class="is-size-5">Change subscription</h2>
           <div
             v-for="plan in availablePlans(subscription.plan.id)"
             :key="`p${plan.id}`"
@@ -121,7 +115,6 @@
             native-type="submit"
             icon-left="pencil"
             :loading="loadingSave"
-            style="margin-bottom: 1rem"
             >Change plan</b-button
           >
         </form>
@@ -131,7 +124,7 @@
               !subscription.cancel_at_period_end
           "
         >
-          <h2 class="is-size-5" style="margin: 1rem 0">Danger zone</h2>
+          <h2 class="is-size-5">Danger zone</h2>
           <p>
             After you've canceled your subscription, you can continue to use it
             until the end of this billing cycle, but we won't charge you again.
@@ -141,12 +134,11 @@
             :loading="loadingDelete"
             @click="cancel(subscription.id)"
             icon-left="cancel"
-            style="margin-top: 1rem"
             >Cancel subscription</b-button
           >
         </div>
         <div v-else>
-          <h2 class="is-size-5" style="margin: 1rem 0">
+          <h2 class="is-size-5">
             Continue subscription
           </h2>
           <p>
@@ -158,7 +150,6 @@
             :loading="loadingDelete"
             icon-left="check"
             @click="keep(subscription.id)"
-            style="margin-top: 1rem"
             >Keep subscription</b-button
           >
         </div>
@@ -170,12 +161,7 @@
       v-if="plans.data.length && !subscriptions.data.length"
     >
       <h2 class="is-size-5">Change your plan</h2>
-      <div
-        v-for="plan in plans.data"
-        :key="`p${plan.id}`"
-        class="field"
-        style="margin-top: 1rem"
-      >
+      <div v-for="plan in plans.data" :key="`p${plan.id}`" class="field">
         <b-radio v-model="selectedPlan" :native-value="plan.id">
           <span>{{ plan.nickname }}</span>
           (

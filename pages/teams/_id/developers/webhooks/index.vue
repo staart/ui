@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">Webhooks</h1>
+    <h1 class="is-size-4">Webhooks</h1>
     <b-table
       :loading="loading"
       :data="webhooks.data"
@@ -49,12 +49,12 @@
         </b-table-column>
       </template>
     </b-table>
-    <h2 class="is-size-5" style="margin-top: 1rem">Create a webhook</h2>
+    <h2 class="is-size-5">Create a webhook</h2>
     <p>
       You'll be able to add event restrictions and a secret key after creating
       the webhook.
     </p>
-    <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
+    <form @submit.prevent="add">
       <div class="columns">
         <div class="column">
           <b-field label="URL">

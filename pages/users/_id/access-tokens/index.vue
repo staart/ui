@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">Access Tokens</h1>
+    <h1 class="is-size-4">Access Tokens</h1>
     <b-table
       :loading="loading"
       :data="accessTokens.data"
@@ -14,17 +14,17 @@
     >
       <template slot-scope="props">
         <b-table-column sortable field="name" label="Name">
-          {{
-          props.row.name || "Unnamed token"
-          }}
+          {{ props.row.name || "Unnamed token" }}
         </b-table-column>
         <b-table-column sortable field="createdAt" label="Added">
-          {{
-          new Date(props.row.createdAt).toLocaleDateString()
-          }}
+          {{ new Date(props.row.createdAt).toLocaleDateString() }}
         </b-table-column>
         <b-table-column class="has-text-right">
-          <b-tooltip :label="defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'">
+          <b-tooltip
+            :label="
+              defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'
+            "
+          >
             <b-button
               icon-right="eye"
               type="is-primary"
@@ -36,7 +36,11 @@
               icon-right="eye-off"
               type="is-primary"
               outlined
-              @click="defaultOpenedDetails = defaultOpenedDetails.filter(i => i !== props.row.id)"
+              @click="
+                defaultOpenedDetails = defaultOpenedDetails.filter(
+                  i => i !== props.row.id
+                )
+              "
               v-else
             />
           </b-tooltip>
@@ -66,15 +70,17 @@
       </template>
       <template slot="detail" slot-scope="props">
         Access token:
-        <code>{{props.row.accessToken}}</code>
+        <code>{{ props.row.accessToken }}</code>
       </template>
     </b-table>
-    <h2 class="is-size-5" style="margin-top: 1rem">Create an access token</h2>
-    <form @submit.prevent="add" style="margin: 0.5rem 0 1.5rem">
+    <h2 class="is-size-5">Create an access token</h2>
+    <form @submit.prevent="add">
       <b-field label="Name">
         <b-input type="text" v-model="accessTokenName" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">Create access token</b-button>
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate"
+        >Create access token</b-button
+      >
     </form>
   </div>
 </template>
@@ -84,7 +90,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users",
+  layout: "users"
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
@@ -114,7 +120,7 @@ export default class UsersAccessTokens extends Vue {
       const { data } = await this.$axios.put(
         `/users/${this.$route.params.id}/access-tokens`,
         {
-          name: this.accessTokenName ? this.accessTokenName : undefined,
+          name: this.accessTokenName ? this.accessTokenName : undefined
         }
       );
       this.accessTokens.data.push(data.added);
@@ -140,7 +146,7 @@ export default class UsersAccessTokens extends Vue {
           );
         } catch (error) {}
         return this.get();
-      },
+      }
     });
   }
 }

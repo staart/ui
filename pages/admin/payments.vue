@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="is-size-4" style="margin-bottom: 1rem">Payments</h1>
+    <h1 class="is-size-4">Payments</h1>
     <b-table
       :loading="loading"
       :data="payments.data"
@@ -9,7 +9,7 @@
       sort-icon-size="is-small"
     >
       <template slot-scope="props">
-        <b-table-column label="Category" style="text-transform: capitalize">
+        <b-table-column label="Category">
           {{ props.row.data.object.object }}
         </b-table-column>
         <b-table-column label="Customer">
@@ -44,7 +44,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "admin",
+  layout: "admin"
 })
 export default class AdminPayments extends Vue {
   loading = false;
