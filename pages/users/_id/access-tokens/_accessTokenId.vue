@@ -35,6 +35,20 @@
           </span>
         </dl>
       </b-field>
+      <b-field label="IP address restrictions">
+        <b-taginput
+          v-model="accessToken.ipRestrictions"
+          icon="ip-network"
+          placeholder="Add an IP CIDR"
+        ></b-taginput>
+      </b-field>
+      <b-field label="Referrer restrictions">
+        <b-taginput
+          v-model="accessToken.referrerRestrictions"
+          icon="domain-plus"
+          placeholder="Add a domain name"
+        ></b-taginput>
+      </b-field>
       <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update access token</b-button>
     </form>
     <h2 class="is-size-5">Danger zone</h2>
@@ -106,6 +120,8 @@ export default class UsersAccessTokens extends Vue {
           name: this.accessToken.name,
           scopes: [...new Set(this.scopes)],
           description: this.accessToken.description,
+          ipRestrictions: this.accessToken.ipRestrictions,
+          referrerRestrictions: this.accessToken.referrerRestrictions,
         }
       );
       this.accessToken = data.updated;
