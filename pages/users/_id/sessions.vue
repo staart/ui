@@ -8,31 +8,34 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column label="Session">
-          <b-tooltip
-            v-for="(type, i) in ['Browser', 'OS', 'CountryCode']"
-            :key="`t${i}${type}`"
-            :label="getCaption(props.row, type)"
-          >
-            <figure class="image is-24x24" v-if="getCaption(props.row, type)">
-              <img class="is-rounded" :src="getIcon(props.row, type)" />
-            </figure>
-          </b-tooltip>
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Logged in">
-          {{ new Date(props.row.createdAt).toLocaleString() }}
-        </b-table-column>
-        <b-table-column class="has-text-right">
-          <b-tooltip label="Logout">
-            <b-button
-              type="is-danger"
-              icon-right="logout-variant"
-              @click="deleteSession(props.row.id)"
-            />
-          </b-tooltip>
-        </b-table-column>
-      </template>
+      <b-table-column v-slot="props" label="Session">
+        <b-tooltip
+          v-for="(type, i) in ['Browser', 'OS', 'CountryCode']"
+          :key="`t${i}${type}`"
+          :label="getCaption(props.row, type)"
+        >
+          <figure class="image is-24x24" v-if="getCaption(props.row, type)">
+            <img class="is-rounded" :src="getIcon(props.row, type)" />
+          </figure>
+        </b-tooltip>
+      </b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="createdAt"
+        label="Logged in"
+      >
+        {{ new Date(props.row.createdAt).toLocaleString() }}
+      </b-table-column>
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-tooltip label="Logout">
+          <b-button
+            type="is-danger"
+            icon-right="logout-variant"
+            @click="deleteSession(props.row.id)"
+          />
+        </b-tooltip>
+      </b-table-column>
     </b-table>
     <div class="has-text-centered">
       <b-button

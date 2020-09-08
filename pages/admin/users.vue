@@ -8,25 +8,33 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="name" label="Name">{{
-          props.row.name
-        }}</b-table-column>
-        <b-table-column sortable field="countryCode" label="Country">{{
-          props.row.countryCode
-        }}</b-table-column>
-        <b-table-column sortable field="createdAt" label="Created">{{
+      <b-table-column v-slot="props" sortable field="name" label="Name">{{
+        props.row.name
+      }}</b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="countryCode"
+        label="Country"
+        >{{ props.row.countryCode }}</b-table-column
+      >
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="createdAt"
+        label="Created"
+        >{{
           new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column>
-        <b-table-column class="has-text-right">
-          <b-button
-            type="is-primary"
-            tag="nuxt-link"
-            :to="`/users/${props.row.id}`"
-            >Go to user</b-button
-          >
-        </b-table-column>
-      </template>
+        }}</b-table-column
+      >
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-button
+          type="is-primary"
+          tag="nuxt-link"
+          :to="`/users/${props.row.id}`"
+          >Go to user</b-button
+        >
+      </b-table-column>
     </b-table>
     <div class="has-text-centered">
       <b-button

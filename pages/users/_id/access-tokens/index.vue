@@ -12,62 +12,55 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="name" label="Name">
-          {{ props.row.name || "Unnamed token" }}
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Added">
-          {{ new Date(props.row.createdAt).toLocaleDateString() }}
-        </b-table-column>
-        <b-table-column class="has-text-right">
-          <b-tooltip
-            :label="
-              defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'
+      <b-table-column v-slot="props" sortable field="name" label="Name">
+        {{ props.row.name || "Unnamed token" }}
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="createdAt" label="Added">
+        {{ new Date(props.row.createdAt).toLocaleDateString() }}
+      </b-table-column>
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-tooltip
+          :label="defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'"
+        >
+          <b-button
+            icon-right="eye"
+            type="is-primary"
+            outlined
+            v-if="!defaultOpenedDetails.includes(props.row.id)"
+            @click="defaultOpenedDetails.push(props.row.id)"
+          />
+          <b-button
+            icon-right="eye-off"
+            type="is-primary"
+            outlined
+            @click="
+              defaultOpenedDetails = defaultOpenedDetails.filter(
+                i => i !== props.row.id
+              )
             "
-          >
-            <b-button
-              icon-right="eye"
-              type="is-primary"
-              outlined
-              v-if="!defaultOpenedDetails.includes(props.row.id)"
-              @click="defaultOpenedDetails.push(props.row.id)"
-            />
-            <b-button
-              icon-right="eye-off"
-              type="is-primary"
-              outlined
-              @click="
-                defaultOpenedDetails = defaultOpenedDetails.filter(
-                  i => i !== props.row.id
-                )
-              "
-              v-else
-            />
-          </b-tooltip>
-          <b-tooltip label="Edit">
-            <b-button
-              tag="nuxt-link"
-              :to="`/users/${$route.params.id}/access-tokens/${props.row.id}`"
-              type="is-primary"
-              icon-right="pencil"
-              outlined
-            />
-          </b-tooltip>
-          <b-tooltip label="Delete">
-            <b-button
-              type="is-danger"
-              icon-right="delete"
-              outlined
-              @click="
-                deleteAccessToken(
-                  props.row.id,
-                  props.row.name || 'Unnamed token'
-                )
-              "
-            />
-          </b-tooltip>
-        </b-table-column>
-      </template>
+            v-else
+          />
+        </b-tooltip>
+        <b-tooltip label="Edit">
+          <b-button
+            tag="nuxt-link"
+            :to="`/users/${$route.params.id}/access-tokens/${props.row.id}`"
+            type="is-primary"
+            icon-right="pencil"
+            outlined
+          />
+        </b-tooltip>
+        <b-tooltip label="Delete">
+          <b-button
+            type="is-danger"
+            icon-right="delete"
+            outlined
+            @click="
+              deleteAccessToken(props.row.id, props.row.name || 'Unnamed token')
+            "
+          />
+        </b-tooltip>
+      </b-table-column>
       <template slot="detail" slot-scope="props" v-if="props.row">
         Access token:
         <code>{{ props.row.accessToken }}</code>

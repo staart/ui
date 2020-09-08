@@ -8,46 +8,44 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="url" label="URL">
-          <span>{{ truncate(props.row.url) }}</span>
-          <b-tooltip v-if="props.row.isActive" label="Active">
-            <b-icon icon="calendar-check" type="is-success" />
-          </b-tooltip>
-          <b-tooltip v-else label="Inactive">
-            <b-icon icon="calendar-remove" type="is-danger" />
-          </b-tooltip>
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Event">{{
-          webhooksData[props.row.event] || props.row.event
-        }}</b-table-column>
-        <b-table-column class="has-text-right">
-          <b-tooltip label="Edit">
-            <b-button
-              tag="nuxt-link"
-              :to="
-                `/teams/${$route.params.id}/developers/webhooks/${props.row.id}`
-              "
-              type="is-primary"
-              icon-right="pencil"
-              outlined
-            />
-          </b-tooltip>
-          <b-tooltip label="Delete">
-            <b-button
-              type="is-danger"
-              icon-right="delete"
-              outlined
-              @click="
-                deleteWebhook(
-                  props.row.id,
-                  webhooksData[props.row.event] || props.row.event
-                )
-              "
-            />
-          </b-tooltip>
-        </b-table-column>
-      </template>
+      <b-table-column v-slot="props" sortable field="url" label="URL">
+        <span>{{ truncate(props.row.url) }}</span>
+        <b-tooltip v-if="props.row.isActive" label="Active">
+          <b-icon icon="calendar-check" type="is-success" />
+        </b-tooltip>
+        <b-tooltip v-else label="Inactive">
+          <b-icon icon="calendar-remove" type="is-danger" />
+        </b-tooltip>
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="createdAt" label="Event">{{
+        webhooksData[props.row.event] || props.row.event
+      }}</b-table-column>
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-tooltip label="Edit">
+          <b-button
+            tag="nuxt-link"
+            :to="
+              `/teams/${$route.params.id}/developers/webhooks/${props.row.id}`
+            "
+            type="is-primary"
+            icon-right="pencil"
+            outlined
+          />
+        </b-tooltip>
+        <b-tooltip label="Delete">
+          <b-button
+            type="is-danger"
+            icon-right="delete"
+            outlined
+            @click="
+              deleteWebhook(
+                props.row.id,
+                webhooksData[props.row.event] || props.row.event
+              )
+            "
+          />
+        </b-tooltip>
+      </b-table-column>
     </b-table>
     <h2 class="is-size-5 mb-3">Create a webhook</h2>
     <p>

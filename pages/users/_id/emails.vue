@@ -8,29 +8,27 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="email" label="Email">
-          {{ props.row.email }}
-          <b-tooltip v-if="props.row.isVerified" label="Verified">
-            <b-icon icon="check-circle" type="is-success" />
-          </b-tooltip>
-          <b-tooltip v-else label="Unverified">
-            <b-icon icon="alert" type="is-warning" />
-          </b-tooltip>
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Added">{{
-          new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column>
-        <b-table-column class="has-text-right">
-          <b-tooltip label="Delete">
-            <b-button
-              type="is-danger"
-              icon-right="delete"
-              @click="deleteEmail(props.row.id, props.row.email)"
-            />
-          </b-tooltip>
-        </b-table-column>
-      </template>
+      <b-table-column v-slot="props" sortable field="email" label="Email">
+        {{ props.row.email }}
+        <b-tooltip v-if="props.row.isVerified" label="Verified">
+          <b-icon icon="check-circle" type="is-success" />
+        </b-tooltip>
+        <b-tooltip v-else label="Unverified">
+          <b-icon icon="alert" type="is-warning" />
+        </b-tooltip>
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="createdAt" label="Added">{{
+        new Date(props.row.createdAt).toLocaleDateString()
+      }}</b-table-column>
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-tooltip label="Delete">
+          <b-button
+            type="is-danger"
+            icon-right="delete"
+            @click="deleteEmail(props.row.id, props.row.email)"
+          />
+        </b-tooltip>
+      </b-table-column>
     </b-table>
     <div class="has-text-centered">
       <b-button

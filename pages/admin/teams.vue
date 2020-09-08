@@ -8,30 +8,39 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="name" label="Name">{{
-          props.row.name
-        }}</b-table-column>
-        <b-table-column sortable field="stripeCustomerId" label="Stripe ID">
-          <code v-if="props.row.stripeCustomerId">{{
-            props.row.stripeCustomerId
-          }}</code>
-          <span v-else>
-            <em>None</em>
-          </span>
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Created">{{
+      <b-table-column v-slot="props" sortable field="name" label="Name">{{
+        props.row.name
+      }}</b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="stripeCustomerId"
+        label="Stripe ID"
+      >
+        <code v-if="props.row.stripeCustomerId">{{
+          props.row.stripeCustomerId
+        }}</code>
+        <span v-else>
+          <em>None</em>
+        </span>
+      </b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="createdAt"
+        label="Created"
+        >{{
           new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column>
-        <b-table-column class="has-text-right">
-          <b-button
-            type="is-primary"
-            tag="nuxt-link"
-            :to="`/teams/${props.row.id}`"
-            >Go to team</b-button
-          >
-        </b-table-column>
-      </template>
+        }}</b-table-column
+      >
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-button
+          type="is-primary"
+          tag="nuxt-link"
+          :to="`/teams/${props.row.id}`"
+          >Go to team</b-button
+        >
+      </b-table-column>
     </b-table>
     <div class="has-text-centered">
       <b-button

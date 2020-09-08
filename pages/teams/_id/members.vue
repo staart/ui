@@ -8,37 +8,35 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="member" label="Name">{{
-          props.row.user.name
-        }}</b-table-column>
-        <b-table-column sortable field="role" label="Role">
-          <b-select
-            :value="props.row.role"
+      <b-table-column v-slot="props" sortable field="member" label="Name">{{
+        props.row.user.name
+      }}</b-table-column>
+      <b-table-column v-slot="props" sortable field="role" label="Role">
+        <b-select
+          :value="props.row.role"
+          :disabled="props.row.userId === userId"
+          @input="val => updateRole(props.row.id, val)"
+          :loading="loadingId === props.row.id"
+          placeholder="Update role"
+        >
+          <option value="OWNER">Owner</option>
+          <option value="ADMIN">Admin</option>
+          <option value="MEMBER">Member</option>
+        </b-select>
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="createdAt" label="Added">{{
+        new Date(props.row.createdAt).toLocaleDateString()
+      }}</b-table-column>
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-tooltip label="Remove">
+          <b-button
+            type="is-danger"
+            icon-right="delete"
             :disabled="props.row.userId === userId"
-            @input="val => updateRole(props.row.id, val)"
-            :loading="loadingId === props.row.id"
-            placeholder="Update role"
-          >
-            <option value="OWNER">Owner</option>
-            <option value="ADMIN">Admin</option>
-            <option value="MEMBER">Member</option>
-          </b-select>
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Added">{{
-          new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column>
-        <b-table-column class="has-text-right">
-          <b-tooltip label="Remove">
-            <b-button
-              type="is-danger"
-              icon-right="delete"
-              :disabled="props.row.userId === userId"
-              @click="deleteMember(props.row.id, props.row.user.name)"
-            />
-          </b-tooltip>
-        </b-table-column>
-      </template>
+            @click="deleteMember(props.row.id, props.row.user.name)"
+          />
+        </b-tooltip>
+      </b-table-column>
     </b-table>
     <div class="has-text-centered">
       <b-button

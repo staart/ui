@@ -11,45 +11,43 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="code" label="Coupon code">
-          <code>{{ props.row.code }}</code>
-          <b-tooltip
-            v-if="props.row.maxUses === props.row.usedCount"
-            label="Used"
-          >
-            <b-icon icon="credit-card-off" type="is-danger" />
-          </b-tooltip>
-        </b-table-column>
-        <b-table-column label="Amount">
-          {{ currencies[props.row.currency] || props.row.currency
-          }}{{ props.row.amount / 100 }}
-        </b-table-column>
-        <b-table-column sortable field="expiresAt" label="Expires">
-          <span v-if="props.row.expiresAt">{{
-            new Date(props.row.expiresAt).toLocaleDateString()
-          }}</span>
-          <span v-else>
-            <em>Never</em>
-          </span>
-        </b-table-column>
-        <b-table-column class="has-text-right">
-          <b-tooltip label="Edit">
-            <b-button
-              type="is-primary"
-              icon-right="pencil"
-              @click="addToOpened(props.row.id)"
-            />
-          </b-tooltip>
-          <b-tooltip label="Delete">
-            <b-button
-              type="is-danger"
-              icon-right="delete"
-              @click="deleteCoupon(props.row.id, props.row.code)"
-            />
-          </b-tooltip>
-        </b-table-column>
-      </template>
+      <b-table-column v-slot="props" sortable field="code" label="Coupon code">
+        <code>{{ props.row.code }}</code>
+        <b-tooltip
+          v-if="props.row.maxUses === props.row.usedCount"
+          label="Used"
+        >
+          <b-icon icon="credit-card-off" type="is-danger" />
+        </b-tooltip>
+      </b-table-column>
+      <b-table-column v-slot="props" label="Amount">
+        {{ currencies[props.row.currency] || props.row.currency
+        }}{{ props.row.amount / 100 }}
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="expiresAt" label="Expires">
+        <span v-if="props.row.expiresAt">{{
+          new Date(props.row.expiresAt).toLocaleDateString()
+        }}</span>
+        <span v-else>
+          <em>Never</em>
+        </span>
+      </b-table-column>
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-tooltip label="Edit">
+          <b-button
+            type="is-primary"
+            icon-right="pencil"
+            @click="addToOpened(props.row.id)"
+          />
+        </b-tooltip>
+        <b-tooltip label="Delete">
+          <b-button
+            type="is-danger"
+            icon-right="delete"
+            @click="deleteCoupon(props.row.id, props.row.code)"
+          />
+        </b-tooltip>
+      </b-table-column>
       <template slot="detail" slot-scope="props" v-if="props.row">
         <form @submit.prevent="save(props.row)">
           <b-field label="Currency">

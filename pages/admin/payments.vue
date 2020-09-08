@@ -8,23 +8,21 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column label="Category">
-          {{ props.row.data.object.object }}
-        </b-table-column>
-        <b-table-column label="Customer">
-          <code v-if="props.row.data.object.customer">
-            {{ props.row.data.object.customer }}
-          </code>
-          <span v-else><em>None</em></span>
-        </b-table-column>
-        <b-table-column label="Previous attributes">
-          {{ props.row.data.previous_attributes }}
-        </b-table-column>
-        <b-table-column sortable field="createdAt" label="Created">
-          {{ new Date(props.row.created * 1000).toLocaleDateString() }}
-        </b-table-column>
-      </template>
+      <b-table-column v-slot="props" label="Category">
+        {{ props.row.data.object.object }}
+      </b-table-column>
+      <b-table-column v-slot="props" label="Customer">
+        <code v-if="props.row.data.object.customer">
+          {{ props.row.data.object.customer }}
+        </code>
+        <span v-else><em>None</em></span>
+      </b-table-column>
+      <b-table-column v-slot="props" label="Previous attributes">
+        {{ props.row.data.previous_attributes }}
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="createdAt" label="Created">
+        {{ new Date(props.row.created * 1000).toLocaleDateString() }}
+      </b-table-column>
     </b-table>
     <div class="has-text-centered">
       <b-button

@@ -10,32 +10,40 @@
       sort-icon-size="is-small"
       hoverable
     >
-      <template slot-scope="props" v-if="props.row">
-        <b-table-column sortable field="organization.name" label="Team name">{{
-          props.row.group.name
-        }}</b-table-column>
-        <b-table-column sortable field="role" label="Role">{{
-          props.row.role
-        }}</b-table-column>
-        <b-table-column sortable field="createdAt" label="Joined">{{
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="organization.name"
+        label="Team name"
+        >{{ props.row.group.name }}</b-table-column
+      >
+      <b-table-column v-slot="props" sortable field="role" label="Role">{{
+        props.row.role
+      }}</b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="createdAt"
+        label="Joined"
+        >{{
           new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column>
-        <b-table-column class="has-text-right">
+        }}</b-table-column
+      >
+      <b-table-column v-slot="props" class="has-text-right">
+        <b-button
+          type="is-primary"
+          tag="nuxt-link"
+          :to="`/teams/${props.row.groupId}`"
+          >Go to team</b-button
+        >
+        <b-tooltip label="Leave team">
           <b-button
-            type="is-primary"
-            tag="nuxt-link"
-            :to="`/teams/${props.row.groupId}`"
-            >Go to team</b-button
-          >
-          <b-tooltip label="Leave team">
-            <b-button
-              type="is-danger"
-              icon-right="logout"
-              @click="deleteMembership(props.row.id, props.row.group.name)"
-            />
-          </b-tooltip>
-        </b-table-column>
-      </template>
+            type="is-danger"
+            icon-right="logout"
+            @click="deleteMembership(props.row.id, props.row.group.name)"
+          />
+        </b-tooltip>
+      </b-table-column>
     </b-table>
     <div class="has-text-centered">
       <b-button
