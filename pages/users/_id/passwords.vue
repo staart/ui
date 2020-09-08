@@ -4,15 +4,10 @@
     <h2 class="is-size-5 mb-3">Change password</h2>
     <form @submit.prevent="save">
       <b-field label="Current password" v-if="hasPassword">
-        <b-input type="password" v-model="oldPassword" password-reveal />
+        <b-input type="password" v-model="oldPassword" password-reveal required />
       </b-field>
       <b-field label="New password">
-        <b-input
-          type="password"
-          v-model="newPassword"
-          password-reveal
-          required
-        />
+        <b-input type="password" v-model="newPassword" password-reveal required />
       </b-field>
       <div class="password-strength mt-3 mb-3">
         <div>Password strength</div>
@@ -34,9 +29,7 @@
           native-type="submit"
           :loading="loadingPassword"
           icon-left="key-variant"
-        >
-          Change password
-        </b-button>
+        >Change password</b-button>
       </div>
     </form>
     <h2 class="is-size-5 mb-3 mt-5">Two-factor authentication</h2>
@@ -53,16 +46,12 @@
           @click="disable"
           :loading="loading"
           icon-left="lock-open"
-        >
-          Disable 2FA
-        </b-button>
+        >Disable 2FA</b-button>
         <b-button
           @click="regenerate"
           :loading="loadingRegenerate"
           icon-left="backup-restore"
-        >
-          Regenerate backup codes
-        </b-button>
+        >Regenerate backup codes</b-button>
       </div>
     </div>
     <div v-else>
@@ -72,14 +61,7 @@
         1Password to use 2FA.
       </p>
       <div class="buttons mt-3">
-        <b-button
-          type="is-success"
-          @click="enable"
-          :loading="loading"
-          icon-left="lock"
-        >
-          Enable 2FA
-        </b-button>
+        <b-button type="is-success" @click="enable" :loading="loading" icon-left="lock">Enable 2FA</b-button>
       </div>
     </div>
     <b-modal :width="300" :active.sync="showQrCode">
@@ -108,9 +90,7 @@
                 native-type="submit"
                 :loading="loading"
                 icon-left="lock-open"
-              >
-                Enable 2FA
-              </b-button>
+              >Enable 2FA</b-button>
             </div>
           </form>
         </div>
@@ -124,7 +104,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersEmails extends Vue {
   oldPassword = "";
@@ -184,12 +164,12 @@ export default class UsersEmails extends Vue {
         `/users/${this.$route.params.id}/security/password`,
         {
           oldPassword: this.oldPassword,
-          newPassword: this.newPassword
+          newPassword: this.newPassword,
         }
       );
       this.$buefy.toast.open({
         message: data.text,
-        type: "is-success"
+        type: "is-success",
       });
     } catch (error) {}
     this.oldPassword = "";
@@ -214,7 +194,7 @@ export default class UsersEmails extends Vue {
       const { data } = await this.$axios.post(
         `/users/${this.$route.params.id}/security/2fa/verify`,
         {
-          code: this.verificationCode
+          code: this.verificationCode,
         }
       );
       this.showQrCode = false;
@@ -222,7 +202,7 @@ export default class UsersEmails extends Vue {
       this.$buefy.dialog.alert({
         title: "Backup codes",
         message: this.backupCodesHtml(data.backupCodes),
-        confirmText: "Yes, I've copied them"
+        confirmText: "Yes, I've copied them",
       });
     } catch (error) {}
     this.verificationCode = "";
@@ -245,11 +225,11 @@ export default class UsersEmails extends Vue {
           this.$buefy.dialog.alert({
             title: "Backup codes",
             message: this.backupCodesHtml(data.backupCodes),
-            confirmText: "Yes, I've copied them"
+            confirmText: "Yes, I've copied them",
           });
         } catch (error) {}
         this.loadingRegenerate = false;
-      }
+      },
     });
   }
   async disable(id: number, email: string) {
@@ -270,7 +250,7 @@ export default class UsersEmails extends Vue {
           this.twoFactorEnabled = false;
         } catch (error) {}
         this.loading = false;
-      }
+      },
     });
   }
 }

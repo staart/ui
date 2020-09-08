@@ -39,7 +39,7 @@
         >Load more emails</b-button
       >
     </div>
-    <h2 class="is-size-5 mb-3">Add email</h2>
+    <h2 class="is-size-5 mb-3 mt-5">Add email</h2>
     <form @submit.prevent="add">
       <b-field label="Email">
         <b-input type="email" v-model="newEmail" required />

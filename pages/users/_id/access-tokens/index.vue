@@ -12,16 +12,20 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <b-table-column v-slot="props" sortable field="name" label="Name">
-        {{ props.row.name || "Unnamed token" }}
-      </b-table-column>
-      <b-table-column v-slot="props" sortable field="createdAt" label="Added">
-        {{ new Date(props.row.createdAt).toLocaleDateString() }}
-      </b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="name"
+        label="Name"
+      >{{ props.row.name || "Unnamed token" }}</b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="createdAt"
+        label="Added"
+      >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
       <b-table-column v-slot="props" class="has-text-right">
-        <b-tooltip
-          :label="defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'"
-        >
+        <b-tooltip :label="defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'">
           <b-button
             icon-right="eye"
             type="is-primary"
@@ -66,14 +70,12 @@
         <code>{{ props.row.accessToken }}</code>
       </template>
     </b-table>
-    <h2 class="is-size-5 mb-3">Create an access token</h2>
+    <h2 class="is-size-5 mb-3 mt-5">Create an access token</h2>
     <form @submit.prevent="add">
       <b-field label="Name">
         <b-input type="text" v-model="accessTokenName" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingCreate"
-        >Create access token</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">Create access token</b-button>
     </form>
   </div>
 </template>
@@ -83,7 +85,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
@@ -113,7 +115,7 @@ export default class UsersAccessTokens extends Vue {
       const { data } = await this.$axios.put(
         `/users/${this.$route.params.id}/access-tokens`,
         {
-          name: this.accessTokenName ? this.accessTokenName : undefined
+          name: this.accessTokenName ? this.accessTokenName : undefined,
         }
       );
       this.accessTokens.data.push(data.added);
@@ -139,7 +141,7 @@ export default class UsersAccessTokens extends Vue {
           );
         } catch (error) {}
         return this.get();
-      }
+      },
     });
   }
 }
