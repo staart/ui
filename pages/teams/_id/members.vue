@@ -8,9 +8,11 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <b-table-column v-slot="props" sortable field="member" label="Name">{{
+      <b-table-column v-slot="props" sortable field="member" label="Name">
+        {{
         props.row.user.name
-      }}</b-table-column>
+        }}
+      </b-table-column>
       <b-table-column v-slot="props" sortable field="role" label="Role">
         <b-select
           :value="props.row.role"
@@ -24,10 +26,12 @@
           <option value="MEMBER">Member</option>
         </b-select>
       </b-table-column>
-      <b-table-column v-slot="props" sortable field="createdAt" label="Added">{{
+      <b-table-column v-slot="props" sortable field="createdAt" label="Added">
+        {{
         new Date(props.row.createdAt).toLocaleDateString()
-      }}</b-table-column>
-      <b-table-column v-slot="props" class="has-text-right">
+        }}
+      </b-table-column>
+      <b-table-column v-slot="props" cell-class="has-text-right">
         <b-tooltip label="Remove">
           <b-button
             type="is-danger"
@@ -44,8 +48,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-        >Load more members</b-button
-      >
+      >Load more members</b-button>
     </div>
     <h2 class="is-size-5 mb-3">Add member</h2>
     <form @submit.prevent="add">
@@ -69,9 +72,7 @@
           </b-field>
         </div>
       </div>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd"
-        >Invite member</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">Invite member</b-button>
     </form>
   </div>
 </template>
@@ -83,7 +84,7 @@ import download from "js-file-download";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams"
+  layout: "teams",
 })
 export default class UsersProfile extends Vue {
   loading = false;
@@ -109,7 +110,7 @@ export default class UsersProfile extends Vue {
       const { data } = await this.$axios.patch(
         `/groups/${this.$route.params.id}/memberships/${id}`,
         {
-          role
+          role,
         }
       );
     } catch (error) {
@@ -144,7 +145,7 @@ export default class UsersProfile extends Vue {
         {
           name: this.newMemberName,
           email: this.newMemberEmail,
-          role: this.newMemberRole
+          role: this.newMemberRole,
         }
       );
       this.get();
@@ -169,7 +170,7 @@ export default class UsersProfile extends Vue {
           );
         } catch (error) {}
         return this.get();
-      }
+      },
     });
   }
 
@@ -179,7 +180,7 @@ export default class UsersProfile extends Vue {
       const { data } = await this.$axios.post(
         `/groups/${this.$route.params.id}/memberships/${id}/verify`,
         {
-          method
+          method,
         }
       );
       this.team = data.updated;

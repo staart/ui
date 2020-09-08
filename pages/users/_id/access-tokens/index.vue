@@ -24,7 +24,7 @@
         field="createdAt"
         label="Added"
       >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
-      <b-table-column v-slot="props" class="has-text-right">
+      <b-table-column v-slot="props" cell-class="has-text-right">
         <b-tooltip :label="defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'">
           <b-button
             icon-right="eye"

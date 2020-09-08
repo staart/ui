@@ -8,38 +8,28 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <b-table-column v-slot="props" sortable field="name" label="Name">{{
+      <b-table-column v-slot="props" sortable field="name" label="Name">
+        {{
         props.row.name
-      }}</b-table-column>
-      <b-table-column
-        v-slot="props"
-        sortable
-        field="stripeCustomerId"
-        label="Stripe ID"
-      >
-        <code v-if="props.row.stripeCustomerId">{{
+        }}
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="stripeCustomerId" label="Stripe ID">
+        <code v-if="props.row.stripeCustomerId">
+          {{
           props.row.stripeCustomerId
-        }}</code>
+          }}
+        </code>
         <span v-else>
           <em>None</em>
         </span>
       </b-table-column>
-      <b-table-column
-        v-slot="props"
-        sortable
-        field="createdAt"
-        label="Created"
-        >{{
-          new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column
-      >
-      <b-table-column v-slot="props" class="has-text-right">
-        <b-button
-          type="is-primary"
-          tag="nuxt-link"
-          :to="`/teams/${props.row.id}`"
-          >Go to team</b-button
-        >
+      <b-table-column v-slot="props" sortable field="createdAt" label="Created">
+        {{
+        new Date(props.row.createdAt).toLocaleDateString()
+        }}
+      </b-table-column>
+      <b-table-column v-slot="props" cell-class="has-text-right">
+        <b-button type="is-primary" tag="nuxt-link" :to="`/teams/${props.row.id}`">Go to team</b-button>
       </b-table-column>
     </b-table>
     <div class="has-text-centered">
@@ -48,8 +38,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-        >Load more teams</b-button
-      >
+      >Load more teams</b-button>
     </div>
   </div>
 </template>
@@ -59,7 +48,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "admin"
+  layout: "admin",
 })
 export default class AdminTeams extends Vue {
   loading = false;

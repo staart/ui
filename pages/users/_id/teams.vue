@@ -15,27 +15,19 @@
         sortable
         field="organization.name"
         label="Team name"
-        >{{ props.row.group.name }}</b-table-column
-      >
-      <b-table-column v-slot="props" sortable field="role" label="Role">{{
+      >{{ props.row.group.name }}</b-table-column>
+      <b-table-column v-slot="props" sortable field="role" label="Role">
+        {{
         props.row.role
-      }}</b-table-column>
-      <b-table-column
-        v-slot="props"
-        sortable
-        field="createdAt"
-        label="Joined"
-        >{{
-          new Date(props.row.createdAt).toLocaleDateString()
-        }}</b-table-column
-      >
-      <b-table-column v-slot="props" class="has-text-right">
-        <b-button
-          type="is-primary"
-          tag="nuxt-link"
-          :to="`/teams/${props.row.groupId}`"
-          >Go to team</b-button
-        >
+        }}
+      </b-table-column>
+      <b-table-column v-slot="props" sortable field="createdAt" label="Joined">
+        {{
+        new Date(props.row.createdAt).toLocaleDateString()
+        }}
+      </b-table-column>
+      <b-table-column v-slot="props" cell-class="has-text-right">
+        <b-button type="is-primary" tag="nuxt-link" :to="`/teams/${props.row.groupId}`">Go to team</b-button>
         <b-tooltip label="Leave team">
           <b-button
             type="is-danger"
@@ -51,8 +43,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-        >Load more teams</b-button
-      >
+      >Load more teams</b-button>
     </div>
     <h2 class="is-size-5 mb-3 mt-5">Create another team</h2>
     <form @submit.prevent="add">
@@ -64,9 +55,7 @@
         native-type="submit"
         :loading="loadingAdd"
         icon-left="account-multiple-plus"
-      >
-        Create team
-      </b-button>
+      >Create team</b-button>
     </form>
   </div>
 </template>
@@ -76,7 +65,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersTeams extends Vue {
   newTeam = "";
@@ -108,7 +97,7 @@ export default class UsersTeams extends Vue {
     this.loadingAdd = true;
     try {
       const { data } = await this.$axios.put(`/groups`, {
-        name: this.newTeam
+        name: this.newTeam,
       });
       this.newTeam = "";
     } catch (error) {}
@@ -133,7 +122,7 @@ export default class UsersTeams extends Vue {
           );
         } catch (error) {}
         return this.get();
-      }
+      },
     });
   }
 }

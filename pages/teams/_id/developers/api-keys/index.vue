@@ -16,16 +16,20 @@
       sort-icon="arrow-up"
       sort-icon-size="is-small"
     >
-      <b-table-column v-slot="props" sortable field="name" label="Name">
-        {{ props.row.name || "Unnamed API key" }}
-      </b-table-column>
-      <b-table-column v-slot="props" sortable field="createdAt" label="Added">
-        {{ new Date(props.row.createdAt).toLocaleDateString() }}
-      </b-table-column>
-      <b-table-column v-slot="props" class="has-text-right">
-        <b-tooltip
-          :label="defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'"
-        >
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="name"
+        label="Name"
+      >{{ props.row.name || "Unnamed API key" }}</b-table-column>
+      <b-table-column
+        v-slot="props"
+        sortable
+        field="createdAt"
+        label="Added"
+      >{{ new Date(props.row.createdAt).toLocaleDateString() }}</b-table-column>
+      <b-table-column v-slot="props" cell-class="has-text-right">
+        <b-tooltip :label="defaultOpenedDetails.includes(props.row.id) ? 'Hide' : 'View'">
           <b-button
             icon-right="eye"
             type="is-primary"
@@ -81,9 +85,7 @@
       <b-field label="Name">
         <b-input type="text" v-model="apiKeyName" />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingCreate"
-        >Create API key</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingCreate">Create API key</b-button>
     </form>
   </div>
 </template>
@@ -93,7 +95,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams"
+  layout: "teams",
 })
 export default class UsersApiKeys extends Vue {
   loading = false;
@@ -123,7 +125,7 @@ export default class UsersApiKeys extends Vue {
       const { data } = await this.$axios.put(
         `/groups/${this.$route.params.id}/api-keys`,
         {
-          name: this.apiKeyName ? this.apiKeyName : undefined
+          name: this.apiKeyName ? this.apiKeyName : undefined,
         }
       );
       this.apiKeys.data.push(data.added);
@@ -149,7 +151,7 @@ export default class UsersApiKeys extends Vue {
           );
         } catch (error) {}
         return this.get();
-      }
+      },
     });
   }
 

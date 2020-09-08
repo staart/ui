@@ -24,13 +24,13 @@
           <b-icon icon="alert" type="is-warning" />
         </b-tooltip>
       </b-table-column>
-      <b-table-column v-slot="props" sortable field="createdAt" label="Added">{{
+      <b-table-column v-slot="props" sortable field="createdAt" label="Added">
+        {{
         new Date(props.row.createdAt).toLocaleDateString()
-      }}</b-table-column>
-      <b-table-column v-slot="props" class="has-text-right">
-        <b-button type="is-primary" @click="addToOpened(props.row.id)"
-          >Verify domain</b-button
-        >
+        }}
+      </b-table-column>
+      <b-table-column v-slot="props" cell-class="has-text-right">
+        <b-button type="is-primary" @click="addToOpened(props.row.id)">Verify domain</b-button>
         <b-tooltip label="Delete">
           <b-button
             type="is-danger"
@@ -51,12 +51,8 @@
             To verify your domain, you can either set a DNS TXT record or update
             a text file.
           </p>
-          <h3 class="is-size-5">
-            DNS TXT record (recommended)
-          </h3>
-          <p>
-            Add a new DNS record with the following values:
-          </p>
+          <h3 class="is-size-5">DNS TXT record (recommended)</h3>
+          <p>Add a new DNS record with the following values:</p>
           <table class="table">
             <thead>
               <tr>
@@ -79,32 +75,26 @@
               </tr>
             </tbody>
           </table>
-          <b-button type="is-primary" @click="verifyDomain('dns', props.row.id)"
-            >Verify DNS record</b-button
-          >
+          <b-button type="is-primary" @click="verifyDomain('dns', props.row.id)">Verify DNS record</b-button>
           <h3 class="is-size-5">File upload</h3>
           <p>
             Alternately, upload a file to your domain:
             <code>/.well-known/staart-verify.txt</code>. Once completed, this
             URL should have the contents
-            <code>{{ props.row.verificationCode }}</code
-            >:
+            <code>{{ props.row.verificationCode }}</code>:
             <a
               :href="`http://${props.row.domain}/.well-known/staart-verify.txt`"
               target="_blank"
-              >http://{{ props.row.domain }}/.well-known/staart-verify.txt</a
-            >
+            >http://{{ props.row.domain }}/.well-known/staart-verify.txt</a>
           </p>
           <b-button
             icon-left="cloud-download"
             @click="downloadFile(props.row.verificationCode)"
-            >Download file</b-button
-          >
+          >Download file</b-button>
           <b-button
             type="is-primary"
             @click="verifyDomain('file', props.row.id)"
-            >Verify uploaded file</b-button
-          >
+          >Verify uploaded file</b-button>
         </div>
       </template>
     </b-table>
@@ -114,17 +104,14 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-        >Load more domains</b-button
-      >
+      >Load more domains</b-button>
     </div>
     <h2 class="is-size-5 mb-3">Add domain</h2>
     <form @submit.prevent="add">
       <b-field label="Domain">
         <b-input type="text" v-model="newDomain" required />
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingAdd"
-        >Add domain</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingAdd">Add domain</b-button>
     </form>
     <form @submit.prevent="save">
       <h2 class="is-size-5 mt-5 mb-3">Domain settings</h2>
@@ -141,9 +128,11 @@
         </b-checkbox>
       </b-field>
       <div>
-        <b-button type="is-primary" native-type="submit" :loading="loadingSave"
-          >Update domain settings</b-button
-        >
+        <b-button
+          type="is-primary"
+          native-type="submit"
+          :loading="loadingSave"
+        >Update domain settings</b-button>
       </div>
     </form>
   </div>
@@ -156,7 +145,7 @@ import download from "js-file-download";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams"
+  layout: "teams",
 })
 export default class UsersProfile extends Vue {
   loading = false;
@@ -204,7 +193,7 @@ export default class UsersProfile extends Vue {
       const { data } = await this.$axios.put(
         `/groups/${this.$route.params.id}/domains`,
         {
-          domain: this.newDomain
+          domain: this.newDomain,
         }
       );
       this.domains.data.push(data.added);
@@ -220,7 +209,7 @@ export default class UsersProfile extends Vue {
         `/groups/${this.$route.params.id}`,
         {
           autoJoinDomain: this.team.autoJoinDomain,
-          onlyAllowDomain: this.team.onlyAllowDomain
+          onlyAllowDomain: this.team.onlyAllowDomain,
         }
       );
       this.team = data.updated;
@@ -245,7 +234,7 @@ export default class UsersProfile extends Vue {
           );
         } catch (error) {}
         return this.get();
-      }
+      },
     });
   }
 
@@ -259,7 +248,7 @@ export default class UsersProfile extends Vue {
       const { data } = await this.$axios.post(
         `/groups/${this.$route.params.id}/domains/${id}/verify`,
         {
-          method
+          method,
         }
       );
       this.team = data.updated;

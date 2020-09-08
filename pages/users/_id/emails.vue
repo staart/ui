@@ -17,10 +17,12 @@
           <b-icon icon="alert" type="is-warning" />
         </b-tooltip>
       </b-table-column>
-      <b-table-column v-slot="props" sortable field="createdAt" label="Added">{{
+      <b-table-column v-slot="props" sortable field="createdAt" label="Added">
+        {{
         new Date(props.row.createdAt).toLocaleDateString()
-      }}</b-table-column>
-      <b-table-column v-slot="props" class="has-text-right">
+        }}
+      </b-table-column>
+      <b-table-column v-slot="props" cell-class="has-text-right">
         <b-tooltip label="Delete">
           <b-button
             type="is-danger"
@@ -36,8 +38,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-        >Load more emails</b-button
-      >
+      >Load more emails</b-button>
     </div>
     <h2 class="is-size-5 mb-3 mt-5">Add email</h2>
     <form @submit.prevent="add">
@@ -49,24 +50,17 @@
         native-type="submit"
         :loading="loadingAdd"
         icon-left="email-plus"
-      >
-        Add email
-      </b-button>
+      >Add email</b-button>
     </form>
     <h2 class="is-size-5 mb-3 mt-5">Email preferences</h2>
     <form @submit.prevent="save">
-      <b-field
-        label="Primary email"
-        message="We'll send you emails only on your primary email"
-      >
+      <b-field label="Primary email" message="We'll send you emails only on your primary email">
         <b-select v-model="prefersEmailId" expanded>
           <option
             v-for="(email, i) in emails.data"
             :key="`e${email.id}${i}`"
             :value="email.id"
-          >
-            {{ email.email }}
-          </option>
+          >{{ email.email }}</option>
         </b-select>
       </b-field>
       <b-field label="Notification emails">
@@ -75,23 +69,17 @@
             name="radioNotificationEmails"
             native-value="ACCOUNT"
             v-model="notificationEmails"
-          >
-            Account and security
-          </b-radio>
+          >Account and security</b-radio>
           <b-radio
             name="radioNotificationEmails"
             native-value="UPDATES"
             v-model="notificationEmails"
-          >
-            App updates
-          </b-radio>
+          >App updates</b-radio>
           <b-radio
             name="radioNotificationEmails"
             native-value="PROMOTIONS"
             v-model="notificationEmails"
-          >
-            Promotions
-          </b-radio>
+          >Promotions</b-radio>
         </div>
       </b-field>
       <b-button
@@ -99,9 +87,7 @@
         native-type="submit"
         :loading="loadingSave"
         icon-left="email-check"
-      >
-        Update settings
-      </b-button>
+      >Update settings</b-button>
     </form>
   </div>
 </template>
@@ -111,7 +97,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersEmails extends Vue {
   newEmail = "";
@@ -154,7 +140,7 @@ export default class UsersEmails extends Vue {
       const { data } = await this.$axios.put(
         `/users/${this.$route.params.id}/emails`,
         {
-          email: this.newEmail
+          email: this.newEmail,
         }
       );
       this.emails.data.push(data.added);
@@ -168,7 +154,7 @@ export default class UsersEmails extends Vue {
     try {
       await this.$axios.patch(`/users/${this.$route.params.id}`, {
         primaryEmail: this.prefersEmailId,
-        notificationEmails: this.notificationEmails
+        notificationEmails: this.notificationEmails,
       });
     } catch (error) {}
     this.loadingSave = false;
@@ -191,7 +177,7 @@ export default class UsersEmails extends Vue {
           );
         } catch (error) {}
         return this.get();
-      }
+      },
     });
   }
 }

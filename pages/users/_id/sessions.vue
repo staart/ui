@@ -24,10 +24,8 @@
         sortable
         field="createdAt"
         label="Logged in"
-      >
-        {{ new Date(props.row.createdAt).toLocaleString() }}
-      </b-table-column>
-      <b-table-column v-slot="props" class="has-text-right">
+      >{{ new Date(props.row.createdAt).toLocaleString() }}</b-table-column>
+      <b-table-column v-slot="props" cell-class="has-text-right">
         <b-tooltip label="Logout">
           <b-button
             type="is-danger"
@@ -43,8 +41,7 @@
         @click="get"
         icon-right="arrow-down"
         :loading="loading"
-        >Load more sessions</b-button
-      >
+      >Load more sessions</b-button>
     </div>
   </div>
 </template>
@@ -57,7 +54,7 @@ import ct from "countries-and-timezones";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersSessions extends Vue {
   loading = false;
@@ -76,8 +73,8 @@ export default class UsersSessions extends Vue {
   getCaption(row: any, keyName: string) {
     if (keyName === "CountryCode")
       return ["city", "region"]
-        .map(i => row[i])
-        .filter(i => i)
+        .map((i) => row[i])
+        .filter((i) => i)
         .join(", ");
     const parser = new UAParser(row.userAgent);
     return parser[`get${keyName}`]?.call()?.name;
@@ -116,7 +113,7 @@ export default class UsersSessions extends Vue {
           );
         } catch (error) {}
         await this.get();
-      }
+      },
     });
   }
 }
