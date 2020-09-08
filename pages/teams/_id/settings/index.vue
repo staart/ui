@@ -11,7 +11,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 })
 export default class TeamsHome extends Vue {
   created() {
-    this.$router.replace(`/teams/${this.$route.params.id}/settings/team`);
+    // this.$router.replace(`/teams/${this.$route.params.id}/settings/team`);
   }
 }
 </script>
