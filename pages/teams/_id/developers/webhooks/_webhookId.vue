@@ -18,8 +18,7 @@
             v-for="(name, value) in webhooksData"
             :value="value"
             :key="`t${value}${name}`"
-            >{{ name }}</option
-          >
+          >{{ name }}</option>
         </b-select>
       </b-field>
       <b-field label="Content type">
@@ -34,22 +33,17 @@
       <b-field>
         <b-checkbox v-model="webhook.isActive">Active</b-checkbox>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
-        >Update webhook</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update webhook</b-button>
     </form>
-    <h2 class="is-size-5 mb-3">Danger zone</h2>
-    <p>
-      If you don't want this webhook to trigger anymore, you can delete it.
-    </p>
+    <h2 class="is-size-5 mb-3 mt-5">Danger zone</h2>
+    <p class="mb-3">If you don't want this webhook to trigger anymore, you can delete it.</p>
     <b-button
       type="is-danger"
       @click="
         deleteWebhook(webhook.id, webhooksData[webhook.event] || webhook.event)
       "
       :loading="loadingDelete"
-      >Delete webhook</b-button
-    >
+    >Delete webhook</b-button>
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -60,7 +54,7 @@ import webhooksData from "../../../../../data/webhooks.json";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams"
+  layout: "teams",
 })
 export default class UsersWebhooks extends Vue {
   loading = false;
@@ -77,7 +71,7 @@ export default class UsersWebhooks extends Vue {
     this.loading = true;
     try {
       const { data } = await this.$axios.get(
-        `/groups/${this.$route.params.id}/webhooks/${this.$route.params.id}`
+        `/groups/${this.$route.params.id}/webhooks/${this.$route.params.webhookId}`
       );
       this.webhook = data;
     } catch (error) {
@@ -91,10 +85,10 @@ export default class UsersWebhooks extends Vue {
     this.loadingUpdate = true;
     try {
       const { data } = await this.$axios.patch(
-        `/groups/${this.$route.params.id}/webhooks/${this.$route.params.id}`,
+        `/groups/${this.$route.params.id}/webhooks/${this.$route.params.webhookId}`,
         {
           url: this.webhook.url,
-          isActive: this.webhook.isActive
+          isActive: this.webhook.isActive,
         }
       );
       this.webhook = data.updated;
@@ -122,7 +116,7 @@ export default class UsersWebhooks extends Vue {
         this.$router.push(
           `/teams/${this.$route.params.id}/developers/webhooks`
         );
-      }
+      },
     });
   }
 }

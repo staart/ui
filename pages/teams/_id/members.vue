@@ -50,7 +50,7 @@
         :loading="loading"
       >Load more members</b-button>
     </div>
-    <h2 class="is-size-5 mb-3">Add member</h2>
+    <h2 class="is-size-5 mb-3 mt-5">Add member</h2>
     <form @submit.prevent="add">
       <div class="columns">
         <div class="column">

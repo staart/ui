@@ -44,13 +44,14 @@
                           r => !scopeOptions[key].map(i => i.value).includes(r)
                         ))
                 "
-                >{{ key }}</b-checkbox
-              >
+              >{{ key }}</b-checkbox>
             </dt>
             <dd v-for="key2 in scopeOptions[key]" :key="`s${key}${key2.value}`">
-              <b-checkbox v-model="scopes" :native-value="key2.value">{{
+              <b-checkbox v-model="scopes" :native-value="key2.value">
+                {{
                 key2.name
-              }}</b-checkbox>
+                }}
+              </b-checkbox>
             </dd>
           </span>
         </dl>
@@ -69,12 +70,10 @@
           placeholder="Add a domain name"
         ></b-taginput>
       </b-field>
-      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate"
-        >Update access token</b-button
-      >
+      <b-button type="is-primary" native-type="submit" :loading="loadingUpdate">Update access token</b-button>
     </form>
-    <h2 class="is-size-5 mb-3">Danger zone</h2>
-    <p>
+    <h2 class="is-size-5 mb-3 mt-5">Danger zone</h2>
+    <p class="mb-3">
       If your access token was compromized or you don't need it anymore, you can
       delete it.
     </p>
@@ -87,8 +86,7 @@
         )
       "
       :loading="loadingDelete"
-      >Delete access token</b-button
-    >
+    >Delete access token</b-button>
     <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
@@ -98,7 +96,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "users"
+  layout: "users",
 })
 export default class UsersAccessTokens extends Vue {
   loading = false;
@@ -144,7 +142,7 @@ export default class UsersAccessTokens extends Vue {
           scopes: [...new Set(this.scopes)],
           description: this.accessToken.description,
           ipRestrictions: this.accessToken.ipRestrictions,
-          referrerRestrictions: this.accessToken.referrerRestrictions
+          referrerRestrictions: this.accessToken.referrerRestrictions,
         }
       );
       this.accessToken = data.updated;
@@ -170,7 +168,7 @@ export default class UsersAccessTokens extends Vue {
           );
         } catch (error) {}
         this.$router.push(`/users/${this.$route.params.id}/access-tokens`);
-      }
+      },
     });
   }
 }

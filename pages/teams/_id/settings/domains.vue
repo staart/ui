@@ -106,7 +106,7 @@
         :loading="loading"
       >Load more domains</b-button>
     </div>
-    <h2 class="is-size-5 mb-3">Add domain</h2>
+    <h2 class="is-size-5 mb-3 mt-5">Add domain</h2>
     <form @submit.prevent="add">
       <b-field label="Domain">
         <b-input type="text" v-model="newDomain" required />

@@ -1,14 +1,15 @@
 <template>
   <div>
-    <b-message v-if="'no-billing-account' in $route.query" type="is-danger">
-      Add your billing details to continue.
-    </b-message>
+    <b-message
+      v-if="'no-billing-account' in $route.query"
+      type="is-danger"
+    >Add your billing details to continue.</b-message>
     <h1 class="is-size-4 mb-4">Customer details</h1>
     <form @submit.prevent="save">
       <b-field label="Name">
         <b-input type="text" v-model="customer.name" required />
       </b-field>
-      <div class="columns">
+      <div class="columns mb-0">
         <b-field label="Billing email" class="column">
           <b-input type="email" v-model="customer.email" required />
         </b-field>
@@ -48,7 +49,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 
 @Component({
   middleware: "authenticated",
-  layout: "teams"
+  layout: "teams",
 })
 export default class BillingDetails extends Vue {
   customer = {
@@ -61,8 +62,8 @@ export default class BillingDetails extends Vue {
       line1: "",
       line2: "",
       postal_code: "",
-      state: ""
-    }
+      state: "",
+    },
   };
   loading = false;
   loadingSave = false;
@@ -84,7 +85,7 @@ export default class BillingDetails extends Vue {
           line1: "",
           line2: "",
           postal_code: "",
-          state: ""
+          state: "",
         };
       this.customer = data;
     } catch (error) {}
@@ -100,7 +101,7 @@ export default class BillingDetails extends Vue {
           name: this.customer.name,
           email: this.customer.email,
           phone: this.customer.phone,
-          address: this.customer.address
+          address: this.customer.address,
         }
       );
     } catch (error) {}

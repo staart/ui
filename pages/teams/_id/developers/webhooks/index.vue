@@ -49,13 +49,13 @@
         </b-tooltip>
       </b-table-column>
     </b-table>
-    <h2 class="is-size-5 mb-3">Create a webhook</h2>
-    <p>
+    <h2 class="is-size-5 mb-3 mt-5">Create a webhook</h2>
+    <p class="mb-3">
       You'll be able to add event restrictions and a secret key after creating
       the webhook.
     </p>
     <form @submit.prevent="add">
-      <div class="columns">
+      <div class="columns mb-0">
         <div class="column">
           <b-field label="URL">
             <b-input type="url" v-model="webhookUrl" required />

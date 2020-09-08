@@ -76,8 +76,8 @@
         <code>{{ props.row.apiKey }}</code>
       </template>
     </b-table>
-    <h2 class="is-size-5 mb-3">Create an API key</h2>
-    <p>
+    <h2 class="is-size-5 mb-3 mt-5">Create an API key</h2>
+    <p class="mb-3">
       You'll be able to add restrictions such as scopes, referrers, IP
       addresses, and expiry after creating the API key.
     </p>
