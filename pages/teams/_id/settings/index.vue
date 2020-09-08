@@ -1,5 +1,5 @@
 <template>
-  <div>Loading...</div>
+  <div>Your main settings will go here...</div>
 </template>
 
 <script lang="ts">

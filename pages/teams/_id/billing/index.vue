@@ -10,29 +10,29 @@
         <b-input type="text" v-model="customer.name" required />
       </b-field>
       <div class="columns mb-0">
-        <b-field label="Billing email" class="column">
+        <b-field label="Billing email" class="column mb-0">
           <b-input type="email" v-model="customer.email" required />
         </b-field>
-        <b-field label="Phone" class="column">
+        <b-field label="Phone" class="column mb-0">
           <b-input type="text" v-model="customer.phone" />
         </b-field>
       </div>
       <b-field label="Address">
         <b-input type="text" v-model="customer.address.line1" />
       </b-field>
-      <div class="columns">
-        <b-field label="Postal code" class="column">
+      <div class="columns mb-0">
+        <b-field label="Postal code" class="column mb-0">
           <b-input type="text" v-model="customer.address.postal_code" />
         </b-field>
-        <b-field label="City" class="column">
+        <b-field label="City" class="column mb-0">
           <b-input type="text" v-model="customer.address.city" />
         </b-field>
       </div>
-      <div class="columns">
-        <b-field label="State" class="column">
+      <div class="columns mb-0">
+        <b-field label="State" class="column mb-0">
           <b-input type="text" v-model="customer.address.state" />
         </b-field>
-        <b-field label="Country" class="column">
+        <b-field label="Country" class="column mb-0">
           <b-input type="text" v-model="customer.address.country" />
         </b-field>
       </div>

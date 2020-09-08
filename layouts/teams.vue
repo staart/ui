@@ -53,14 +53,14 @@ import TeamsNavbar from "@/components/layout/TeamsNavbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 
 @Component({
-  components: { Navbar, TeamsNavbar, Footer }
+  components: { Navbar, TeamsNavbar, Footer },
 })
 export default class Default extends Vue {
   items = [
     {
       label: "Dashboard",
       icon: "shape",
-      to: ""
+      to: "",
     },
     {
       label: "Settings",
@@ -68,21 +68,26 @@ export default class Default extends Vue {
       to: "/settings",
       items: [
         {
-          label: "Team settings",
-          icon: "account-cog",
-          to: "/settings/team"
+          label: "General",
+          icon: "cog",
+          to: "/settings",
         },
         {
           label: "Domains",
           icon: "web",
-          to: "/settings/domains"
-        }
-      ]
+          to: "/settings/domains",
+        },
+        {
+          label: "Data and security",
+          icon: "database",
+          to: "/security",
+        },
+      ],
     },
     {
       label: "Team members",
       icon: "account-group",
-      to: "/members"
+      to: "/members",
     },
     {
       label: "Billing",
@@ -92,29 +97,29 @@ export default class Default extends Vue {
         {
           label: "Details",
           icon: "office-building",
-          to: "/billing"
+          to: "/billing",
         },
         {
           label: "Subscription",
           icon: "history",
-          to: "/billing/subscription"
+          to: "/billing/subscription",
         },
         {
           label: "Payment methods",
           icon: "credit-card",
-          to: "/billing/sources"
+          to: "/billing/sources",
         },
         {
           label: "Invoices",
           icon: "book-multiple",
-          to: "/billing/invoices"
+          to: "/billing/invoices",
         },
         {
           label: "Credits",
           icon: "cash-plus",
-          to: "/billing/transactions"
-        }
-      ]
+          to: "/billing/transactions",
+        },
+      ],
     },
     {
       label: "Developers",
@@ -124,25 +129,20 @@ export default class Default extends Vue {
         {
           label: "API keys",
           icon: "api",
-          to: "/developers/api-keys"
+          to: "/developers/api-keys",
         },
         {
           label: "Logs",
           icon: "chart-areaspline-variant",
-          to: "/developers/api-logs"
+          to: "/developers/api-logs",
         },
         {
           label: "Webhooks",
           icon: "webhook",
-          to: "/developers/webhooks"
-        }
-      ]
+          to: "/developers/webhooks",
+        },
+      ],
     },
-    {
-      label: "Data and security",
-      icon: "database",
-      to: "/security"
-    }
   ];
 }
 </script>

@@ -7,33 +7,11 @@
     v-show="$route.path.startsWith('/teams/')"
   >
     <template slot="start">
-      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}`">
-        Dashboard
-      </b-navbar-item>
-      <b-navbar-item
-        tag="nuxt-link"
-        :to="`/teams/${$route.params.id}/settings`"
-      >
-        Settings
-      </b-navbar-item>
-      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}/members`">
-        Team
-      </b-navbar-item>
-      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}/billing`">
-        Billing
-      </b-navbar-item>
-      <b-navbar-item
-        tag="nuxt-link"
-        :to="`/teams/${$route.params.id}/developers`"
-      >
-        Developers
-      </b-navbar-item>
-      <b-navbar-item
-        tag="nuxt-link"
-        :to="`/teams/${$route.params.id}/security`"
-      >
-        Security
-      </b-navbar-item>
+      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}`">Dashboard</b-navbar-item>
+      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}/settings`">Settings</b-navbar-item>
+      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}/members`">Team</b-navbar-item>
+      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}/billing`">Billing</b-navbar-item>
+      <b-navbar-item tag="nuxt-link" :to="`/teams/${$route.params.id}/developers`">Developers</b-navbar-item>
     </template>
   </b-navbar>
 </template>
@@ -46,8 +24,8 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({
   computed: mapGetters({
     isAuthenticated: "auth/isAuthenticated",
-    user: "auth/user"
-  })
+    user: "auth/user",
+  }),
 })
 export default class Navbar extends Vue {
   isAuthenticated!: boolean;
