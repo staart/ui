@@ -20,7 +20,7 @@
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.14.5",
     "nuxt-buefy": "^0.4.3",
-    "ua-parser-js": "^0.7.21",
+    "ua-parser-js": "^0.7.22",
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
