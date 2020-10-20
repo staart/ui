@@ -32,7 +32,7 @@
     "@types/ua-parser-js": "^0.7.33",
     "@vue/test-utils": "^1.1.0",
     "babel-jest": "^26.6.0",
-    "jest": "^26.5.3",
+    "jest": "^26.6.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.3",
     "semantic-release": "^17.2.1",
