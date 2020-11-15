@@ -1,5 +1,7 @@
 export const BASE_URL = "http://localhost:3000/v1";
 
+import type { TokenResponse } from "@staart/api/src/modules/auth/auth.interface";
+import { getAuthenticatedState } from "./auth-token";
 import { getMessageFromCode } from "./errors";
 // import PQueue from "p-queue";
 
@@ -16,11 +18,27 @@ const callApiMethod = async <T>(
   endpoint: string,
   body?: any
 ): Promise<T> => {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  const state = getAuthenticatedState();
+  if (state === "authenticated") {
+    const { accessToken } = JSON.parse(window.localStorage.getItem("auth"));
+    headers.Authorization = `Bearer ${accessToken}`;
+  } else if (state === "expired") {
+    const { refreshToken } = JSON.parse(window.localStorage.getItem("auth"));
+    const response = await fetch(`${BASE_URL}/auth/refresh`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ token: refreshToken }),
+    });
+    const tokens = (await response.json()) as TokenResponse;
+    window.localStorage.setItem("auth", JSON.stringify(tokens));
+    headers.Authorization = `Bearer ${tokens.accessToken}`;
+  }
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: typeof body === "object" ? JSON.stringify(body) : body,
   });
   const capitalize = (str: string) =>
