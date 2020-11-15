@@ -31,3 +31,7 @@ main h2 {
 .bx--modal {
   width: 100% !important;
 }
+
+.bx--fieldset {
+  margin-bottom: 1rem !important;
+}
