@@ -1,4 +1,6 @@
 export const BASE_URL = "http://localhost:3000/v1";
+
+import { getMessageFromCode } from "./errors";
 // import PQueue from "p-queue";
 
 // const queue = new PQueue({ concurrency: 1 });
@@ -34,7 +36,9 @@ const callApiMethod = async <T>(
         capitalize(result.message.join(", ").replace(/, ([^,]*)$/, ", and $1"))
       );
     else if (typeof result.message === "string")
-      throw new Error(capitalize(result.message));
+      throw new Error(
+        getMessageFromCode(result.message) ?? capitalize(result.message)
+      );
     else throw new Error(capitalize(result.error ?? "An error occurred"));
   return result;
 };
