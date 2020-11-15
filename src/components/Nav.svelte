@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import {
     HeaderAction,
     HeaderActionSearch,
@@ -9,16 +9,32 @@
     HeaderUtilities,
   } from "carbon-components-svelte";
   import Moon20 from "carbon-icons-svelte/lib/Moon20";
+  import { onMount } from "svelte";
+  import { api } from "../helpers/api";
+  import { getUserId } from "../helpers/auth-token";
 
   let isOpen = false;
   let dark = undefined;
   let href = "";
+  let userId: number | false = false;
+  let memberships: any[] = [];
 
   $: {
     href = dark
       ? "https://unpkg.com/carbon-components-svelte@0.22.0/css/g100.css"
       : "https://unpkg.com/carbon-components-svelte@0.22.0/css/g10.css";
+    userId = getUserId();
   }
+
+  onMount(async () => {
+    if (userId) memberships = await api("GET", `/users/${userId}/memberships`);
+  });
+
+  const logout = () => {
+    window.localStorage.removeItem("auth");
+    api("POST", "/auth/logout");
+    window.location.href = "/";
+  };
 </script>
 
 <style>
@@ -33,15 +49,25 @@
 
 <HeaderUtilities>
   <HeaderActionSearch />
-  <HeaderGlobalAction
-    aria-label="Toggle dark mode"
-    icon={Moon20}
-    on:click={() => (dark = !dark)} />
-  <HeaderAction bind:isOpen>
-    <HeaderPanelLinks>
-      <HeaderPanelDivider>Admin</HeaderPanelDivider>
-      <HeaderPanelLink>Change password</HeaderPanelLink>
-      <HeaderPanelLink>Logout</HeaderPanelLink>
-    </HeaderPanelLinks>
-  </HeaderAction>
+  {#if userId}
+    <HeaderGlobalAction
+      aria-label="Toggle dark mode"
+      icon={Moon20}
+      on:click={() => (dark = !dark)} />
+    <HeaderAction bind:isOpen>
+      <HeaderPanelLinks>
+        {#if memberships.length}
+          <HeaderPanelDivider>Your groups</HeaderPanelDivider>
+          {#each memberships as membership}
+            <HeaderPanelLink href="/groups/{membership.group.id}">
+              {membership.group.name}
+            </HeaderPanelLink>
+          {/each}
+        {/if}
+        <HeaderPanelDivider>Your account</HeaderPanelDivider>
+        <HeaderPanelLink href="/users/{userId}">Settings</HeaderPanelLink>
+        <HeaderPanelLink on:click={logout}>Logout</HeaderPanelLink>
+      </HeaderPanelLinks>
+    </HeaderAction>
+  {/if}
 </HeaderUtilities>

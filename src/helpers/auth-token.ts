@@ -5,6 +5,15 @@ export const decode = (token: string) => {
   return JSON.parse(atob(payload));
 };
 
+export const getUserId = (): number | false => {
+  try {
+    const tokens = JSON.parse(window.localStorage.getItem("auth"));
+    const [_, payload] = tokens.accessToken.split(".");
+    return JSON.parse(atob(payload)).id;
+  } catch (error) {}
+  return false;
+};
+
 export const getAuthenticatedState = (): AuthState => {
   if (typeof window !== "undefined") {
     const tokens = window.localStorage.getItem("auth");
