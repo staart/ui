@@ -28,7 +28,7 @@
   const { id } = $page.params;
 
   let profile: any = null;
-  let emails: any[] | null = null;
+  let emails: any[] = [];
   let loading = true;
   let state = "ready";
   let newEmail = "";

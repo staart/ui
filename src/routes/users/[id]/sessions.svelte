@@ -16,7 +16,7 @@
   const { page } = stores();
   const { id } = $page.params;
 
-  let sessions: any[] | null = null;
+  let sessions: any[] = [];
   let loading = true;
   let state = "ready";
   let errorMessage = "";

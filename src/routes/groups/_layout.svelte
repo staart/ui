@@ -41,8 +41,7 @@
     <SideNavLink text="Domains" href="/groups/{id}/domains" />
     <SideNavMenu text="Security">
       <SideNavMenuItem href="/groups/{id}/audit-logs" text="Audit logs" />
-      <SideNavMenuItem href="/groups/{id}/merge" text="Merge group" />
-      <SideNavMenuItem href="/groups/{id}/deactivate" text="Delete group" />
+      <SideNavMenuItem href="/groups/{id}/delete" text="Delete group" />
     </SideNavMenu>
     <SideNavMenu text="Developers">
       <SideNavMenuItem href="/groups/{id}/api-keys" text="API keys" />
