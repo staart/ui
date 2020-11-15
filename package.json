@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "compression": "^1.7.1",
+    "p-queue": "^6.6.2",
     "polka": "next",
     "sirv": "^1.0.0"
   },
