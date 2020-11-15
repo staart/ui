@@ -27,14 +27,20 @@ const callApiMethod = async <T>(
     headers.Authorization = `Bearer ${accessToken}`;
   } else if (state === "expired") {
     const { refreshToken } = JSON.parse(window.localStorage.getItem("auth"));
-    const response = await fetch(`${BASE_URL}/auth/refresh`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ token: refreshToken }),
-    });
-    const tokens = (await response.json()) as TokenResponse;
-    window.localStorage.setItem("auth", JSON.stringify(tokens));
-    headers.Authorization = `Bearer ${tokens.accessToken}`;
+    try {
+      const response = await fetch(`${BASE_URL}/auth/refresh`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ token: refreshToken }),
+      });
+      const tokens = (await response.json()) as TokenResponse;
+      window.localStorage.setItem("auth", JSON.stringify(tokens));
+      headers.Authorization = `Bearer ${tokens.accessToken}`;
+    } catch (error) {
+      window.localStorage.removeItem("auth");
+      window.location.href = "/";
+      return;
+    }
   }
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     method,
