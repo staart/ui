@@ -13,3 +13,11 @@
   border-radius: 100%;
   margin-top: -0.2rem;
 }
+
+main h1 {
+  margin-bottom: 1rem;
+}
+
+main h2 {
+  margin: 2rem 0 1rem 0;
+}
