@@ -2,6 +2,7 @@
   import { stores } from "@sapper/app";
   import {
     Button,
+    CodeSnippet,
     DataTable,
     DataTableSkeleton,
     InlineLoading,
@@ -11,6 +12,7 @@
   import { onMount } from "svelte";
   import { PAGINATION_MAX } from "../../../constants";
   import { api } from "../../../helpers/api";
+  import download from "downloadjs";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -52,8 +54,15 @@
 {:else if auditLogs}
   <DataTable
     sortable
+    expandable
     headers={[{ key: 'createdAt', value: 'Created' }, { key: 'event', value: 'Event' }, { key: 'browser', value: 'Browser' }, { key: 'operatingSystem', value: 'OS' }, { key: 'city', value: 'Location' }, { key: 'actions', value: '' }]}
     rows={auditLogs}>
+    <div slot="expanded-row" let:row>
+      <CodeSnippet
+        type="multi"
+        code={JSON.stringify(row, null, 2)}
+        hideCopyButton />
+    </div>
     <span slot="cell-header" let:header>
       {#if header.key === 'port'}
         {header.value}
@@ -99,7 +108,7 @@
         <div class="align-right">
           <Button
             icon={Download20}
-            on:click={() => {}}
+            on:click={() => download(JSON.stringify(row, null, 2), `${row.createdAt}-audit-log-${row.id}.json`)}
             hasIconOnly
             tooltipPosition="bottom"
             tooltipAlignment="center"
