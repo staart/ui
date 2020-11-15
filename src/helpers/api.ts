@@ -3,15 +3,23 @@ export const BASE_URL = "http://localhost:3000/v1";
 
 // const queue = new PQueue({ concurrency: 1 });
 
-export const api = async <T>(method: string, endpoint: string): Promise<T> =>
-  callApiMethod(method, endpoint);
+export const api = async <T>(
+  method: string,
+  endpoint: string,
+  body?: any
+): Promise<T> => callApiMethod(method, endpoint, body);
 
 const callApiMethod = async <T>(
   method: string,
-  endpoint: string
+  endpoint: string,
+  body?: any
 ): Promise<T> => {
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: typeof body === "object" ? JSON.stringify(body) : body,
   });
   const capitalize = (str: string) =>
     str.charAt(0).toUpperCase() + str.slice(1);

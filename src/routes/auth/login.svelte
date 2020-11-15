@@ -7,7 +7,12 @@
     PasswordInput,
     InlineNotification,
   } from "carbon-components-svelte";
+  import { goto } from "@sapper/app";
   import { api } from "../../helpers/api";
+  import type {
+    TokenResponse,
+    TotpTokenResponse,
+  } from "@staart/api/src/modules/auth/auth.interface";
 
   let email = "";
   let password = "";
@@ -15,8 +20,18 @@
 
   const login = async () => {
     try {
-      const response = await api("POST", "/auth/login");
-      console.log(response);
+      const response = await api<TokenResponse | TotpTokenResponse>(
+        "POST",
+        "/auth/login",
+        { email, password }
+      );
+      if ("multiFactorRequired" in response) {
+        window.localStorage.setItem("mfa-token", response.totpToken);
+        goto(`/auth/mfa/${response.totpToken.toLowerCase()}`);
+      } else {
+        window.localStorage.setItem("auth", JSON.stringify(response));
+        goto("/");
+      }
     } catch (err) {
       errorMessage = err.message;
       password = "";
