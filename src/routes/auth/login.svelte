@@ -50,6 +50,8 @@
   <InlineNotification kind="error" title={errorMessage} />
 {/if}
 
+<h1>Login</h1>
+
 <Form on:submit={login}>
   <FormGroup>
     <TextInput type="email" labelText="Email" bind:value={email} required />
