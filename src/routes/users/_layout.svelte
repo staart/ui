@@ -13,6 +13,9 @@
     SkipToContent,
   } from "carbon-components-svelte";
   import Nav from "../../components/Nav.svelte";
+  import { stores } from "@sapper/app";
+  const { page } = stores();
+  const { id } = $page.params;
 
   let isSideNavOpen = false;
 </script>
@@ -26,13 +29,20 @@
 
 <SideNav bind:isOpen={isSideNavOpen}>
   <SideNavItems>
-    <SideNavLink text="Link 1" />
-    <SideNavLink text="Link 2" />
-    <SideNavLink text="Link 3" />
-    <SideNavMenu text="Menu">
-      <SideNavMenuItem href="/" text="Link 1" />
-      <SideNavMenuItem href="/" text="Link 2" />
-      <SideNavMenuItem href="/" text="Link 3" />
+    <SideNavLink text="Profile" href="/users/{id}" />
+    <SideNavLink text="Emails" href="/users/{id}/emails" />
+    <SideNavLink text="Groups" href="/users/{id}/groups" />
+    <SideNavMenu text="Security">
+      <SideNavMenuItem href="/" text="Password" />
+      <SideNavMenuItem href="/" text="Sessions" />
+      <SideNavMenuItem href="/" text="Multi-factor authentication" />
+    </SideNavMenu>
+    <SideNavMenu text="Developers">
+      <SideNavMenuItem href="/" text="API keys" />
+    </SideNavMenu>
+    <SideNavMenu text="Advanced">
+      <SideNavMenuItem href="/" text="Merge account" />
+      <SideNavMenuItem href="/" text="Delete account" />
     </SideNavMenu>
   </SideNavItems>
 </SideNav>
