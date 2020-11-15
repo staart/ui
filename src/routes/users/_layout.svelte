@@ -44,7 +44,7 @@
     </SideNavMenu>
     <SideNavMenu text="Advanced">
       <SideNavMenuItem href="/users/{id}/merge" text="Merge account" />
-      <SideNavMenuItem href="/users/{id}/deactivate" text="Delete account" />
+      <SideNavMenuItem href="/users/{id}/deactivate" text="Deactivate account" />
     </SideNavMenu>
   </SideNavItems>
 </SideNav>
