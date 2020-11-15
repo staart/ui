@@ -11,6 +11,7 @@
   import SubtractAlt20 from "carbon-icons-svelte/lib/SubtractAlt20";
   import { onMount } from "svelte";
   import { api } from "../../../helpers/api";
+  import { can } from "../../../helpers/auth-token";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -109,17 +110,19 @@
       {:else if cell.key === 'actions'}
         <div class="align-right">
           {#if currentSessionToken !== row.token}
-            <Button
-              icon={SubtractAlt20}
-              on:click={() => {
-                openDelete = true;
-                deleteSession = row.id;
-              }}
-              hasIconOnly
-              kind="danger"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              iconDescription="Log out" />
+            {#if can(`user-${id}:sessions-${row.id}-delete`)}
+              <Button
+                icon={SubtractAlt20}
+                on:click={() => {
+                  openDelete = true;
+                  deleteSession = row.id;
+                }}
+                hasIconOnly
+                kind="danger"
+                tooltipPosition="bottom"
+                tooltipAlignment="center"
+                iconDescription="Log out" />
+            {/if}
           {/if}
         </div>
       {:else}{cell.value}{/if}

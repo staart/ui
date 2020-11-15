@@ -15,6 +15,7 @@
   import Edit20 from "carbon-icons-svelte/lib/Edit20";
   import { onMount } from "svelte";
   import { api } from "../../../../helpers/api";
+  import { can } from "../../../../helpers/auth-token";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -104,24 +105,28 @@
         <code>{cell.value}</code>
       {:else if cell.key === 'actions'}
         <div class="align-right">
-          <Button
-            icon={Edit20}
-            href="/users/{id}/api-keys/{row.id}"
-            hasIconOnly
-            tooltipPosition="bottom"
-            tooltipAlignment="center"
-            iconDescription="Edit" />
-          <Button
-            icon={SubtractAlt20}
-            on:click={() => {
-              openDelete = true;
-              deleteApiKey = row.id;
-            }}
-            hasIconOnly
-            kind="danger"
-            tooltipPosition="bottom"
-            tooltipAlignment="center"
-            iconDescription="Delete" />
+          {#if can(`user-${id}:api-key-${row.id}-delete`)}
+            <Button
+              icon={Edit20}
+              href="/users/{id}/api-keys/{row.id}"
+              hasIconOnly
+              tooltipPosition="bottom"
+              tooltipAlignment="center"
+              iconDescription="Edit" />
+          {/if}
+          {#if can(`user-${id}:api-key-${row.id}-delete`)}
+            <Button
+              icon={SubtractAlt20}
+              on:click={() => {
+                openDelete = true;
+                deleteApiKey = row.id;
+              }}
+              hasIconOnly
+              kind="danger"
+              tooltipPosition="bottom"
+              tooltipAlignment="center"
+              iconDescription="Delete" />
+          {/if}
         </div>
       {:else}{cell.value}{/if}
     </span>

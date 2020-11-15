@@ -8,6 +8,7 @@
     Modal,
   } from "carbon-components-svelte";
   import { api } from "../../../helpers/api";
+  import { can } from "../../../helpers/auth-token";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -48,12 +49,15 @@
   <InlineNotification kind="error" title={errorMessage} />
 {/if}
 
-<Form on:submit={() => (openDelete = true)}>
-  <p>
-    Your account will be automatically deleted if you do not log in for 30 days.
-  </p>
-  <Button kind="danger" type="submit">Deactivate account</Button>
-</Form>
+{#if can(`user-${id}:delete`)}
+  <Form on:submit={() => (openDelete = true)}>
+    <p>
+      Your account will be automatically deleted if you do not log in for 30
+      days.
+    </p>
+    <Button kind="danger" type="submit">Deactivate account</Button>
+  </Form>
+{/if}
 {#if state === 'deactivating'}
   <InlineLoading status="active" description="Deactivating..." />
 {:else if state === 'deactivated'}

@@ -22,6 +22,7 @@
   import SubtractAlt20 from "carbon-icons-svelte/lib/SubtractAlt20";
   import { onMount } from "svelte";
   import { api } from "../../../helpers/api";
+  import { can } from "../../../helpers/auth-token";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -73,6 +74,8 @@
     try {
       await api("DELETE", `/users/${id}/emails/${deleteEmail}`);
       emails = emails.filter((i) => i.id !== deleteEmail);
+      if (profile.prefersEmailId === deleteEmail)
+        profile = await api("GET", `/users/${id}`);
       state = "removed";
       setTimeout(() => (state = "ready"), 5000);
     } catch (error) {
@@ -95,6 +98,10 @@
   on:submit={() => remove()}>
   <p>Are you sure you want to delete this email?</p>
 </Modal>
+
+{#if errorMessage}
+  <InlineNotification kind="error" title={errorMessage} />
+{/if}
 
 {#if loading}
   <DataTableSkeleton showHeader={false} showToolbar={false} />
@@ -129,7 +136,7 @@
         {new Date(cell.value).toLocaleDateString()}
       {:else if cell.key === 'actions'}
         <div class="align-right">
-          {#if profile.prefersEmailId !== row.id}
+          {#if can(`user-${id}:email-${row.id}-delete`)}
             <Button
               icon={SubtractAlt20}
               on:click={() => {
@@ -152,9 +159,6 @@
     <InlineLoading status="finished" description="Deleted" />
   {/if}
   <h2>Add email</h2>
-  {#if errorMessage}
-    <InlineNotification kind="error" title={errorMessage} />
-  {/if}
   <Form on:submit={add}>
     <FormGroup>
       <TextInput

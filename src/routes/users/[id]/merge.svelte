@@ -9,6 +9,7 @@
     TextInput,
   } from "carbon-components-svelte";
   import { api } from "../../../helpers/api";
+  import { can } from "../../../helpers/auth-token";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -39,12 +40,18 @@
   <InlineNotification kind="error" title={errorMessage} />
 {/if}
 
-<Form on:submit={save}>
-  <FormGroup>
-    <TextInput labelText="Email" type="email" bind:value={newEmail} required />
-  </FormGroup>
-  <Button type="submit">Merge accounts</Button>
-</Form>
+{#if can(`user-${id}:write`)}
+  <Form on:submit={save}>
+    <FormGroup>
+      <TextInput
+        labelText="Email"
+        type="email"
+        bind:value={newEmail}
+        required />
+    </FormGroup>
+    <Button type="submit">Merge accounts</Button>
+  </Form>
+{/if}
 {#if state === 'merging'}
   <InlineLoading status="active" description="Merging..." />
 {:else if state === 'merged'}

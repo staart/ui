@@ -12,8 +12,10 @@
     TextInput,
   } from "carbon-components-svelte";
   import SubtractAlt20 from "carbon-icons-svelte/lib/SubtractAlt20";
+  import Home20 from "carbon-icons-svelte/lib/Home20";
   import { onMount } from "svelte";
   import { api } from "../../../helpers/api";
+  import { can } from "../../../helpers/auth-token";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -96,16 +98,25 @@
       {:else if cell.key === 'actions'}
         <div class="align-right">
           <Button
-            icon={SubtractAlt20}
-            on:click={() => {
-              openDelete = true;
-              deleteGroup = row.id;
-            }}
+            icon={Home20}
+            href="/groups/{row.group.id}"
             hasIconOnly
-            kind="danger"
             tooltipPosition="bottom"
             tooltipAlignment="center"
-            iconDescription="Leave" />
+            iconDescription="Visit group" />
+          {#if can(`user-${id}:membership-${row.id}-delete`)}
+            <Button
+              icon={SubtractAlt20}
+              on:click={() => {
+                openDelete = true;
+                deleteGroup = row.id;
+              }}
+              hasIconOnly
+              kind="danger"
+              tooltipPosition="bottom"
+              tooltipAlignment="center"
+              iconDescription="Leave" />
+          {/if}
         </div>
       {:else}{cell.value}{/if}
     </span>

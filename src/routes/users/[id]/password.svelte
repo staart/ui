@@ -6,7 +6,7 @@
     FormGroup,
     InlineLoading,
     InlineNotification,
-    TextInput,
+    PasswordInput,
   } from "carbon-components-svelte";
   import { api } from "../../../helpers/api";
 
@@ -44,17 +44,17 @@
 
 <Form on:submit={save}>
   <FormGroup>
-    <TextInput
+    <PasswordInput
       labelText="Current password"
       type="password"
-      bind:value={currentPassword} />
+      bind:value={currentPassword}
+      helperText="If you don't have a password, you can leave this field empty." />
   </FormGroup>
   <FormGroup>
-    <TextInput
+    <PasswordInput
       labelText="New password"
       type="password"
-      bind:value={newPassword}
-      required />
+      bind:value={newPassword} />
   </FormGroup>
   <Button type="submit">Change password</Button>
 </Form>
