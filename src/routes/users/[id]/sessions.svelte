@@ -65,7 +65,7 @@
 {:else if sessions}
   <DataTable
     sortable
-    headers={[{ key: 'updatedAt', value: 'Last used' }, { key: 'browser', value: 'Device' }, { key: 'city', value: 'Location' }, { key: 'actions', value: '' }]}
+    headers={[{ key: 'updatedAt', value: 'Last used' }, { key: 'browser', value: 'Browser' }, { key: 'operatingSystem', value: 'OS' }, { key: 'city', value: 'Location' }, { key: 'actions', value: '' }]}
     rows={sessions}>
     <span slot="cell-header" let:header>
       {#if header.key === 'port'}
@@ -76,6 +76,36 @@
     <span slot="cell" let:row let:cell>
       {#if cell.key === 'updatedAt'}
         {new Date(cell.value).toLocaleString()}
+      {:else if cell.key === 'browser'}
+        {#if cell.value}
+          <img
+            class="table-icon"
+            alt=""
+            src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/51.0.13/{cell.value
+              .split(' ')[0]
+              .toLowerCase()}/{cell.value
+              .split(' ')[0]
+              .toLowerCase()}_128x128.png" />
+        {/if}
+        <span>{cell.value}</span>
+      {:else if cell.key === 'operatingSystem'}
+        {#if cell.value}
+          <img
+            class="table-icon"
+            alt=""
+            src="https://unpkg.com/analytics-icons/icons/{cell.value
+              .split(' ')[0]
+              .toLowerCase()}.png" />
+        {/if}
+        <span>{cell.value}</span>
+      {:else if cell.key === 'city'}
+        {#if row.countryCode}
+          <img
+            class="table-icon"
+            alt=""
+            src="https://lipis.github.io/flag-icon-css/flags/1x1/{row.countryCode.toLowerCase()}.svg" />
+        {/if}
+        <span>{cell.value}</span>
       {:else if cell.key === 'actions'}
         <div class="align-right">
           {#if currentSessionToken !== row.token}

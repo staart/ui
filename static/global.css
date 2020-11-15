@@ -5,3 +5,11 @@
 .align-right {
   text-align: right;
 }
+
+.table-icon {
+  height: 1.5rem;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+  border-radius: 100%;
+  margin-top: -0.2rem;
+}
