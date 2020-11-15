@@ -3,8 +3,8 @@
   import { onMount } from "svelte";
   import { getAuthenticatedState } from "../helpers/auth-token";
 
-  onMount(() => {
+  onMount(async () => {
     const authState = getAuthenticatedState();
-    if (authState === "unauthenticated") goto("/auth/login");
+    if (authState === "unauthenticated") return goto("/auth/login");
   });
 </script>

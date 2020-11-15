@@ -13,10 +13,17 @@
     TokenResponse,
     TotpTokenResponse,
   } from "@staart/api/src/modules/auth/auth.interface";
+  import { onMount } from "svelte";
+  import { getAuthenticatedState } from "../../helpers/auth-token";
 
   let email = "";
   let password = "";
   let errorMessage = "";
+
+  onMount(async () => {
+    const authState = getAuthenticatedState();
+    if (authState === "authenticated") return goto("/");
+  });
 
   const login = async () => {
     try {
@@ -27,10 +34,10 @@
       );
       if ("multiFactorRequired" in response) {
         window.localStorage.setItem("mfa-token", response.totpToken);
-        goto(`/auth/mfa/${response.totpToken.toLowerCase()}`);
+        return goto(`/auth/mfa/${response.totpToken.toLowerCase()}`);
       } else {
         window.localStorage.setItem("auth", JSON.stringify(response));
-        goto("/");
+        return goto("/");
       }
     } catch (err) {
       errorMessage = err.message;
