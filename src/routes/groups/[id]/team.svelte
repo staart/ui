@@ -10,12 +10,15 @@
     InlineLoading,
     InlineNotification,
     Modal,
+    RadioButton,
+    RadioButtonGroup,
     TextArea,
   } from "carbon-components-svelte";
   import { onMount } from "svelte";
   import { api } from "../../../helpers/api";
   import SubtractAlt20 from "carbon-icons-svelte/lib/SubtractAlt20";
   import Edit20 from "carbon-icons-svelte/lib/Edit20";
+  import { can } from "../../../helpers/auth-token";
 
   const { page } = stores();
   const { id } = $page.params;
@@ -29,6 +32,8 @@
   let errorMessage = "";
   let openDelete = false;
   let deleteMembership: number | null = null;
+  let openEdit = false;
+  let editMembership: any | null = null;
   onMount(async () => {
     group = await api("GET", `/groups/${id}`);
     members = await api("GET", `/groups/${id}/memberships`);
@@ -71,9 +76,31 @@
   const save = async () => {
     state = "saving";
     group = await api("PATCH", `/groups/${id}`, {
-      name: group.name,
+      forceTwoFactor: group.forceTwoFactor,
+      ipRestrictions: group.ipRestrictions,
+      onlyAllowDomain: group.onlyAllowDomain,
+      autoJoinDomain: group.autoJoinDomain,
     });
     state = "saved";
+    setTimeout(() => (state = "ready"), 5000);
+  };
+
+  const update = async () => {
+    state = "updating";
+    openEdit = false;
+    const result: any = await api(
+      "PATCH",
+      `/groups/${id}/memberships/${editMembership.id}`,
+      {
+        role: editMembership.role,
+      }
+    );
+    members = members.map((i) => {
+      if (i.id === result.id) return result;
+      return i;
+    });
+    editMembership = null;
+    state = "updated";
     setTimeout(() => (state = "ready"), 5000);
   };
 </script>
@@ -89,6 +116,24 @@
   on:click:button--secondary={() => (openDelete = false)}
   on:submit={() => remove()}>
   <p>Are you sure you want to delete this member from your group?</p>
+</Modal>
+
+<Modal
+  bind:open={openEdit}
+  modalHeading="Edit member"
+  primaryButtonText="Update"
+  secondaryButtonText="Cancel"
+  on:click:button--secondary={() => (openEdit = false)}
+  on:submit={() => update()}>
+  {#if editMembership}
+    <FormGroup legendText="Role">
+      <RadioButtonGroup bind:selected={editMembership.role}>
+        <RadioButton value="MEMBER" labelText="Member" />
+        <RadioButton value="ADMIN" labelText="Admin" />
+        <RadioButton value="OWNER" labelText="Owner" />
+      </RadioButtonGroup>
+    </FormGroup>
+  {/if}
 </Modal>
 
 {#if errorMessage}
@@ -115,24 +160,31 @@
         {new Date(cell.value).toLocaleDateString()}
       {:else if cell.key === 'actions'}
         <div class="align-right">
-          <Button
-            icon={Edit20}
-            href="/groups/{id}/memberships/{row.id}"
-            hasIconOnly
-            tooltipPosition="bottom"
-            tooltipAlignment="center"
-            iconDescription="Edit" />
-          <Button
-            icon={SubtractAlt20}
-            on:click={() => {
-              openDelete = true;
-              deleteMembership = row.id;
-            }}
-            hasIconOnly
-            kind="danger"
-            tooltipPosition="bottom"
-            tooltipAlignment="center"
-            iconDescription="Delete" />
+          {#if can(`group-${id}:write-membership-${row.id}`)}
+            <Button
+              icon={Edit20}
+              on:click={() => {
+                openEdit = true;
+                editMembership = row;
+              }}
+              hasIconOnly
+              tooltipPosition="bottom"
+              tooltipAlignment="center"
+              iconDescription="Edit" />
+          {/if}
+          {#if can(`group-${id}:delete-membership-${row.id}`)}
+            <Button
+              icon={SubtractAlt20}
+              on:click={() => {
+                openDelete = true;
+                deleteMembership = row.id;
+              }}
+              hasIconOnly
+              kind="danger"
+              tooltipPosition="bottom"
+              tooltipAlignment="center"
+              iconDescription="Delete" />
+          {/if}
         </div>
       {:else}{cell.value}{/if}
     </span>
@@ -142,28 +194,35 @@
   {:else if state === 'removed'}
     <InlineLoading status="finished" description="Deleted" />
   {/if}
-  <h2>Settings</h2>
-  <Form on:submit={save}>
-    <FormGroup legendText="Multi-factor authentication">
-      <Checkbox
-        bind:checked={group.forceTwoFactor}
-        labelText="Force members to enable multi-factor authentication" />
-    </FormGroup>
-    <FormGroup>
-      <TextArea
-        labelText="IP address restrictions"
-        bind:value={group.ipRestrictions} />
-    </FormGroup>
-    <FormGroup legendText="Inviting members">
-      <Checkbox
-        bind:checked={group.onlyAllowDomain}
-        labelText="Users can only join this team if they have a verified email on an approved domain" />
-      <Checkbox
-        bind:checked={group.autoJoinDomain}
-        labelText="Users can automatically join this team if they have a verified email on an approved domain" />
-    </FormGroup>
-    <Button type="submit">Save team settings</Button>
-  </Form>
+  {#if state === 'updating'}
+    <InlineLoading status="active" description="Updating..." />
+  {:else if state === 'updated'}
+    <InlineLoading status="finished" description="Updated" />
+  {/if}
+  {#if can(`group-${id}:write`)}
+    <h2>Settings</h2>
+    <Form on:submit={save}>
+      <FormGroup legendText="Multi-factor authentication">
+        <Checkbox
+          bind:checked={group.forceTwoFactor}
+          labelText="Force members to enable multi-factor authentication" />
+      </FormGroup>
+      <FormGroup>
+        <TextArea
+          labelText="IP address restrictions"
+          bind:value={group.ipRestrictions} />
+      </FormGroup>
+      <FormGroup legendText="Inviting members">
+        <Checkbox
+          bind:checked={group.onlyAllowDomain}
+          labelText="Users can only join this team if they have a verified email on an approved domain" />
+        <Checkbox
+          bind:checked={group.autoJoinDomain}
+          labelText="Users can automatically join this team if they have a verified email on an approved domain" />
+      </FormGroup>
+      <Button type="submit">Save team settings</Button>
+    </Form>
+  {/if}
   {#if state === 'saving'}
     <InlineLoading status="active" description="Saving..." />
   {:else if state === 'saved'}
