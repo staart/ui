@@ -61,3 +61,5 @@
   </FormGroup>
   <Button type="submit">Login to your account</Button>
 </Form>
+
+<p><a href="/auth/register">Create a new account</a></p>
