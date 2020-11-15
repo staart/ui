@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "compression": "^1.7.1",
+    "downloadjs": "^1.4.7",
     "p-queue": "^6.6.2",
     "polka": "next",
     "sirv": "^1.0.0",
@@ -31,6 +32,7 @@
     "@staart/api": "^3.5.0",
     "@tsconfig/svelte": "^1.0.10",
     "@types/compression": "^1.7.0",
+    "@types/downloadjs": "^1.4.2",
     "@types/node": "^14.11.1",
     "@types/polka": "^0.5.1",
     "carbon-components-svelte": "^0.22.0",
