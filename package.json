@@ -10,7 +10,9 @@
     "validate": "svelte-check --ignore src/node_modules/@sapper"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.0",
     "compression": "^1.7.1",
+    "jsonwebtoken": "^8.5.1",
     "p-queue": "^6.6.2",
     "polka": "next",
     "sirv": "^1.0.0"
