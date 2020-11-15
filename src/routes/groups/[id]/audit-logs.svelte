@@ -24,7 +24,7 @@
   onMount(async () => {
     auditLogs = await api(
       "GET",
-      `/groups/${id}/audit-logs?take=${PAGINATION_MAX}`
+      `/groups/${id}/audit-logs?take=${PAGINATION_MAX}&orderBy=id:desc`
     );
     loading = "none";
   });
@@ -33,7 +33,7 @@
     loading = "more";
     const result = await api<any[]>(
       "GET",
-      `/groups/${id}/audit-logs?take=${PAGINATION_MAX}&cursor=id:${
+      `/groups/${id}/audit-logs?take=${PAGINATION_MAX}&orderBy=id:desc&cursor=${
         auditLogs[auditLogs.length - 1].id
       }&skip=1`
     );
