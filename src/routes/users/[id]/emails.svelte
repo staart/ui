@@ -58,6 +58,7 @@
           email: newEmail,
         })
       );
+      newEmail = "";
       state = "added";
       setTimeout(() => (state = "ready"), 5000);
     } catch (error) {
