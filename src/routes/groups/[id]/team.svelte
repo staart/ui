@@ -13,6 +13,7 @@
     RadioButton,
     RadioButtonGroup,
     TextArea,
+    TextInput,
   } from "carbon-components-svelte";
   import { onMount } from "svelte";
   import { api } from "../../../helpers/api";
@@ -49,6 +50,8 @@
           email: newMemberEmail,
         })
       );
+      members = await api("GET", `/groups/${id}/memberships`);
+      newMemberName = "";
       newMemberEmail = "";
       state = "added";
       setTimeout(() => (state = "ready"), 5000);
@@ -200,6 +203,25 @@
     <InlineLoading status="finished" description="Updated" />
   {/if}
   {#if can(`group-${id}:write`)}
+    <h2>Invite members</h2>
+    <Form on:submit={add}>
+      <FormGroup>
+        <TextInput labelText="Name" bind:value={newMemberName} />
+      </FormGroup>
+      <FormGroup>
+        <TextInput
+          type="email"
+          labelText="Email"
+          bind:value={newMemberEmail}
+          required />
+      </FormGroup>
+      <Button type="submit">Add member</Button>
+    </Form>
+    {#if state === 'adding'}
+      <InlineLoading status="active" description="Adding..." />
+    {:else if state === 'added'}
+      <InlineLoading status="finished" description="Added" />
+    {/if}
     <h2>Settings</h2>
     <Form on:submit={save}>
       <FormGroup legendText="Multi-factor authentication">

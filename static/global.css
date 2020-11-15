@@ -21,3 +21,13 @@ main h1 {
 main h2 {
   margin: 2rem 0 1rem 0;
 }
+
+/**
+ * This is a bug with Carbon where the default
+ * width of the modal is `100vw`, which causes
+ * horizontal scrolling when a modal is opened
+ * in containers smaller than the whole window
+ */
+.bx--modal {
+  width: 100% !important;
+}
