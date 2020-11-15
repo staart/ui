@@ -1,3 +1,5 @@
+import wildcardMatch from "wildcard-match";
+
 export type AuthState = "authenticated" | "expired" | "unauthenticated";
 
 export const decode = (token: string) => {
@@ -10,6 +12,21 @@ export const getUserId = (): number | false => {
     const tokens = JSON.parse(window.localStorage.getItem("auth"));
     const [_, payload] = tokens.accessToken.split(".");
     return JSON.parse(atob(payload)).id;
+  } catch (error) {}
+  return false;
+};
+
+export const can = (scope: string): boolean => {
+  try {
+    const tokens = JSON.parse(window.localStorage.getItem("auth"));
+    const [_, payload] = tokens.accessToken.split(".");
+    const scopes = JSON.parse(atob(payload)).scopes as string[];
+    let hasPermission = false;
+    scopes.forEach((test) => {
+      const isMatch = wildcardMatch(test);
+      hasPermission = hasPermission || isMatch(scope);
+    });
+    return hasPermission;
   } catch (error) {}
   return false;
 };
