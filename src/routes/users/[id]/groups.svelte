@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { stores } from "@sapper/app";
+  import { goto, stores } from "@sapper/app";
   import {
     Button,
     DataTable,
@@ -35,14 +35,13 @@
   const add = async () => {
     state = "adding";
     try {
-      await api("POST", `/users/${id}/memberships`, {
+      const result: any = await api("POST", `/users/${id}/memberships`, {
         name: newGroup,
       });
       newGroup = "";
       memberships = await api("GET", `/users/${id}/memberships`);
       await refresh();
-      state = "added";
-      setTimeout(() => (state = "ready"), 5000);
+      if (result.group?.id) return goto(`/groups/${result.group.id}`);
     } catch (error) {
       errorMessage = error.message;
       state = "ready";

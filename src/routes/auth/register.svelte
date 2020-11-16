@@ -17,8 +17,8 @@
   let email = "";
   let password = "";
   let errorMessage = "";
-  let countryCode: string | null = null;
-  let timezone: string | null = null;
+  let countryCode: string | undefined = undefined;
+  let timezone: string | undefined = undefined;
   let prefersColorScheme = "NO_PREFERENCE";
   let prefersReducedMotion = "NO_PREFERENCE";
 
