@@ -1,24 +1,22 @@
 <script lang="ts">
-  import {
-    Button,
-    Form,
-    FormGroup,
-    TextInput,
-    PasswordInput,
-    InlineNotification,
-    InlineLoading,
-  } from "carbon-components-svelte";
   import { goto } from "@sapper/app";
-  import { api } from "../../helpers/api";
   import type {
     TokenResponse,
     TotpTokenResponse,
   } from "@staart/api/src/modules/auth/auth.interface";
+  import {
+    Button,
+    Form,
+    FormGroup,
+    InlineLoading,
+    InlineNotification,
+    TextInput,
+  } from "carbon-components-svelte";
   import { onMount } from "svelte";
+  import { api } from "../../helpers/api";
   import { getAuthenticatedState } from "../../helpers/auth-token";
 
   let email = "";
-  let password = "";
   let errorMessage = "";
   let state = "ready";
 
@@ -27,24 +25,23 @@
     if (authState === "authenticated") return goto("/");
   });
 
-  const login = async () => {
-    state = "loggingin";
+  const submit = async () => {
+    state = "resending";
     try {
-      const response = await api<TokenResponse | TotpTokenResponse>(
+      const response = await api<TokenResponse | TotpTokenResponse | any>(
         "POST",
-        "/auth/login",
-        { email, password }
+        "/auth/resend-email-verification",
+        { email }
       );
       if ("multiFactorRequired" in response) {
         window.localStorage.setItem("mfa-token", response.totpToken);
         return goto(`/auth/mfa/${response.totpToken.toLowerCase()}`);
-      } else {
+      } else if ("accessToken" in response) {
         window.localStorage.setItem("auth", JSON.stringify(response));
         return goto("/");
-      }
+      } else state = "success";
     } catch (err) {
       errorMessage = err.message;
-      password = "";
       state = "ready";
     }
   };
@@ -54,22 +51,21 @@
   <InlineNotification kind="error" title={errorMessage} />
 {/if}
 
-<h1>Login</h1>
+<h1>Resend email verification</h1>
 
-<Form on:submit={login}>
+<Form on:submit={submit}>
   <FormGroup>
     <TextInput type="email" labelText="Email" bind:value={email} required />
   </FormGroup>
-  <FormGroup>
-    <PasswordInput labelText="Password" bind:value={password} />
-  </FormGroup>
-  <Button type="submit">Login to your account</Button>
+  <Button type="submit">Send email verification link</Button>
 </Form>
-{#if state === 'loggingin'}
-  <InlineLoading status="active" description="Logging in..." />
+{#if state === 'resending'}
+  <InlineLoading status="active" description="Resetting..." />
+{:else if state === 'success'}
+  <InlineLoading status="finished" description="Email sent" />
 {/if}
 
 <h2>More actions</h2>
 
+<Button kind="secondary" href="/auth/login">Login to your account</Button>
 <Button kind="secondary" href="/auth/register">Create an account</Button>
-<Button kind="secondary" href="/auth/forgot">Reset password</Button>
