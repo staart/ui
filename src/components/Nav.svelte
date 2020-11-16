@@ -18,6 +18,7 @@
   let href = "";
   let userId: number | false = false;
   let memberships: any[] = [];
+  let loadingLogout = false;
 
   $: {
     href = dark
@@ -30,9 +31,13 @@
     if (userId) memberships = await api("GET", `/users/${userId}/memberships`);
   });
 
-  const logout = () => {
+  const logout = async () => {
+    loadingLogout = true;
+    try {
+      await api("POST", "/auth/logout");
+    } catch (error) {}
+    loadingLogout = false;
     window.localStorage.removeItem("auth");
-    api("POST", "/auth/logout");
     window.location.href = "/";
   };
 </script>
@@ -66,7 +71,9 @@
         {/if}
         <HeaderPanelDivider>Your account</HeaderPanelDivider>
         <HeaderPanelLink href="/users/{userId}">Settings</HeaderPanelLink>
-        <HeaderPanelLink on:click={logout}>Logout</HeaderPanelLink>
+        <HeaderPanelLink on:click={logout}>
+          {#if loadingLogout}Logging out...{:else}Logout{/if}
+        </HeaderPanelLink>
       </HeaderPanelLinks>
     </HeaderAction>
   {/if}
