@@ -35,7 +35,7 @@
       );
       if ("multiFactorRequired" in response) {
         window.localStorage.setItem("mfa-token", response.totpToken);
-        return goto(`/auth/mfa/${response.totpToken.toLowerCase()}`);
+        return goto(`/auth/mfa/${response.type.toLowerCase()}`);
       } else if ("accessToken" in response) {
         window.localStorage.setItem("auth", JSON.stringify(response));
         return goto("/");

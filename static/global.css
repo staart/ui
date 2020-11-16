@@ -6,6 +6,11 @@
   text-align: right;
 }
 
+.align-center {
+  display: flex;
+  justify-content: center;
+}
+
 .table-icon {
   height: 1.5rem;
   vertical-align: middle;
