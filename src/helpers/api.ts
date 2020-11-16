@@ -7,6 +7,21 @@ import { getMessageFromCode } from "./errors";
 
 // const queue = new PQueue({ concurrency: 1 });
 
+export const refresh = async () => {
+  const { refreshToken } = JSON.parse(window.localStorage.getItem("auth"));
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  const response = await fetch(`${BASE_URL}/auth/refresh`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ token: refreshToken }),
+  });
+  const tokens = (await response.json()) as TokenResponse;
+  window.localStorage.setItem("auth", JSON.stringify(tokens));
+  return tokens;
+};
+
 export const api = async <T>(
   method: string,
   endpoint: string,
@@ -26,15 +41,8 @@ const callApiMethod = async <T>(
     const { accessToken } = JSON.parse(window.localStorage.getItem("auth"));
     headers.Authorization = `Bearer ${accessToken}`;
   } else if (state === "expired") {
-    const { refreshToken } = JSON.parse(window.localStorage.getItem("auth"));
     try {
-      const response = await fetch(`${BASE_URL}/auth/refresh`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ token: refreshToken }),
-      });
-      const tokens = (await response.json()) as TokenResponse;
-      window.localStorage.setItem("auth", JSON.stringify(tokens));
+      const tokens = await refresh();
       headers.Authorization = `Bearer ${tokens.accessToken}`;
     } catch (error) {
       window.localStorage.removeItem("auth");

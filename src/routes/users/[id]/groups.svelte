@@ -14,7 +14,7 @@
   import SubtractAlt20 from "carbon-icons-svelte/lib/SubtractAlt20";
   import Home20 from "carbon-icons-svelte/lib/Home20";
   import { onMount } from "svelte";
-  import { api } from "../../../helpers/api";
+  import { api, refresh } from "../../../helpers/api";
   import { can } from "../../../helpers/auth-token";
 
   const { page } = stores();
@@ -40,6 +40,7 @@
       });
       newGroup = "";
       memberships = await api("GET", `/users/${id}/memberships`);
+      await refresh();
       state = "added";
       setTimeout(() => (state = "ready"), 5000);
     } catch (error) {
@@ -54,6 +55,7 @@
     try {
       await api("DELETE", `/users/${id}/memberships/${deleteGroup}`);
       memberships = memberships.filter((i) => i.id !== deleteGroup);
+      await refresh();
       state = "removed";
       setTimeout(() => (state = "ready"), 5000);
     } catch (error) {
