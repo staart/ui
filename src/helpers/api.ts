@@ -69,7 +69,8 @@ const callApiMethod = async <T>(
       );
     else if (typeof result.message === "string")
       throw new Error(
-        getMessageFromCode(result.message) ?? capitalize(result.message)
+        getMessageFromCode(result.message, response, result) ??
+          capitalize(result.message)
       );
     else throw new Error(capitalize(result.error ?? "An error occurred"));
   return result;
