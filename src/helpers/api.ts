@@ -59,7 +59,11 @@ const callApiMethod = async <T>(
     str.charAt(0).toUpperCase() + str.slice(1);
   const result = await response.json();
   if (!response.ok)
-    if (Array.isArray(result.message))
+    if (result.message === "Unauthorized") {
+      window.localStorage.removeItem("auth");
+      window.location.href = "/";
+      return;
+    } else if (Array.isArray(result.message))
       throw new Error(
         /**
          * Join an array using "A, B, and C" rather than "A, B, C"
