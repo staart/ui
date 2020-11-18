@@ -37,9 +37,9 @@
         href="/groups/{id}/billing/subscription"
         text="Subscription" />
       <SideNavMenuItem
-        href="/groups/{id}/billing/sources"
+        href="/groups/{id}/billing/manage"
         text="Payment methods" />
-      <SideNavMenuItem href="/groups/{id}/billing/invoices" text="Invoices" />
+      <SideNavMenuItem href="/groups/{id}/billing/manage" text="Invoices" />
       <SideNavMenuItem href="/groups/{id}/billing/credits" text="Credits" />
     </SideNavMenu>
     <SideNavLink text="Domains" href="/groups/{id}/domains" />
