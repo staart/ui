@@ -101,10 +101,11 @@
           <Button
             icon={Home20}
             href="/groups/{row.group.id}"
-            hasIconOnly
             tooltipPosition="bottom"
             tooltipAlignment="center"
-            iconDescription="Visit group" />
+            iconDescription="Visit group">
+            Visit dashboard
+          </Button>
           {#if can(`user-${id}:membership-${row.id}-delete`)}
             <Button
               icon={SubtractAlt20}

@@ -32,7 +32,7 @@
     <SideNavLink text="Settings" href="/groups/{id}" />
     <SideNavLink text="Team" href="/groups/{id}/team" />
     <SideNavMenu text="Billing">
-      <SideNavMenuItem href="/groups/{id}/billing" text="Details" />
+      <SideNavMenuItem href="/groups/{id}/billing" text="Customer" />
       <SideNavMenuItem href="/groups/{id}/subscription" text="Subscription" />
       <SideNavMenuItem href="/groups/{id}/sources" text="Payment methods" />
       <SideNavMenuItem href="/groups/{id}/invoices" text="Invoices" />

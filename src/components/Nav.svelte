@@ -28,7 +28,15 @@
   }
 
   onMount(async () => {
-    if (userId) memberships = await api("GET", `/users/${userId}/memberships`);
+    try {
+      const data = JSON.parse(window.localStorage.getItem("memberships"));
+      if (!Array.isArray(data) || !data.length) throw new Error();
+      memberships = data;
+    } catch (error) {
+      if (userId)
+        memberships = await api("GET", `/users/${userId}/memberships`);
+      window.localStorage.setItem("memberships", JSON.stringify(memberships));
+    }
   });
 
   const logout = async () => {
