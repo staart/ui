@@ -33,10 +33,14 @@
     <SideNavLink text="Team" href="/groups/{id}/team" />
     <SideNavMenu text="Billing">
       <SideNavMenuItem href="/groups/{id}/billing" text="Customer" />
-      <SideNavMenuItem href="/groups/{id}/subscription" text="Subscription" />
-      <SideNavMenuItem href="/groups/{id}/sources" text="Payment methods" />
-      <SideNavMenuItem href="/groups/{id}/invoices" text="Invoices" />
-      <SideNavMenuItem href="/groups/{id}/credits" text="Credits" />
+      <SideNavMenuItem
+        href="/groups/{id}/billing/subscription"
+        text="Subscription" />
+      <SideNavMenuItem
+        href="/groups/{id}/billing/sources"
+        text="Payment methods" />
+      <SideNavMenuItem href="/groups/{id}/billing/invoices" text="Invoices" />
+      <SideNavMenuItem href="/groups/{id}/billing/credits" text="Credits" />
     </SideNavMenu>
     <SideNavLink text="Domains" href="/groups/{id}/domains" />
     <SideNavMenu text="Security">
