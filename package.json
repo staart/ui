@@ -30,7 +30,7 @@
     "@types/countries-and-timezones": "^2.0.3",
     "@types/jwt-decode": "^2.2.1",
     "@types/ua-parser-js": "^0.7.33",
-    "@vue/test-utils": "^1.1.1",
+    "@vue/test-utils": "^1.1.2",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
     "node-sass": "^4.14.1",
