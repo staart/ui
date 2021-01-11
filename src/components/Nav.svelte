@@ -14,6 +14,7 @@
   const { page } = stores();
 
   let showUserDropdown = false;
+  let showGroupDropdown = false;
 
   const nav = [
     {
@@ -59,6 +60,97 @@
             <span class="ml-3 text-white font-medium">Staart UI</span>
           </a>
         </div>
+        {#if navUsers.length && $page.path.startsWith('/groups/') && navUsers[userIndex].memberships.find((i) => String(i.group.id) === $page.path
+                .split('/groups/')[1]
+                .split('/')[0])}
+          <div class="flex ml-10">
+            <div class="relative z-20">
+              <div>
+                <button
+                  class="max-w-xs bg-gray-800 rounded flex items-center text-sm font-medium text-gray-300 transition motion-reduce:transition-none hover:text-white focus:bg-gray-700 focus:outline-none focus:text-white py-1"
+                  id="user-menu"
+                  aria-haspopup="true"
+                  on:click={() => (showGroupDropdown = true)}>
+                  <img
+                    class="h-8 w-8 rounded mr-3"
+                    src={`https://images.weserv.nl/?url=${encodeURIComponent(navUsers[userIndex].memberships.find((i) => String(i.group.id) === $page.path
+                            .split('/groups/')[1]
+                            .split('/')[0]).group.profilePictureUrl)}&w=64&h=64&fit=contain`}
+                    alt="" />
+                  <span>{navUsers[userIndex].memberships.find((i) => String(i.group.id) === $page.path
+                          .split('/groups/')[1]
+                          .split('/')[0]).group.name}</span>
+                  <svg
+                    class="-mr-1 ml-2 h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              {#if showGroupDropdown}
+                <div
+                  class="fixed left-0 right-0 top-0 bottom-0 z-40"
+                  on:click={() => (showGroupDropdown = false)} />
+                <div
+                  transition:fadeScale={{ baseScale: 0.95, origin: 'top left' }}
+                  class="origin-top-right absolute left-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu"
+                  on:click={() => (showGroupDropdown = false)}>
+                  <div class="py-1">
+                    {#each navUsers[userIndex].memberships as membership}
+                      <a
+                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 transition motion-reduce:transition-none hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+                        href={$page.path.replace(navUsers[userIndex].memberships.find((i) => String(i.group.id) === $page.path
+                                .split('/groups/')[1]
+                                .split('/')[0]).group.id, membership.group.id)}
+                        role="menuitem">
+                        <div class="relative flex items-center">
+                          <img
+                            class="flex-shrink-0 h-6 w-6 rounded"
+                            src={`https://images.weserv.nl/?url=${encodeURIComponent(membership.group.profilePictureUrl)}&w=64&h=64&fit=contain`}
+                            alt="" />
+                          <span
+                            class={navUsers[userIndex].memberships.find((i) => String(i.group.id) === $page.path
+                                  .split('/groups/')[1]
+                                  .split(
+                                    '/'
+                                  )[0]).group.id === membership.group.id ? 'ml-3 block font-bold truncate pr-5' : 'ml-3 block font-normal truncate'}>
+                            {membership.group.name}
+                          </span>
+                          {#if navUsers[userIndex].memberships.find((i) => String(i.group.id) === $page.path
+                                .split('/groups/')[1]
+                                .split('/')[0]).group.id === membership.group.id}
+                            <span class="absolute inset-y-0 top-0 right-0 flex items-center">
+                              <svg
+                                class="h-5 w-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true">
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clip-rule="evenodd" />
+                              </svg>
+                            </span>
+                          {/if}
+                        </div>
+                      </a>
+                    {/each}
+                  </div>
+                </div>
+              {/if}
+            </div>
+          </div>
+        {/if}
         {#if navUsers.length}
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">

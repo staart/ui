@@ -190,12 +190,16 @@ export const refresh = async () => {
       accessToken,
       refreshToken,
     }: { accessToken: string; refreshToken: string } = await res.json();
+    const memberships = await api<any[]>({
+      method: "GET",
+      url: `/users/${loggedInUsers[index].details.id}/memberships`,
+    });
     users.update((val) =>
       val.map((user, i) => {
         if (index === i) {
           return {
             details: user.details,
-            memberships: user.memberships,
+            memberships,
             auth: { accessToken, refreshToken },
           };
         }

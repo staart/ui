@@ -4,7 +4,12 @@ export interface User {
   auth: { accessToken: string; refreshToken: string };
   memberships: {
     id: number;
-    group: { id: number; name: string; profilePicture: string; role: "ADMIN" | "OWNER" | "MEMBER" };
+    group: {
+      id: number;
+      name: string;
+      profilePictureUrl: string;
+      role: "ADMIN" | "OWNER" | "MEMBER";
+    };
   }[];
   details: {
     checkLocationOnLogin: boolean;
