@@ -1,7 +1,7 @@
 {
   "name": "@staart/ui",
   "description": "Frontend Svelte app starter for SaaS startups",
-  "version": "2.65.66",
+  "version": "3.0.0",
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build --legacy",
