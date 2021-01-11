@@ -1,7 +1,7 @@
 <script lang="ts">
   import { stores } from "@sapper/app";
   import type { Membership } from "@koj/types";
-  import { api, can } from "../../../api";
+  import { api, can, refresh } from "../../../api";
   import DataTable from "../../../components/DataTable.svelte";
   import DeleteModal from "../../../components/DeleteModal.svelte";
   import GroupRecord from "../../../components/Table/GroupRecord.svelte";
@@ -30,6 +30,7 @@
       url: `/users/${slug}/memberships`,
       body,
     });
+    await refresh();
     users.update((items) => {
       items = items.map((i) => {
         if (i.details.id === slug) return { ...i, memberships: [...i.memberships, result] };
@@ -87,7 +88,7 @@
         aria-label="Leave"
         data-balloon-pos="up"
         class="text-gray-500 hover:text-red-700 transition motion-reduce:transition-none ml-4 align-middle focus:text-red-700"
-        on:click={() => (deleteActiveKey = item.group.id)}>
+        on:click={() => (deleteActiveKey = item.id)}>
         <svg
           class="w-5 h-5"
           fill="none"
@@ -118,7 +119,7 @@
     text="Are you sure you want to leave this group? The group may still be accessible by any other members in it, or will be deleted if there are no other members."
     deleteButtonText="Leave"
     onClose={() => (deleteActiveKey = undefined)}
-    url={`/groups/${deleteActiveKey}`}
+    url={`/users/${slug}/memberships/${deleteActiveKey}`}
     onSuccess={() => {
       data = data.filter((i) => i[primaryKeyType] !== deleteActiveKey);
       deleteActiveKey = undefined;

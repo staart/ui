@@ -1,12 +1,15 @@
 <script lang="ts">
+  import { stores } from "@sapper/app";
   import type { AuditLog } from "@koj/types";
   import { saveAs } from "file-saver";
-  import DataTable from "../../components/DataTable.svelte";
-  import LocationAgentIcons from "../../components/LocationAgentIcons.svelte";
-  import UserRecord from "../../components/Table/UserRecord.svelte";
-  import DownloadButton from "../../components/Table/DownloadButton.svelte";
-  import TimeAgo from "../../components/TimeAgo.svelte";
+  import DataTable from "../../../components/DataTable.svelte";
+  import LocationAgentIcons from "../../../components/LocationAgentIcons.svelte";
+  import UserRecord from "../../../components/Table/UserRecord.svelte";
+  import DownloadButton from "../../../components/Table/DownloadButton.svelte";
+  import TimeAgo from "../../../components/TimeAgo.svelte";
 
+  const { page } = stores();
+  const { slug } = $page.params;
   const primaryKeyType = "id";
   let data: AuditLog[] = [];
 
@@ -25,7 +28,7 @@
   titleKey="event"
   itemName="audit logs"
   text="These audit logs offer detailed insights into user-made changes. Audit logs are auto-deleted after 90 days."
-  endpoint="/audit-logs"
+  endpoint={`/groups/${slug}/audit-logs`}
   headers={['Date', 'User', 'Event', 'Device']}
   onData={(val) => (data = val)}
   {primaryKeyType}

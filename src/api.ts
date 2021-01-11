@@ -172,3 +172,35 @@ export const loginWithTokenResponse = async (auth: User["auth"]) => {
   );
   activeUserIndex.set(loggedInUsers.length - 1);
 };
+
+export const refresh = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/auth/refresh`, {
+      method: "POST",
+      body: JSON.stringify({
+        token: loggedInUsers[index].auth.refreshToken,
+      }),
+      headers: {
+        "X-Requested-With": "XmlHttpRequest",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const {
+      accessToken,
+      refreshToken,
+    }: { accessToken: string; refreshToken: string } = await res.json();
+    users.update((val) =>
+      val.map((user, i) => {
+        if (index === i) {
+          return {
+            details: user.details,
+            memberships: user.memberships,
+            auth: { accessToken, refreshToken },
+          };
+        }
+        return user;
+      })
+    );
+  } catch (error) {}
+};

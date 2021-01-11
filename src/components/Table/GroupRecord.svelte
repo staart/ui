@@ -10,7 +10,7 @@
 </script>
 
 <a
-  href={`/groups/${data.id}/summary`}
+  href={`/groups/${data.id}/details`}
   class="inline-flex items-center transition motion-reduce:transition-none hover:opacity-50">
   <div class="flex-shrink-0 h-10 w-10">
     <img
