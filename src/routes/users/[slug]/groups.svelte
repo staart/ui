@@ -1,16 +1,44 @@
 <script lang="ts">
   import { stores } from "@sapper/app";
   import type { Membership } from "@koj/types";
-  import { can } from "../../../api";
+  import { api, can } from "../../../api";
   import DataTable from "../../../components/DataTable.svelte";
   import DeleteModal from "../../../components/DeleteModal.svelte";
   import GroupRecord from "../../../components/Table/GroupRecord.svelte";
+  import Form from "../../../components/Form.svelte";
+  import { users } from "../../../stores";
+  import Tag from "../../../components/Tag.svelte";
 
   const { page } = stores();
   const { slug } = $page.params;
   const primaryKeyType = "id";
   let data: Membership[] = [];
   let deleteActiveKey: number | undefined = undefined;
+
+  const updateData = (item: any) => {
+    if (data.find((i) => i[primaryKeyType] === item[primaryKeyType]))
+      data = data.map((i) => {
+        if (i[primaryKeyType] === item[primaryKeyType]) return item;
+        return i;
+      });
+    else data = [...data, item];
+  };
+
+  const add = async (body: { name: string; scopes: string[] }) => {
+    const result = await api<any>({
+      method: "POST",
+      url: `/users/${slug}/memberships`,
+      body,
+    });
+    users.update((items) => {
+      items = items.map((i) => {
+        if (i.details.id === slug) return { ...i, memberships: [...i.memberships, result] };
+        return i;
+      });
+      return items;
+    });
+    updateData(result);
+  };
 </script>
 
 <svelte:head>
@@ -25,15 +53,36 @@
   titleKey="name"
   text="These are the groups associated with this user."
   endpoint={`/users/${slug}/memberships`}
-  headers={['Group']}
+  headers={['Group', 'Role']}
   onData={(val) => (data = val)}
   {primaryKeyType}
   filters={[{ title: 'Name', name: 'name', type: 'string' }, { title: 'ID', name: primaryKeyType, type: 'string' }, { title: 'Created at', name: 'createdAt', type: 'datetime' }, { title: 'Updated at', name: 'updatedAt', type: 'datetime' }]}>
   <td class="px-7 py-4 whitespace-nowrap">
     <GroupRecord item={item.group} />
   </td>
+  <td class="px-7 py-4 whitespace-nowrap">
+    {#if item.role === 'OWNER'}
+      <Tag href={`/users/${slug}/groups?q=${encodeURIComponent('role: OWNER')}`} color="blue">
+        Owner
+      </Tag>
+    {:else if item.role === 'ADMIN'}
+      <Tag href={`/users/${slug}/groups?q=${encodeURIComponent('role: ADMIN')}`} color="indigo">
+        Admin
+      </Tag>
+    {:else if item.role === 'MEMBER'}
+      <Tag href={`/users/${slug}/groups?q=${encodeURIComponent('role: MEMBER')}`} color="green">
+        Member
+      </Tag>
+    {:else}
+      <Tag
+        href={`/users/${slug}/groups?q=${encodeURIComponent(`role: ${item.role}`)}`}
+        color="gray">
+        ${item.role}
+      </Tag>
+    {/if}
+  </td>
   <td class="px-7 py-4 whitespace-nowrap text-right text-sm font-medium">
-    {#if can(`email:write-info-${item[primaryKeyType]}`)}
+    {#if can(`user-${slug}:delete-membership-${item[primaryKeyType]}`)}
       <button
         aria-label="Leave"
         data-balloon-pos="up"
@@ -53,6 +102,15 @@
     {/if}
   </td>
 </DataTable>
+
+<div class="p-7">
+  <Form
+    title="Add group"
+    text="Create another group to invite your team to."
+    items={[{ name: 'name', label: 'Name', required: true }]}
+    submitText="Create group"
+    onSubmit={add} />
+</div>
 
 {#if deleteActiveKey}
   <DeleteModal

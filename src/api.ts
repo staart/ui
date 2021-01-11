@@ -91,6 +91,7 @@ export const api = async <T>({
             if (index === i) {
               return {
                 details: user.details,
+                memberships: user.memberships,
                 auth: { accessToken, refreshToken },
               };
             }
@@ -159,8 +160,13 @@ export const loginWithTokenResponse = async (auth: User["auth"]) => {
     url: `/users/${userId}`,
     token: auth.accessToken,
   });
+  const memberships = await api<any>({
+    method: "GET",
+    url: `/users/${userId}/memberships`,
+    token: auth.accessToken,
+  });
   users.update((val) =>
-    [...val, { details, auth }].filter(
+    [...val, { details, memberships, auth }].filter(
       (v, i, a) => a.map((i) => i.details.id).indexOf(v.details.id) === i
     )
   );

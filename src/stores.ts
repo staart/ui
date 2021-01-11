@@ -2,6 +2,10 @@ import { writable } from "svelte/store";
 
 export interface User {
   auth: { accessToken: string; refreshToken: string };
+  memberships: {
+    id: number;
+    group: { id: number; name: string; profilePicture: string; role: "ADMIN" | "OWNER" | "MEMBER" };
+  }[];
   details: {
     checkLocationOnLogin: boolean;
     countryCode: string;
@@ -52,6 +56,4 @@ export const activeNotification = writable<{
   text: string;
   type: string;
 } | null>(null);
-activeNotification.subscribe(() =>
-  setTimeout(() => activeNotification.set(null), 3500)
-);
+activeNotification.subscribe(() => setTimeout(() => activeNotification.set(null), 3500));

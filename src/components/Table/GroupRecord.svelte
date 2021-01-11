@@ -1,4 +1,6 @@
 <script lang="ts">
+  import TimeAgo from "../TimeAgo.svelte";
+
   export let item: any;
   export let itemType: "membership" | "group" = "group";
   export let data: any = {};
@@ -18,6 +20,9 @@
   </div>
   <div class="ml-5">
     <div class="text-sm font-medium text-gray-900">{data.name}</div>
-    <div class="text-sm text-gray-500">#{data.id}</div>
+    <div class="text-sm text-gray-500">
+      Created
+      <TimeAgo date={data.createdAt} />
+    </div>
   </div>
 </a>
