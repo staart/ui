@@ -1,0 +1,8 @@
+[build]
+command = "npm run export"
+publish = "__sapper__/export"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
