@@ -122,6 +122,14 @@
     url={`/users/${slug}/memberships/${deleteActiveKey}`}
     onSuccess={() => {
       data = data.filter((i) => i[primaryKeyType] !== deleteActiveKey);
+      users.update((items) => {
+        items = items.map((i) => {
+          if (i.details.id === slug) return { ...i, memberships: i.memberships.filter((j) => j.id !== deleteActiveKey) };
+          return i;
+        });
+        return items;
+      });
+      refresh();
       deleteActiveKey = undefined;
     }} />
 {/if}

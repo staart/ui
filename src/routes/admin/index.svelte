@@ -23,6 +23,10 @@
         return goto(`/admin/${link.slug}`);
       }
     });
-    if (!done) return goto(`/users/${usersVal[activeUserIndexVal].details.id}/profile`);
+    if (!done) {
+      if (usersVal[activeUserIndexVal].memberships.length)
+        return goto(`/groups/${usersVal[activeUserIndexVal].memberships[0].group.id}`);
+      return goto(`/users/${usersVal[activeUserIndexVal].details.id}/profile`);
+    }
   });
 </script>
