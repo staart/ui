@@ -32,7 +32,7 @@
   },
   "homepage": "https://staart.js.org/ui",
   "dependencies": {
-    "@koj/types": "^1.3.3",
+    "@koj/types": "^2.0.0",
     "@tailwindcss/forms": "^0.2.1",
     "compression": "^1.7.4",
     "debounce": "^1.2.0",
